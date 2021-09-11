@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Actomaton",
+        "repositoryURL": "https://github.com/inamiy/Actomaton",
+        "state": {
+          "branch": "main",
+          "revision": "0685e173544d06fd79d8faa1343f6e34fd6210a8",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "d226d167bd4a68b51e352af5655c92bce8ee0463",
+          "version": "0.7.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
