@@ -29,12 +29,12 @@ extension Example
     func exampleView<ChildAction, ChildState, V: View>(
         store: Store<Root.Action, Root.State>.Proxy,
         actionPath: CasePath<Root.Action, ChildAction>,
-        statePath: WritableKeyPath<Root.State.Current, ChildState?>,
+        statePath: CasePath<Root.State.Current, ChildState>,
         makeView: (Store<ChildAction, ChildState>.Proxy) -> V
     ) -> AnyView
     {
         guard let currentBinding = Binding(store.$state.current),
-              let stateBinding = Binding(currentBinding[statePath])
+              let stateBinding = Binding(currentBinding[casePath: statePath])
         else {
             return EmptyView().toAnyView()
         }

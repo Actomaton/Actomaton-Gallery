@@ -16,7 +16,7 @@ struct StateDiagramExample: Example
         exampleView(
             store: store,
             actionPath: /Root.Action.stateDiagram,
-            statePath: \.stateDiagram,
+            statePath: /Root.State.Current.stateDiagram,
             makeView: StateDiagramView.init
         )
     }

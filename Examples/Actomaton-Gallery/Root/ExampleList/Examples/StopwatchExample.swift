@@ -16,7 +16,7 @@ struct StopwatchExample: Example
         exampleView(
             store: store,
             actionPath: /Root.Action.stopwatch,
-            statePath: \.stopwatch,
+            statePath: /Root.State.Current.stopwatch,
             makeView: StopwatchView.init
         )
     }

@@ -80,23 +80,6 @@ private func debugToggleReducer<InnerAction, InnerState, Environment>()
     }
 }
 
-// MARK: - Enum Properties
-
-extension Action
-{
-    var timeTravel: TimeTravel.Action<InnerAction>?
-    {
-        get {
-            guard case let .timeTravel(value) = self else { return nil }
-            return value
-        }
-        set {
-            guard case .timeTravel = self, let newValue = newValue else { return }
-            self = .timeTravel(newValue)
-        }
-    }
-}
-
 // MARK: - Private
 
 extension String

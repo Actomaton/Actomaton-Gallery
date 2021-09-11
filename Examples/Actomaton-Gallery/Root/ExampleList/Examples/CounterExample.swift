@@ -16,7 +16,7 @@ struct CounterExample: Example
         exampleView(
             store: store,
             actionPath: /Root.Action.counter,
-            statePath: \.counter,
+            statePath: /Root.State.Current.counter,
             makeView: CounterView.init
         )
     }

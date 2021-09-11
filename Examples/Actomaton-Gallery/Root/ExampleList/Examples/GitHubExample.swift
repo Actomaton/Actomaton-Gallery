@@ -16,7 +16,7 @@ struct GitHubExample: Example
         exampleView(
             store: store,
             actionPath: /Root.Action.github,
-            statePath: \.github,
+            statePath: /Root.State.Current.github,
             makeView: GitHubView.init
         )
     }

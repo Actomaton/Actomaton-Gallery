@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		331A6E8826E4F3FC0018F308 /* Actomaton in Frameworks */ = {isa = PBXBuildFile; productRef = 331A6E8726E4F3FC0018F308 /* Actomaton */; };
-		331A6E8A26E4F3FC0018F308 /* ActomatonStore in Frameworks */ = {isa = PBXBuildFile; productRef = 331A6E8926E4F3FC0018F308 /* ActomatonStore */; };
 		332642E726E4056F00438A10 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642E226E4056F00438A10 /* DemoApp.swift */; };
 		3326431B26E4057D00438A10 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642F226E4057D00438A10 /* Root.swift */; };
 		3326431C26E4057D00438A10 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642F326E4057D00438A10 /* RootView.swift */; };
@@ -61,13 +59,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				33C0412226EA51D600C63C4D /* Counter in Frameworks */,
-				331A6E8826E4F3FC0018F308 /* Actomaton in Frameworks */,
 				33C0412826EA5BDA00C63C4D /* Stopwatch in Frameworks */,
 				33C0412A26EA5E7600C63C4D /* GitHub in Frameworks */,
 				33C0412626EA554800C63C4D /* StateDiagram in Frameworks */,
 				33C0413E26EA6FE800C63C4D /* DebugRoot in Frameworks */,
 				33C0412426EA54A600C63C4D /* Todo in Frameworks */,
-				331A6E8A26E4F3FC0018F308 /* ActomatonStore in Frameworks */,
 				33C0412C26EA650E00C63C4D /* TimeTravel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,8 +176,6 @@
 			);
 			name = "Actomaton-Gallery";
 			packageProductDependencies = (
-				331A6E8726E4F3FC0018F308 /* Actomaton */,
-				331A6E8926E4F3FC0018F308 /* ActomatonStore */,
 				33C0412126EA51D600C63C4D /* Counter */,
 				33C0412326EA54A600C63C4D /* Todo */,
 				33C0412526EA554800C63C4D /* StateDiagram */,
@@ -220,7 +214,6 @@
 			);
 			mainGroup = 33E8F80E26E3B374009CC65D;
 			packageReferences = (
-				331A6E8626E4F3FC0018F308 /* XCRemoteSwiftPackageReference "Actomaton" */,
 			);
 			productRefGroup = 33E8F81826E3B374009CC65D /* Products */;
 			projectDirPath = "";
@@ -470,28 +463,7 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		331A6E8626E4F3FC0018F308 /* XCRemoteSwiftPackageReference "Actomaton" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/inamiy/Actomaton";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		331A6E8726E4F3FC0018F308 /* Actomaton */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 331A6E8626E4F3FC0018F308 /* XCRemoteSwiftPackageReference "Actomaton" */;
-			productName = Actomaton;
-		};
-		331A6E8926E4F3FC0018F308 /* ActomatonStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 331A6E8626E4F3FC0018F308 /* XCRemoteSwiftPackageReference "Actomaton" */;
-			productName = ActomatonStore;
-		};
 		33C0412126EA51D600C63C4D /* Counter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Counter;
