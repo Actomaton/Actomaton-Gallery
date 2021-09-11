@@ -1,0 +1,130 @@
+import Actomaton
+import Counter
+import Todo
+import StateDiagram
+import Stopwatch
+import GitHub
+
+extension Root.State
+{
+    /// Current example state as sum type where each state is not shared.
+    enum Current: Equatable
+    {
+        case counter(Counter.State)
+        case stopwatch(Stopwatch.State)
+        case stateDiagram(StateDiagram.State)
+        case todo(Todo.State)
+        case github(GitHub.State)
+//        case lifegame(LifeGame.State)
+
+        var example: Example
+        {
+            switch self {
+            case .counter:      return CounterExample()
+            case .stopwatch:    return StopwatchExample()
+            case .stateDiagram: return StateDiagramExample()
+            case .todo:         return TodoExample()
+            case .github:       return GitHubExample()
+//            case .lifegame:     return LifeGameExample()
+            }
+        }
+    }
+}
+
+// MARK: - cancelAllEffectsPredicate
+
+extension Root.State.Current
+{
+    /// Used for previous screen's effects cancellation.
+    var cancelAllEffectsPredicate: (EffectID) -> Bool
+    {
+        switch self {
+        case .stopwatch:
+            return Stopwatch.cancelAllEffectsPredicate
+
+        case .github:
+            return GitHub.cancelAllEffectsPredicate
+
+        default:
+            return { _ in false }
+        }
+    }
+}
+
+// MARK: - get-set enum properties (for SwiftUI binding)
+// See also: https://www.pointfree.co/episodes/ep70-composable-state-management-action-pullbacks
+
+extension Root.State.Current
+{
+    var counter: Counter.State?
+    {
+        get {
+            guard case let .counter(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .counter = self, let newValue = newValue else { return }
+            self = .counter(newValue)
+        }
+    }
+
+    var stopwatch: Stopwatch.State?
+    {
+        get {
+            guard case let .stopwatch(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .stopwatch = self, let newValue = newValue else { return }
+            self = .stopwatch(newValue)
+        }
+    }
+
+    var stateDiagram: StateDiagram.State?
+    {
+        get {
+            guard case let .stateDiagram(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .stateDiagram = self, let newValue = newValue else { return }
+            self = .stateDiagram(newValue)
+        }
+    }
+
+    var todo: Todo.State?
+    {
+        get {
+            guard case let .todo(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .todo = self, let newValue = newValue else { return }
+            self = .todo(newValue)
+        }
+    }
+
+    var github: GitHub.State?
+    {
+        get {
+            guard case let .github(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .github = self, let newValue = newValue else { return }
+            self = .github(newValue)
+        }
+    }
+
+//    var lifegame: LifeGame.State?
+//    {
+//        get {
+//            guard case let .lifegame(value) = self else { return nil }
+//            return value
+//        }
+//        set {
+//            guard case .lifegame = self, let newValue = newValue else { return }
+//            self = .lifegame(newValue)
+//        }
+//    }
+}
