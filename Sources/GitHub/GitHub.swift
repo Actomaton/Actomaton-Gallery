@@ -183,13 +183,7 @@ public var reducer: Reducer<Action, State, Environment>
     let imageLoaderReducer: Reducer<Action, State, Environment> = ImageLoader.reducer
         .contramap(action: /Action._imageLoader)
         .contramap(state: \.imageLoader)
-        .contramap(environment: { environment in
-            ImageLoader.Environment(
-                fetchImage: {
-                    await environment.fetchImage($0)
-                }
-            )
-        })
+        .contramap(environment: { .init(fetchImage: $0.fetchImage) })
 
     return reducer + imageLoaderReducer
 }

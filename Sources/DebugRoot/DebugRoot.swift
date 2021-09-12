@@ -48,9 +48,9 @@ public func reducer<InnerAction, InnerState, Environment>(
 
                 // Important: TimeTravel reducer needs to be called after `rootReducer` (after `InnerState` changed).
                 TimeTravel.reducer()
-                    .contramap(environment: { TimeTravel.Environment(inner: $0) })
                     .contramap(action: /Action.timeTravel)
                     .contramap(state: \State.timeTravel)
+                    .contramap(environment: { TimeTravel.Environment(inner: $0) })
             )
         }
         else {

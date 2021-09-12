@@ -2,7 +2,7 @@ import ActomatonStore
 
 // MARK: - RootActionProtocol
 
-/// Protocol for DebugRoot to detect debugToggle action.
+/// Protocol for DebugRoot to detect debugToggle action from Root.
 public protocol RootActionProtocol
 {
     var debugToggle: Bool? { get }

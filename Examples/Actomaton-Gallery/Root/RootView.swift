@@ -19,7 +19,9 @@ struct RootView: View
                 }
                 .navigationBarTitle(Text("🎭 Actomaton Gallery 🖼️"), displayMode: .large)
                 .toolbar {
-                    Toggle("Debug", isOn: store.isDebug.stateBinding(onChange: { .debugToggle($0) }))
+                    Toggle(isOn: store.usesTimeTravel.stateBinding(onChange: { .debugToggle($0) })) {
+                        Image(systemName: "clock.arrow.circlepath")
+                    }
                 }
             }
         }
@@ -65,7 +67,7 @@ struct RootView_Previews: PreviewProvider
         return Group {
             RootView(
                 store: .init(
-                    state: .constant(Root.State(isDebug: true)),
+                    state: .constant(Root.State(usesTimeTravel: true)),
                     send: { _ in }
                 )
             )
@@ -74,7 +76,7 @@ struct RootView_Previews: PreviewProvider
 
             RootView(
                 store: .init(
-                    state: .constant(Root.State(current: .counter(.init()), isDebug: true)),
+                    state: .constant(Root.State(current: .counter(.init()), usesTimeTravel: true)),
                     send: { _ in }
                 )
             )

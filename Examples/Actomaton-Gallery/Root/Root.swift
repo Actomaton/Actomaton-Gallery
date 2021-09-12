@@ -30,8 +30,8 @@ extension Root
         /// Current example state.
         var current: Current?
 
-        /// Flag to show DebugRoot.
-        var isDebug: Bool
+        /// Flag to show TimeTravel.
+        var usesTimeTravel: Bool
     }
 
     public static var reducer: Reducer<Action, State, Environment>
@@ -83,7 +83,7 @@ extension Root
         .init { action, state, environment in
             switch action {
             case let .debugToggle(isDebug):
-                state.isDebug = isDebug
+                state.usesTimeTravel = isDebug
                 return .empty
             default:
                 return .empty

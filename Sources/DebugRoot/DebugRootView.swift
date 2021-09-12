@@ -95,10 +95,7 @@ struct DebugRootView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        enum RootAction: RootActionProtocol
-        {
-            var debugToggle: Bool? { nil }
-        }
+        enum RootAction: RootActionProtocol {}
 
         struct RootState: Equatable {}
 
