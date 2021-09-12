@@ -60,13 +60,15 @@ struct GameView: View
             width: contentSize.width,
             height: contentSize.height
         )
-        .offset( // move to top-left rather than center
-            x: (contentSize.width - geometrySize.width) / 2,
-            y: (contentSize.height - geometrySize.height) / 2
-        )
+        // Comment-Out: This isn't needed as of iOS 15 (Xcode 13 beta 5).
+//        .offset( // move to top-left rather than center
+//            x: (contentSize.width - geometrySize.width) / 2,
+//            y: (contentSize.height - geometrySize.height) / 2
+//        )
         .clipped()
-        .onAppear {
-            self.store.send(.updateBoardSize(self.geometrySize))
+        .onChange(of: self.geometrySize) { newValue in
+            print("===> onChange(of: self.geometrySize) = \(newValue)")
+            self.store.send(.updateBoardSize(newValue))
         }
     }
 
@@ -115,7 +117,7 @@ struct GameView_Previews: PreviewProvider
     {
         let gameView = GameView(
             store: .init(
-                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 0.1)),
+                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 0.01)),
                 send: { _ in }
             ),
             geometrySize: CGSize(width: 200, height: 200)
