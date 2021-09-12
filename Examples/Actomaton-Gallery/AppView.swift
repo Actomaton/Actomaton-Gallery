@@ -14,7 +14,7 @@ struct AppView: View
 {
     @StateObject
     private var store: Store<DebugRoot.Action, DebugRoot.State> = .init(
-        state: DebugRoot.State(inner: initialRootState, usesTimeTravel: true),
+        state: DebugRoot.State(inner: initialRootState),
         reducer: DebugRoot.reducer(inner: Root.reducer),
         environment: .live
     )
@@ -30,11 +30,4 @@ struct AppView: View
 
 extension RootView: RootViewProtocol {}
 
-extension Root.Action: RootActionProtocol
-{
-    public var debugToggle: Bool?
-    {
-        guard case let .debugToggle(value) = self else { return nil }
-        return value
-    }
-}
+extension Root.State: RootStateProtocol {}

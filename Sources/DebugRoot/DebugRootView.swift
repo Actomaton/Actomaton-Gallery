@@ -95,9 +95,9 @@ struct DebugRootView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        enum RootAction: RootActionProtocol {}
+        enum RootAction {}
 
-        struct RootState: Equatable {}
+        struct RootState: RootStateProtocol, Equatable {}
 
         struct RootView: View, RootViewProtocol
         {
@@ -112,7 +112,7 @@ struct DebugRootView_Previews: PreviewProvider
         return Group {
             DebugRootView<RootView>(
                 store: .init(
-                    state: .constant(.init(inner: RootState(), usesTimeTravel: true)),
+                    state: .constant(.init(inner: RootState())),
                     send: { _ in }
                 )
             )

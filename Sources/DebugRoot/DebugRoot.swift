@@ -3,22 +3,26 @@ import TimeTravel
 
 // MARK: - Action
 
-public enum Action<InnerAction: RootActionProtocol>
+public enum Action<InnerAction>
 {
     case timeTravel(TimeTravel.Action<InnerAction>)
 }
 
 // MARK: - State
 
-public struct State<InnerState>: Equatable where InnerState: Equatable
+public struct State<InnerState>: Equatable
+    where InnerState: RootStateProtocol & Equatable
 {
     public var timeTravel: TimeTravel.State<InnerState>
-    public var usesTimeTravel: Bool
 
-    public init(inner state: InnerState, usesTimeTravel: Bool)
+    public init(inner state: InnerState)
     {
         self.timeTravel = .init(inner: state)
-        self.usesTimeTravel = usesTimeTravel
+    }
+
+    var usesTimeTravel: Bool
+    {
+        self.timeTravel.inner.usesTimeTravel
     }
 }
 
@@ -28,55 +32,31 @@ public func reducer<InnerAction, InnerState, Environment>(
     inner: Reducer<InnerAction, InnerState, Environment>
 ) -> Reducer<Action<InnerAction>, State<InnerState>, Environment>
 {
-    let rootReducer: Reducer<Action<InnerAction>, State<InnerState>, Environment>
-    rootReducer = .combine(
-        inner
-            .contramap(action: /TimeTravel.Action.inner)
-            .contramap(action: /Action.timeTravel)
-            .contramap(state: \TimeTravel.State.inner)
-            .contramap(state: \State.timeTravel),
+    let innerReducer: Reducer<Action<InnerAction>, State<InnerState>, Environment>
+    innerReducer = inner
+        .contramap(action: /TimeTravel.Action.inner)
+        .contramap(action: /Action.timeTravel)
+        .contramap(state: \TimeTravel.State.inner)
+        .contramap(state: \State.timeTravel)
 
-        debugToggleReducer()
-    )
-
-    func combinedReducer(usesTimeTravel: Bool)
-        -> Reducer<Action<InnerAction>, State<InnerState>, Environment>
-    {
-        if usesTimeTravel {
-            return .combine(
-                rootReducer,
-
-                // Important: TimeTravel reducer needs to be called after `rootReducer` (after `InnerState` changed).
-                TimeTravel.reducer()
-                    .contramap(action: /Action.timeTravel)
-                    .contramap(state: \State.timeTravel)
-                    .contramap(environment: { TimeTravel.Environment(inner: $0) })
-            )
-        }
-        else {
-            return rootReducer
-        }
-    }
+    let timeTravelReducer: Reducer<Action<InnerAction>, State<InnerState>, Environment>
+    timeTravelReducer = TimeTravel.reducer()
+        .contramap(action: /Action.timeTravel)
+        .contramap(state: \State.timeTravel)
+        .contramap(environment: { TimeTravel.Environment(inner: $0) })
 
     return .init { action, state, environment in
-        return combinedReducer(usesTimeTravel: state.usesTimeTravel)
-            .run(action, &state, environment)
-    }
-}
+        // IMPORTANT: Run `innerReducer` first for possible update of `usesTimeTravel`.
+        let effect = innerReducer.run(action, &state, environment)
 
-private func debugToggleReducer<InnerAction, InnerState, Environment>()
-    -> Reducer<Action<InnerAction>, State<InnerState>, Environment>
-{
-    .init { action, state, environment in
-        switch action {
-        case let Action.timeTravel(TimeTravel.Action.inner(innerAction)):
-            if let isDebug = innerAction.debugToggle {
-                state.usesTimeTravel = isDebug
-            }
-        default:
-            break
+        var effect2: Effect<Action<InnerAction>>?
+
+        // Important: TimeTravel reducer needs to be called after `innerReducer` (after `InnerState` changed).
+        if state.usesTimeTravel {
+            effect2 = timeTravelReducer.run(action, &state, environment)
         }
-        return .empty
+
+        return effect + (effect2 ?? .empty)
     }
 }
 

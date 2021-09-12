@@ -1,24 +1,25 @@
 import ActomatonStore
 
-// MARK: - RootActionProtocol
+// MARK: - RootStateProtocol
 
-/// Protocol for DebugRoot to detect debugToggle action from Root.
-public protocol RootActionProtocol
+/// Protocol for DebugRoot to access to Root's debug flags.
+/// - Note: This protocol allows DebugRoot not to hold duplicated flags on their side.
+public protocol RootStateProtocol
 {
-    var debugToggle: Bool? { get }
+    var usesTimeTravel: Bool { get }
 }
 
-extension RootActionProtocol
+extension RootStateProtocol
 {
-    var debugToggle: Bool? { nil }
+    var usesTimeTravel: Bool { false }
 }
 
 // MARK: - RootViewProtocol
 
 public protocol RootViewProtocol
 {
-    associatedtype Action: RootActionProtocol
-    associatedtype State: Equatable
+    associatedtype Action
+    associatedtype State: RootStateProtocol & Equatable
 
     init(store: Store<Action, State>.Proxy)
 }
