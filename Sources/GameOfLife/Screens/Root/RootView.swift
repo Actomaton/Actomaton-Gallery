@@ -114,7 +114,9 @@ public struct RootView: View
 
         let substore = Store<PatternSelect.Action, PatternSelect.State>.Proxy(
             state: stateBinding,
-            send: { self.store.send(Root.Action.patternSelect($0)) }
+            send: {
+                self.store.send(Root.Action.patternSelect($0), priority: $1, tracksFeedbacks: $2)
+            }
         )
 
         let patternSelectView = PatternSelectView(store: substore)
@@ -132,7 +134,7 @@ struct RootView_Previews: PreviewProvider
     {
         let gameOfLifeView = RootView(
             store: .init(
-                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 0.01)),
+                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
                 send: { _ in }
             )
         )

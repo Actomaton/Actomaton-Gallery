@@ -103,8 +103,8 @@ extension RootEnvironment
                 AsyncStream { continuation in
                     let task = Task {
                         while true {
-                            if Task.isCancelled { break }
                             await Task.sleep(UInt64(timeInterval * 1_000_000_000))
+                            if Task.isCancelled { break }
                             continuation.yield(())
                         }
                     }

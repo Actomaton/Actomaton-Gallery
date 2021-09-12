@@ -41,8 +41,8 @@ extension Example
 
         let substore = Store<ChildAction, ChildState>.Proxy(
             state: stateBinding,
-            send: { childAction in
-                store.send(actionPath.embed(childAction))
+            send: {
+                store.send(actionPath.embed($0), priority: $1, tracksFeedbacks: $2)
             }
         )
 

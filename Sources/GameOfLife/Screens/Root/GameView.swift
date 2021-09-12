@@ -70,6 +70,9 @@ struct GameView: View
             print("===> onChange(of: self.geometrySize) = \(newValue)")
             self.store.send(.updateBoardSize(newValue))
         }
+        .onAppear {
+            self.store.send(.updateBoardSize(self.geometrySize))
+        }
     }
 
     private func cell(point: Board.Point, cellLength: CGFloat) -> some View
@@ -117,7 +120,7 @@ struct GameView_Previews: PreviewProvider
     {
         let gameView = GameView(
             store: .init(
-                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 0.01)),
+                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
                 send: { _ in }
             ),
             geometrySize: CGSize(width: 200, height: 200)
