@@ -10,7 +10,12 @@ NOTE: Most of the code are reused from [Harvest-SwiftUI-Gallery](https://github.
 
  Todo List | Stopwatch | GitHub Search
  ---|----|----
-![](https://user-images.githubusercontent.com/138476/67172750-84ae5500-f3f7-11e9-95b5-9ea054d784eb.png) | ![](https://user-images.githubusercontent.com/138476/67172753-86781880-f3f7-11e9-892a-5699d2c5383e.png) | ![](https://user-images.githubusercontent.com/138476/67172754-86781880-f3f7-11e9-85b1-621895dd1ce4.png)
+<img src="https://user-images.githubusercontent.com/138476/67172750-84ae5500-f3f7-11e9-95b5-9ea054d784eb.png" width="300"> | <img src="https://user-images.githubusercontent.com/138476/67172753-86781880-f3f7-11e9-892a-5699d2c5383e.png" width="300"> | <img src="https://user-images.githubusercontent.com/138476/67172754-86781880-f3f7-11e9-85b1-621895dd1ce4.png" width="300">
+
+|Game of Life | 
+|---|
+| <img src="https://user-images.githubusercontent.com/138476/68635308-7d342480-053b-11ea-888f-f5f63e383d44.png" width="300"> |
+
 
 TimeTravel Screencast: https://twitter.com/inamiy/status/1188622119111806976
 
