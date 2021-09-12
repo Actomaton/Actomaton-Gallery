@@ -25,6 +25,9 @@ let package = Package(
             name: "GitHub",
             targets: ["GitHub", "Utilities", "ImageLoader"]),
         .library(
+            name: "GameOfLife",
+            targets: ["GameOfLife"]),
+        .library(
             name: "DebugRoot",
             targets: ["DebugRoot"]),
     ],
@@ -60,6 +63,10 @@ let package = Package(
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Utilities", "ImageLoader"
             ]),
+        .target(
+            name: "GameOfLife",
+            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")],
+            resources: [.copy("GameOfLife-Patterns/")]),
         .target(
             name: "DebugRoot",
             dependencies: [

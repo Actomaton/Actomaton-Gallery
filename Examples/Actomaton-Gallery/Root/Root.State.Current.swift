@@ -4,6 +4,7 @@ import Todo
 import StateDiagram
 import Stopwatch
 import GitHub
+import GameOfLife
 
 extension Root.State
 {
@@ -15,7 +16,7 @@ extension Root.State
         case stateDiagram(StateDiagram.State)
         case todo(Todo.State)
         case github(GitHub.State)
-//        case lifegame(LifeGame.State)
+        case gameOfLife(GameOfLife.Root.State)
 
         var example: Example
         {
@@ -25,7 +26,7 @@ extension Root.State
             case .stateDiagram: return StateDiagramExample()
             case .todo:         return TodoExample()
             case .github:       return GitHubExample()
-//            case .lifegame:     return LifeGameExample()
+            case .gameOfLife:   return GameOfLifeExample()
             }
         }
     }

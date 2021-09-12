@@ -1,12 +1,15 @@
 import UIKit
 import Stopwatch
 import GitHub
+import GameOfLife
 
 struct RootEnvironment
 {
     let getDate: () -> Date
     let timer: () -> AsyncStream<Date>
     let fetchRequest: (URLRequest) async throws -> Data
+
+    let gameOfLife: GameOfLife.Root.Environment
 }
 
 // MARK: - Live Environment
@@ -39,7 +42,8 @@ extension RootEnvironment
             fetchRequest: { urlRequest in
                 let (data, _) = try await URLSession.shared.data(for: urlRequest, delegate: nil)
                 return data
-            }
+            },
+            gameOfLife: .live
         )
     }
 }
