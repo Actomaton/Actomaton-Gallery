@@ -13,7 +13,7 @@ struct StateDiagramExample: Example
 
     func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
     {
-        exampleView(
+        Self.exampleView(
             store: store,
             actionPath: /Root.Action.stateDiagram,
             statePath: /Root.State.Current.stateDiagram,

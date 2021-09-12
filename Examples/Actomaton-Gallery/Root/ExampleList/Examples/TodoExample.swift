@@ -13,7 +13,7 @@ struct TodoExample: Example
 
     func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
     {
-        exampleView(
+        Self.exampleView(
             store: store,
             actionPath: /Root.Action.todo,
             statePath: /Root.State.Current.todo,

@@ -13,7 +13,7 @@ struct GameOfLifeExample: Example
 
     func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
     {
-        exampleView(
+        Self.exampleView(
             store: store,
             actionPath: /Root.Action.gameOfLife,
             statePath: /Root.State.Current.gameOfLife,
