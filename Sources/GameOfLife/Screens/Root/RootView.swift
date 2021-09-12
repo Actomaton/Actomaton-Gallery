@@ -132,7 +132,7 @@ struct RootView_Previews: PreviewProvider
     {
         let gameOfLifeView = RootView(
             store: .init(
-                state: .constant(.init(pattern: .glider)),
+                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 0.1)),
                 send: { _ in }
             )
         )

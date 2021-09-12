@@ -34,18 +34,20 @@ extension Game
 
         var selectedPattern: Pattern
 
-        var timerInterval: TimeInterval = 0.1
+        var timerInterval: TimeInterval
         var isRunningTimer = false
 
         public init(
             pattern: Pattern,
-            cellLength: CGFloat = 5
+            cellLength: CGFloat,
+            timerInterval: TimeInterval
         )
         {
             self.cellLength = cellLength
             self.boardSize = .zero
             self.board = pattern.makeBoard(size: self.boardSize)
             self.selectedPattern = pattern
+            self.timerInterval = timerInterval
         }
 
         enum DragState: Equatable
@@ -57,9 +59,9 @@ extension Game
 
     struct Environment
     {
-        let timer: (TimeInterval) -> AsyncStream<Date>
+        let timer: (TimeInterval) -> AsyncStream<Void>
 
-        init(timer: @escaping (TimeInterval) -> AsyncStream<Date>)
+        init(timer: @escaping (TimeInterval) -> AsyncStream<Void>)
         {
             self.timer = timer
         }

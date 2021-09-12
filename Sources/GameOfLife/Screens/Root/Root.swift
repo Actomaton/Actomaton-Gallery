@@ -28,9 +28,9 @@ extension Root
         var favorite: Favorite.State
         var patternSelect: PatternSelect.State?
 
-        public init(pattern: Pattern)
+        public init(pattern: Pattern, cellLength: CGFloat, timerInterval: TimeInterval)
         {
-            self.game = Game.State(pattern: pattern)
+            self.game = Game.State(pattern: pattern, cellLength: cellLength, timerInterval: timerInterval)
             self.favorite = Favorite.State()
         }
 

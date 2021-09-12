@@ -11,7 +11,7 @@ public struct RootEnvironment
         saveFavorites: @escaping ([String]) throws -> Void,
         loadPatterns: @escaping () async throws -> [PatternSelect.Section<PatternSelect.Unit>],
         parseRunLengthEncoded: @escaping (URL) throws -> Pattern,
-        timer: @escaping (TimeInterval) -> AsyncStream<Date>
+        timer: @escaping (TimeInterval) -> AsyncStream<Void>
     )
     {
         self.favorite = .init(loadFavorites: loadFavorites, saveFavorites: saveFavorites)
@@ -100,9 +100,18 @@ extension RootEnvironment
                 try Pattern.parseRunLengthEncoded(url: url)
             },
             timer: { timeInterval in
-                Timer.publish(every: timeInterval, tolerance: 0.01, on: .main, in: .common)
-                    .autoconnect()
-                    .toAsyncStream()
+                AsyncStream { continuation in
+                    let task = Task {
+                        while true {
+                            if Task.isCancelled { break }
+                            await Task.sleep(UInt64(timeInterval * 1_000_000_000))
+                            continuation.yield(())
+                        }
+                    }
+                    continuation.onTermination = { @Sendable _ in
+                        task.cancel()
+                    }
+                }
             }
         )
     }

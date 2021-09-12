@@ -24,9 +24,13 @@ struct GameView: View
         )
 
         return ZStack(alignment: .topLeading) {
-            ForEach(self.store.state.board.liveCellPoints) { point in
-                self.cell(point: point, cellLength: cellLength)
-            }
+//            ForEach(self.store.state.board.liveCellPoints) { point in
+//                self.cell(point: point, cellLength: cellLength)
+//            }
+
+            cellsPath()
+                .foregroundColor(Color.green)
+                .drawingGroup()
 
             // NOTE:
             // `TapView` is used to detect touched location which is not possible
@@ -79,6 +83,21 @@ struct GameView: View
                 y: (CGFloat(point.y) + 0.5) * cellLength
             )
     }
+
+    private func cellsPath() -> Path
+    {
+        let cellLength = self.store.state.cellLength
+        let liveCellPoints = self.store.state.board.liveCellPoints
+
+        var path = Path()
+
+        for point in liveCellPoints {
+            let rect = CGRect(x: cellLength * CGFloat(point.x), y: cellLength * CGFloat(point.y), width: cellLength, height: cellLength)
+            path.addRect(rect)
+        }
+
+        return path
+    }
 }
 
 private func _offset(at point: CGPoint, cellLength: CGFloat) -> Board.Point
@@ -96,7 +115,7 @@ struct GameView_Previews: PreviewProvider
     {
         let gameView = GameView(
             store: .init(
-                state: .constant(.init(pattern: .glider)),
+                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 0.1)),
                 send: { _ in }
             ),
             geometrySize: CGSize(width: 200, height: 200)
