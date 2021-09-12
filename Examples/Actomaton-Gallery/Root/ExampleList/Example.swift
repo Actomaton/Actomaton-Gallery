@@ -26,27 +26,26 @@ extension Example
 
 extension Example
 {
-    func exampleView<ChildAction, ChildState, V: View>(
+    static func exampleView<ChildAction, ChildState, V: View>(
         store: Store<Root.Action, Root.State>.Proxy,
         actionPath: CasePath<Root.Action, ChildAction>,
         statePath: CasePath<Root.State.Current, ChildState>,
         makeView: (Store<ChildAction, ChildState>.Proxy) -> V
     ) -> AnyView
     {
-        guard let currentBinding = Binding(store.$state.current),
-              let stateBinding = Binding(currentBinding[casePath: statePath])
-        else {
-            return EmptyView().toAnyView()
+        @ViewBuilder
+        func _exampleView() -> some View
+        {
+            if let substore = store.current
+                .sequence?[casePath: statePath]
+                .sequence?
+                .map(action: actionPath)
+            {
+                makeView(substore)
+            }
         }
 
-        let substore = Store<ChildAction, ChildState>.Proxy(
-            state: stateBinding,
-            send: {
-                store.send(actionPath.embed($0), priority: $1, tracksFeedbacks: $2)
-            }
-        )
-
-        return makeView(substore).toAnyView()
+        return _exampleView().toAnyView()
     }
 }
 

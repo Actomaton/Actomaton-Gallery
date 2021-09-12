@@ -13,7 +13,7 @@ struct StopwatchExample: Example
 
     func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
     {
-        exampleView(
+        Self.exampleView(
             store: store,
             actionPath: /Root.Action.stopwatch,
             statePath: /Root.State.Current.stopwatch,

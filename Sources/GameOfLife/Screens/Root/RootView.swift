@@ -105,24 +105,18 @@ public struct RootView: View
         .font(.largeTitle)
     }
 
+    @ViewBuilder
     private func patternSelectView() -> some View
     {
-        guard let stateBinding = Binding(store.$state.patternSelect) else
+        if let substore = store.patternSelect
+            .sequence?
+            .map(action: /Root.Action.patternSelect)
         {
-            return AnyView(EmptyView())
+            let patternSelectView = PatternSelectView(store: substore)
+                .navigationBarItems(trailing: Button("Close") { self.store.send(.dismissPatternSelect) })
+
+            patternSelectView
         }
-
-        let substore = Store<PatternSelect.Action, PatternSelect.State>.Proxy(
-            state: stateBinding,
-            send: {
-                self.store.send(Root.Action.patternSelect($0), priority: $1, tracksFeedbacks: $2)
-            }
-        )
-
-        let patternSelectView = PatternSelectView(store: substore)
-            .navigationBarItems(trailing: Button("Close") { self.store.send(.dismissPatternSelect) })
-
-        return AnyView(patternSelectView)
     }
 }
 
