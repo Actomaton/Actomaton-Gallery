@@ -6,5 +6,5 @@ let exampleList: [Example] = [
     StateDiagramExample(),
     StopwatchExample(),
     GitHubExample(),
-    //    LifeGameExample(),
+    GameOfLifeExample()
 ]

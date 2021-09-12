@@ -4,6 +4,7 @@ import Todo
 import StateDiagram
 import Stopwatch
 import GitHub
+import GameOfLife
 
 /// Root namespace.
 /// - Todo: Move to Swift Package (but compile doesn't work well in Xcode 13 beta 5)
@@ -21,7 +22,7 @@ extension Root
         case stateDiagram(StateDiagram.Action)
         case todo(Todo.Action)
         case github(GitHub.Action)
-//        case lifegame(LifeGame.Action)
+        case gameOfLife(GameOfLife.Root.Action)
     }
 
     public struct State: Equatable
@@ -67,14 +68,13 @@ extension Root
                 .contramap(action: /Action.github)
                 .contramap(state: /State.Current.github)
                 .contramap(state: \State.current)
-                .contramap(environment: { $0.github })
+                .contramap(environment: { $0.github }),
 
-//            LifeGame.reducer
-//                .contramapEnvironment { .init(fileScheduler: $0.fileScheduler) }
-//                .transform(action: .fromEnum(\.lifegame))
-//                .transform(state: Lens(\.current) >>> some() >>> .fromEnum(\.lifegame))
-//                .transform(id: Prism(tryGet: { $0.lifegame }, inject: EffectID.lifegame))
-//                .mapQueue { _ in .defaultEffectQueue }
+            GameOfLife.Root.reducer()
+                .contramap(action: /Action.gameOfLife)
+                .contramap(state: /State.Current.gameOfLife)
+                .contramap(state: \State.current)
+                .contramap(environment: { $0.gameOfLife })
         )
     }
 

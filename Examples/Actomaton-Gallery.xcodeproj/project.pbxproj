@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		331E1FE126ED20A000719530 /* TestAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331E1FE026ED20A000719530 /* TestAppView.swift */; };
 		332642E726E4056F00438A10 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642E226E4056F00438A10 /* DemoApp.swift */; };
 		3326431B26E4057D00438A10 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642F226E4057D00438A10 /* Root.swift */; };
 		3326431C26E4057D00438A10 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642F326E4057D00438A10 /* RootView.swift */; };
@@ -28,11 +29,14 @@
 		33C0412A26EA5E7600C63C4D /* GitHub in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412926EA5E7600C63C4D /* GitHub */; };
 		33C0412C26EA650E00C63C4D /* TimeTravel in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412B26EA650E00C63C4D /* TimeTravel */; };
 		33C0413E26EA6FE800C63C4D /* DebugRoot in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0413D26EA6FE800C63C4D /* DebugRoot */; };
+		33C8526226ECEF7F00F3EB94 /* GameOfLife in Frameworks */ = {isa = PBXBuildFile; productRef = 33C8526126ECEF7F00F3EB94 /* GameOfLife */; };
+		33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */; };
 		33E8F81F26E3B375009CC65D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E8F81E26E3B375009CC65D /* Assets.xcassets */; };
 		33E8F82226E3B375009CC65D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E8F82126E3B375009CC65D /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		331E1FE026ED20A000719530 /* TestAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppView.swift; sourceTree = "<group>"; };
 		332642E226E4056F00438A10 /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		332642F226E4057D00438A10 /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		332642F326E4057D00438A10 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -48,6 +52,7 @@
 		3341065F26EC80590032CEDA /* TodoExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoExample.swift; sourceTree = "<group>"; };
 		3341066026EC80590032CEDA /* ExampleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleList.swift; sourceTree = "<group>"; };
 		33C0412026EA519800C63C4D /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ..; sourceTree = "<group>"; };
+		33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOfLifeExample.swift; sourceTree = "<group>"; };
 		33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E8F81E26E3B375009CC65D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33E8F82126E3B375009CC65D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33C0412226EA51D600C63C4D /* Counter in Frameworks */,
+				33C8526226ECEF7F00F3EB94 /* GameOfLife in Frameworks */,
 				33C0412826EA5BDA00C63C4D /* Stopwatch in Frameworks */,
 				33C0412A26EA5E7600C63C4D /* GitHub in Frameworks */,
 				33C0412626EA554800C63C4D /* StateDiagram in Frameworks */,
@@ -109,6 +115,7 @@
 				3341065E26EC80590032CEDA /* StateDiagramExample.swift */,
 				3341065B26EC80590032CEDA /* StopwatchExample.swift */,
 				3341065C26EC80590032CEDA /* GitHubExample.swift */,
+				33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -136,6 +143,7 @@
 			children = (
 				332642E226E4056F00438A10 /* DemoApp.swift */,
 				3326433C26E4094200438A10 /* AppView.swift */,
+				331E1FE026ED20A000719530 /* TestAppView.swift */,
 				3326433926E405F800438A10 /* Root */,
 				3326430F26E4057D00438A10 /* Utilities */,
 				33E8F81E26E3B375009CC65D /* Assets.xcassets */,
@@ -183,6 +191,7 @@
 				33C0412926EA5E7600C63C4D /* GitHub */,
 				33C0412B26EA650E00C63C4D /* TimeTravel */,
 				33C0413D26EA6FE800C63C4D /* DebugRoot */,
+				33C8526126ECEF7F00F3EB94 /* GameOfLife */,
 			);
 			productName = "Actomaton-Gallery";
 			productReference = 33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */;
@@ -247,7 +256,9 @@
 				3326433F26E4094200438A10 /* RootEnvironment.swift in Sources */,
 				3326431C26E4057D00438A10 /* RootView.swift in Sources */,
 				3341066526EC80590032CEDA /* StateDiagramExample.swift in Sources */,
+				33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */,
 				3341066326EC80590032CEDA /* GitHubExample.swift in Sources */,
+				331E1FE126ED20A000719530 /* TestAppView.swift in Sources */,
 				3341066426EC80590032CEDA /* CounterExample.swift in Sources */,
 				332642E726E4056F00438A10 /* DemoApp.swift in Sources */,
 				3341066726EC80590032CEDA /* ExampleList.swift in Sources */,
@@ -491,6 +502,10 @@
 		33C0413D26EA6FE800C63C4D /* DebugRoot */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DebugRoot;
+		};
+		33C8526126ECEF7F00F3EB94 /* GameOfLife */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameOfLife;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
