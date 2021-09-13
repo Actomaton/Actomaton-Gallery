@@ -37,8 +37,8 @@ extension Example
         func _exampleView() -> some View
         {
             if let substore = store.current
-                .sequence?[casePath: statePath]
-                .sequence?
+                .traverse(\.self)?[casePath: statePath]
+                .traverse(\.self)?
                 .map(action: actionPath)
             {
                 makeView(substore)

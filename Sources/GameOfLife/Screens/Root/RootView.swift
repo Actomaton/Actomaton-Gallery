@@ -109,7 +109,7 @@ public struct RootView: View
     private func patternSelectView() -> some View
     {
         if let substore = store.patternSelect
-            .sequence?
+            .traverse(\.self)?
             .map(action: /Root.Action.patternSelect)
         {
             let patternSelectView = PatternSelectView(store: substore)
