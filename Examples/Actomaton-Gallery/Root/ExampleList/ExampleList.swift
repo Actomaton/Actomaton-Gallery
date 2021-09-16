@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 let exampleList: [Example] = [
     CounterExample(),
     TodoExample(),

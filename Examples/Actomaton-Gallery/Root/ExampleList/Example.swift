@@ -7,6 +7,7 @@ protocol Example
     var exampleIcon: Image { get }
     var exampleInitialState: Root.State.Current { get }
 
+    @MainActor
     func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
 }
 
@@ -26,13 +27,15 @@ extension Example
 
 extension Example
 {
+    @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
         store: Store<Root.Action, Root.State>.Proxy,
         actionPath: CasePath<Root.Action, ChildAction>,
         statePath: CasePath<Root.State.Current, ChildState>,
-        makeView: (Store<ChildAction, ChildState>.Proxy) -> V
+        makeView: @MainActor (Store<ChildAction, ChildState>.Proxy) -> V
     ) -> AnyView
     {
+        @MainActor
         @ViewBuilder
         func _exampleView() -> some View
         {

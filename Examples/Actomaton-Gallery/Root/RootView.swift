@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
+@MainActor
 struct RootView: View
 {
     private let store: Store<Root.Action, Root.State>.Proxy

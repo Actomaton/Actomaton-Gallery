@@ -18,6 +18,7 @@ extension Root.State
         case github(GitHub.State)
         case gameOfLife(GameOfLife.Root.State)
 
+        @MainActor
         var example: Example
         {
             switch self {

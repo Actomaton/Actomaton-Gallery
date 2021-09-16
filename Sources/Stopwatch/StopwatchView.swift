@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
+@MainActor
 public struct StopwatchView: View
 {
     private let store: Store<Stopwatch.Action, Stopwatch.State>.Proxy

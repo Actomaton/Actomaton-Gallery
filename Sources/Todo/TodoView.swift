@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
+@MainActor
 public struct TodoView: View
 {
     private let store: Store<Todo.Action, Todo.State>.Proxy

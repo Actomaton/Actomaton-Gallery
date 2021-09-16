@@ -16,6 +16,7 @@ extension RootStateProtocol
 
 // MARK: - RootViewProtocol
 
+@MainActor
 public protocol RootViewProtocol
 {
     associatedtype Action
