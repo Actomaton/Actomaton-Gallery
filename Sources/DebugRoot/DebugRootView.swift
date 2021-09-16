@@ -2,6 +2,7 @@ import SwiftUI
 import Actomaton
 import ActomatonStore
 
+@MainActor
 public struct DebugRootView<RootView>: View
     where RootView: View & RootViewProtocol
 {

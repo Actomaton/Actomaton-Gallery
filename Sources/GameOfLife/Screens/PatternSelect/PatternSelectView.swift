@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
+@MainActor
 struct PatternSelectView: View
 {
     private let store: Store<PatternSelect.Action, PatternSelect.State>.Proxy

@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
+@MainActor
 public struct GitHubView: View
 {
     private let store: Store<GitHub.Action, GitHub.State>.Proxy
