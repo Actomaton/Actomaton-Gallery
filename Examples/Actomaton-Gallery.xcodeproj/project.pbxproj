@@ -22,6 +22,8 @@
 		3341066526EC80590032CEDA /* StateDiagramExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341065E26EC80590032CEDA /* StateDiagramExample.swift */; };
 		3341066626EC80590032CEDA /* TodoExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341065F26EC80590032CEDA /* TodoExample.swift */; };
 		3341066726EC80590032CEDA /* ExampleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341066026EC80590032CEDA /* ExampleList.swift */; };
+		339F821026FA23E3006809CE /* VideoDetectorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339F820F26FA23E3006809CE /* VideoDetectorExample.swift */; };
+		339F821226FA242E006809CE /* VideoDetector in Frameworks */ = {isa = PBXBuildFile; productRef = 339F821126FA242E006809CE /* VideoDetector */; };
 		33C0412226EA51D600C63C4D /* Counter in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412126EA51D600C63C4D /* Counter */; };
 		33C0412426EA54A600C63C4D /* Todo in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412326EA54A600C63C4D /* Todo */; };
 		33C0412626EA554800C63C4D /* StateDiagram in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412526EA554800C63C4D /* StateDiagram */; };
@@ -51,6 +53,7 @@
 		3341065E26EC80590032CEDA /* StateDiagramExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateDiagramExample.swift; sourceTree = "<group>"; };
 		3341065F26EC80590032CEDA /* TodoExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoExample.swift; sourceTree = "<group>"; };
 		3341066026EC80590032CEDA /* ExampleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleList.swift; sourceTree = "<group>"; };
+		339F820F26FA23E3006809CE /* VideoDetectorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetectorExample.swift; sourceTree = "<group>"; };
 		33C0412026EA519800C63C4D /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ..; sourceTree = "<group>"; };
 		33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOfLifeExample.swift; sourceTree = "<group>"; };
 		33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +69,7 @@
 				33C0412226EA51D600C63C4D /* Counter in Frameworks */,
 				33C8526226ECEF7F00F3EB94 /* GameOfLife in Frameworks */,
 				33C0412826EA5BDA00C63C4D /* Stopwatch in Frameworks */,
+				339F821226FA242E006809CE /* VideoDetector in Frameworks */,
 				33C0412A26EA5E7600C63C4D /* GitHub in Frameworks */,
 				33C0412626EA554800C63C4D /* StateDiagram in Frameworks */,
 				33C0413E26EA6FE800C63C4D /* DebugRoot in Frameworks */,
@@ -116,6 +120,7 @@
 				3341065B26EC80590032CEDA /* StopwatchExample.swift */,
 				3341065C26EC80590032CEDA /* GitHubExample.swift */,
 				33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */,
+				339F820F26FA23E3006809CE /* VideoDetectorExample.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				33C0412B26EA650E00C63C4D /* TimeTravel */,
 				33C0413D26EA6FE800C63C4D /* DebugRoot */,
 				33C8526126ECEF7F00F3EB94 /* GameOfLife */,
+				339F821126FA242E006809CE /* VideoDetector */,
 			);
 			productName = "Actomaton-Gallery";
 			productReference = 33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */;
@@ -251,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3326431B26E4057D00438A10 /* Root.swift in Sources */,
+				339F821026FA23E3006809CE /* VideoDetectorExample.swift in Sources */,
 				3326433E26E4094200438A10 /* AppView.swift in Sources */,
 				3341066226EC80590032CEDA /* StopwatchExample.swift in Sources */,
 				3326433F26E4094200438A10 /* RootEnvironment.swift in Sources */,
@@ -394,12 +401,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Actomaton-Gallery/Preview Content\"";
 				DEVELOPMENT_TEAM = UMBZ5WL247;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -413,6 +422,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-Gallery";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -426,12 +436,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Actomaton-Gallery/Preview Content\"";
 				DEVELOPMENT_TEAM = UMBZ5WL247;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -445,6 +457,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-Gallery";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -475,6 +488,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		339F821126FA242E006809CE /* VideoDetector */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VideoDetector;
+		};
 		33C0412126EA51D600C63C4D /* Counter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Counter;

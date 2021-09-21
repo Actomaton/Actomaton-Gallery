@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "OrientationKit",
+        "repositoryURL": "https://github.com/inamiy/OrientationKit",
+        "state": {
+          "branch": null,
+          "revision": "491927e9cc835c0fcc7eac349c0245024f5d8579",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {

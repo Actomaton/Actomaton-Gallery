@@ -28,11 +28,18 @@ let package = Package(
             name: "GameOfLife",
             targets: ["GameOfLife"]),
         .library(
+            name: "VideoCapture",
+            targets: ["VideoCapture"]),
+        .library(
+            name: "VideoDetector",
+            targets: ["VideoDetector"]),
+        .library(
             name: "DebugRoot",
             targets: ["DebugRoot"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/inamiy/Actomaton", .branch("main"))
+        .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
+        .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0")
     ],
     targets: [
         .target(
@@ -67,6 +74,18 @@ let package = Package(
             name: "GameOfLife",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")],
             resources: [.copy("GameOfLife-Patterns/")]),
+        .target(
+            name: "VideoCapture",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "OrientationKit"
+            ]),
+        .target(
+            name: "VideoDetector",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "VideoCapture"
+            ]),
         .target(
             name: "DebugRoot",
             dependencies: [

@@ -34,6 +34,8 @@
 		33655D1926F0D8AB007947CF /* TodoExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0D26F0D8AB007947CF /* TodoExample.swift */; };
 		33655D1C26F0D8AB007947CF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D1026F0D8AB007947CF /* Root.swift */; };
 		33655D1D26F0D8AB007947CF /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D1126F0D8AB007947CF /* RootView.swift */; };
+		339F821426FA34DA006809CE /* VideoDetectorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339F821326FA34DA006809CE /* VideoDetectorExample.swift */; };
+		339F821626FA3506006809CE /* VideoDetector in Frameworks */ = {isa = PBXBuildFile; productRef = 339F821526FA3506006809CE /* VideoDetector */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +61,7 @@
 		33655D0D26F0D8AB007947CF /* TodoExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoExample.swift; sourceTree = "<group>"; };
 		33655D1026F0D8AB007947CF /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		33655D1126F0D8AB007947CF /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		339F821326FA34DA006809CE /* VideoDetectorExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDetectorExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,7 @@
 				33655CC126F0C2C2007947CF /* DebugRoot in Frameworks */,
 				33655CC526F0C2C2007947CF /* GitHub in Frameworks */,
 				33655CCD26F0C2C2007947CF /* Todo in Frameworks */,
+				339F821626FA3506006809CE /* VideoDetector in Frameworks */,
 				33655CC926F0C2C2007947CF /* Stopwatch in Frameworks */,
 				33655CCB26F0C2C2007947CF /* TimeTravel in Frameworks */,
 				33655CC726F0C2C2007947CF /* StateDiagram in Frameworks */,
@@ -168,6 +172,7 @@
 				332580E926F5783D0074B02D /* CounterRouteUIKitExample.swift */,
 				33655D0C26F0D8AB007947CF /* StateDiagramExample.swift */,
 				33655D0D26F0D8AB007947CF /* TodoExample.swift */,
+				339F821326FA34DA006809CE /* VideoDetectorExample.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				33655CC826F0C2C2007947CF /* Stopwatch */,
 				33655CCA26F0C2C2007947CF /* TimeTravel */,
 				33655CCC26F0C2C2007947CF /* Todo */,
+				339F821526FA3506006809CE /* VideoDetector */,
 			);
 			productName = "Actomaton-UIKit-Gallery";
 			productReference = 33655CA126F0BFB0007947CF /* Actomaton-UIKit-Gallery.app */;
@@ -258,6 +264,7 @@
 				33655CA526F0BFB0007947CF /* AppDelegate.swift in Sources */,
 				332580F326F583AC0074B02D /* TabBuilder.swift in Sources */,
 				33655D1526F0D8AB007947CF /* GitHubExample.swift in Sources */,
+				339F821426FA34DA006809CE /* VideoDetectorExample.swift in Sources */,
 				332580F026F57DE10074B02D /* Stopwatch.Environment.live.swift in Sources */,
 				33655D1926F0D8AB007947CF /* TodoExample.swift in Sources */,
 				33655D1C26F0D8AB007947CF /* Root.swift in Sources */,
@@ -401,7 +408,9 @@
 				DEVELOPMENT_TEAM = UMBZ5WL247;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Actomaton-UIKit-Gallery/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -427,7 +436,9 @@
 				DEVELOPMENT_TEAM = UMBZ5WL247;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Actomaton-UIKit-Gallery/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -498,6 +509,10 @@
 		33655CCC26F0C2C2007947CF /* Todo */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Todo;
+		};
+		339F821526FA3506006809CE /* VideoDetector */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VideoDetector;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
