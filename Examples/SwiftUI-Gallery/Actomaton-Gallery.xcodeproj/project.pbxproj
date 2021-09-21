@@ -23,15 +23,7 @@
 		3341066626EC80590032CEDA /* TodoExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341065F26EC80590032CEDA /* TodoExample.swift */; };
 		3341066726EC80590032CEDA /* ExampleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341066026EC80590032CEDA /* ExampleList.swift */; };
 		339F821026FA23E3006809CE /* VideoDetectorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339F820F26FA23E3006809CE /* VideoDetectorExample.swift */; };
-		339F821226FA242E006809CE /* VideoDetector in Frameworks */ = {isa = PBXBuildFile; productRef = 339F821126FA242E006809CE /* VideoDetector */; };
-		33C0412226EA51D600C63C4D /* Counter in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412126EA51D600C63C4D /* Counter */; };
-		33C0412426EA54A600C63C4D /* Todo in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412326EA54A600C63C4D /* Todo */; };
-		33C0412626EA554800C63C4D /* StateDiagram in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412526EA554800C63C4D /* StateDiagram */; };
-		33C0412826EA5BDA00C63C4D /* Stopwatch in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412726EA5BDA00C63C4D /* Stopwatch */; };
-		33C0412A26EA5E7600C63C4D /* GitHub in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412926EA5E7600C63C4D /* GitHub */; };
-		33C0412C26EA650E00C63C4D /* TimeTravel in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0412B26EA650E00C63C4D /* TimeTravel */; };
-		33C0413E26EA6FE800C63C4D /* DebugRoot in Frameworks */ = {isa = PBXBuildFile; productRef = 33C0413D26EA6FE800C63C4D /* DebugRoot */; };
-		33C8526226ECEF7F00F3EB94 /* GameOfLife in Frameworks */ = {isa = PBXBuildFile; productRef = 33C8526126ECEF7F00F3EB94 /* GameOfLife */; };
+		339F821B26FA3A37006809CE /* Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = 339F821A26FA3A37006809CE /* Gallery */; };
 		33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */; };
 		33E8F81F26E3B375009CC65D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E8F81E26E3B375009CC65D /* Assets.xcassets */; };
 		33E8F82226E3B375009CC65D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E8F82126E3B375009CC65D /* Preview Assets.xcassets */; };
@@ -54,7 +46,7 @@
 		3341065F26EC80590032CEDA /* TodoExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoExample.swift; sourceTree = "<group>"; };
 		3341066026EC80590032CEDA /* ExampleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleList.swift; sourceTree = "<group>"; };
 		339F820F26FA23E3006809CE /* VideoDetectorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetectorExample.swift; sourceTree = "<group>"; };
-		33C0412026EA519800C63C4D /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ..; sourceTree = "<group>"; };
+		339F821726FA399B006809CE /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ../..; sourceTree = "<group>"; };
 		33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOfLifeExample.swift; sourceTree = "<group>"; };
 		33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E8F81E26E3B375009CC65D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,15 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33C0412226EA51D600C63C4D /* Counter in Frameworks */,
-				33C8526226ECEF7F00F3EB94 /* GameOfLife in Frameworks */,
-				33C0412826EA5BDA00C63C4D /* Stopwatch in Frameworks */,
-				339F821226FA242E006809CE /* VideoDetector in Frameworks */,
-				33C0412A26EA5E7600C63C4D /* GitHub in Frameworks */,
-				33C0412626EA554800C63C4D /* StateDiagram in Frameworks */,
-				33C0413E26EA6FE800C63C4D /* DebugRoot in Frameworks */,
-				33C0412426EA54A600C63C4D /* Todo in Frameworks */,
-				33C0412C26EA650E00C63C4D /* TimeTravel in Frameworks */,
+				339F821B26FA3A37006809CE /* Gallery in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +112,7 @@
 		33E8F80E26E3B374009CC65D = {
 			isa = PBXGroup;
 			children = (
-				33C0412026EA519800C63C4D /* Actomaton-Gallery */,
+				339F821726FA399B006809CE /* Actomaton-Gallery */,
 				33E8F81926E3B374009CC65D /* Actomaton-Gallery */,
 				33E8F81826E3B374009CC65D /* Products */,
 				33E8F83026E3B43C009CC65D /* Frameworks */,
@@ -189,15 +173,7 @@
 			);
 			name = "Actomaton-Gallery";
 			packageProductDependencies = (
-				33C0412126EA51D600C63C4D /* Counter */,
-				33C0412326EA54A600C63C4D /* Todo */,
-				33C0412526EA554800C63C4D /* StateDiagram */,
-				33C0412726EA5BDA00C63C4D /* Stopwatch */,
-				33C0412926EA5E7600C63C4D /* GitHub */,
-				33C0412B26EA650E00C63C4D /* TimeTravel */,
-				33C0413D26EA6FE800C63C4D /* DebugRoot */,
-				33C8526126ECEF7F00F3EB94 /* GameOfLife */,
-				339F821126FA242E006809CE /* VideoDetector */,
+				339F821A26FA3A37006809CE /* Gallery */,
 			);
 			productName = "Actomaton-Gallery";
 			productReference = 33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */;
@@ -488,41 +464,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		339F821126FA242E006809CE /* VideoDetector */ = {
+		339F821A26FA3A37006809CE /* Gallery */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = VideoDetector;
-		};
-		33C0412126EA51D600C63C4D /* Counter */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Counter;
-		};
-		33C0412326EA54A600C63C4D /* Todo */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Todo;
-		};
-		33C0412526EA554800C63C4D /* StateDiagram */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StateDiagram;
-		};
-		33C0412726EA5BDA00C63C4D /* Stopwatch */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Stopwatch;
-		};
-		33C0412926EA5E7600C63C4D /* GitHub */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GitHub;
-		};
-		33C0412B26EA650E00C63C4D /* TimeTravel */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TimeTravel;
-		};
-		33C0413D26EA6FE800C63C4D /* DebugRoot */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DebugRoot;
-		};
-		33C8526126ECEF7F00F3EB94 /* GameOfLife */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GameOfLife;
+			productName = Gallery;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

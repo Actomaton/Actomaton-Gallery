@@ -7,35 +7,12 @@ let package = Package(
     platforms: [.macOS(.v12), .iOS(.v15), .watchOS(.v8), .tvOS(.v15)],
     products: [
         .library(
-            name: "TimeTravel",
-            targets: ["TimeTravel"]),
-        .library(
-            name: "Counter",
-            targets: ["Counter"]),
-        .library(
-            name: "Todo",
-            targets: ["Todo"]),
-        .library(
-            name: "StateDiagram",
-            targets: ["StateDiagram"]),
-        .library(
-            name: "Stopwatch",
-            targets: ["Stopwatch"]),
-        .library(
-            name: "GitHub",
-            targets: ["GitHub", "Utilities", "ImageLoader"]),
-        .library(
-            name: "GameOfLife",
-            targets: ["GameOfLife"]),
-        .library(
-            name: "VideoCapture",
-            targets: ["VideoCapture"]),
-        .library(
-            name: "VideoDetector",
-            targets: ["VideoDetector"]),
-        .library(
-            name: "DebugRoot",
-            targets: ["DebugRoot"]),
+            name: "Gallery",
+            targets: [
+                "Counter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
+                "GameOfLife", "VideoDetector",
+                "TimeTravel", "DebugRoot"
+            ])
     ],
     dependencies: [
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
