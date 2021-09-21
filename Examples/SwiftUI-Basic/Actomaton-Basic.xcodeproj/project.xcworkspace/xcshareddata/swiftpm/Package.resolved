@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Actomaton",
+        "repositoryURL": "https://github.com/inamiy/Actomaton",
+        "state": {
+          "branch": "main",
+          "revision": "4bc47a28e30b0dd449556df3068f1f4466794bdd",
+          "version": null
+        }
+      },
+      {
+        "package": "OrientationKit",
+        "repositoryURL": "https://github.com/inamiy/OrientationKit",
+        "state": {
+          "branch": null,
+          "revision": "491927e9cc835c0fcc7eac349c0245024f5d8579",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "d226d167bd4a68b51e352af5655c92bce8ee0463",
+          "version": "0.7.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
