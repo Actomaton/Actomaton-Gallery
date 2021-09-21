@@ -5,6 +5,7 @@ import StateDiagram
 import Stopwatch
 import GitHub
 import GameOfLife
+import VideoDetector
 
 /// Root namespace.
 /// - Todo: Move to Swift Package (but compile doesn't work well in Xcode 13 beta 5)
@@ -23,6 +24,7 @@ extension Root
         case todo(Todo.Action)
         case github(GitHub.Action)
         case gameOfLife(GameOfLife.Root.Action)
+        case videoDetector(VideoDetector.Action)
     }
 
     public struct State: Equatable
@@ -74,7 +76,13 @@ extension Root
                 .contramap(action: /Action.gameOfLife)
                 .contramap(state: /State.Current.gameOfLife)
                 .contramap(state: \State.current)
-                .contramap(environment: { $0.gameOfLife })
+                .contramap(environment: { $0.gameOfLife }),
+
+            VideoDetector.reducer
+                .contramap(action: /Action.videoDetector)
+                .contramap(state: /State.Current.videoDetector)
+                .contramap(state: \State.current)
+                .contramap(environment: { _ in () })
         )
     }
 

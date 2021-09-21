@@ -5,6 +5,7 @@ import StateDiagram
 import Stopwatch
 import GitHub
 import GameOfLife
+import VideoDetector
 
 extension Root.State
 {
@@ -17,17 +18,19 @@ extension Root.State
         case todo(Todo.State)
         case github(GitHub.State)
         case gameOfLife(GameOfLife.Root.State)
+        case videoDetector(VideoDetector.State)
 
         @MainActor
         var example: Example
         {
             switch self {
-            case .counter:      return CounterExample()
-            case .stopwatch:    return StopwatchExample()
-            case .stateDiagram: return StateDiagramExample()
-            case .todo:         return TodoExample()
-            case .github:       return GitHubExample()
-            case .gameOfLife:   return GameOfLifeExample()
+            case .counter:          return CounterExample()
+            case .stopwatch:        return StopwatchExample()
+            case .stateDiagram:     return StateDiagramExample()
+            case .todo:             return TodoExample()
+            case .github:           return GitHubExample()
+            case .gameOfLife:       return GameOfLifeExample()
+            case .videoDetector:    return VideoDetectorExample()
             }
         }
     }

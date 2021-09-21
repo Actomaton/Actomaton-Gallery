@@ -7,5 +7,6 @@ let exampleList: [Example] = [
     StateDiagramExample(),
     StopwatchExample(),
     GitHubExample(),
-    GameOfLifeExample()
+    GameOfLifeExample(),
+    VideoDetectorExample()
 ]
