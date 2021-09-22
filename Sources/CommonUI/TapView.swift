@@ -4,21 +4,21 @@ import SwiftUI
 /// as of Xcode 11.1 SwiftUI.
 /// 
 /// - SeeAlso: https://stackoverflow.com/a/56518293/666371
-struct TapView: UIViewRepresentable
+public struct TapView: UIViewRepresentable
 {
     private let didTap: (CGPoint) -> Void
 
-    init(didTap: @escaping (CGPoint) -> Void)
+    public init(didTap: @escaping (CGPoint) -> Void)
     {
         self.didTap = didTap
     }
 
-    func makeCoordinator() -> Coordinator
+    public func makeCoordinator() -> Coordinator
     {
         Coordinator(didTap: self.didTap)
     }
 
-    func makeUIView(context: UIViewRepresentableContext<TapView>) -> UIView
+    public func makeUIView(context: UIViewRepresentableContext<TapView>) -> UIView
     {
         let view = UIView(frame: .zero)
         let gesture = UITapGestureRecognizer(
@@ -29,14 +29,14 @@ struct TapView: UIViewRepresentable
         return view
     }
 
-    func updateUIView(
+    public func updateUIView(
         _ uiView: UIView,
         context: UIViewRepresentableContext<TapView>
     )
     {
     }
 
-    final class Coordinator: NSObject
+    public final class Coordinator: NSObject
     {
         let didTap: ((CGPoint) -> Void)
 

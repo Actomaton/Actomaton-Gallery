@@ -21,7 +21,10 @@ let package = Package(
     targets: [
         .target(
             name: "Utilities",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: []),
+        .target(
+            name: "CommonUI",
+            dependencies: []),
         .target(
             name: "ImageLoader",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
@@ -45,11 +48,14 @@ let package = Package(
             name: "GitHub",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "Utilities", "ImageLoader"
+                "Utilities", "CommonUI", "ImageLoader"
             ]),
         .target(
             name: "GameOfLife",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")],
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "CommonUI"
+            ],
             resources: [.copy("GameOfLife-Patterns/")]),
         .target(
             name: "VideoCapture",
@@ -68,6 +74,6 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "TimeTravel"
-            ]),
+            ])
     ]
 )

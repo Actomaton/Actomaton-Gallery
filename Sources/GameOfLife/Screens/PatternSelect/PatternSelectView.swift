@@ -1,5 +1,6 @@
 import SwiftUI
 import ActomatonStore
+import CommonUI
 
 @MainActor
 struct PatternSelectView: View
