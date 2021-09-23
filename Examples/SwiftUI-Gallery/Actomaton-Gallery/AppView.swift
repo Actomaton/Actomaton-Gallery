@@ -3,8 +3,7 @@ import ActomatonStore
 import DebugRoot
 
 private let initialRootState: Root.State = .init(
-//    current: nil, // .gameOfLife(.init(pattern: .glider, cellLength: 5, timerInterval: 0.01)),
-    current: .colorFilter(.init()),
+    current: nil, // .gameOfLife(.init(pattern: .glider, cellLength: 5, timerInterval: 0.01)),
     usesTimeTravel: true
 )
 
