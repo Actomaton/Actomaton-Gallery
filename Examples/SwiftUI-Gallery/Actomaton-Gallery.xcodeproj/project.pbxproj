@@ -22,6 +22,7 @@
 		3341066526EC80590032CEDA /* StateDiagramExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341065E26EC80590032CEDA /* StateDiagramExample.swift */; };
 		3341066626EC80590032CEDA /* TodoExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341065F26EC80590032CEDA /* TodoExample.swift */; };
 		3341066726EC80590032CEDA /* ExampleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3341066026EC80590032CEDA /* ExampleList.swift */; };
+		338DC23326FC508500C38587 /* ColorFilterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338DC23226FC508500C38587 /* ColorFilterExample.swift */; };
 		339F821026FA23E3006809CE /* VideoDetectorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339F820F26FA23E3006809CE /* VideoDetectorExample.swift */; };
 		339F821B26FA3A37006809CE /* Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = 339F821A26FA3A37006809CE /* Gallery */; };
 		33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */; };
@@ -45,6 +46,7 @@
 		3341065E26EC80590032CEDA /* StateDiagramExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateDiagramExample.swift; sourceTree = "<group>"; };
 		3341065F26EC80590032CEDA /* TodoExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoExample.swift; sourceTree = "<group>"; };
 		3341066026EC80590032CEDA /* ExampleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleList.swift; sourceTree = "<group>"; };
+		338DC23226FC508500C38587 /* ColorFilterExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFilterExample.swift; sourceTree = "<group>"; };
 		339F820F26FA23E3006809CE /* VideoDetectorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetectorExample.swift; sourceTree = "<group>"; };
 		339F821726FA399B006809CE /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ../..; sourceTree = "<group>"; };
 		33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOfLifeExample.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				3341065D26EC80590032CEDA /* CounterExample.swift */,
+				338DC23226FC508500C38587 /* ColorFilterExample.swift */,
 				3341065F26EC80590032CEDA /* TodoExample.swift */,
 				3341065E26EC80590032CEDA /* StateDiagramExample.swift */,
 				3341065B26EC80590032CEDA /* StopwatchExample.swift */,
@@ -240,6 +243,7 @@
 				3326431C26E4057D00438A10 /* RootView.swift in Sources */,
 				3341066526EC80590032CEDA /* StateDiagramExample.swift in Sources */,
 				33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */,
+				338DC23326FC508500C38587 /* ColorFilterExample.swift in Sources */,
 				3341066326EC80590032CEDA /* GitHubExample.swift in Sources */,
 				331E1FE126ED20A000719530 /* TestAppView.swift in Sources */,
 				3341066426EC80590032CEDA /* CounterExample.swift in Sources */,
