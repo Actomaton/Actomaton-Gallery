@@ -9,14 +9,15 @@ let package = Package(
         .library(
             name: "Gallery",
             targets: [
-                "Counter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
+                "Counter", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoDetector",
                 "TimeTravel", "DebugRoot"
             ])
     ],
     dependencies: [
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
-        .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0")
+        .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
+        .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main"))
     ],
     targets: [
         .target(
@@ -34,6 +35,13 @@ let package = Package(
         .target(
             name: "Counter",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+        .target(
+            name: "ColorFilter",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "PhotoPicker", package: "SwiftUI-PhotoPicker")
+            ],
+            resources: [.process("Resources/")]),
         .target(
             name: "Todo",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),

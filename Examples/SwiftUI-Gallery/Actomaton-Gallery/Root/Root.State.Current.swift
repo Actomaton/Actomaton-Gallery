@@ -1,5 +1,6 @@
 import Actomaton
 import Counter
+import ColorFilter
 import Todo
 import StateDiagram
 import Stopwatch
@@ -13,6 +14,7 @@ extension Root.State
     enum Current: Equatable
     {
         case counter(Counter.State)
+        case colorFilter(ColorFilter.State)
         case stopwatch(Stopwatch.State)
         case stateDiagram(StateDiagram.State)
         case todo(Todo.State)
@@ -25,6 +27,7 @@ extension Root.State
         {
             switch self {
             case .counter:          return CounterExample()
+            case .colorFilter:      return ColorFilterExample()
             case .stopwatch:        return StopwatchExample()
             case .stateDiagram:     return StateDiagramExample()
             case .todo:             return TodoExample()

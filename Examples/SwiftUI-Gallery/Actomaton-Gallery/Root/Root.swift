@@ -1,5 +1,6 @@
 import Actomaton
 import Counter
+import ColorFilter
 import Todo
 import StateDiagram
 import Stopwatch
@@ -19,6 +20,7 @@ extension Root
         case debugToggle(Bool)
 
         case counter(Counter.Action)
+        case colorFilter(ColorFilter.Action)
         case stopwatch(Stopwatch.Action)
         case stateDiagram(StateDiagram.Action)
         case todo(Todo.Action)
@@ -42,47 +44,58 @@ extension Root
             debugToggleReducer(),
             previousEffectCancelReducer(),
 
-            Counter.reducer
-                .contramap(action: /Action.counter)
-                .contramap(state: /State.Current.counter)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
+            // NOTE: Make sub-reducer combining for better type-inference
+            Reducer<Action, State, Environment>.combine(
+                Counter.reducer
+                    .contramap(action: /Action.counter)
+                    .contramap(state: /State.Current.counter)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { _ in () }),
 
-            Todo.reducer
-                .contramap(action: /Action.todo)
-                .contramap(state: /State.Current.todo)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
+                ColorFilter.reducer
+                    .contramap(action: /Action.colorFilter)
+                    .contramap(state: /State.Current.colorFilter)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { _ in () }),
 
-            StateDiagram.reducer
-                .contramap(action: /Action.stateDiagram)
-                .contramap(state: /State.Current.stateDiagram)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
+                Todo.reducer
+                    .contramap(action: /Action.todo)
+                    .contramap(state: /State.Current.todo)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { _ in () }),
 
-            Stopwatch.reducer
-                .contramap(action: /Action.stopwatch)
-                .contramap(state: /State.Current.stopwatch)
-                .contramap(state: \State.current)
-                .contramap(environment: { $0.stopwatch }),
+                StateDiagram.reducer
+                    .contramap(action: /Action.stateDiagram)
+                    .contramap(state: /State.Current.stateDiagram)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { _ in () }),
 
-            GitHub.reducer
-                .contramap(action: /Action.github)
-                .contramap(state: /State.Current.github)
-                .contramap(state: \State.current)
-                .contramap(environment: { $0.github }),
+                Stopwatch.reducer
+                    .contramap(action: /Action.stopwatch)
+                    .contramap(state: /State.Current.stopwatch)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { $0.stopwatch }),
 
-            GameOfLife.Root.reducer()
-                .contramap(action: /Action.gameOfLife)
-                .contramap(state: /State.Current.gameOfLife)
-                .contramap(state: \State.current)
-                .contramap(environment: { $0.gameOfLife }),
+                GitHub.reducer
+                    .contramap(action: /Action.github)
+                    .contramap(state: /State.Current.github)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { $0.github })
+            ),
 
-            VideoDetector.reducer
-                .contramap(action: /Action.videoDetector)
-                .contramap(state: /State.Current.videoDetector)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () })
+            Reducer<Action, State, Environment>.combine(
+                GameOfLife.Root.reducer()
+                    .contramap(action: /Action.gameOfLife)
+                    .contramap(state: /State.Current.gameOfLife)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { $0.gameOfLife }),
+
+                VideoDetector.reducer
+                    .contramap(action: /Action.videoDetector)
+                    .contramap(state: /State.Current.videoDetector)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { _ in () })
+            )
         )
     }
 
