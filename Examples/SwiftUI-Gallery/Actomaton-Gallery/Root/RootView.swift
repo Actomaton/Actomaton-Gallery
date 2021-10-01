@@ -25,6 +25,12 @@ struct RootView: View
                     }
                 }
             }
+            // IMPORTANT:
+            // iOS 15's default `NavigationView` causes broken state management.
+            // To workaround, `.navigationViewStyle(.stack)` is required.
+            // https://github.com/inamiy/iOS15-SwiftUI-Navigation-Bug
+            // https://twitter.com/chriseidhof/status/1441330150872735745
+            .navigationViewStyle(.stack)
         }
     }
 

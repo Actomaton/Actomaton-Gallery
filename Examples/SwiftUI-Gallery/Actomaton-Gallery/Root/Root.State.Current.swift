@@ -7,6 +7,7 @@ import Stopwatch
 import GitHub
 import GameOfLife
 import VideoDetector
+import Physics
 
 extension Root.State
 {
@@ -21,6 +22,7 @@ extension Root.State
         case github(GitHub.State)
         case gameOfLife(GameOfLife.Root.State)
         case videoDetector(VideoDetector.State)
+        case physics(PhysicsRoot.State)
 
         @MainActor
         var example: Example
@@ -34,6 +36,7 @@ extension Root.State
             case .github:           return GitHubExample()
             case .gameOfLife:       return GameOfLifeExample()
             case .videoDetector:    return VideoDetectorExample()
+            case .physics:          return PhysicsExample()
             }
         }
     }
@@ -52,6 +55,9 @@ extension Root.State.Current
 
         case .github:
             return GitHub.cancelAllEffectsPredicate
+
+        case .physics:
+            return PhysicsRoot.cancelAllEffectsPredicate
 
         default:
             return { _ in false }

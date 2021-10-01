@@ -28,6 +28,7 @@
 		33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */; };
 		33E8F81F26E3B375009CC65D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E8F81E26E3B375009CC65D /* Assets.xcassets */; };
 		33E8F82226E3B375009CC65D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E8F82126E3B375009CC65D /* Preview Assets.xcassets */; };
+		33FF25B326FB6C1900E50E27 /* PhysicsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FF25B226FB6C1900E50E27 /* PhysicsExample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E8F81E26E3B375009CC65D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33E8F82126E3B375009CC65D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		33FF25B226FB6C1900E50E27 /* PhysicsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				3341065C26EC80590032CEDA /* GitHubExample.swift */,
 				33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */,
 				339F820F26FA23E3006809CE /* VideoDetectorExample.swift */,
+				33FF25B226FB6C1900E50E27 /* PhysicsExample.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33FF25B326FB6C1900E50E27 /* PhysicsExample.swift in Sources */,
 				3326431B26E4057D00438A10 /* Root.swift in Sources */,
 				339F821026FA23E3006809CE /* VideoDetectorExample.swift in Sources */,
 				3326433E26E4094200438A10 /* AppView.swift in Sources */,

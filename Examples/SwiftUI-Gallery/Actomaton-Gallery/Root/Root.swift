@@ -7,6 +7,7 @@ import Stopwatch
 import GitHub
 import GameOfLife
 import VideoDetector
+import Physics
 
 /// Root namespace.
 /// - Todo: Move to Swift Package (but compile doesn't work well in Xcode 13 beta 5)
@@ -27,6 +28,7 @@ extension Root
         case github(GitHub.Action)
         case gameOfLife(GameOfLife.Root.Action)
         case videoDetector(VideoDetector.Action)
+        case physics(PhysicsRoot.Action)
     }
 
     public struct State: Equatable
@@ -42,7 +44,7 @@ extension Root
     {
         .combine(
             debugToggleReducer(),
-            previousEffectCancelReducer(),
+            changeCurrentReducer(),
 
             // NOTE: Make sub-reducer combining for better type-inference
             Reducer<Action, State, Environment>.combine(
@@ -94,7 +96,13 @@ extension Root
                     .contramap(action: /Action.videoDetector)
                     .contramap(state: /State.Current.videoDetector)
                     .contramap(state: \State.current)
-                    .contramap(environment: { _ in () })
+                    .contramap(environment: { _ in () }),
+
+                PhysicsRoot.reducer
+                    .contramap(action: /Action.physics)
+                    .contramap(state: /State.Current.physics)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { .init(timer: $0.timer) })
             )
         )
     }
@@ -112,8 +120,7 @@ extension Root
         }
     }
 
-    /// When navigating to example, cancel its previous running effects.
-    private static func previousEffectCancelReducer() -> Reducer<Action, State, Environment>
+    private static func changeCurrentReducer() -> Reducer<Action, State, Environment>
     {
         .init { action, state, environment in
             switch action {
