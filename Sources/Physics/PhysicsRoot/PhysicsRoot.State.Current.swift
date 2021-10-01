@@ -1,4 +1,5 @@
 import Actomaton
+import CanvasPlayer
 
 extension PhysicsRoot.State
 {
@@ -39,6 +40,6 @@ extension PhysicsRoot.State.Current
     /// Used for previous screen's effects cancellation.
     var cancelAllEffectsPredicate: (EffectID) -> Bool
     {
-        World.cancelAllEffectsPredicate
+        CanvasPlayer.cancelAllEffectsPredicate
     }
 }

@@ -54,7 +54,7 @@ struct SpringPendulumExample: Example
                             .stroke(Color.green, lineWidth: 1)
 
                         WorldView<Object>.makeContentView(
-                            store: store,
+                            store: store.canvasState,
                             configuration: configuration,
                             absolutePosition: self.absolutePosition,
                             arrowScale: self.exampleArrowScale

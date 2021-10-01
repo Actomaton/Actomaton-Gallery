@@ -2,36 +2,64 @@ import Foundation
 import CoreGraphics
 import Actomaton
 import VectorMath
+import CanvasPlayer
 
+/// World's Action / State / Environment / Reducer logic, based on `CanvasPlayer`.
+///
+/// Structure:
+///
+/// ```
+/// WorldView
+///     CanvasPlayer.CanvasView
+///         CanvasPlayer.ContentView = WorldView.makeContentView (objects, arrows)
+///         CanvasPlayer.ControlsView
+///
+/// World.Action
+///     CanvasPlayer.Action (startTimer, stopTimer, updateCanvasSize)
+///
+/// World.State<Obj>
+///     CanvasPlayer.State<World.CanvasState<Obj>> (isRunningTimer)
+///         World.CanvasState<Obj> (canvasSize, objects)
+///
+/// World.Environment
+///     CanvasPlayer.Environment
+///         timer
+/// ```
 public enum World
 {
     // MARK: - Action
 
-    public enum Action
-    {
-        case updateBoardSize(CGSize)
-        case resetBoard
-
-        case startTimer
-        case stopTimer
-        case tick
-
-        case tap(CGPoint)
-        case dragging(CGPoint)
-        case dragEnd
-    }
+    public typealias Action = CanvasPlayer.Action
 
     // MARK: - State
 
+    /// - Note: Wrapper of `CanvasPlayer.State<CanvasState<Obj>>` to add convenient initializer.
+    @dynamicMemberLookup
     public struct State<Obj>: Equatable where Obj: Equatable
     {
-        public fileprivate(set) var boardSize: CGSize = .zero
+        public var canvasPlayerState: CanvasPlayer.State<CanvasState<Obj>>
 
+        /// Convenient initializer.
+        public init(objects: [Obj], offset: CGPoint = .zero, timerInterval: TimeInterval = 0.01)
+        {
+            self.canvasPlayerState = CanvasPlayer.State(
+                canvasState: World.CanvasState(objects: objects, offset: offset),
+                timerInterval: timerInterval
+            )
+        }
+
+        public subscript<U>(dynamicMember keyPath: KeyPath<CanvasState<Obj>, U>) -> U
+        {
+            self.canvasPlayerState.canvasState[keyPath: keyPath]
+        }
+    }
+
+    public struct CanvasState<Obj>: Equatable where Obj: Equatable
+    {
+        public var canvasSize: CGSize = .zero
         public fileprivate(set) var offset: CGPoint
 
         public internal(set) var objects: [Obj]
-
-        public fileprivate(set) var isRunningTimer: Bool = false
 
         fileprivate let initialObjects: [Obj]
         fileprivate var dragState: DragState = .idle
@@ -60,26 +88,7 @@ public enum World
 
     // MARK: - Environment
 
-    public struct Environment
-    {
-        public let timer: () -> AsyncStream<Date>
-
-        public init(
-            timer: @escaping () -> AsyncStream<Date>
-        )
-        {
-            self.timer = timer
-        }
-    }
-
-    // MARK: - EffectID
-
-    public struct TimerID: EffectIDProtocol {}
-
-    public static func cancelAllEffectsPredicate(id: EffectID) -> Bool
-    {
-        return id is TimerID
-    }
+    public typealias Environment = CanvasPlayer.Environment
 
     // MARK: - Reducer
 
@@ -93,34 +102,36 @@ public enum World
         tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
         draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
         draggingVoid: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in }
-    ) -> Reducer<Action, State<Obj>, Environment>
+    ) -> Reducer<World.Action, World.State<Obj>, Environment>
+        where Obj: ObjectLike
+    {
+        .combine(
+            CanvasPlayer.reducer()
+                .contramap(state: \World.State.canvasPlayerState),
+
+            canvasReducer(tick: tick, tap: tap, draggingObj: draggingObj, draggingVoid: draggingVoid)
+                .contramap(state: \CanvasPlayer.State<World.CanvasState>.canvasState)
+                .contramap(state: \World.State.canvasPlayerState)
+        )
+    }
+
+    private static func canvasReducer<Obj>(
+        tick: @escaping (inout [Obj], CGSize) -> Void,
+        tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
+        draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
+        draggingVoid: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in }
+    ) -> Reducer<Action, CanvasState<Obj>, Environment>
         where Obj: ObjectLike
     {
         .init { action, state, environment in
             switch action {
-            case let .updateBoardSize(size):
-                state.boardSize = size
+            case .startTimer,
+                .stopTimer:
+                // Do nothing. Will be handled by `CanvasPlayer`.
                 return .empty
-
-            case .resetBoard:
-                state.objects = state.initialObjects
-                return .empty
-
-            case .startTimer:
-                state.isRunningTimer = true
-
-                return Effect(
-                    id: TimerID(),
-                    sequence: environment.timer()
-                        .map { _ in Action.tick }
-                )
-
-            case .stopTimer:
-                state.isRunningTimer = false
-                return .cancel(id: TimerID())
 
             case .tick:
-                tick(&state.objects, state.boardSize)
+                tick(&state.objects, state.canvasSize)
                 return .empty
 
             case let .tap(point):
@@ -149,6 +160,14 @@ public enum World
 
             case .dragEnd:
                 state.dragState = .idle
+                return .empty
+
+            case let .updateCanvasSize(size):
+                state.canvasSize = size
+                return .empty
+
+            case .resetCanvas:
+                state.objects = state.initialObjects
                 return .empty
             }
         }

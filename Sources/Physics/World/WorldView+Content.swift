@@ -20,7 +20,7 @@ extension WorldView
         self.content = { store, configuration in
             return AnyView(
                 Self.makeContentView(
-                    store: store,
+                    store: store.canvasState,
                     configuration: configuration,
                     absolutePosition: absolutePosition,
                     arrowScale: arrowScale
@@ -32,7 +32,7 @@ extension WorldView
     /// Makes contents i.e. `objects`, `velocityArrows`, `forceArrows`.
     @MainActor
     static func makeContentView(
-        store: Store<World.Action, World.State<Obj>>.Proxy,
+        store: Store<World.Action, World.CanvasState<Obj>>.Proxy,
         configuration: WorldConfiguration,
         absolutePosition: ((_ relativePosition: Vector2, _ index: Int, _ previous: Vector2) -> Vector2)?,
         arrowScale: ArrowScale

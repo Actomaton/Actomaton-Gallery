@@ -1,6 +1,7 @@
 import Foundation
 import CoreGraphics
 import Actomaton
+import CanvasPlayer
 
 /// Physics root namespace.
 public enum PhysicsRoot {}
@@ -46,13 +47,13 @@ extension PhysicsRoot
 
     // MARK: - Environment
 
-    public typealias Environment = PhysicsRootEnvironment
+    public typealias Environment = CanvasPlayer.Environment
 
     // MARK: - EffectID
 
     public static func cancelAllEffectsPredicate(id: EffectID) -> Bool
     {
-        id is World.TimerID
+        CanvasPlayer.cancelAllEffectsPredicate(id: id)
     }
 
     // MARK: - Reducer
@@ -67,32 +68,27 @@ extension PhysicsRoot
                 GravityUniverseExample().reducer
                     .contramap(action: /Action.gravityUniverse)
                     .contramap(state: /State.Current.gravityUniverse)
-                    .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) }),
+                    .contramap(state: \State.current),
 
                 GravitySurfaceExample().reducer
                     .contramap(action: /Action.gravitySurface)
                     .contramap(state: /State.Current.gravitySurface)
-                    .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) }),
+                    .contramap(state: \State.current),
 
                 SpringExample().reducer
                     .contramap(action: /Action.spring)
                     .contramap(state: /State.Current.spring)
-                    .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) }),
+                    .contramap(state: \State.current),
 
                 CollisionExample().reducer
                     .contramap(action: /Action.collision)
                     .contramap(state: /State.Current.collision)
-                    .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) }),
+                    .contramap(state: \State.current),
 
                 SpringPendulumExample().reducer
                     .contramap(action: /Action.springPendulum)
                     .contramap(state: /State.Current.springPendulum)
                     .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) })
             ),
 
             // Pendulum (Bob)
@@ -100,14 +96,12 @@ extension PhysicsRoot
                 PendulumExample().reducer
                     .contramap(action: /Action.pendulum)
                     .contramap(state: /State.Current.pendulum)
-                    .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) }),
+                    .contramap(state: \State.current),
 
                 DoublePendulumExample().reducer
                     .contramap(action: /Action.doublePendulum)
                     .contramap(state: /State.Current.doublePendulum)
                     .contramap(state: \State.current)
-                    .contramap(environment: { .init(timer: $0.timer) })
             )
         )
     }

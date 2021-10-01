@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 import VectorMath
+import CanvasPlayer
 
 // MARK: - Example
 
@@ -88,12 +89,13 @@ extension ObjectWorldExample
 
     var reducer: Reducer<World.Action, World.State<Object>, World.Environment>
     {
-        World.reducer(
-            tick: World.tick(self.step),
-            tap: { $0.append(Object(position: Vector2($1))) },
-            draggingObj: { $0.position = Vector2($1) },
-            draggingVoid: self.draggingVoid
-        )
+        World
+            .reducer(
+                tick: World.tick(self.step),
+                tap: { $0.append(Object(position: Vector2($1))) },
+                draggingObj: { $0.position = Vector2($1) },
+                draggingVoid: self.draggingVoid
+            )
     }
 }
 
@@ -116,11 +118,12 @@ extension BobWorldExample
 
     var reducer: Reducer<World.Action, World.State<Bob>, World.Environment>
     {
-        World.reducer(
-            tick: World.tick(self.step),
-            tap: { _, _ in },
-            draggingObj: { _, _ in },
-            draggingVoid: self.draggingVoid
-        )
+        World
+            .reducer(
+                tick: World.tick(self.step),
+                tap: { _, _ in },
+                draggingObj: { _, _ in },
+                draggingVoid: self.draggingVoid
+            )
     }
 }

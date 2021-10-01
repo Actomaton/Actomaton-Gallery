@@ -6,7 +6,7 @@ import GameOfLife
 struct RootEnvironment
 {
     let getDate: () -> Date
-    let timer: () -> AsyncStream<Date>
+    let timer: (TimeInterval) -> AsyncStream<Date>
     let fetchRequest: (URLRequest) async throws -> Data
 
     let gameOfLife: GameOfLife.Root.Environment
@@ -20,8 +20,8 @@ extension RootEnvironment
     {
         RootEnvironment(
             getDate: { Date() },
-            timer: {
-                Timer.publish(every: 0.01, tolerance: 0.01, on: .main, in: .common)
+            timer: { timeInterval in
+                Timer.publish(every: timeInterval, tolerance: timeInterval * 0.1, on: .main, in: .common)
                     .autoconnect()
                     .toAsyncStream()
 
@@ -30,7 +30,7 @@ extension RootEnvironment
 //                    let task = Task {
 //                        while true {
 //                            if Task.isCancelled { break }
-//                            await Task.sleep(1_000_000)
+//                            await Task.sleep(UInt64(timeInterval * 1_000_000_000))
 //                            continuation.yield(Date())
 //                        }
 //                    }

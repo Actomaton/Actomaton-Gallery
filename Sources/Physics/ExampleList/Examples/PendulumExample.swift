@@ -77,7 +77,7 @@ struct PendulumExample: Example
                         }
 
                         WorldView<Bob>.makeContentView(
-                            store: store,
+                            store: store.canvasState,
                             configuration: configuration,
                             absolutePosition: self.absolutePosition,
                             arrowScale: self.exampleArrowScale

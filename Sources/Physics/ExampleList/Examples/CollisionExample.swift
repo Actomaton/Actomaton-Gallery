@@ -70,7 +70,7 @@ extension CollisionExample: ObjectWorldExample
                 }
             }
 
-            // Flip `velocity.x` if reached at the edge of `boardSize`.
+            // Flip `velocity.x` if reached at the edge of `canvasSize`.
             // WARNING: No continuous collision detection.
             if obj.position.x - obj.radius < 0 {
                 objects[i].velocity.x = abs(objects[i].velocity.x) * 0.25
@@ -81,7 +81,7 @@ extension CollisionExample: ObjectWorldExample
                 objects[i].position.x = Scalar(boardSize.width) - obj.radius // sliding
             }
 
-            // Flip `velocity.y` if reached at the edge of `boardSize`.
+            // Flip `velocity.y` if reached at the edge of `canvasSize`.
             if obj.position.y - obj.radius < 0 {
                 objects[i].velocity.y = abs(objects[i].velocity.y)
                 objects[i].position.y = obj.radius // sliding
