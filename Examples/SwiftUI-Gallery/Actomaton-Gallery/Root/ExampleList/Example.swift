@@ -27,6 +27,7 @@ extension Example
 
 extension Example
 {
+    /// Helper method to transform parent `Store` into child `Store`, then `makeView`.
     @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
         store: Store<Root.Action, Root.State>.Proxy,
@@ -48,16 +49,6 @@ extension Example
             }
         }
 
-        return _exampleView().toAnyView()
-    }
-}
-
-// MARK: - Private
-
-extension View
-{
-    fileprivate func toAnyView() -> AnyView
-    {
-        AnyView(self)
+        return AnyView(_exampleView())
     }
 }
