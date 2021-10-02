@@ -11,7 +11,7 @@ public struct RootEnvironment
         saveFavorites: @escaping ([String]) throws -> Void,
         loadPatterns: @escaping () async throws -> [PatternSelect.Section<PatternSelect.Unit>],
         parseRunLengthEncoded: @escaping (URL) throws -> Pattern,
-        timer: @escaping (TimeInterval) -> AsyncStream<Void>
+        timer: @escaping (TimeInterval) -> AsyncStream<Date>
     )
     {
         self.favorite = .init(loadFavorites: loadFavorites, saveFavorites: saveFavorites)
@@ -105,7 +105,7 @@ extension RootEnvironment
                         while true {
                             await Task.sleep(UInt64(timeInterval * 1_000_000_000))
                             if Task.isCancelled { break }
-                            continuation.yield(())
+                            continuation.yield(Date())
                         }
                     }
                     continuation.onTermination = { @Sendable _ in

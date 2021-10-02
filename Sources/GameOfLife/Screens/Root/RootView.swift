@@ -1,5 +1,6 @@
 import SwiftUI
 import ActomatonStore
+import CanvasPlayer
 
 @MainActor
 public struct RootView: View
@@ -13,18 +14,21 @@ public struct RootView: View
 
     public var body: some View
     {
-        VStack {
-            GeometryReader { geometry in
-                GameView(
-                    store: self.store.game.contramap(action: (/Root.Action.game).embed),
-                    geometrySize: geometry.size
+        CanvasPlayerView(
+            store: self.store.game.canvasPlayerState
+                .map(action: /Root.Action.game)
+                .map(action: /Game.Action.canvasPlayer),
+            content: { store in
+                AnyView(
+                    GameView(
+                        store: self.store.game.contramap(action: (/Root.Action.game).embed)
+                    )
                 )
+            },
+            bottomView: { _ in
+                AnyView(starAndPatternName())
             }
-
-            starAndPatternName()
-
-            controlButtons()
-        }
+        )
         .onAppear {
             self.store.send(.favorite(.loadFavorites))
         }
@@ -71,39 +75,6 @@ public struct RootView: View
             Image(systemName: "star").hidden()
         }
         .font(.title)
-    }
-
-    private func controlButtons() -> some View
-    {
-        HStack {
-            Spacer()
-
-            Button(action: { self.store.send(.game(.resetBoard)) }) {
-                Image(systemName: "arrow.uturn.left.circle")
-            }
-
-            Spacer()
-
-            if self.store.state.game.isRunningTimer {
-                Button(action: { self.store.send(.game(.stopTimer)) }) {
-                    Image(systemName: "pause.circle")
-                }
-            }
-            else {
-                Button(action: { self.store.send(.game(.startTimer)) }) {
-                    Image(systemName: "play.circle")
-                }
-            }
-
-            Spacer()
-
-            Button(action: { self.store.send(.game(.tick)) }) {
-                Image(systemName: "chevron.right.circle")
-            }
-
-            Spacer()
-        }
-        .font(.largeTitle)
     }
 
     @ViewBuilder

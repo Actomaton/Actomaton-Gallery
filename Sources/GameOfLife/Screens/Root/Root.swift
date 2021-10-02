@@ -12,6 +12,8 @@ public enum Root {}
 
 extension Root
 {
+    // MARK: - Action
+
     public enum Action
     {
         case presentPatternSelect
@@ -22,13 +24,15 @@ extension Root
         case patternSelect(PatternSelect.Action)
     }
 
+    // MARK: - State
+
     public struct State: Equatable
     {
         var game: Game.State
         var favorite: Favorite.State
         var patternSelect: PatternSelect.State?
 
-        public init(pattern: Pattern, cellLength: CGFloat, timerInterval: TimeInterval)
+        public init(pattern: Pattern, cellLength: CGFloat, timerInterval: TimeInterval = 0.05)
         {
             self.game = Game.State(pattern: pattern, cellLength: cellLength, timerInterval: timerInterval)
             self.favorite = Favorite.State()
@@ -40,7 +44,16 @@ extension Root
         }
     }
 
+    // MARK: - Environment
+
     public typealias Environment = RootEnvironment
+
+    public static func cancelAllEffectsPredicate(id: EffectID) -> Bool
+    {
+        Game.cancelAllEffectsPredicate(id: id)
+    }
+
+    // MARK: - Reducer
 
     public static func reducer() -> Reducer<Action, State, Environment>
     {

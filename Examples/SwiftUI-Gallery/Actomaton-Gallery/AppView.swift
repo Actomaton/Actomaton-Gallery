@@ -36,7 +36,7 @@ private let initialRootState: Root.State = .init(
 //    current: .physics(.collision),
 //    current: .physics(.pendulum),
 //    current: .physics(.doublePendulum),
-//    current: .gameOfLife(.init(pattern: .glider, cellLength: 5, timerInterval: 0.01)),
+//    current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
 
     current: nil,
     usesTimeTravel: true
