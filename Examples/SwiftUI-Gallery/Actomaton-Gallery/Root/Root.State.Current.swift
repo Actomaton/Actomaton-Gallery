@@ -56,6 +56,9 @@ extension Root.State.Current
         case .github:
             return GitHub.cancelAllEffectsPredicate
 
+        case .gameOfLife:
+            return GameOfLife.Root.cancelAllEffectsPredicate
+
         case .physics:
             return PhysicsRoot.cancelAllEffectsPredicate
 

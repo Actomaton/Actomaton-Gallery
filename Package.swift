@@ -69,7 +69,7 @@ let package = Package(
             name: "GameOfLife",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "CommonUI"
+                "CommonUI", "CanvasPlayer"
             ],
             resources: [.copy("GameOfLife-Patterns/")]),
         .target(

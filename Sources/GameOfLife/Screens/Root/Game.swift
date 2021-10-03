@@ -1,32 +1,63 @@
 import Foundation
 import CoreGraphics
 import Actomaton
+import CanvasPlayer
 
 /// Conway's Game-of-Life game engine namespace.
 public enum Game {}
 
 extension Game
 {
+    // MARK: - Action
+
     public enum Action
     {
-        case startTimer
-        case stopTimer
-        case tick
-
-        case tap(x: Int, y: Int)
-        case drag(x: Int, y: Int)
-        case dragEnd
-
-        case resetBoard
-        case updateBoardSize(CGSize)
-
         case updatePattern(Pattern)
+
+        case canvasPlayer(CanvasPlayer.Action)
     }
 
+    // MARK: - State
+
+    /// - Note: Wrapper of `CanvasPlayer.State<CanvasState>` to add convenient initializer.
+    @dynamicMemberLookup
     struct State: Equatable
     {
+        var canvasPlayerState: CanvasPlayer.State<CanvasState>
+
+        /// Convenient initializer.
+        init(
+            pattern: Pattern,
+            cellLength: CGFloat,
+            timerInterval: TimeInterval
+        )
+        {
+            self.canvasPlayerState = CanvasPlayer.State(
+                canvasState: CanvasState(pattern: pattern, cellLength: cellLength),
+                timerInterval: timerInterval
+            )
+        }
+
+        subscript<U>(dynamicMember keyPath: KeyPath<CanvasState, U>) -> U
+        {
+            self.canvasPlayerState.canvasState[keyPath: keyPath]
+        }
+
+        subscript<U>(dynamicMember keyPath: WritableKeyPath<CanvasState, U>) -> U
+        {
+            get {
+                self.canvasPlayerState.canvasState[keyPath: keyPath]
+            }
+            set {
+                self.canvasPlayerState.canvasState[keyPath: keyPath] = newValue
+            }
+        }
+    }
+
+    struct CanvasState: Equatable
+    {
         var cellLength: CGFloat
-        var boardSize: Board.Size
+        var canvasSize: Board.Size
 
         fileprivate var dragState: DragState = .idle
 
@@ -34,20 +65,15 @@ extension Game
 
         var selectedPattern: Pattern
 
-        var timerInterval: TimeInterval
-        var isRunningTimer = false
-
         public init(
             pattern: Pattern,
-            cellLength: CGFloat,
-            timerInterval: TimeInterval
+            cellLength: CGFloat
         )
         {
             self.cellLength = cellLength
-            self.boardSize = .zero
-            self.board = pattern.makeBoard(size: self.boardSize)
+            self.canvasSize = .zero
+            self.board = pattern.makeBoard(size: self.canvasSize)
             self.selectedPattern = pattern
-            self.timerInterval = timerInterval
         }
 
         enum DragState: Equatable
@@ -57,43 +83,55 @@ extension Game
         }
     }
 
-    struct Environment
-    {
-        let timer: (TimeInterval) -> AsyncStream<Void>
+    // MARK: - Environment
 
-        init(timer: @escaping (TimeInterval) -> AsyncStream<Void>)
-        {
-            self.timer = timer
-        }
+    typealias Environment = CanvasPlayer.Environment
+
+    // MARK: - EffectID
+
+    static func cancelAllEffectsPredicate(id: EffectID) -> Bool
+    {
+        CanvasPlayer.cancelAllEffectsPredicate(id: id)
     }
 
-    public struct TimerEffectID: EffectIDProtocol {}
+    // MARK: - Reducer
 
     static func reducer() -> Reducer<Action, State, Environment>
     {
+        .combine(
+            .init { action, state, environment in
+                switch action {
+                case let .updatePattern(pattern):
+                    state.board = pattern.makeBoard(size: state.canvasSize)
+                    state.selectedPattern = pattern
+                    return .empty
+
+                default:
+                    return .empty
+                }
+            },
+
+            CanvasPlayer.reducer()
+                .contramap(action: /Game.Action.canvasPlayer)
+                .contramap(state: \Game.State.canvasPlayerState),
+
+            canvasReducer()
+                .contramap(action: /Game.Action.canvasPlayer)
+                .contramap(state: \CanvasPlayer.State<CanvasState>.canvasState)
+                .contramap(state: \Game.State.canvasPlayerState)
+        )
+    }
+
+    static func canvasReducer() -> Reducer<CanvasPlayer.Action, CanvasState, Environment>
+    {
         .init { action, state, environment in
             switch action {
-            case let .updateBoardSize(size):
-                let width = Int(size.width / state.cellLength)
-                let height = Int(size.height / state.cellLength)
-                state.boardSize = .init(width: width, height: height)
-                state.board = state.selectedPattern.makeBoard(size: state.boardSize)
-
-            case .startTimer:
-                state.isRunningTimer = true
-
-                return Effect(
-                    id: TimerEffectID(),
-                    sequence: environment.timer(state.timerInterval)
-                        .map { _ in Action.tick }
-                )
-
-            case .stopTimer:
-                state.isRunningTimer = false
-                return .cancel(id: TimerEffectID())
+            case .startTimer,
+                 .stopTimer:
+                return .empty
 
             case .tick:
-                let newBoard = runGame(board: state.board, boardSize: state.boardSize)
+                let newBoard = runGame(board: state.board, boardSize: state.canvasSize)
                 let isSameBoard = state.board == newBoard
                 state.board = newBoard
 
@@ -102,23 +140,27 @@ extension Game
                     ? Effect.nextAction(.stopTimer)
                     : .empty
 
-            case let .tap(x, y):
-                state.board[x, y].toggle()
+            case let .tap(point):
+                let p = _offset(at: point, cellLength: state.cellLength)
+                state.board[p.x, p.y].toggle()
 
-            case let .drag(x, y):
-                let newFlag = state.dragState.dragging ?? !state.board[x, y]
+            case let .dragging(point):
+                let p = _offset(at: point, cellLength: state.cellLength)
+                let newFlag = state.dragState.dragging ?? !state.board[p.x, p.y]
                 state.dragState = .dragging(isFirstAlive: newFlag)
-                state.board[x, y] = newFlag
+                state.board[p.x, p.y] = newFlag
 
             case .dragEnd:
                 state.dragState = .idle
 
-            case .resetBoard:
-                state.board = state.selectedPattern.makeBoard(size: state.boardSize)
+            case let .updateCanvasSize(size):
+                let width = Int(size.width / state.cellLength)
+                let height = Int(size.height / state.cellLength)
+                state.canvasSize = .init(width: width, height: height)
+                state.board = state.selectedPattern.makeBoard(size: state.canvasSize)
 
-            case let .updatePattern(pattern):
-                state.board = pattern.makeBoard(size: state.boardSize)
-                state.selectedPattern = pattern
+            case .resetCanvas:
+                state.board = state.selectedPattern.makeBoard(size: state.canvasSize)
             }
 
             return .empty
@@ -171,11 +213,20 @@ extension Game
 
 // MARK: - Enum Properties
 
-extension Game.State.DragState
+extension Game.CanvasState.DragState
 {
     var dragging: Bool?
     {
         guard case let .dragging(value) = self else { return nil }
         return value
     }
+}
+
+// MARK: - Private
+
+private func _offset(at point: CGPoint, cellLength: CGFloat) -> Board.Point
+{
+    let x = Int(point.x / cellLength)
+    let y = Int(point.y / cellLength)
+    return Board.Point(x: x, y: y)
 }
