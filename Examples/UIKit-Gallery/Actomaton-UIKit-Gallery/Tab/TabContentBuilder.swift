@@ -32,6 +32,7 @@ enum TabContentBuilder
             switch route {
             case let .showExample(example):
                 let vc = example.build()
+                vc.navigationItem.largeTitleDisplayMode = .never
                 navC.pushViewController(vc, animated: true)
             }
         }
