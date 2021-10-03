@@ -9,5 +9,6 @@ let exampleList: [Example] = [
     StopwatchExample(),
     GitHubExample(),
     GameOfLifeExample(),
-    VideoDetectorExample()
+    VideoDetectorExample(),
+    PhysicsExample()
 ]

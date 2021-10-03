@@ -26,7 +26,8 @@ enum TabBuilder
                     StopwatchExample(),
                     GitHubExample(),
                     GameOfLifeExample(),
-                    VideoDetectorExample()
+                    VideoDetectorExample(),
+                    PhysicsExample()
                 ]
             )
         ]

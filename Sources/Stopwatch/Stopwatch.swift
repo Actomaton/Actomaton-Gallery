@@ -120,11 +120,11 @@ public struct State: Equatable
 public struct Environment
 {
     public let getDate: () -> Date
-    public let timer: () -> AsyncStream<Date>
+    public let timer: (TimeInterval) -> AsyncStream<Date>
 
     public init(
         getDate: @escaping () -> Date,
-        timer: @escaping () -> AsyncStream<Date>
+        timer: @escaping (TimeInterval) -> AsyncStream<Date>
     )
     {
         self.getDate = getDate
@@ -171,7 +171,7 @@ public var reducer: Reducer<Action, State, Environment>
 
             return Effect(
                 id: TimerID(),
-                sequence: environment.timer()
+                sequence: environment.timer(0.01)
                     .map {
                         Action._update(start: date, current: $0)
                     }

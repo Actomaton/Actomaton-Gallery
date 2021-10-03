@@ -10,14 +10,15 @@ let package = Package(
             name: "Gallery",
             targets: [
                 "Counter", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector",
-                "TimeTravel", "DebugRoot"
+                "GameOfLife", "VideoDetector", "Physics",
+                "TimeTravel", "DebugRoot",
             ])
     ],
     dependencies: [
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
-        .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main"))
+        .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main")),
+        .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1")
     ],
     targets: [
         .target(
@@ -26,6 +27,12 @@ let package = Package(
         .target(
             name: "CommonUI",
             dependencies: []),
+        .target(
+            name: "CanvasPlayer",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Utilities"
+            ]),
         .target(
             name: "ImageLoader",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
@@ -76,6 +83,13 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "VideoCapture"
+            ]),
+        .target(
+            name: "Physics",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "VectorMath",
+                "CommonUI", "CanvasPlayer"
             ]),
         .target(
             name: "DebugRoot",

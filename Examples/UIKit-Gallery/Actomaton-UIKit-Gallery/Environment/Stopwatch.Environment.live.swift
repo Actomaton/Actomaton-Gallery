@@ -8,7 +8,7 @@ extension Stopwatch.Environment
         Environment(
             getDate: { Date() },
             timer: {
-                Timer.publish(every: 0.01, tolerance: 0.01, on: .main, in: .common)
+                Timer.publish(every: $0, tolerance: $0 * 0.1, on: .main, in: .common)
                     .autoconnect()
                     .toAsyncStream()
             }

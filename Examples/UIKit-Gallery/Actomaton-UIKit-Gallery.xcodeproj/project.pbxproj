@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1BDA1627099A4F002C076B /* PhysicsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BDA1527099A4E002C076B /* PhysicsExample.swift */; };
 		332580EA26F5783D0074B02D /* CounterRouteUIKitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580E926F5783D0074B02D /* CounterRouteUIKitExample.swift */; };
 		332580EE26F57CC70074B02D /* GitHub.Environment.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580ED26F57CC70074B02D /* GitHub.Environment.live.swift */; };
 		332580F026F57DE10074B02D /* Stopwatch.Environment.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580EF26F57DE10074B02D /* Stopwatch.Environment.live.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F1BDA1527099A4E002C076B /* PhysicsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsExample.swift; sourceTree = "<group>"; };
 		332580E926F5783D0074B02D /* CounterRouteUIKitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterRouteUIKitExample.swift; sourceTree = "<group>"; };
 		332580ED26F57CC70074B02D /* GitHub.Environment.live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub.Environment.live.swift; sourceTree = "<group>"; };
 		332580EF26F57DE10074B02D /* Stopwatch.Environment.live.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stopwatch.Environment.live.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				33655D0C26F0D8AB007947CF /* StateDiagramExample.swift */,
 				33655D0D26F0D8AB007947CF /* TodoExample.swift */,
 				339F821326FA34DA006809CE /* VideoDetectorExample.swift */,
+				1F1BDA1527099A4E002C076B /* PhysicsExample.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				339F821426FA34DA006809CE /* VideoDetectorExample.swift in Sources */,
 				332580F026F57DE10074B02D /* Stopwatch.Environment.live.swift in Sources */,
 				33655D1926F0D8AB007947CF /* TodoExample.swift in Sources */,
+				1F1BDA1627099A4F002C076B /* PhysicsExample.swift in Sources */,
 				33655D1C26F0D8AB007947CF /* Root.swift in Sources */,
 				33655D1626F0D8AB007947CF /* GameOfLifeExample.swift in Sources */,
 				332580F826F59C560074B02D /* TabItem.swift in Sources */,
