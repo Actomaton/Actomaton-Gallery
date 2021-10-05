@@ -134,12 +134,11 @@ public struct Environment
 
 // MARK: - EffectID
 
-public struct GetStartDateID: EffectIDProtocol {}
-public struct TimerID: EffectIDProtocol {}
+public struct TimerEffectID: EffectIDProtocol {}
 
 public func cancelAllEffectsPredicate(id: EffectID) -> Bool
 {
-    return id is GetStartDateID || id is TimerID
+    return id is TimerEffectID
 }
 
 // MARK: - Reducer
@@ -153,16 +152,16 @@ public var reducer: Reducer<Action, State, Environment>
 
             // NOTE:
             // `Date()` is a side-effect that should not be directly called inside `Reducer`,
-            // so always wrap date creation inside `Publisher` to maintain this whole scope as a pure function.
+            // so always wrap date creation inside `Effect` to maintain this whole scope as a pure function.
             // Then, it can be replaced with a mocked effect for future improvements.
-            return Effect(id: GetStartDateID()) {
+            return Effect {
                 Action._didStart(environment.getDate())
             }
 
         case let (.start, .paused(time)):
             state.status = .preparing(time: time)
 
-            return Effect(id: GetStartDateID()) {
+            return Effect {
                 Action._didStart(environment.getDate())
             }
 
@@ -170,7 +169,7 @@ public var reducer: Reducer<Action, State, Environment>
             state.status = .running(time: time, startDate: date, currentDate: date)
 
             return Effect(
-                id: TimerID(),
+                id: TimerEffectID(),
                 sequence: environment.timer(0.01)
                     .map {
                         Action._update(start: date, current: $0)
@@ -187,11 +186,11 @@ public var reducer: Reducer<Action, State, Environment>
 
         case let (.stop, .running(time, startDate, currentDate)):
             state.status = .paused(time: time + currentDate.timeIntervalSince1970 - startDate.timeIntervalSince1970)
-            return Effect.cancel(id: TimerID())
+            return Effect.cancel(id: TimerEffectID())
 
         case (.reset, .paused):
             state.reset()
-            return Effect.cancel(id: TimerID())
+            return Effect.cancel(id: TimerEffectID())
 
         default:
             return .empty

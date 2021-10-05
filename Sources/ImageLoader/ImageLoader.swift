@@ -35,17 +35,15 @@ public struct Environment
 
 // MARK: - EffectID
 
-public struct ImageURLEffectID: EffectIDProtocol
-{
-    let url: URL
-}
+public struct ImageEffectID: EffectIDProtocol {}
+
+public struct ImageEffectQueue: Oldest1SuspendNewEffectQueueProtocol {}
 
 // MARK: - Reducer
 
 public var reducer: Reducer<Action, State, Environment>
 {
     .init { action, state, environment in
-
         switch action {
         case let .requestImage(url):
             // Skip if there is already cached image.
@@ -55,7 +53,10 @@ public var reducer: Reducer<Action, State, Environment>
                 state.isRequesting[url] = true
 
                 // Fetch & cache image.
-                return Effect(id: ImageURLEffectID(url: url)) {
+                return Effect(id: ImageEffectID(), queue: ImageEffectQueue()) {
+                    // Slight delay to simulate the network delay.
+                    await Task.sleep(300_000_000)
+
                     guard let image = await environment.fetchImage(url) else {
                         return nil
                     }
@@ -73,7 +74,7 @@ public var reducer: Reducer<Action, State, Environment>
 
         case let .cancelRequest(url):
             state.isRequesting[url] = false
-            return Effect.cancel(id: ImageURLEffectID(url: url))
+            return Effect.cancel(id: ImageEffectID())
 
         case let .removeImage(url):
             state.images[url] = .none

@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/inamiy/Actomaton",
         "state": {
           "branch": "main",
-          "revision": "4bc47a28e30b0dd449556df3068f1f4466794bdd",
+          "revision": "337d26612c94cf2201df4f998fb59262c1ac14d3",
           "version": null
         }
       },
@@ -26,6 +26,24 @@
           "branch": null,
           "revision": "d226d167bd4a68b51e352af5655c92bce8ee0463",
           "version": "0.7.0"
+        }
+      },
+      {
+        "package": "SwiftUI-PhotoPicker",
+        "repositoryURL": "https://github.com/inamiy/SwiftUI-PhotoPicker",
+        "state": {
+          "branch": "main",
+          "revision": "7fa6cc560e9c48dca41de152686ebd572eb88edf",
+          "version": null
+        }
+      },
+      {
+        "package": "VectorMath",
+        "repositoryURL": "https://github.com/nicklockwood/VectorMath",
+        "state": {
+          "branch": null,
+          "revision": "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
+          "version": "0.4.1"
         }
       }
     ]

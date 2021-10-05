@@ -22,7 +22,7 @@ public enum State: String, CustomStringConvertible, Equatable
     public var description: String { return self.rawValue }
 }
 
-public struct LoginFlowEffectID: EffectIDProtocol {}
+public struct LoginFlowEffectID: Newest1EffectQueueProtocol {}
 
 public typealias Environment = ()
 
