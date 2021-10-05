@@ -15,7 +15,7 @@ let package = Package(
             ])
     ],
     dependencies: [
-        .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
+        .package(url: "https://github.com/inamiy/Actomaton", from: "0.1.0"),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
         .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main")),
         .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1")
