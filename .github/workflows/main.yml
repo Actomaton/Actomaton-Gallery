@@ -10,7 +10,7 @@ on:
   pull_request:
 
 jobs:
-  xcodebuild-iOS:
+  build-SwiftUI-Basic:
     runs-on: macos-11
     steps:
     - uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
     - name: Build SwiftUI-Basic
       run: make build-SwiftUI-Basic
 
-  xcodebuild-tvOS:
+  build-SwiftUI-Gallery:
     runs-on: macos-11
     steps:
     - uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
     - name: Build SwiftUI-Gallery
       run: make build-SwiftUI-Gallery
 
-  xcodebuild-watchOS:
+  build-UIKit-Gallery:
     runs-on: macos-11
     steps:
     - uses: actions/checkout@v2
