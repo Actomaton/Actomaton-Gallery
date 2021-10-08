@@ -1,0 +1,38 @@
+# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# https://github.com/actions/virtual-environments/blob/master/images/macos
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - ci/**
+  pull_request:
+
+jobs:
+  build-SwiftUI-Basic:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Select Xcode version
+      run: sudo xcode-select -s '/Applications/Xcode_13.0.app'
+    - name: Build SwiftUI-Basic
+      run: make build-SwiftUI-Basic
+
+  build-SwiftUI-Gallery:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Select Xcode version
+      run: sudo xcode-select -s '/Applications/Xcode_13.0.app'
+    - name: Build SwiftUI-Gallery
+      run: make build-SwiftUI-Gallery
+
+  build-UIKit-Gallery:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Select Xcode version
+      run: sudo xcode-select -s '/Applications/Xcode_13.0.app'
+    - name: Build UIKit-Gallery
+      run: make build-UIKit-Gallery
