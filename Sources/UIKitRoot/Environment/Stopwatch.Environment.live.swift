@@ -3,7 +3,7 @@ import Stopwatch
 
 extension Stopwatch.Environment
 {
-    public static var live: Stopwatch.Environment
+    static var live: Stopwatch.Environment
     {
         Environment(
             getDate: { Date() },

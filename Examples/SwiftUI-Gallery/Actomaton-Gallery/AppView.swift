@@ -1,5 +1,6 @@
 import SwiftUI
 import ActomatonStore
+import Root
 import DebugRoot
 
 /// Topmost container view of the app which holds `Store` as a single source of truth.

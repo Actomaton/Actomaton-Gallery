@@ -3,7 +3,7 @@ import Stopwatch
 import GitHub
 import GameOfLife
 
-struct RootEnvironment
+public struct RootEnvironment
 {
     let getDate: () -> Date
     let timer: (TimeInterval) -> AsyncStream<Date>
