@@ -7,12 +7,12 @@ let package = Package(
     platforms: [.macOS(.v12), .iOS(.v15), .watchOS(.v8), .tvOS(.v15)],
     products: [
         .library(
-            name: "Gallery",
-            targets: [
-                "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector", "Physics", "Root",
-                "TimeTravel", "DebugRoot"
-            ])
+            name: "SwiftUI-Gallery",
+            targets: ["Root", "DebugRoot"]),
+
+        .library(
+            name: "UIKit-Gallery",
+            targets: ["UIKitRoot"])
     ],
     dependencies: [
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
@@ -97,18 +97,31 @@ let package = Package(
                 "VectorMath",
                 "CommonUI", "CanvasPlayer"
             ]),
+
+        // MARK: - SwiftUI-Gallery
+
         .target(
             name: "Root",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector", "Physics",
+                "GameOfLife", "VideoDetector", "Physics"
             ]),
         .target(
             name: "DebugRoot",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "TimeTravel"
-            ])
+            ]),
+
+        // MARK: - UIKit-Gallery
+
+        .target(
+            name: "UIKitRoot",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
+                "GameOfLife", "VideoDetector", "Physics"
+            ]),
     ]
 )

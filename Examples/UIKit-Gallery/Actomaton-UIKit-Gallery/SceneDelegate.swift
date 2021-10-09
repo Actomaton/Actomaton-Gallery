@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import Combine
 import ActomatonStore
+import UIKitRoot
 
 @MainActor
 class SceneDelegate: UIResponder, UIWindowSceneDelegate

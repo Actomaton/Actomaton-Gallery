@@ -2,10 +2,10 @@ import UIKit
 import SwiftUI
 import ActomatonStore
 
-enum TabBuilder
+public enum TabBuilder
 {
     @MainActor
-    static func build() -> UIViewController
+    public static func build() -> UIViewController
     {
         let tabItems: [TabItem] = [
             .init(

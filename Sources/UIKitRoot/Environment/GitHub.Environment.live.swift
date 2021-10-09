@@ -3,7 +3,7 @@ import GitHub
 
 extension GitHub.Environment
 {
-    public static var live: GitHub.Environment
+    static var live: GitHub.Environment
     {
         let fetchRequest: (URLRequest) async throws -> Data = { urlRequest in
             let (data, _) = try await URLSession.shared.data(for: urlRequest, delegate: nil)

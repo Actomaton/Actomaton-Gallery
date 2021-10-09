@@ -7,54 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F1BDA1627099A4F002C076B /* PhysicsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BDA1527099A4E002C076B /* PhysicsExample.swift */; };
-		332580EA26F5783D0074B02D /* CounterRouteUIKitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580E926F5783D0074B02D /* CounterRouteUIKitExample.swift */; };
-		332580EE26F57CC70074B02D /* GitHub.Environment.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580ED26F57CC70074B02D /* GitHub.Environment.live.swift */; };
-		332580F026F57DE10074B02D /* Stopwatch.Environment.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580EF26F57DE10074B02D /* Stopwatch.Environment.live.swift */; };
-		332580F326F583AC0074B02D /* TabBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580F226F583AC0074B02D /* TabBuilder.swift */; };
-		332580F526F59BDB0074B02D /* TabContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580F426F59BDB0074B02D /* TabContentBuilder.swift */; };
-		332580F826F59C560074B02D /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332580F726F59C560074B02D /* TabItem.swift */; };
-		333E2D3526F44B7B0026CB0E /* CounterUIKitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E2D3426F44B7B0026CB0E /* CounterUIKitExample.swift */; };
+		1FE7A1682711C9FC0048FFD8 /* UIKit-Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = 1FE7A1672711C9FC0048FFD8 /* UIKit-Gallery */; };
 		33655CA526F0BFB0007947CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655CA426F0BFB0007947CF /* AppDelegate.swift */; };
 		33655CA726F0BFB0007947CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655CA626F0BFB0007947CF /* SceneDelegate.swift */; };
 		33655CAE26F0BFB1007947CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33655CAD26F0BFB1007947CF /* Assets.xcassets */; };
-		33655D1326F0D8AB007947CF /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0626F0D8AB007947CF /* Example.swift */; };
-		33655D1426F0D8AB007947CF /* StopwatchExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0826F0D8AB007947CF /* StopwatchExample.swift */; };
-		33655D1526F0D8AB007947CF /* GitHubExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0926F0D8AB007947CF /* GitHubExample.swift */; };
-		33655D1626F0D8AB007947CF /* GameOfLifeExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0A26F0D8AB007947CF /* GameOfLifeExample.swift */; };
-		33655D1726F0D8AB007947CF /* CounterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0B26F0D8AB007947CF /* CounterExample.swift */; };
-		33655D1826F0D8AB007947CF /* StateDiagramExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0C26F0D8AB007947CF /* StateDiagramExample.swift */; };
-		33655D1926F0D8AB007947CF /* TodoExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D0D26F0D8AB007947CF /* TodoExample.swift */; };
-		33655D1C26F0D8AB007947CF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D1026F0D8AB007947CF /* Root.swift */; };
-		33655D1D26F0D8AB007947CF /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33655D1126F0D8AB007947CF /* RootView.swift */; };
-		339F821426FA34DA006809CE /* VideoDetectorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339F821326FA34DA006809CE /* VideoDetectorExample.swift */; };
-		339F821E26FA3A90006809CE /* Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = 339F821D26FA3A90006809CE /* Gallery */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F1BDA1527099A4E002C076B /* PhysicsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsExample.swift; sourceTree = "<group>"; };
-		332580E926F5783D0074B02D /* CounterRouteUIKitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterRouteUIKitExample.swift; sourceTree = "<group>"; };
-		332580ED26F57CC70074B02D /* GitHub.Environment.live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub.Environment.live.swift; sourceTree = "<group>"; };
-		332580EF26F57DE10074B02D /* Stopwatch.Environment.live.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stopwatch.Environment.live.swift; sourceTree = "<group>"; };
-		332580F226F583AC0074B02D /* TabBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBuilder.swift; sourceTree = "<group>"; };
-		332580F426F59BDB0074B02D /* TabContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContentBuilder.swift; sourceTree = "<group>"; };
-		332580F726F59C560074B02D /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
-		333E2D3426F44B7B0026CB0E /* CounterUIKitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterUIKitExample.swift; sourceTree = "<group>"; };
 		33655CA126F0BFB0007947CF /* Actomaton-UIKit-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-UIKit-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33655CA426F0BFB0007947CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33655CA626F0BFB0007947CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		33655CAD26F0BFB1007947CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33655CB226F0BFB1007947CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		33655D0626F0D8AB007947CF /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
-		33655D0826F0D8AB007947CF /* StopwatchExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchExample.swift; sourceTree = "<group>"; };
-		33655D0926F0D8AB007947CF /* GitHubExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubExample.swift; sourceTree = "<group>"; };
-		33655D0A26F0D8AB007947CF /* GameOfLifeExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOfLifeExample.swift; sourceTree = "<group>"; };
-		33655D0B26F0D8AB007947CF /* CounterExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterExample.swift; sourceTree = "<group>"; };
-		33655D0C26F0D8AB007947CF /* StateDiagramExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateDiagramExample.swift; sourceTree = "<group>"; };
-		33655D0D26F0D8AB007947CF /* TodoExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoExample.swift; sourceTree = "<group>"; };
-		33655D1026F0D8AB007947CF /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
-		33655D1126F0D8AB007947CF /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		339F821326FA34DA006809CE /* VideoDetectorExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDetectorExample.swift; sourceTree = "<group>"; };
 		339F821C26FA3A83006809CE /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,32 +27,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				339F821E26FA3A90006809CE /* Gallery in Frameworks */,
+				1FE7A1682711C9FC0048FFD8 /* UIKit-Gallery in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		332580F126F57E200074B02D /* Environment */ = {
-			isa = PBXGroup;
-			children = (
-				332580ED26F57CC70074B02D /* GitHub.Environment.live.swift */,
-				332580EF26F57DE10074B02D /* Stopwatch.Environment.live.swift */,
-			);
-			path = Environment;
-			sourceTree = "<group>";
-		};
-		332580F626F59C4B0074B02D /* Tab */ = {
-			isa = PBXGroup;
-			children = (
-				332580F226F583AC0074B02D /* TabBuilder.swift */,
-				332580F426F59BDB0074B02D /* TabContentBuilder.swift */,
-				332580F726F59C560074B02D /* TabItem.swift */,
-			);
-			path = Tab;
-			sourceTree = "<group>";
-		};
 		33655C9826F0BFB0007947CF = {
 			isa = PBXGroup;
 			children = (
@@ -112,10 +57,6 @@
 			children = (
 				33655CA426F0BFB0007947CF /* AppDelegate.swift */,
 				33655CA626F0BFB0007947CF /* SceneDelegate.swift */,
-				33655D0526F0D8AB007947CF /* ExampleList */,
-				332580F626F59C4B0074B02D /* Tab */,
-				33655D0426F0D8AB007947CF /* Root */,
-				332580F126F57E200074B02D /* Environment */,
 				33655CAD26F0BFB1007947CF /* Assets.xcassets */,
 				33655CB226F0BFB1007947CF /* Info.plist */,
 			);
@@ -127,41 +68,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		33655D0426F0D8AB007947CF /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				33655D1026F0D8AB007947CF /* Root.swift */,
-				33655D1126F0D8AB007947CF /* RootView.swift */,
-			);
-			path = Root;
-			sourceTree = "<group>";
-		};
-		33655D0526F0D8AB007947CF /* ExampleList */ = {
-			isa = PBXGroup;
-			children = (
-				33655D0726F0D8AB007947CF /* Examples */,
-				33655D0626F0D8AB007947CF /* Example.swift */,
-			);
-			path = ExampleList;
-			sourceTree = "<group>";
-		};
-		33655D0726F0D8AB007947CF /* Examples */ = {
-			isa = PBXGroup;
-			children = (
-				33655D0826F0D8AB007947CF /* StopwatchExample.swift */,
-				33655D0926F0D8AB007947CF /* GitHubExample.swift */,
-				33655D0A26F0D8AB007947CF /* GameOfLifeExample.swift */,
-				33655D0B26F0D8AB007947CF /* CounterExample.swift */,
-				333E2D3426F44B7B0026CB0E /* CounterUIKitExample.swift */,
-				332580E926F5783D0074B02D /* CounterRouteUIKitExample.swift */,
-				33655D0C26F0D8AB007947CF /* StateDiagramExample.swift */,
-				33655D0D26F0D8AB007947CF /* TodoExample.swift */,
-				339F821326FA34DA006809CE /* VideoDetectorExample.swift */,
-				1F1BDA1527099A4E002C076B /* PhysicsExample.swift */,
-			);
-			path = Examples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,7 +87,7 @@
 			);
 			name = "Actomaton-UIKit-Gallery";
 			packageProductDependencies = (
-				339F821D26FA3A90006809CE /* Gallery */,
+				1FE7A1672711C9FC0048FFD8 /* UIKit-Gallery */,
 			);
 			productName = "Actomaton-UIKit-Gallery";
 			productReference = 33655CA126F0BFB0007947CF /* Actomaton-UIKit-Gallery.app */;
@@ -236,26 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				333E2D3526F44B7B0026CB0E /* CounterUIKitExample.swift in Sources */,
-				33655D1426F0D8AB007947CF /* StopwatchExample.swift in Sources */,
-				33655D1726F0D8AB007947CF /* CounterExample.swift in Sources */,
-				332580EE26F57CC70074B02D /* GitHub.Environment.live.swift in Sources */,
 				33655CA526F0BFB0007947CF /* AppDelegate.swift in Sources */,
-				332580F326F583AC0074B02D /* TabBuilder.swift in Sources */,
-				33655D1526F0D8AB007947CF /* GitHubExample.swift in Sources */,
-				339F821426FA34DA006809CE /* VideoDetectorExample.swift in Sources */,
-				332580F026F57DE10074B02D /* Stopwatch.Environment.live.swift in Sources */,
-				33655D1926F0D8AB007947CF /* TodoExample.swift in Sources */,
-				1F1BDA1627099A4F002C076B /* PhysicsExample.swift in Sources */,
-				33655D1C26F0D8AB007947CF /* Root.swift in Sources */,
-				33655D1626F0D8AB007947CF /* GameOfLifeExample.swift in Sources */,
-				332580F826F59C560074B02D /* TabItem.swift in Sources */,
 				33655CA726F0BFB0007947CF /* SceneDelegate.swift in Sources */,
-				332580F526F59BDB0074B02D /* TabContentBuilder.swift in Sources */,
-				33655D1826F0D8AB007947CF /* StateDiagramExample.swift in Sources */,
-				33655D1326F0D8AB007947CF /* Example.swift in Sources */,
-				33655D1D26F0D8AB007947CF /* RootView.swift in Sources */,
-				332580EA26F5783D0074B02D /* CounterRouteUIKitExample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,9 +346,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		339F821D26FA3A90006809CE /* Gallery */ = {
+		1FE7A1672711C9FC0048FFD8 /* UIKit-Gallery */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Gallery;
+			productName = "UIKit-Gallery";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
