@@ -96,7 +96,7 @@ struct PendulumExample: Example
 
 extension PendulumExample: BobWorldExample
 {
-    func step(objects: inout [Bob], boardSize: CGSize)
+    func step(objects: inout [Bob], boardSize: CGSize, Δt: Scalar)
     {
         guard objects.count >= 1 else { return }
 
@@ -108,9 +108,9 @@ extension PendulumExample: BobWorldExample
 
             // Euler method.
             objects[i].angleAcceleration = Δω
-            let newAngleVelocity = obj.angleVelocity + Δω * delta_t
+            let newAngleVelocity = obj.angleVelocity + Δω * Δt
             objects[i].angleVelocity = newAngleVelocity
-            objects[i].angle = objects[i].angle + newAngleVelocity * delta_t
+            objects[i].angle = objects[i].angle + newAngleVelocity * Δt
         }
     }
 }
