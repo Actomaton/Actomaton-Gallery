@@ -6,17 +6,17 @@ struct GameOfLifeExample: Example
 {
     var exampleIcon: Image { Image(systemName: "checkmark.square") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: State.Current
     {
         .gameOfLife(GameOfLife.Root.State(pattern: .glider, cellLength: 5))
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Action, State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.gameOfLife,
-            statePath: /Root.State.Current.gameOfLife,
+            actionPath: /Action.gameOfLife,
+            statePath: /State.Current.gameOfLife,
             makeView: GameOfLife.RootView.init
         )
     }

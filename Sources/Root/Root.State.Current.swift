@@ -10,10 +10,10 @@ import GameOfLife
 import VideoDetector
 import Physics
 
-extension Root.State
+extension State
 {
     /// Current example state as sum type where each state is not shared.
-    enum Current: Equatable
+    public enum Current: Equatable
     {
         case counter(Counter.State)
         case syncCounters(SyncCounters.State)
@@ -47,7 +47,7 @@ extension Root.State
 
 // MARK: - cancelAllEffectsPredicate
 
-extension Root.State.Current
+extension State.Current
 {
     /// Used for previous screen's effects cancellation.
     var cancelAllEffectsPredicate: (EffectID) -> Bool

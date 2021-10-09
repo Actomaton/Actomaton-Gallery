@@ -10,8 +10,8 @@ let package = Package(
             name: "Gallery",
             targets: [
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector", "Physics",
-                "TimeTravel", "DebugRoot",
+                "GameOfLife", "VideoDetector", "Physics", "Root",
+                "TimeTravel", "DebugRoot"
             ])
     ],
     dependencies: [
@@ -96,6 +96,13 @@ let package = Package(
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "VectorMath",
                 "CommonUI", "CanvasPlayer"
+            ]),
+        .target(
+            name: "Root",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
+                "GameOfLife", "VideoDetector", "Physics",
             ]),
         .target(
             name: "DebugRoot",

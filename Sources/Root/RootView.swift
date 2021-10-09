@@ -2,16 +2,16 @@ import SwiftUI
 import ActomatonStore
 
 @MainActor
-struct RootView: View
+public struct RootView: View
 {
-    private let store: Store<Root.Action, Root.State>.Proxy
+    private let store: Store<Action, State>.Proxy
 
-    init(store: Store<Root.Action, Root.State>.Proxy)
+    public init(store: Store<Action, State>.Proxy)
     {
         self.store = store
     }
 
-    var body: some View
+    public var body: some View
     {
         return VStack {
             NavigationView {
@@ -43,7 +43,7 @@ struct RootView: View
                     displayMode: .inline
                 ),
             isActive: self.store.current
-                .stateBinding(onChange: Root.Action.changeCurrent)
+                .stateBinding(onChange: Action.changeCurrent)
                 .transform(
                     get: { $0?.example.exampleTitle == example.exampleTitle },
                     set: { _, isPresenting in
@@ -74,7 +74,7 @@ struct RootView_Previews: PreviewProvider
         return Group {
             RootView(
                 store: .init(
-                    state: .constant(Root.State(usesTimeTravel: true)),
+                    state: .constant(State(current: nil, usesTimeTravel: true)),
                     send: { _ in }
                 )
             )
@@ -83,7 +83,7 @@ struct RootView_Previews: PreviewProvider
 
             RootView(
                 store: .init(
-                    state: .constant(Root.State(current: .counter(.init()), usesTimeTravel: true)),
+                    state: .constant(State(current: .counter(.init()), usesTimeTravel: true)),
                     send: { _ in }
                 )
             )
