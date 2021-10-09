@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 import StateDiagram
+import ExampleListUIKit
 
 struct StateDiagramExample: Example
 {

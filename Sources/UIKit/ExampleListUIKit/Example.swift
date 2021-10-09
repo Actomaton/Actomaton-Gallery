@@ -1,7 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
-protocol Example
+public protocol Example
 {
     var exampleTitle: String { get }
     var exampleIcon: Image { get }
@@ -12,7 +12,7 @@ protocol Example
 
 extension Example
 {
-    var exampleTitle: String
+    public var exampleTitle: String
     {
         let title = String(describing: self)
         if let index = title.range(of: "Example")?.lowerBound { // trim "-Example()"

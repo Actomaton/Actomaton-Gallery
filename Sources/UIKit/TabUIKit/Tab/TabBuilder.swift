@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import ActomatonStore
+import ExampleListUIKit
 
 public enum TabBuilder
 {
@@ -32,7 +33,15 @@ public enum TabBuilder
             )
         ]
 
-        let childVCs = tabItems.map { TabContentBuilder.build(tabItem: $0) }
+        let childVCs = tabItems.map { tabItem -> UIViewController in
+            let vc = ExampleListBuilder.build(examples: tabItem.examples)
+            vc.title = tabItem.title
+            vc.tabBarItem = tabItem.tabBarItem
+
+            let navC = UINavigationController(rootViewController: vc)
+            navC.navigationBar.prefersLargeTitles = true
+            return navC
+        }
 
         let tabC: UITabBarController = {
             let tabC = UITabBarController()

@@ -1,10 +1,11 @@
 import SwiftUI
 import ActomatonStore
-import Stopwatch
+import GitHub
+import ExampleListUIKit
 
-struct StopwatchExample: Example
+struct GitHubExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "stopwatch") }
+    var exampleIcon: Image { Image(systemName: "g.circle.fill") }
 
     @MainActor
     func build() -> UIViewController
@@ -12,10 +13,10 @@ struct StopwatchExample: Example
         HostingViewController(
             store: Store(
                 state: .init(),
-                reducer: Stopwatch.reducer,
+                reducer: GitHub.reducer,
                 environment: .live
             ),
-            makeView: StopwatchView.init
+            makeView: GitHubView.init
         )
     }
 }

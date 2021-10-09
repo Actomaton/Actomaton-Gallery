@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 import GameOfLife
+import ExampleListUIKit
 
 struct GameOfLifeExample: Example
 {

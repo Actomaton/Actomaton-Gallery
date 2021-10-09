@@ -12,7 +12,7 @@ let package = Package(
 
         .library(
             name: "UIKit-Gallery",
-            targets: ["UIKitRoot"])
+            targets: ["TabUIKit"])
     ],
     dependencies: [
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
@@ -117,11 +117,20 @@ let package = Package(
         // MARK: - UIKit-Gallery
 
         .target(
-            name: "UIKitRoot",
+            name: "ExampleListUIKit",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoDetector", "Physics"
-            ]),
+            ],
+            path: "Sources/UIKit/ExampleListUIKit"),
+
+        .target(
+            name: "TabUIKit",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "ExampleListUIKit"
+            ],
+            path: "Sources/UIKit/TabUIKit")
     ]
 )

@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 import VideoDetector
+import ExampleListUIKit
 
 struct VideoDetectorExample: Example
 {

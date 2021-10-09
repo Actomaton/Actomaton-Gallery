@@ -2,11 +2,11 @@ import SwiftUI
 import ActomatonStore
 
 @MainActor
-struct RootView: View
+struct ExampleListView: View
 {
-    private let store: Store<Root.Action, Root.State>.Proxy
+    private let store: Store<ExampleList.Action, ExampleList.State>.Proxy
 
-    init(store: Store<Root.Action, Root.State>.Proxy)
+    init(store: Store<ExampleList.Action, ExampleList.State>.Proxy)
     {
         self.store = store
     }
@@ -39,23 +39,23 @@ struct RootView: View
     }
 }
 
-struct RootView_Previews: PreviewProvider
+struct ExampleListView_Previews: PreviewProvider
 {
     static var previews: some View
     {
         return Group {
-            RootView(
+            ExampleListView(
                 store: .init(
-                    state: .constant(Root.State(examples: [])),
+                    state: .constant(ExampleList.State(examples: [])),
                     send: { _ in }
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))
-                .previewDisplayName("Root")
+                .previewDisplayName("ExampleList")
 
-            RootView(
+            ExampleListView(
                 store: .init(
-                    state: .constant(Root.State(examples: [])),
+                    state: .constant(ExampleList.State(examples: [])),
                     send: { _ in }
                 )
             )

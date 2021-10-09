@@ -6,10 +6,10 @@ import Stopwatch
 import GitHub
 import GameOfLife
 
-/// Root namespace.
-enum Root {}
+/// ExampleList namespace.
+enum ExampleList {}
 
-extension Root
+extension ExampleList
 {
     public enum Action
     {

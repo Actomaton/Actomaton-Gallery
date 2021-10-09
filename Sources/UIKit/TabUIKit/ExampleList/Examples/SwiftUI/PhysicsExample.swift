@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 import Physics
+import ExampleListUIKit
 
 struct PhysicsExample: Example
 {
