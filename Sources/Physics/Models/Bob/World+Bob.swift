@@ -1,13 +1,15 @@
+import Foundation
 import CoreGraphics
 import VectorMath
 
 extension World
 {
     /// Resets `bobs` angular accelerations, and `run` custom logic (no calculation of `angleVelocity` & `angle`).
-    static func tick(_ run: @escaping (inout [Bob], _ boardSize: CGSize) -> Void)
-        -> (inout [Bob], _ boardSize: CGSize) -> Void
+    /// - Parameter Δt: Simulated delta time per tick.
+    static func tickForBobs(_ run: @escaping (inout [Bob], _ boardSize: CGSize, _ Δt: Scalar) -> Void)
+        -> (inout [Bob], _ boardSize: CGSize, _ Δt: Scalar) -> Void
     {
-        { bobs, boardSize in
+        { bobs, boardSize, Δt in
             var bobCount = bobs.count
 
             // Limit `bobs.count` to `maxObjectCount`.
@@ -22,7 +24,7 @@ extension World
             }
 
             // Calculate `angleAcceleration`.
-            run(&bobs, boardSize)
+            run(&bobs, boardSize, Δt)
 
             // NOTE: No calculation of `angleVelocity` & `angle` at end.
         }

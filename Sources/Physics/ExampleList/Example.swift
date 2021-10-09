@@ -91,7 +91,7 @@ extension ObjectWorldExample
     {
         World
             .reducer(
-                tick: World.tick(self.step),
+                tick: World.tickForObjects(self.step),
                 tap: { $0.append(Object(position: Vector2($1))) },
                 draggingObj: { $0.position = Vector2($1) },
                 draggingVoid: self.draggingVoid
@@ -105,7 +105,8 @@ extension ObjectWorldExample
 protocol BobWorldExample: Example
 {
     /// Custom logic called on every "tick" to modify `objects`, mainly to calculate angular acceleration.
-    func step(objects: inout [Bob], boardSize: CGSize)
+    /// - Parameter Δt: Simulated delta time per tick.
+    func step(objects: inout [Bob], boardSize: CGSize, Δt: Scalar)
 
     /// Custom logic called on "dragging empty space" to modify `objects`.
     func draggingVoid(_ objects: inout [Bob], point: CGPoint)
@@ -120,7 +121,7 @@ extension BobWorldExample
     {
         World
             .reducer(
-                tick: World.tick(self.step),
+                tick: World.tickForBobs(self.step),
                 tap: { _, _ in },
                 draggingObj: { _, _ in },
                 draggingVoid: self.draggingVoid

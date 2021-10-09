@@ -1,6 +1,7 @@
 import Foundation
 import CoreGraphics
 import Actomaton
+import VectorMath
 import CanvasPlayer
 
 /// Physics root namespace.
@@ -13,6 +14,7 @@ extension PhysicsRoot
     public enum Action
     {
         case changeCurrent(State.Current?)
+        case changeΔt(Scalar)
 
         // Object
         case gravityUniverse(World.Action)
@@ -31,16 +33,40 @@ extension PhysicsRoot
     public struct State: Equatable
     {
         /// Current example state.
+        private var _current: Current?
+
+        /// Wrapper to replace `_current.Δt` with `self.Δt`.
         var current: Current?
+        {
+            get {
+                guard var current = self._current else { return nil }
+
+                current.update(Δt: self.Δt)
+                return current
+            }
+            set {
+                var newValue = newValue
+                newValue?.update(Δt: self.Δt)
+                self._current = newValue
+            }
+        }
+
+        /// - Simulated delta time per tick. (shared across different `Current`)
+        var Δt: Scalar
 
         var configuration: WorldConfiguration
 
         public init(
             current: Current?,
+            Δt: Scalar = 1,
             configuration: WorldConfiguration = .init(showsVelocityArrows: true, showsForceArrows: true)
         )
         {
-            self.current = current
+            var current = current
+            current?.update(Δt: Δt)
+
+            self._current = current
+            self.Δt = Δt
             self.configuration = configuration
         }
     }
@@ -124,6 +150,10 @@ extension PhysicsRoot
                 // the best timing to cancel them.
                 return current
                     .map { Effect.cancel(ids: $0.cancelAllEffectsPredicate) } ?? .empty
+
+            case let .changeΔt(Δt):
+                state.Δt = Δt
+                return .empty
 
             default:
                 return .empty

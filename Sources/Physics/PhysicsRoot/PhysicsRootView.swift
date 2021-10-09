@@ -14,37 +14,46 @@ public struct PhysicsRootView: View
 
     public var body: some View
     {
-        Form {
-            Section {
-                List(worldExampleList, id: \.exampleTitle) { example in
-                    navigationLink(example: example)
+        VStack {
+            Form {
+                Section {
+                    List(worldExampleList, id: \.exampleTitle) { example in
+                        navigationLink(example: example)
+                    }
+                } header: {
+                    Text("Object World")
+                } footer: {
+                    Text("Tap to add new. Drag to move.").font(.caption)
                 }
-            } header: {
-                Text("Object World")
-            } footer: {
-                Text("Tap to add new. Drag to move.").font(.caption)
-            }
 
-            Section {
-                List(pendulumObjectWorldExampleList, id: \.exampleTitle) { example in
-                    navigationLink(example: example)
+                Section {
+                    List(pendulumObjectWorldExampleList, id: \.exampleTitle) { example in
+                        navigationLink(example: example)
+                    }
+                } header: {
+                    Text("Pendulum World")
                 }
-            } header: {
-                Text("Pendulum World")
             }
+            |> { self.withToolbarItems($0) }
+
+
+            Δt_slider
         }
-        |> { self.withToolbarItems($0) }
     }
 
     private func navigationLink(example: Example) -> some View
     {
         NavigationLink(
-            destination: example.exampleView(store: self.store)
-                .navigationBarTitle(
-                    "\(example.exampleTitle)",
-                    displayMode: .inline
-                )
-                |> { self.withToolbarItems($0) },
+            destination: VStack {
+                example.exampleView(store: self.store)
+                    .navigationBarTitle(
+                        "\(example.exampleTitle)",
+                        displayMode: .inline
+                    )
+                |> { self.withToolbarItems($0) }
+
+                Δt_slider
+            },
             isActive: self.store.current
                 .stateBinding(onChange: PhysicsRoot.Action.changeCurrent)
                 .transform(
@@ -64,6 +73,16 @@ public struct PhysicsRootView: View
         }
     }
 
+    private var Δt_slider: some View
+    {
+        Slider(
+            value: self.store.Δt.stateBinding(onChange: PhysicsRoot.Action.changeΔt),
+            in: 0.01 ... 1,
+            step: 0.01
+        )
+            .padding(.horizontal)
+    }
+
     @MainActor
     private func withToolbarItems<Content: View>(_ content: Content) -> some View
     {
@@ -76,6 +95,12 @@ public struct PhysicsRootView: View
                     Image(systemName: "f.square")
                 }
             }
+
+            // Broken Slider in toolbar : SwiftUI
+            // https://www.reddit.com/r/SwiftUI/comments/jdn6di/broken_slider_in_toolbar/
+//            ToolbarItemGroup(placement: .bottomBar) {
+//                Δt_slider
+//            }
         }
     }
 }

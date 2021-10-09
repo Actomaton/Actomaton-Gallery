@@ -131,12 +131,12 @@ struct DoublePendulumExample: Example
 
 extension DoublePendulumExample: BobWorldExample
 {
-    func step(objects: inout [Bob], boardSize: CGSize)
+    func step(objects: inout [Bob], boardSize: CGSize, Δt: Scalar)
     {
         guard objects.count >= 2 else { return }
 
         // Runge-Kutta method.
-        objects = rungeKutta(dt: delta_t, f: diffEq, bobs: objects)
+        objects = rungeKutta(dt: Δt, f: diffEq, bobs: objects)
     }
 
     /// https://www.physicsandbox.com/projects/double-pendulum.html

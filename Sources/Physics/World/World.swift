@@ -19,7 +19,7 @@ import CanvasPlayer
 ///
 /// World.State<Obj>
 ///     CanvasPlayer.State<World.CanvasState<Obj>> (isRunningTimer)
-///         World.CanvasState<Obj> (canvasSize, objects)
+///         World.CanvasState<Obj> (canvasSize, objects, Δt)
 ///
 /// World.Environment
 ///     CanvasPlayer.Environment
@@ -40,10 +40,11 @@ public enum World
         public var canvasPlayerState: CanvasPlayer.State<CanvasState<Obj>>
 
         /// Convenient initializer.
-        public init(objects: [Obj], offset: CGPoint = .zero, timerInterval: TimeInterval = 0.01)
+        /// - Parameter Δt: Simulated delta time per tick.
+        public init(objects: [Obj], offset: CGPoint = .zero, timerInterval: TimeInterval = 0.01, Δt: Scalar = 1)
         {
             self.canvasPlayerState = CanvasPlayer.State(
-                canvasState: World.CanvasState(objects: objects, offset: offset),
+                canvasState: World.CanvasState(objects: objects, offset: offset, Δt: Δt),
                 timerInterval: timerInterval
             )
         }
@@ -59,17 +60,22 @@ public enum World
         public var canvasSize: CGSize = .zero
         public fileprivate(set) var offset: CGPoint
 
+        /// Simulated delta time per tick.
+        var Δt: Scalar
+
         public internal(set) var objects: [Obj]
 
         fileprivate let initialObjects: [Obj]
         fileprivate var dragState: DragState = .idle
 
-        public init(objects: [Obj], offset: CGPoint = .zero)
+        /// - Parameter Δt: Simulated delta time per tick.
+        public init(objects: [Obj], offset: CGPoint = .zero, Δt: Scalar)
         {
             self.offset = offset
             self.objects = objects
             self.objects.reserveCapacity(maxObjectCount)
             self.initialObjects = objects
+            self.Δt = Δt
         }
 
         enum DragState: Equatable
@@ -98,7 +104,7 @@ public enum World
     ///   - draggingObj: Custom logic called on "dragging object" to modify `object`.
     ///   - draggingVoid: Custom logic called on "dragging empty space" to modify `objects`.
     public static func reducer<Obj>(
-        tick: @escaping (inout [Obj], CGSize) -> Void,
+        tick: @escaping (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
         tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
         draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
         draggingVoid: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in }
@@ -116,7 +122,7 @@ public enum World
     }
 
     private static func canvasReducer<Obj>(
-        tick: @escaping (inout [Obj], CGSize) -> Void,
+        tick: @escaping (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
         tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
         draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
         draggingVoid: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in }
@@ -131,7 +137,7 @@ public enum World
                 return .empty
 
             case .tick:
-                tick(&state.objects, state.canvasSize)
+                tick(&state.objects, state.canvasSize, state.Δt)
                 return .empty
 
             case let .tap(point):
