@@ -1,5 +1,6 @@
 import Actomaton
 import Counter
+import SyncCounters
 import ColorFilter
 import Todo
 import StateDiagram
@@ -21,6 +22,7 @@ extension Root
         case debugToggle(Bool)
 
         case counter(Counter.Action)
+        case syncCounters(SyncCounters.Action)
         case colorFilter(ColorFilter.Action)
         case stopwatch(Stopwatch.Action)
         case stateDiagram(StateDiagram.Action)
@@ -51,6 +53,12 @@ extension Root
                 Counter.reducer
                     .contramap(action: /Action.counter)
                     .contramap(state: /State.Current.counter)
+                    .contramap(state: \State.current)
+                    .contramap(environment: { _ in () }),
+
+                SyncCounters.reducer
+                    .contramap(action: /Action.syncCounters)
+                    .contramap(state: /State.Current.syncCounters)
                     .contramap(state: \State.current)
                     .contramap(environment: { _ in () }),
 

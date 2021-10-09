@@ -9,7 +9,7 @@ let package = Package(
         .library(
             name: "Gallery",
             targets: [
-                "Counter", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
+                "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoDetector", "Physics",
                 "TimeTravel", "DebugRoot",
             ])
@@ -42,6 +42,12 @@ let package = Package(
         .target(
             name: "Counter",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+        .target(
+            name: "SyncCounters",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Counter"
+            ]),
         .target(
             name: "ColorFilter",
             dependencies: [
