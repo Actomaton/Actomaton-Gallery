@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FDD57E22711563F00066F68 /* SyncCountersExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD57E12711563F00066F68 /* SyncCountersExample.swift */; };
 		331E1FE126ED20A000719530 /* TestAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331E1FE026ED20A000719530 /* TestAppView.swift */; };
 		332642E726E4056F00438A10 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642E226E4056F00438A10 /* DemoApp.swift */; };
 		3326431B26E4057D00438A10 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642F226E4057D00438A10 /* Root.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1FDD57E12711563F00066F68 /* SyncCountersExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncCountersExample.swift; sourceTree = "<group>"; };
 		331E1FE026ED20A000719530 /* TestAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppView.swift; sourceTree = "<group>"; };
 		332642E226E4056F00438A10 /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		332642F226E4057D00438A10 /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				33C8526326ECF13400F3EB94 /* GameOfLifeExample.swift */,
 				339F820F26FA23E3006809CE /* VideoDetectorExample.swift */,
 				33FF25B226FB6C1900E50E27 /* PhysicsExample.swift */,
+				1FDD57E12711563F00066F68 /* SyncCountersExample.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				3326433F26E4094200438A10 /* RootEnvironment.swift in Sources */,
 				3326431C26E4057D00438A10 /* RootView.swift in Sources */,
 				3341066526EC80590032CEDA /* StateDiagramExample.swift in Sources */,
+				1FDD57E22711563F00066F68 /* SyncCountersExample.swift in Sources */,
 				33C8526426ECF13400F3EB94 /* GameOfLifeExample.swift in Sources */,
 				338DC23326FC508500C38587 /* ColorFilterExample.swift in Sources */,
 				3341066326EC80590032CEDA /* GitHubExample.swift in Sources */,

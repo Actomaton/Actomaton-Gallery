@@ -31,6 +31,7 @@ extension Root.State: RootStateProtocol {}
 
 /// App's initial state to quick start to the target screen (for debugging)
 private let initialRootState: Root.State = .init(
+//    current: .syncCounters(.init()),
 //    current: .physics(.gravityUniverse),
 //    current: .physics(.gravitySurface),
 //    current: .physics(.collision),

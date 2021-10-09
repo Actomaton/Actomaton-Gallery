@@ -14,9 +14,12 @@ public enum Action: String, CustomStringConvertible
 
 public struct State: Equatable
 {
-    public var count: Int = 0
+    public var count: Int
 
-    public init() {}
+    public init(count: Int = 0)
+    {
+        self.count = count
+    }
 }
 
 // MARK: - Reducer
