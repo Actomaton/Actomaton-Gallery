@@ -2,12 +2,10 @@ import Actomaton
 
 // MARK: - Action
 
-public enum Action: String, CustomStringConvertible
+public enum Action
 {
     case increment
     case decrement
-
-    public var description: String { return self.rawValue }
 }
 
 // MARK: - State
@@ -21,6 +19,10 @@ public struct State: Equatable
         self.count = count
     }
 }
+
+// MARK: - Environment
+
+public typealias Environment = ()
 
 // MARK: - Reducer
 
@@ -37,5 +39,3 @@ public var reducer: Reducer<Action, State, Environment>
         }
     }
 }
-
-public typealias Environment = ()
