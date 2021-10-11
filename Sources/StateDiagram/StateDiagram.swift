@@ -1,30 +1,36 @@
 import Foundation
 import Actomaton
 
-public enum Action: String, CustomStringConvertible
+// MARK: - Action
+
+public enum Action
 {
     case login
     case loginOK
     case logout
     case forceLogout
     case logoutOK
-
-    public var description: String { return self.rawValue }
 }
 
-public enum State: String, CustomStringConvertible, Equatable
+// MARK: - State
+
+public enum State: Equatable
 {
     case loggedOut
     case loggingIn
     case loggedIn
     case loggingOut
-
-    public var description: String { return self.rawValue }
 }
 
-public struct LoginFlowEffectID: Newest1EffectQueueProtocol {}
+// MARK: - Environment
 
 public typealias Environment = ()
+
+// MARK: - Effect
+
+public struct LoginFlowEffectQueue: Newest1EffectQueueProtocol {}
+
+// MARK: - Reducer
 
 public var reducer: Reducer<Action, State, Environment>
 {
@@ -32,9 +38,11 @@ public var reducer: Reducer<Action, State, Environment>
         switch (action, state) {
         case (.login, .loggedOut):
             state = .loggingIn
-            return Effect(id: LoginFlowEffectID()) {
+
+            return Effect(queue: LoginFlowEffectQueue()) {
                 await Task.sleep(1_000_000_000)
                 if Task.isCancelled {
+                    print("===> loggingIn cancelled")
                     return nil
                 }
                 return .loginOK
@@ -48,7 +56,8 @@ public var reducer: Reducer<Action, State, Environment>
             (.forceLogout, .loggingIn),
             (.forceLogout, .loggedIn):
             state = .loggingOut
-            return Effect(id: LoginFlowEffectID()) {
+
+            return Effect(queue: LoginFlowEffectQueue()) {
                 await Task.sleep(1_000_000_000)
                 return .logoutOK
             }
