@@ -15,7 +15,7 @@ struct CounterExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.counter,
+            action: Root.Action.counter,
             statePath: /Root.State.Current.counter,
             makeView: CounterView.init
         )

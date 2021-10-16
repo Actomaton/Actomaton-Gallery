@@ -24,7 +24,7 @@ struct SpringPendulumExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.springPendulum,
+            action: PhysicsRoot.Action.springPendulum,
             statePath: /PhysicsRoot.State.Current.springPendulum,
             makeView: {
                 WorldView(store: $0, configuration: configuration, content: { store, configuration in

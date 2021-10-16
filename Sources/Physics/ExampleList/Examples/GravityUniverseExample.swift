@@ -22,7 +22,7 @@ struct GravityUniverseExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.gravityUniverse,
+            action: PhysicsRoot.Action.gravityUniverse,
             statePath: /PhysicsRoot.State.Current.gravityUniverse,
             makeView: {
                 WorldView(

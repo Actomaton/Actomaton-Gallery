@@ -15,7 +15,7 @@ struct PhysicsExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.physics,
+            action: Root.Action.physics,
             statePath: /Root.State.Current.physics,
             makeView: PhysicsRootView.init
         )

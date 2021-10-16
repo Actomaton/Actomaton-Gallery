@@ -15,7 +15,7 @@ struct ColorFilterExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.colorFilter,
+            action: Root.Action.colorFilter,
             statePath: /Root.State.Current.colorFilter,
             makeView: ColorFilterView.init
         )

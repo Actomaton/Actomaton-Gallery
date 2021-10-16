@@ -15,7 +15,7 @@ struct VideoDetectorExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.videoDetector,
+            action: Root.Action.videoDetector,
             statePath: /Root.State.Current.videoDetector,
             makeView: VideoDetectorView.init
         )
