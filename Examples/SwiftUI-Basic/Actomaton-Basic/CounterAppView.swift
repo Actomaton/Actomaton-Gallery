@@ -2,6 +2,7 @@ import SwiftUI
 import ActomatonStore
 import Counter
 
+@MainActor
 struct CounterAppView: View
 {
     @StateObject

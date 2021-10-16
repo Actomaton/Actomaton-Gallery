@@ -2,6 +2,7 @@ import SwiftUI
 import ActomatonStore
 import Counter
 
+@MainActor
 public struct SyncCountersView: View
 {
     private let store: Store<SyncCounters.Action, SyncCounters.State>.Proxy

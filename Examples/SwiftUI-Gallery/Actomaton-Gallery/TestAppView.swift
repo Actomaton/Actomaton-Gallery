@@ -2,6 +2,7 @@ import SwiftUI
 import ActomatonStore
 import GameOfLife
 
+@MainActor
 struct TestAppView: View
 {
     @StateObject

@@ -83,7 +83,6 @@ public struct PhysicsRootView: View
             .padding(.horizontal)
     }
 
-    @MainActor
     private func withToolbarItems<Content: View>(_ content: Content) -> some View
     {
         content.toolbar {

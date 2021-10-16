@@ -6,6 +6,7 @@ import DebugRoot
 /// Topmost container view of the app which holds `Store` as a single source of truth.
 /// For the child views, pass `Store.Proxy` instead, so that we don't duplicate multiple `Store`s
 /// but `Binding` and `Store.proxy.send` (sending message to `Store`) functionalities are still available.
+@MainActor
 struct AppView: View
 {
     @StateObject

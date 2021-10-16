@@ -1,6 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
+@MainActor
 public struct StateDiagramView: View
 {
     private let store: Store<StateDiagram.Action, StateDiagram.State>.Proxy
