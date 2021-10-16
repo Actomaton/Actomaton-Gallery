@@ -47,7 +47,7 @@ extension Example
     @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
         store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy,
-        actionPath: CasePath<PhysicsRoot.Action, ChildAction>,
+        action: @escaping (ChildAction) -> PhysicsRoot.Action,
         statePath: CasePath<PhysicsRoot.State.Current, ChildState>,
         makeView: @MainActor (Store<ChildAction, ChildState>.Proxy) -> V
     ) -> AnyView
@@ -59,7 +59,7 @@ extension Example
             if let substore = store.current
                 .traverse(\.self)?[casePath: statePath]
                 .traverse(\.self)?
-                .map(action: actionPath)
+                .contramap(action: action)
             {
                 makeView(substore)
             }

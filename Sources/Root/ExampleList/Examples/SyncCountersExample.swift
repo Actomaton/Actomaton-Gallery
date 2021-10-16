@@ -15,7 +15,7 @@ struct SyncCountersExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.syncCounters,
+            action: Root.Action.syncCounters,
             statePath: /Root.State.Current.syncCounters,
             makeView: SyncCountersView.init
         )

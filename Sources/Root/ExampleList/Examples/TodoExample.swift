@@ -15,7 +15,7 @@ struct TodoExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.todo,
+            action: Root.Action.todo,
             statePath: /Root.State.Current.todo,
             makeView: TodoView.init
         )

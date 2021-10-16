@@ -15,7 +15,7 @@ struct GameOfLifeExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Action.gameOfLife,
+            action: Action.gameOfLife,
             statePath: /State.Current.gameOfLife,
             makeView: GameOfLife.RootView.init
         )

@@ -23,7 +23,7 @@ struct CollisionExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.collision,
+            action: PhysicsRoot.Action.collision,
             statePath: /PhysicsRoot.State.Current.collision,
             makeView: {
                 WorldView(

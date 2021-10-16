@@ -16,8 +16,8 @@ public struct RootView: View
     {
         CanvasPlayerView(
             store: self.store.game.canvasPlayerState
-                .map(action: /Root.Action.game)
-                .map(action: /Game.Action.canvasPlayer),
+                .contramap(action: Root.Action.game)
+                .contramap(action: Game.Action.canvasPlayer),
             content: { store in
                 AnyView(
                     GameView(
@@ -82,7 +82,7 @@ public struct RootView: View
     {
         if let substore = store.patternSelect
             .traverse(\.self)?
-            .map(action: /Root.Action.patternSelect)
+            .contramap(action: Root.Action.patternSelect)
         {
             let patternSelectView = PatternSelectView(store: substore)
                 .navigationBarItems(trailing: Button("Close") { self.store.send(.dismissPatternSelect) })

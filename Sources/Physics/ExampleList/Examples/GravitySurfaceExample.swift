@@ -26,7 +26,7 @@ struct GravitySurfaceExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.gravitySurface,
+            action: PhysicsRoot.Action.gravitySurface,
             statePath: /PhysicsRoot.State.Current.gravitySurface,
             makeView: {
                 WorldView(

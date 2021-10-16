@@ -22,7 +22,7 @@ struct SpringExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.spring,
+            action: PhysicsRoot.Action.spring,
             statePath: /PhysicsRoot.State.Current.spring,
             makeView: {
                 WorldView(

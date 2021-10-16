@@ -30,7 +30,7 @@ struct PendulumExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.pendulum,
+            action: PhysicsRoot.Action.pendulum,
             statePath: /PhysicsRoot.State.Current.pendulum,
             makeView: {
                 // Additionally draws track & rods.

@@ -53,7 +53,7 @@ struct DoublePendulumExample: Example
 
         return Self.exampleView(
             store: store,
-            actionPath: /PhysicsRoot.Action.doublePendulum,
+            action: PhysicsRoot.Action.doublePendulum,
             statePath: /PhysicsRoot.State.Current.doublePendulum,
             makeView: {
                 // Additionally draws track & rods.

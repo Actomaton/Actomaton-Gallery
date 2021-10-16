@@ -15,7 +15,7 @@ struct StateDiagramExample: Example
     {
         Self.exampleView(
             store: store,
-            actionPath: /Root.Action.stateDiagram,
+            action: Root.Action.stateDiagram,
             statePath: /Root.State.Current.stateDiagram,
             makeView: StateDiagramView.init
         )
