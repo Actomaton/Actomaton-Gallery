@@ -24,10 +24,10 @@ public struct StateDiagramView: View
                             width: focusSize(imageWidth: geometry.size.width).width,
                             height: focusSize(imageWidth: geometry.size.width).height
                         )
-                        .animation(.easeInOut(duration: 0.3))
                         .offset(
                             focusOffsets(imageSize: geometry.size, state: self.store.state)
                         )
+                        .animation(.easeInOut(duration: 0.3), value: self.store.state)
                 }
             }
             .aspectRatio(actualImageSize, contentMode: .fit)
