@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "Actomaton-Gallery",
-    platforms: [.macOS(.v12), .iOS(.v15), .watchOS(.v8), .tvOS(.v15)],
+    platforms: [.macOS(.v11), .iOS(.v14), .watchOS(.v7), .tvOS(.v14)],
     products: [
         .library(
             name: "SwiftUI-Gallery",
