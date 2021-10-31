@@ -80,6 +80,9 @@ protocol ObjectWorldExample: Example
 
     /// Custom logic called on "dragging empty space" to modify `objects`.
     func draggingVoid(_ objects: inout [Object], point: CGPoint)
+
+    /// Creating a new object on tap.
+    func exampleTapToMakeObject(point: CGPoint) -> Object?
 }
 
 extension ObjectWorldExample
@@ -87,12 +90,22 @@ extension ObjectWorldExample
     /// Default impl.
     func draggingVoid(_ objects: inout [Object], point: CGPoint) {}
 
+    /// Default impl.
+    func exampleTapToMakeObject(point: CGPoint) -> Object?
+    {
+        Object(position: Vector2(point))
+    }
+
     var reducer: Reducer<World.Action, World.State<Object>, World.Environment>
     {
         World
             .reducer(
                 tick: World.tickForObjects(self.step),
-                tap: { $0.append(Object(position: Vector2($1))) },
+                tap: { objects, point in
+                    if let object = exampleTapToMakeObject(point: point) {
+                        objects.append(object)
+                    }
+                },
                 draggingObj: { $0.position = Vector2($1) },
                 draggingVoid: self.draggingVoid
             )

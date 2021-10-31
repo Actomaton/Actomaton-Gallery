@@ -13,6 +13,7 @@ extension PhysicsRoot.State
         case gravitySurface(World.State<Object>)
         case spring(World.State<Object>)
         case collision(World.State<Object>)
+        case galtonBoard(World.State<Object>)
         case springPendulum(World.State<Object>)
 
         // Pendulum (Bob)
@@ -27,6 +28,7 @@ extension PhysicsRoot.State
             case .gravitySurface:   return GravitySurfaceExample()
             case .spring:           return SpringExample()
             case .collision:        return CollisionExample()
+            case .galtonBoard:      return GaltonBoardExample()
             case .springPendulum:   return SpringPendulumExample()
             case .pendulum:         return PendulumExample()
             case .doublePendulum:   return DoublePendulumExample()
@@ -52,6 +54,10 @@ extension PhysicsRoot.State
             case var .collision(state):
                 state.canvasPlayerState.canvasState.Δt = Δt
                 self = .collision(state)
+
+            case var .galtonBoard(state):
+                state.canvasPlayerState.canvasState.Δt = Δt
+                self = .galtonBoard(state)
 
             case var .springPendulum(state):
                 state.canvasPlayerState.canvasState.Δt = Δt
