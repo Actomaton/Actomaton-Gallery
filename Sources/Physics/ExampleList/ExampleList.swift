@@ -7,6 +7,7 @@ let worldExampleList: [Example] = [
     SpringExample(),
     SpringPendulumExample(),
     CollisionExample(),
+    GaltonBoardExample(),
 ]
 
 @MainActor

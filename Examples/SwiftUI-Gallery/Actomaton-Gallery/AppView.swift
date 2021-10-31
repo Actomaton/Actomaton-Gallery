@@ -39,6 +39,7 @@ private let initialRootState: Root.State = .init(
 //    current: .physics(.collision),
 //    current: .physics(.pendulum),
 //    current: .physics(.doublePendulum),
+//    current: .physics(.galtonBoard),
 //    current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
 
     current: nil,

@@ -26,6 +26,11 @@ extension PhysicsRoot.State
     {
         .init(example: CollisionExample())
     }
+
+    public static var galtonBoard: PhysicsRoot.State
+    {
+        .init(example: GaltonBoardExample())
+    }
 }
 
 // MARK: - Pendulum (Bob) World presets
