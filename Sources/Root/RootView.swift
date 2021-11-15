@@ -32,6 +32,10 @@ public struct RootView: View
             // https://twitter.com/chriseidhof/status/1441330150872735745
             .navigationViewStyle(.stack)
         }
+        .onOpenURL { url in
+            print("[openURL]", url)
+            store.send(.universalLink(url))
+        }
     }
 
     private func navigationLink(example: Example) -> some View
