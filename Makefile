@@ -11,3 +11,11 @@ build-SwiftUI-Gallery:
 build-UIKit-Gallery:
 	cd Examples/UIKit-Gallery/ && \
 	xcodebuild build -scheme Actomaton-UIKit-Gallery $(DESTINATION) | xcpretty
+
+# e.g.
+# make universal-link
+# make universal-link path=counter?count=3
+# make universal-link path=physics
+# make universal-link path=physics/gravity-universe  # WARNING: iOS 15 SwiftUI double-push navigation doesn't work well
+universal-link:
+	xcrun simctl openurl booted https://inamiy-universal-link.web.app/$(path)
