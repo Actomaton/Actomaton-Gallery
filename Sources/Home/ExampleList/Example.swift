@@ -5,10 +5,10 @@ protocol Example
 {
     var exampleTitle: String { get }
     var exampleIcon: Image { get }
-    var exampleInitialState: Root.State.Current { get }
+    var exampleInitialState: Home.State.Current { get }
 
     @MainActor
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
 }
 
 extension Example
@@ -30,9 +30,9 @@ extension Example
     /// Helper method to transform parent `Store` into child `Store`, then `makeView`.
     @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
-        store: Store<Root.Action, Root.State>.Proxy,
-        action: @escaping (ChildAction) -> Root.Action,
-        statePath: CasePath<Root.State.Current, ChildState>,
+        store: Store<Home.Action, Home.State>.Proxy,
+        action: @escaping (ChildAction) -> Home.Action,
+        statePath: CasePath<Home.State.Current, ChildState>,
         makeView: @MainActor (Store<ChildAction, ChildState>.Proxy) -> V
     ) -> AnyView
     {

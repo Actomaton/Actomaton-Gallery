@@ -193,4 +193,4 @@ private func universalLinkReducer() -> Reducer<Action, State, Environment>
     }
 }
 
-public typealias Environment = RootEnvironment
+public typealias Environment = HomeEnvironment

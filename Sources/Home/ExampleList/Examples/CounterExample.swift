@@ -6,17 +6,17 @@ struct CounterExample: Example
 {
     var exampleIcon: Image { Image(systemName: "goforward.plus") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .counter(Counter.State())
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.counter,
-            statePath: /Root.State.Current.counter,
+            action: Home.Action.counter,
+            statePath: /Home.State.Current.counter,
             makeView: CounterView.init
         )
     }

@@ -2,7 +2,7 @@ import SwiftUI
 import ActomatonStore
 
 @MainActor
-public struct RootView: View
+public struct HomeView: View
 {
     private let store: Store<Action, State>.Proxy
 
@@ -71,21 +71,21 @@ public struct RootView: View
     }
 }
 
-struct RootView_Previews: PreviewProvider
+struct HomeView_Previews: PreviewProvider
 {
     static var previews: some View
     {
         return Group {
-            RootView(
+            HomeView(
                 store: .init(
                     state: .constant(State(current: nil, usesTimeTravel: true)),
                     send: { _ in }
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))
-                .previewDisplayName("Root")
+                .previewDisplayName("Home")
 
-            RootView(
+            HomeView(
                 store: .init(
                     state: .constant(State(current: .counter(.init()), usesTimeTravel: true)),
                     send: { _ in }

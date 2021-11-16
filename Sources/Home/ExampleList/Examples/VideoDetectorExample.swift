@@ -6,17 +6,17 @@ struct VideoDetectorExample: Example
 {
     var exampleIcon: Image { Image(systemName: "video") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .videoDetector(VideoDetector.State())
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.videoDetector,
-            statePath: /Root.State.Current.videoDetector,
+            action: Home.Action.videoDetector,
+            statePath: /Home.State.Current.videoDetector,
             makeView: VideoDetectorView.init
         )
     }

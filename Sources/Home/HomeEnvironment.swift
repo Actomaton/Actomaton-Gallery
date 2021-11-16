@@ -3,7 +3,7 @@ import Stopwatch
 import GitHub
 import GameOfLife
 
-public struct RootEnvironment
+public struct HomeEnvironment
 {
     let getDate: () -> Date
     let timer: (TimeInterval) -> AsyncStream<Date>
@@ -14,11 +14,11 @@ public struct RootEnvironment
 
 // MARK: - Live Environment
 
-extension RootEnvironment
+extension HomeEnvironment
 {
-    public static var live: RootEnvironment
+    public static var live: HomeEnvironment
     {
-        RootEnvironment(
+        HomeEnvironment(
             getDate: { Date() },
             timer: { timeInterval in
                 Timer.publish(every: timeInterval, tolerance: timeInterval * 0.1, on: .main, in: .common)
@@ -76,7 +76,7 @@ extension RootEnvironment
     }
 }
 
-extension RootEnvironment
+extension HomeEnvironment
 {
     var github: GitHub.Environment
     {

@@ -1,6 +1,6 @@
 import SwiftUI
 import ActomatonStore
-import Root
+import Home
 import DebugRoot
 
 /// Topmost container view of the app which holds `Store` as a single source of truth.
@@ -12,7 +12,7 @@ struct AppView: View
     @StateObject
     private var store: Store<DebugRoot.Action, DebugRoot.State> = .init(
         state: DebugRoot.State(inner: initialRootState),
-        reducer: DebugRoot.reducer(inner: Root.reducer),
+        reducer: DebugRoot.reducer(inner: Home.reducer),
         environment: .live
     )
 
@@ -21,18 +21,18 @@ struct AppView: View
     var body: some View
     {
         // IMPORTANT: Pass `Store.Proxy` to children.
-        DebugRootView<RootView>(store: self.store.proxy)
+        DebugRootView<HomeView>(store: self.store.proxy)
     }
 }
 
-extension RootView: RootViewProtocol {}
+extension HomeView: RootViewProtocol {}
 
-extension Root.State: RootStateProtocol {}
+extension Home.State: RootStateProtocol {}
 
 // MARK: - Private
 
 /// App's initial state to quick start to the target screen (for debugging)
-private let initialRootState: Root.State = .init(
+private let initialRootState: Home.State = .init(
 //    current: .syncCounters(.init()),
 //    current: .physics(.gravityUniverse),
 //    current: .physics(.gravitySurface),

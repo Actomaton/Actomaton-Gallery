@@ -6,17 +6,17 @@ struct StopwatchExample: Example
 {
     var exampleIcon: Image { Image(systemName: "stopwatch") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .stopwatch(Stopwatch.State())
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.stopwatch,
-            statePath: /Root.State.Current.stopwatch,
+            action: Home.Action.stopwatch,
+            statePath: /Home.State.Current.stopwatch,
             makeView: StopwatchView.init
         )
     }

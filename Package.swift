@@ -8,7 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "SwiftUI-Gallery",
-            targets: ["Root", "DebugRoot"]),
+            targets: ["Home", "DebugRoot"]),
 
         .library(
             name: "UIKit-Gallery",
@@ -101,7 +101,7 @@ let package = Package(
         // MARK: - SwiftUI-Gallery
 
         .target(
-            name: "Root",
+            name: "Home",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
