@@ -1,7 +1,6 @@
 import Foundation
 import CoreGraphics
 import Actomaton
-import VectorMath
 
 // MARK: - Action
 
