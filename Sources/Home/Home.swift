@@ -14,7 +14,6 @@ import Physics
 public enum Action
 {
     case changeCurrent(State.Current?)
-    case debugToggle(Bool)
 
     case universalLink(URL)
 
@@ -28,6 +27,9 @@ public enum Action
     case gameOfLife(GameOfLife.Root.Action)
     case videoDetector(VideoDetector.Action)
     case physics(PhysicsRoot.Action)
+
+    case debugToggleTimeTravel(Bool)
+    case debugToggleTab(Bool)
 }
 
 public struct State: Equatable
@@ -38,17 +40,22 @@ public struct State: Equatable
     /// Flag to show TimeTravel.
     public var usesTimeTravel: Bool
 
-    public init(current: State.Current?, usesTimeTravel: Bool)
+    /// Flag to show Tab insert/remove Debug UI.
+    public var isDebuggingTab: Bool
+
+    public init(current: State.Current?, usesTimeTravel: Bool, isDebuggingTab: Bool)
     {
         self.current = current
         self.usesTimeTravel = usesTimeTravel
+        self.isDebuggingTab = isDebuggingTab
     }
 }
 
 public var reducer: Reducer<Action, State, Environment>
 {
     .combine(
-        debugToggleReducer(),
+        debugToggleTimeTravelReducer(),
+        debugToggleTabReducer(),
         changeCurrentReducer(),
         universalLinkReducer(),
 
@@ -119,12 +126,25 @@ public var reducer: Reducer<Action, State, Environment>
     )
 }
 
-private func debugToggleReducer() -> Reducer<Action, State, Environment>
+private func debugToggleTimeTravelReducer() -> Reducer<Action, State, Environment>
 {
     .init { action, state, environment in
         switch action {
-        case let .debugToggle(isDebug):
+        case let .debugToggleTimeTravel(isDebug):
             state.usesTimeTravel = isDebug
+            return .empty
+        default:
+            return .empty
+        }
+    }
+}
+
+private func debugToggleTabReducer() -> Reducer<Action, State, Environment>
+{
+    .init { action, state, environment in
+        switch action {
+        case let .debugToggleTab(isDebug):
+            state.isDebuggingTab = isDebug
             return .empty
         default:
             return .empty

@@ -20,8 +20,13 @@ public struct HomeView: View
                 }
                 .navigationBarTitle(Text("🎭 Actomaton Gallery 🖼️"), displayMode: .large)
                 .toolbar {
-                    Toggle(isOn: store.usesTimeTravel.stateBinding(onChange: { .debugToggle($0) })) {
-                        Image(systemName: "clock.arrow.circlepath")
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Toggle(isOn: store.isDebuggingTab.stateBinding(onChange: { .debugToggleTab($0) })) {
+                            Image(systemName: "sidebar.squares.left")
+                        }
+                        Toggle(isOn: store.usesTimeTravel.stateBinding(onChange: { .debugToggleTimeTravel($0) })) {
+                            Image(systemName: "clock.arrow.circlepath")
+                        }
                     }
                 }
             }
@@ -78,7 +83,7 @@ struct HomeView_Previews: PreviewProvider
         return Group {
             HomeView(
                 store: .init(
-                    state: .constant(State(current: nil, usesTimeTravel: true)),
+                    state: .constant(State(current: nil, usesTimeTravel: true, isDebuggingTab: true)),
                     send: { _ in }
                 )
             )
@@ -87,7 +92,7 @@ struct HomeView_Previews: PreviewProvider
 
             HomeView(
                 store: .init(
-                    state: .constant(State(current: .counter(.init()), usesTimeTravel: true)),
+                    state: .constant(State(current: .counter(.init()), usesTimeTravel: true, isDebuggingTab: true)),
                     send: { _ in }
                 )
             )

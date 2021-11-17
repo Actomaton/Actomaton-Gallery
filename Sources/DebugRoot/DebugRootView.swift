@@ -25,20 +25,14 @@ public struct DebugRootView<RootView>: View
 
             if self.store.state.usesTimeTravel {
                 Divider()
-                self.debugBottomView()
+                self.timeTravelDebugView()
             }
         }
     }
 
-    private func debugBottomView() -> some View
+    private func timeTravelDebugView() -> some View
     {
         VStack(alignment: .leading) {
-//            HStack {
-//                Toggle("Debug", isOn: store.$state.isDebug)
-//            }
-//
-//            Divider()
-
             timeTravelHeader()
 
             HStack {

@@ -1,6 +1,8 @@
 import SwiftUI
 import ActomatonStore
+import Tab
 import Home
+import Root
 import DebugRoot
 
 /// Topmost container view of the app which holds `Store` as a single source of truth.
@@ -10,10 +12,10 @@ import DebugRoot
 struct AppView: View
 {
     @StateObject
-    private var store: Store<DebugRoot.Action, DebugRoot.State> = .init(
-        state: DebugRoot.State(inner: initialRootState),
-        reducer: DebugRoot.reducer(inner: Home.reducer),
-        environment: .live
+    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>> = .init(
+        state: DebugRoot.State(inner: Root.State.initialState),
+        reducer: DebugRoot.reducer(inner: Root.reducer),
+        environment: HomeEnvironment.live
     )
 
     init() {}
@@ -21,27 +23,16 @@ struct AppView: View
     var body: some View
     {
         // IMPORTANT: Pass `Store.Proxy` to children.
-        DebugRootView<HomeView>(store: self.store.proxy)
+        DebugRootView<RootView>(store: self.store.proxy)
     }
 }
 
-extension HomeView: RootViewProtocol {}
+extension RootView: RootViewProtocol {}
 
-extension Home.State: RootStateProtocol {}
-
-// MARK: - Private
-
-/// App's initial state to quick start to the target screen (for debugging)
-private let initialRootState: Home.State = .init(
-//    current: .syncCounters(.init()),
-//    current: .physics(.gravityUniverse),
-//    current: .physics(.gravitySurface),
-//    current: .physics(.collision),
-//    current: .physics(.pendulum),
-//    current: .physics(.doublePendulum),
-//    current: .physics(.galtonBoard),
-//    current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
-
-    current: nil,
-    usesTimeTravel: true
-)
+extension Root.State: RootStateProtocol
+{
+    public var usesTimeTravel: Bool
+    {
+        self.tabs.first(where: { $0.id == .home })?.state.home?.usesTimeTravel ?? false
+    }
+}
