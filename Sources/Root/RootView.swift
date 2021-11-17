@@ -1,5 +1,8 @@
 import SwiftUI
 import ActomatonStore
+import Tab
+import Home
+import Counter
 
 @MainActor
 public struct RootView: View
@@ -13,24 +16,28 @@ public struct RootView: View
 
     public var body: some View
     {
-        return VStack {
-            NavigationView {
-                List(exampleList, id: \.exampleTitle) { example in
-                    navigationLink(example: example)
+        VStack {
+            Tab.TabView(store: self.store.contramap(action: Action.tab)) { tabID, childStore in
+                if let childStore_ = childStore
+                    .contramap(action: TabCaseAction.home)[casePath: /TabCaseState.home]
+                    .traverse(\.self)
+                {
+                    HomeView(store: childStore_)
                 }
-                .navigationBarTitle(Text("🎭 Actomaton Gallery 🖼️"), displayMode: .large)
-                .toolbar {
-                    Toggle(isOn: store.usesTimeTravel.stateBinding(onChange: { .debugToggle($0) })) {
-                        Image(systemName: "clock.arrow.circlepath")
-                    }
+                else if let childStore_ = childStore
+                            .contramap(action: TabCaseAction.counter)[casePath: /TabCaseState.counter]
+                            .traverse(\.self)
+                {
+                    CounterView(store: childStore_)
+                }
+                else {
+                    Text("Should never reach here")
                 }
             }
-            // IMPORTANT:
-            // iOS 15's default `NavigationView` causes broken state management.
-            // To workaround, `.navigationViewStyle(.stack)` is required.
-            // https://github.com/inamiy/iOS15-SwiftUI-Navigation-Bug
-            // https://twitter.com/chriseidhof/status/1441330150872735745
-            .navigationViewStyle(.stack)
+
+            if self.store.state.isDebuggingTab {
+                self.tabDebugView()
+            }
         }
         .onOpenURL { url in
             print("[openURL]", url)
@@ -38,61 +45,20 @@ public struct RootView: View
         }
     }
 
-    private func navigationLink(example: Example) -> some View
+    private func tabDebugView() -> some View
     {
-        NavigationLink(
-            destination: example.exampleView(store: self.store)
-                .navigationBarTitle(
-                    "\(example.exampleTitle)",
-                    displayMode: .inline
-                ),
-            isActive: self.store.current
-                .stateBinding(onChange: Action.changeCurrent)
-                .transform(
-                    get: { $0?.example.exampleTitle == example.exampleTitle },
-                    set: { _, isPresenting in
-                        isPresenting ? example.exampleInitialState : nil
-                    }
-                )
-                // Comment-Out: `removeDuplictates()` introduced in #3 seems not needed in iOS 15.
-                // https://github.com/inamiy/Harvest-SwiftUI-Gallery/pull/3
-                //
-                // Workaround for SwiftUI's duplicated `isPresenting = false` calls per 1 dismissal.
-                // .removeDuplictates()
-        ) {
-            HStack(alignment: .firstTextBaseline) {
-                example.exampleIcon
-                    .frame(width: 44)
-                Text(example.exampleTitle)
+        HStack {
+            Text(Image(systemName: "sidebar.squares.left")).bold() + Text(" TAB").bold()
+            Spacer()
+            Button("Insert Tab") {
+                self.store.send(.insertRandomTab(index: Int.random(in: 0 ... 4)))
             }
-            .font(.body)
-            .padding(5)
+            Spacer()
+            Button("Delete Tab") {
+                self.store.send(.removeTab(index: Int.random(in: 0 ... 4)))
+            }
+            Spacer()
         }
-    }
-}
-
-struct RootView_Previews: PreviewProvider
-{
-    static var previews: some View
-    {
-        return Group {
-            RootView(
-                store: .init(
-                    state: .constant(State(current: nil, usesTimeTravel: true)),
-                    send: { _ in }
-                )
-            )
-                .previewLayout(.fixed(width: 320, height: 480))
-                .previewDisplayName("Root")
-
-            RootView(
-                store: .init(
-                    state: .constant(State(current: .counter(.init()), usesTimeTravel: true)),
-                    send: { _ in }
-                )
-            )
-                .previewLayout(.fixed(width: 320, height: 480))
-                .previewDisplayName("Intro")
-        }
+        .padding()
     }
 }

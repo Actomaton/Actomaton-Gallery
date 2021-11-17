@@ -1,160 +1,208 @@
 import Foundation
+import SwiftUI
 import Actomaton
+import Tab
+import Home
 import Counter
-import SyncCounters
-import ColorFilter
-import Todo
-import StateDiagram
-import Stopwatch
-import GitHub
-import GameOfLife
-import VideoDetector
-import Physics
+
+public enum TabID: Hashable
+{
+    case home
+    case counter(UUID)
+}
+
+public enum TabCaseAction
+{
+    case home(Home.Action)
+    case counter(Counter.Action)
+}
+
+public enum TabCaseState: Equatable
+{
+    case home(Home.State)
+    case counter(Counter.State)
+
+    public var home: Home.State?
+    {
+        guard case let .home(value) = self else { return nil }
+        return value
+    }
+}
+
+// MARK: - Action
 
 public enum Action
 {
-    case changeCurrent(State.Current?)
-    case debugToggle(Bool)
+    case tab(Tab.Action<TabCaseAction, TabCaseState, TabID>)
 
     case universalLink(URL)
 
-    case counter(Counter.Action)
-    case syncCounters(SyncCounters.Action)
-    case colorFilter(ColorFilter.Action)
-    case stopwatch(Stopwatch.Action)
-    case stateDiagram(StateDiagram.Action)
-    case todo(Todo.Action)
-    case github(GitHub.Action)
-    case gameOfLife(GameOfLife.Root.Action)
-    case videoDetector(VideoDetector.Action)
-    case physics(PhysicsRoot.Action)
+    /// Inserts random tab by tab index.
+    case insertRandomTab(index: Int)
+
+    /// Removes tab by tab index.
+    /// - Note: If `index = nil`, random tab index will be removed.
+    case removeTab(index: Int?)
 }
 
-public struct State: Equatable
+// MARK: - State
+
+public typealias State = Tab.State<TabCaseState, TabID>
+
+extension State
 {
-    /// Current example state.
-    var current: Current?
-
-    /// Flag to show TimeTravel.
-    public var usesTimeTravel: Bool
-
-    public init(current: State.Current?, usesTimeTravel: Bool)
+    /// App's initial state to quick start to the target screen (for debugging)
+    public static var initialState: State
     {
-        self.current = current
-        self.usesTimeTravel = usesTimeTravel
+        var initialHomeState: Home.State
+        {
+            Home.State(
+//                current: .syncCounters(.init()),
+//                current: .physics(.gravityUniverse),
+//                current: .physics(.gravitySurface),
+//                current: .physics(.collision),
+//                current: .physics(.pendulum),
+//                current: .physics(.doublePendulum),
+//                current: .physics(.galtonBoard),
+//                current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
+
+                current: nil,
+                usesTimeTravel: true,
+                isDebuggingTab: false
+            )
+        }
+
+        return State(
+            tabs: [
+                Tab.TabItem(
+                    id: .home,
+                    state: .home(initialHomeState),
+                    tabItemTitle: "Home",
+                    tabItemIcon: Image(systemName: "house")
+                ),
+                counterTabItem(index: 0),
+                counterTabItem(index: 1),
+                counterTabItem(index: 2),
+                counterTabItem(index: 3)
+            ],
+            currentTabID: .home
+        )
+    }
+
+    public var homeState: Home.State?
+    {
+        self.tabs.first(where: { $0.id == .home })?.state.home
+    }
+
+    public mutating func updateHomeState(_ update: (inout Home.State) -> Void)
+    {
+        guard let tabIndex = self.tabs.firstIndex(where: { $0.id == .home }),
+              var homeState = self.homeState else { return }
+
+        update(&homeState)
+
+        self.tabs[tabIndex].state = .home(homeState)
+    }
+
+    public var isDebuggingTab: Bool
+    {
+        self.homeState?.isDebuggingTab ?? false
     }
 }
 
-public var reducer: Reducer<Action, State, Environment>
+public func counterTabItem(index: Int) -> Tab.TabItem<TabCaseState, TabID>
 {
-    .combine(
-        debugToggleReducer(),
-        changeCurrentReducer(),
-        universalLinkReducer(),
-
-        // NOTE: Make sub-reducer combining for better type-inference
-        Reducer<Action, State, Environment>.combine(
-            Counter.reducer
-                .contramap(action: /Action.counter)
-                .contramap(state: /State.Current.counter)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
-
-            SyncCounters.reducer
-                .contramap(action: /Action.syncCounters)
-                .contramap(state: /State.Current.syncCounters)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
-
-            ColorFilter.reducer
-                .contramap(action: /Action.colorFilter)
-                .contramap(state: /State.Current.colorFilter)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
-
-            Todo.reducer
-                .contramap(action: /Action.todo)
-                .contramap(state: /State.Current.todo)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
-
-            StateDiagram.reducer
-                .contramap(action: /Action.stateDiagram)
-                .contramap(state: /State.Current.stateDiagram)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
-
-            Stopwatch.reducer
-                .contramap(action: /Action.stopwatch)
-                .contramap(state: /State.Current.stopwatch)
-                .contramap(state: \State.current)
-                .contramap(environment: { $0.stopwatch }),
-
-            GitHub.reducer
-                .contramap(action: /Action.github)
-                .contramap(state: /State.Current.github)
-                .contramap(state: \State.current)
-                .contramap(environment: { $0.github })
-        ),
-
-        Reducer<Action, State, Environment>.combine(
-            GameOfLife.Root.reducer()
-                .contramap(action: /Action.gameOfLife)
-                .contramap(state: /State.Current.gameOfLife)
-                .contramap(state: \State.current)
-                .contramap(environment: { $0.gameOfLife }),
-
-            VideoDetector.reducer
-                .contramap(action: /Action.videoDetector)
-                .contramap(state: /State.Current.videoDetector)
-                .contramap(state: \State.current)
-                .contramap(environment: { _ in () }),
-
-            PhysicsRoot.reducer
-                .contramap(action: /Action.physics)
-                .contramap(state: /State.Current.physics)
-                .contramap(state: \State.current)
-                .contramap(environment: { .init(timer: $0.timer) })
-        )
+    Tab.TabItem(
+        id: .counter(UUID()),
+        state: .counter(Counter.State(count: 0)),
+        tabItemTitle: "Counter \(index)",
+        tabItemIcon: Image(systemName: "\(index).square.fill")
     )
 }
 
-private func debugToggleReducer() -> Reducer<Action, State, Environment>
+// MARK: - Environment
+
+public typealias Environment = HomeEnvironment
+
+// MARK: - Reducer
+
+public var reducer: Reducer<Action, State, Environment>
 {
-    .init { action, state, environment in
+    return Reducer { action, state, environment in
         switch action {
-        case let .debugToggle(isDebug):
-            state.usesTimeTravel = isDebug
-            return .empty
-        default:
-            return .empty
+        case let .insertRandomTab(index):
+            return Effect {
+                // Random alphabet "A" ... "Z".
+                let char = (65 ... 90).map { String(UnicodeScalar($0)) }.randomElement()!
+
+                return .tab(.insertTab(
+                    Tab.TabItem(
+                        id: .counter(UUID()),
+                        state: .counter(.init(count: 0)),
+                        tabItemTitle: "Tab \(char)",
+                        tabItemIcon: Image(systemName: "\(char.lowercased()).circle")
+                    ),
+                    index: index
+                ))
+            }
+
+        case let .removeTab(index):
+            guard !state.tabs.isEmpty else { return .empty }
+
+            // Always keep `TabID.home`.
+            if state.tabs.count == 1
+                && state.tabs.first!.id == .home
+            {
+                return .empty
+            }
+
+            let adjustedIndex: Int = {
+                if let index = index {
+                    return min(max(index, state.tabs.count - 1), 0)
+                }
+                else {
+                    return Int.random(in: 0 ..< state.tabs.count)
+                }
+            }()
+
+            let tabID = state.tabs[adjustedIndex].id
+
+            guard tabID != .home else {
+                // Retry with same `removeTab` action with `index = nil` as random index.
+                return .nextAction(.removeTab(index: nil))
+            }
+
+            return .nextAction(.tab(.removeTab(tabID)))
+
+        case .universalLink:
+            return universalLinkReducer().run(action, &state, environment)
+
+        case .tab:
+            return tabReducer.run(action, &state, environment)
         }
     }
 }
 
-private func changeCurrentReducer() -> Reducer<Action, State, Environment>
+private var tabReducer: Reducer<Action, State, Environment>
 {
-    .init { action, state, environment in
-        switch action {
-        case let .changeCurrent(current):
-            state.current = current
+    Tab
+        .reducer(
+            innerReducers: { tabID in
+                switch tabID {
+                case .home:
+                    return Home.reducer
+                        .contramap(action: /TabCaseAction.home)
+                        .contramap(state: /TabCaseState.home)
 
-            // Cancel previous effects when revisiting the same screen.
-            //
-            // NOTE:
-            // We sometimes don't want to cancel previous effects at example screen's
-            // `onAppear`, `onDisappear`, `init`, `deinit`, etc,
-            // because we want to keep them running
-            // (e.g. Stopwatch temporarily visiting child screen),
-            // so `.changeCurrent` (revisiting the same screen) is
-            // the best timing to cancel them.
-            return current
-                .map { Effect.cancel(ids: $0.cancelAllEffectsPredicate) } ?? .empty
-
-        default:
-            return .empty
-        }
-    }
+                case .counter:
+                    return Counter.reducer
+                        .contramap(action: /TabCaseAction.counter)
+                        .contramap(state: /TabCaseState.counter)
+                        .contramap(environment: { _ in () })
+                }
+            }
+        )
+        .contramap(action: /Action.tab)
 }
 
 private func universalLinkReducer() -> Reducer<Action, State, Environment>
@@ -171,19 +219,44 @@ private func universalLinkReducer() -> Reducer<Action, State, Environment>
 
         switch url.pathComponents {
         case ["/"]:
-            state.current = nil
+            state.updateHomeState {
+                $0.current = nil
+            }
+            state.currentTabID = .home
 
         case ["/", "counter"]:
             let count = queryItems.first(where: { $0.name == "count" })
                 .flatMap { $0.value }
                 .flatMap(Int.init) ?? 0
-            state.current = .counter(.init(count: count))
+
+            state.updateHomeState {
+                $0.current = .counter(.init(count: count))
+            }
+            state.currentTabID = .home
 
         case ["/", "physics"]:
-            state.current = .physics(.init(current: nil))
+            state.updateHomeState {
+                $0.current = .physics(.init(current: nil))
+            }
+            state.currentTabID = .home
 
         case ["/", "physics", "gravity-universe"]:
-            state.current = .physics(.gravityUniverse)
+            state.updateHomeState {
+                $0.current = .physics(.gravityUniverse)
+            }
+            state.currentTabID = .home
+
+        case ["/", "tab"]:
+            guard !state.tabs.isEmpty else { break }
+
+            let index_ = queryItems.first(where: { $0.name == "index" })
+                .flatMap { $0.value }
+                .flatMap(Int.init)
+
+            guard let index = index_ else { break }
+
+            let adjustedIndex = min(max(index, 0), state.tabs.count - 1)
+            state.currentTabID = state.tabs[adjustedIndex].id
 
         default:
             break
@@ -192,5 +265,3 @@ private func universalLinkReducer() -> Reducer<Action, State, Environment>
         return .empty
     }
 }
-
-public typealias Environment = RootEnvironment

@@ -6,17 +6,17 @@ struct ColorFilterExample: Example
 {
     var exampleIcon: Image { Image(systemName: "paintpalette") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .colorFilter(ColorFilter.State())
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.colorFilter,
-            statePath: /Root.State.Current.colorFilter,
+            action: Home.Action.colorFilter,
+            statePath: /Home.State.Current.colorFilter,
             makeView: ColorFilterView.init
         )
     }

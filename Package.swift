@@ -9,7 +9,6 @@ let package = Package(
         .library(
             name: "SwiftUI-Gallery",
             targets: ["Root", "DebugRoot"]),
-
         .library(
             name: "UIKit-Gallery",
             targets: ["TabUIKit"])
@@ -38,6 +37,9 @@ let package = Package(
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
         .target(
             name: "TimeTravel",
+            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+        .target(
+            name: "Tab",
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
         .target(
             name: "Counter",
@@ -101,11 +103,17 @@ let package = Package(
         // MARK: - SwiftUI-Gallery
 
         .target(
-            name: "Root",
+            name: "Home",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoDetector", "Physics"
+            ]),
+        .target(
+            name: "Root",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Tab", "Home", "Counter"
             ]),
         .target(
             name: "DebugRoot",

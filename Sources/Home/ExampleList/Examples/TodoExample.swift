@@ -6,17 +6,17 @@ struct TodoExample: Example
 {
     var exampleIcon: Image { Image(systemName: "checkmark.square") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .todo(Todo.State())
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.todo,
-            statePath: /Root.State.Current.todo,
+            action: Home.Action.todo,
+            statePath: /Home.State.Current.todo,
             makeView: TodoView.init
         )
     }

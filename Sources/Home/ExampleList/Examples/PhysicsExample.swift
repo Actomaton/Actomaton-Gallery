@@ -6,17 +6,17 @@ struct PhysicsExample: Example
 {
     var exampleIcon: Image { Image(systemName: "atom") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .physics(PhysicsRoot.State(current: nil))
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.physics,
-            statePath: /Root.State.Current.physics,
+            action: Home.Action.physics,
+            statePath: /Home.State.Current.physics,
             makeView: PhysicsRootView.init
         )
     }

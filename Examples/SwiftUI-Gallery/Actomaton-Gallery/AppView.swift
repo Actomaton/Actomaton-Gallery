@@ -1,5 +1,7 @@
 import SwiftUI
 import ActomatonStore
+import Tab
+import Home
 import Root
 import DebugRoot
 
@@ -10,10 +12,10 @@ import DebugRoot
 struct AppView: View
 {
     @StateObject
-    private var store: Store<DebugRoot.Action, DebugRoot.State> = .init(
-        state: DebugRoot.State(inner: initialRootState),
+    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>> = .init(
+        state: DebugRoot.State(inner: Root.State.initialState),
         reducer: DebugRoot.reducer(inner: Root.reducer),
-        environment: .live
+        environment: HomeEnvironment.live
     )
 
     init() {}
@@ -27,21 +29,10 @@ struct AppView: View
 
 extension RootView: RootViewProtocol {}
 
-extension Root.State: RootStateProtocol {}
-
-// MARK: - Private
-
-/// App's initial state to quick start to the target screen (for debugging)
-private let initialRootState: Root.State = .init(
-//    current: .syncCounters(.init()),
-//    current: .physics(.gravityUniverse),
-//    current: .physics(.gravitySurface),
-//    current: .physics(.collision),
-//    current: .physics(.pendulum),
-//    current: .physics(.doublePendulum),
-//    current: .physics(.galtonBoard),
-//    current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
-
-    current: nil,
-    usesTimeTravel: true
-)
+extension Root.State: RootStateProtocol
+{
+    public var usesTimeTravel: Bool
+    {
+        self.tabs.first(where: { $0.id == .home })?.state.home?.usesTimeTravel ?? false
+    }
+}

@@ -6,17 +6,17 @@ struct StateDiagramExample: Example
 {
     var exampleIcon: Image { Image(systemName: "arrow.3.trianglepath") }
 
-    var exampleInitialState: Root.State.Current
+    var exampleInitialState: Home.State.Current
     {
         .stateDiagram(.loggedOut)
     }
 
-    func exampleView(store: Store<Root.Action, Root.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,
-            action: Root.Action.stateDiagram,
-            statePath: /Root.State.Current.stateDiagram,
+            action: Home.Action.stateDiagram,
+            statePath: /Home.State.Current.stateDiagram,
             makeView: StateDiagramView.init
         )
     }

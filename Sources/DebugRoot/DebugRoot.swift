@@ -46,6 +46,8 @@ public func reducer<InnerAction, InnerState, Environment>(
         .contramap(environment: { TimeTravel.Environment(inner: $0) })
 
     return .init { action, state, environment in
+        print("[DebugRoot] action", action)
+
         // IMPORTANT: Run `innerReducer` first for possible update of `usesTimeTravel`.
         let effect = innerReducer.run(action, &state, environment)
 
