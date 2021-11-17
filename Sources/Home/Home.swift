@@ -15,8 +15,6 @@ public enum Action
 {
     case changeCurrent(State.Current?)
 
-    case universalLink(URL)
-
     case counter(Counter.Action)
     case syncCounters(SyncCounters.Action)
     case colorFilter(ColorFilter.Action)
@@ -35,7 +33,7 @@ public enum Action
 public struct State: Equatable
 {
     /// Current example state.
-    var current: Current?
+    public var current: Current?
 
     /// Flag to show TimeTravel.
     public var usesTimeTravel: Bool
@@ -57,7 +55,6 @@ public var reducer: Reducer<Action, State, Environment>
         debugToggleTimeTravelReducer(),
         debugToggleTabReducer(),
         changeCurrentReducer(),
-        universalLinkReducer(),
 
         // NOTE: Make sub-reducer combining for better type-inference
         Reducer<Action, State, Environment>.combine(
@@ -177,40 +174,5 @@ private func changeCurrentReducer() -> Reducer<Action, State, Environment>
     }
 }
 
-private func universalLinkReducer() -> Reducer<Action, State, Environment>
-{
-    .init { action, state, environment in
-        guard case let .universalLink(url) = action,
-              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        else { return .empty }
-
-        let queryItems = urlComponents.queryItems ?? []
-
-        print("[UniversalLink] url.pathComponents", url.pathComponents)
-        print("[UniversalLink] queryItems", queryItems)
-
-        switch url.pathComponents {
-        case ["/"]:
-            state.current = nil
-
-        case ["/", "counter"]:
-            let count = queryItems.first(where: { $0.name == "count" })
-                .flatMap { $0.value }
-                .flatMap(Int.init) ?? 0
-            state.current = .counter(.init(count: count))
-
-        case ["/", "physics"]:
-            state.current = .physics(.init(current: nil))
-
-        case ["/", "physics", "gravity-universe"]:
-            state.current = .physics(.gravityUniverse)
-
-        default:
-            break
-        }
-
-        return .empty
-    }
-}
 
 public typealias Environment = HomeEnvironment

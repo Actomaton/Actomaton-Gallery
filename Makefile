@@ -17,5 +17,6 @@ build-UIKit-Gallery:
 # make universal-link path=counter?count=3
 # make universal-link path=physics
 # make universal-link path=physics/gravity-universe  # WARNING: iOS 15 SwiftUI double-push navigation doesn't work well
+# make universal-link path=tab?index=2
 universal-link:
 	xcrun simctl openurl booted https://inamiy-universal-link.web.app/$(path)

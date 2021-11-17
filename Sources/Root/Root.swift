@@ -35,6 +35,8 @@ public enum Action
 {
     case tab(Tab.Action<TabCaseAction, TabCaseState, TabID>)
 
+    case universalLink(URL)
+
     /// Inserts random tab by tab index.
     case insertRandomTab(index: Int)
 
@@ -87,9 +89,24 @@ extension State
         )
     }
 
+    public var homeState: Home.State?
+    {
+        self.tabs.first(where: { $0.id == .home })?.state.home
+    }
+
+    public mutating func updateHomeState(_ update: (inout Home.State) -> Void)
+    {
+        guard let tabIndex = self.tabs.firstIndex(where: { $0.id == .home }),
+              var homeState = self.homeState else { return }
+
+        update(&homeState)
+
+        self.tabs[tabIndex].state = .home(homeState)
+    }
+
     public var isDebuggingTab: Bool
     {
-        self.tabs.first(where: { $0.id == .home })?.state.home?.isDebuggingTab ?? false
+        self.homeState?.isDebuggingTab ?? false
     }
 }
 
@@ -157,7 +174,10 @@ public var reducer: Reducer<Action, State, Environment>
 
             return .nextAction(.tab(.removeTab(tabID)))
 
-        default:
+        case .universalLink:
+            return universalLinkReducer().run(action, &state, environment)
+
+        case .tab:
             return tabReducer.run(action, &state, environment)
         }
     }
@@ -185,38 +205,63 @@ private var tabReducer: Reducer<Action, State, Environment>
         .contramap(action: /Action.tab)
 }
 
-//private func universalLinkReducer() -> Reducer<Action, State, Environment>
-//{
-//    .init { action, state, environment in
-//        guard case let .universalLink(url) = action,
-//              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-//        else { return .empty }
-//
-//        let queryItems = urlComponents.queryItems ?? []
-//
-//        print("[UniversalLink] url.pathComponents", url.pathComponents)
-//        print("[UniversalLink] queryItems", queryItems)
-//
-//        switch url.pathComponents {
-//        case ["/"]:
-//            state.current = nil
-//
-//        case ["/", "counter"]:
-//            let count = queryItems.first(where: { $0.name == "count" })
-//                .flatMap { $0.value }
-//                .flatMap(Int.init) ?? 0
-//            state.current = .counter(.init(count: count))
-//
-//        case ["/", "physics"]:
-//            state.current = .physics(.init(current: nil))
-//
-//        case ["/", "physics", "gravity-universe"]:
-//            state.current = .physics(.gravityUniverse)
-//
-//        default:
-//            break
-//        }
-//
-//        return .empty
-//    }
-//}
+private func universalLinkReducer() -> Reducer<Action, State, Environment>
+{
+    .init { action, state, environment in
+        guard case let .universalLink(url) = action,
+              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        else { return .empty }
+
+        let queryItems = urlComponents.queryItems ?? []
+
+        print("[UniversalLink] url.pathComponents", url.pathComponents)
+        print("[UniversalLink] queryItems", queryItems)
+
+        switch url.pathComponents {
+        case ["/"]:
+            state.updateHomeState {
+                $0.current = nil
+            }
+            state.currentTabID = .home
+
+        case ["/", "counter"]:
+            let count = queryItems.first(where: { $0.name == "count" })
+                .flatMap { $0.value }
+                .flatMap(Int.init) ?? 0
+
+            state.updateHomeState {
+                $0.current = .counter(.init(count: count))
+            }
+            state.currentTabID = .home
+
+        case ["/", "physics"]:
+            state.updateHomeState {
+                $0.current = .physics(.init(current: nil))
+            }
+            state.currentTabID = .home
+
+        case ["/", "physics", "gravity-universe"]:
+            state.updateHomeState {
+                $0.current = .physics(.gravityUniverse)
+            }
+            state.currentTabID = .home
+
+        case ["/", "tab"]:
+            guard !state.tabs.isEmpty else { break }
+
+            let index_ = queryItems.first(where: { $0.name == "index" })
+                .flatMap { $0.value }
+                .flatMap(Int.init)
+
+            guard let index = index_ else { break }
+
+            let adjustedIndex = min(max(index, 0), state.tabs.count - 1)
+            state.currentTabID = state.tabs[adjustedIndex].id
+
+        default:
+            break
+        }
+
+        return .empty
+    }
+}

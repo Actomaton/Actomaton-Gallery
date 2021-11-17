@@ -39,10 +39,10 @@ public struct RootView: View
                 self.tabDebugView()
             }
         }
-//        .onOpenURL { url in
-//            print("[openURL]", url)
-//            store.send(.universalLink(url))
-//        }
+        .onOpenURL { url in
+            print("[openURL]", url)
+            store.send(.universalLink(url))
+        }
     }
 
     private func tabDebugView() -> some View
