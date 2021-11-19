@@ -26,6 +26,7 @@ struct PhysicsExample: Example
 //                                if Task.isCancelled { break }
 //                                continuation.yield(Date())
 //                            }
+//                            continuation.finish()
 //                        }
 //                        continuation.onTermination = { @Sendable _ in
 //                            task.cancel()
