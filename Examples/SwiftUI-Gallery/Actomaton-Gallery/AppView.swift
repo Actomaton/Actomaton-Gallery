@@ -33,6 +33,6 @@ extension Root.State: RootStateProtocol
 {
     public var usesTimeTravel: Bool
     {
-        self.tabs.first(where: { $0.id == .home })?.state.home?.usesTimeTravel ?? false
+        self.homeState?.usesTimeTravel ?? false
     }
 }

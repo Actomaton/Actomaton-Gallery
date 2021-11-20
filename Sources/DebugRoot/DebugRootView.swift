@@ -15,23 +15,26 @@ public struct DebugRootView<RootView>: View
 
     public var body: some View
     {
-        let rootView = RootView(
-            store: self.store.timeTravel.inner
-                .contramap(action: { DebugAction.timeTravel(.inner($0)) })
-        )
-
         VStack {
-            rootView
+            RootView(
+                store: self.store.timeTravel.inner
+                    .contramap(action: { DebugAction.timeTravel(.inner($0)) })
+            )
+                .frame(maxHeight: .infinity)
+
+
 
             if self.store.state.usesTimeTravel {
-                Divider()
                 self.timeTravelDebugView()
             }
         }
     }
 
+    @ViewBuilder
     private func timeTravelDebugView() -> some View
     {
+        Divider()
+
         VStack(alignment: .leading) {
             timeTravelHeader()
 
