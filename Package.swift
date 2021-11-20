@@ -9,6 +9,7 @@ let package = Package(
         .library(
             name: "SwiftUI-Gallery",
             targets: ["Root", "DebugRoot"]),
+
         .library(
             name: "UIKit-Gallery",
             targets: ["TabUIKit"])
@@ -110,10 +111,18 @@ let package = Package(
                 "GameOfLife", "VideoDetector", "Physics"
             ]),
         .target(
+            name: "SettingsScene", // NOTE: Avoid naming with `SwiftUI.Settings`.
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "UserSession"
+            ]),
+        .target(
             name: "Root",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "Tab", "Home", "Counter"
+                "Tab", "Home", "SettingsScene", "Counter",
+                "Onboarding", "Login", "UserSession",
+                "Utilities"
             ]),
         .target(
             name: "DebugRoot",
@@ -139,6 +148,29 @@ let package = Package(
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "ExampleListUIKit"
             ],
-            path: "Sources/UIKit/TabUIKit")
+            path: "Sources/UIKit/TabUIKit"),
+
+
+        // MARK: - UserSessionNavigation
+
+        .target(
+            name: "UserSession",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton")
+            ],
+            path: "Sources/UserSessionNavigation/UserSession"),
+
+        .target(
+            name: "Onboarding",
+            dependencies: [],
+            path: "Sources/UserSessionNavigation/Onboarding"),
+
+        .target(
+            name: "Login",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Utilities"
+            ],
+            path: "Sources/UserSessionNavigation/Login")
     ]
 )
