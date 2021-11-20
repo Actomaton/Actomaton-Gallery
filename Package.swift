@@ -25,6 +25,9 @@ let package = Package(
             name: "Utilities",
             dependencies: []),
         .target(
+            name: "CommonEffects",
+            dependencies: []),
+        .target(
             name: "CommonUI",
             dependencies: []),
         .target(
@@ -72,7 +75,7 @@ let package = Package(
             name: "GitHub",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "Utilities", "CommonUI", "ImageLoader"
+                "Utilities", "CommonEffects", "CommonUI", "ImageLoader"
             ]),
         .target(
             name: "GameOfLife",
@@ -108,7 +111,8 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector", "Physics"
+                "GameOfLife", "VideoDetector", "Physics",
+                "CommonEffects"
             ]),
         .target(
             name: "SettingsScene", // NOTE: Avoid naming with `SwiftUI.Settings`.

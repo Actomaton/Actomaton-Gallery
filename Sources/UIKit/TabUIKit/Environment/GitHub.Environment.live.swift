@@ -1,4 +1,5 @@
 import UIKit
+import CommonEffects
 import GitHub
 
 extension GitHub.Environment
@@ -6,8 +7,7 @@ extension GitHub.Environment
     static var live: GitHub.Environment
     {
         let fetchRequest: (URLRequest) async throws -> Data = { urlRequest in
-            let (data, _) = try await URLSession.shared.data(for: urlRequest, delegate: nil)
-            return data
+            try await CommonEffects.fetchData(for: urlRequest, delegate: nil)
         }
 
         return GitHub.Environment(
