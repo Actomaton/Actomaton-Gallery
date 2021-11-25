@@ -3,12 +3,14 @@ import ActomatonStore
 import Physics
 import ExampleListUIKit
 
-struct PhysicsExample: Example
+public struct PhysicsExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "atom") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "atom") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

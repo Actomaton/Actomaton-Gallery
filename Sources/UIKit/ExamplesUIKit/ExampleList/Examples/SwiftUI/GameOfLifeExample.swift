@@ -3,12 +3,14 @@ import ActomatonStore
 import GameOfLife
 import ExampleListUIKit
 
-struct GameOfLifeExample: Example
+public struct GameOfLifeExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "checkmark.square") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "checkmark.square") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

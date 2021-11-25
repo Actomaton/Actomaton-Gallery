@@ -3,12 +3,14 @@ import ActomatonStore
 import GitHub
 import ExampleListUIKit
 
-struct GitHubExample: Example
+public struct GitHubExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "g.circle.fill") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "g.circle.fill") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

@@ -3,12 +3,14 @@ import ActomatonStore
 import VideoDetector
 import ExampleListUIKit
 
-struct VideoDetectorExample: Example
+public struct VideoDetectorExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "video") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "video") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

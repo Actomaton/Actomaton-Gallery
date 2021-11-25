@@ -3,12 +3,14 @@ import ActomatonStore
 import StateDiagram
 import ExampleListUIKit
 
-struct StateDiagramExample: Example
+public struct StateDiagramExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "arrow.3.trianglepath") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "arrow.3.trianglepath") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

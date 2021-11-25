@@ -3,12 +3,14 @@ import ActomatonStore
 import Stopwatch
 import ExampleListUIKit
 
-struct StopwatchExample: Example
+public struct StopwatchExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "stopwatch") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "stopwatch") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(
