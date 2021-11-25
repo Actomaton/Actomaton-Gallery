@@ -147,13 +147,20 @@ let package = Package(
             path: "Sources/UIKit/ExampleListUIKit"),
 
         .target(
-            name: "TabUIKit",
+            name: "ExamplesUIKit",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "ExampleListUIKit"
             ],
-            path: "Sources/UIKit/TabUIKit"),
+            path: "Sources/UIKit/ExamplesUIKit"),
 
+        .target(
+            name: "TabUIKit",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "ExamplesUIKit",
+            ],
+            path: "Sources/UIKit/TabUIKit"),
 
         // MARK: - UserSessionNavigation
 

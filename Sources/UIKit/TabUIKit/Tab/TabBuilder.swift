@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import ActomatonStore
 import ExampleListUIKit
+import ExamplesUIKit
 
 public enum TabBuilder
 {

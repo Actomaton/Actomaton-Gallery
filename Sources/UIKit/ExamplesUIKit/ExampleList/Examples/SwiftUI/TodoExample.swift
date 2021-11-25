@@ -3,12 +3,14 @@ import ActomatonStore
 import Todo
 import ExampleListUIKit
 
-struct TodoExample: Example
+public struct TodoExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "checkmark.square") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "checkmark.square") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

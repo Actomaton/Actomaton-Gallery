@@ -3,12 +3,14 @@ import ActomatonStore
 import Counter
 import ExampleListUIKit
 
-struct CounterExample: Example
+public struct CounterExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "goforward.plus") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "goforward.plus") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         HostingViewController(
             store: Store(

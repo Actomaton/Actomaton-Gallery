@@ -4,12 +4,14 @@ import ActomatonStore
 import Counter
 import ExampleListUIKit
 
-struct CounterUIKitExample: Example
+public struct CounterUIKitExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "goforward.plus") }
+    public init() {}
+
+    public var exampleIcon: Image { Image(systemName: "goforward.plus") }
 
     @MainActor
-    func build() -> UIViewController
+    public func build() -> UIViewController
     {
         // NOTE: `Store` as a single-screen ViewModel.
         let store = Store(
