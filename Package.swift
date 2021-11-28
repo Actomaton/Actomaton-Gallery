@@ -12,7 +12,7 @@ let package = Package(
 
         .library(
             name: "UIKit-Gallery",
-            targets: ["TabUIKit"])
+            targets: ["RootUIKit"])
     ],
     dependencies: [
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
@@ -158,9 +158,26 @@ let package = Package(
             name: "TabUIKit",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "ExamplesUIKit",
+                "ExamplesUIKit", "SettingsUIKit"
             ],
             path: "Sources/UIKit/TabUIKit"),
+
+        .target(
+            name: "SettingsUIKit",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "SettingsScene"
+            ],
+            path: "Sources/UIKit/SettingsUIKit"),
+
+        .target(
+            name: "RootUIKit",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "SettingsScene", "UserSession", "Onboarding", "Login",
+                "TabUIKit", "ExampleListUIKit", "ExamplesUIKit"
+            ],
+            path: "Sources/UIKit/RootUIKit"),
 
         // MARK: - UserSessionNavigation
 

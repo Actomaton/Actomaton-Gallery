@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 import Combine
 import ActomatonStore
-import TabUIKit
+import RootUIKit
 
 @MainActor
 class SceneDelegate: UIResponder, UIWindowSceneDelegate
@@ -13,9 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let tabC = TabBuilder.build()
-
         let window = UIWindow(windowScene: windowScene)
+
+        let tabC = RootBuilder.build(
+            environment: .init(window: window)
+        )
         window.rootViewController = tabC
         self.window = window
         window.makeKeyAndVisible()
