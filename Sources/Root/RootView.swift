@@ -96,7 +96,7 @@ public struct RootView: View
                             .contramap(action: TabCaseAction.settings)[casePath: /TabCaseState.settings]
                             .traverse(\.self)
                 {
-                    SettingsView(store: childStore_)
+                    SettingsView(store: childStore_, usesNavigationView: true)
                 }
                 else if let childStore_ = childStore
                             .contramap(action: TabCaseAction.counter)[casePath: /TabCaseState.counter]

@@ -7,15 +7,18 @@ public enum Action
 {
     case logout
     case onboarding
+
+    case insertTab
+    case removeTab
 }
 
 // MARK: - State
 
 public struct State: Equatable
 {
-    public var user: User?
+    public var user: User
 
-    public init(user: User?)
+    public init(user: User)
     {
         self.user = user
     }

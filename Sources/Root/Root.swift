@@ -41,7 +41,7 @@ public struct State: Equatable
     {
         // NOTE: Uses `didSet` to also update Settings state.
         didSet {
-            let user = self.userSession.loggedInUser
+            guard let user = self.userSession.loggedInUser else { return }
 
             self.updateSettingsState {
                 $0.user = user
@@ -225,6 +225,12 @@ private var settingsReducer: Reducer<Action, State, Environment>
 
         case .onboarding:
             return .nextAction(.resetOnboarding)
+
+        case .insertTab:
+            return .nextAction(.insertRandomTab(index: Int.random(in: 0 ... 4)))
+
+        case .removeTab:
+            return .nextAction(.removeTab(index: Int.random(in: 0 ... 4)))
         }
     }
 }
