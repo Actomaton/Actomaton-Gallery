@@ -1,14 +1,13 @@
 import SwiftUI
 import ActomatonStore
-import Counter
 
 @MainActor
 struct CounterAppView: View
 {
     @StateObject
-    private var store: Store<Counter.Action, Counter.State> = .init(
-        state: Counter.State(),
-        reducer: Counter.reducer
+    private var store: Store<Action, State> = .init(
+        state: State(),
+        reducer: reducer
     )
 
     init() {}

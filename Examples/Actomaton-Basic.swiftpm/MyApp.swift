@@ -1,12 +1,10 @@
 import SwiftUI
-import ActomatonStore
 
 @main
-struct DemoApp: App {
+struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             CounterAppView()
-//            GameOfLifeAppView()
         }
     }
 }
