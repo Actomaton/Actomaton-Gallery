@@ -1,7 +1,7 @@
 DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 13 Pro'
 
 build-SwiftUI-Basic:
-	cd Examples/SwiftUI-Basic/ && \
+	cd Examples/Actomaton-Basic.swiftpm && \
 	xcodebuild build -scheme Actomaton-Basic $(DESTINATION) | xcpretty
 
 build-SwiftUI-Gallery:
