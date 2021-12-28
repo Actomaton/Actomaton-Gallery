@@ -35,7 +35,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/inamiy/Actomaton", from: "0.2.0")
+        .package(url: "https://github.com/inamiy/Actomaton", from: "0.2.1")
     ],
     targets: [
         .executableTarget(
@@ -43,7 +43,8 @@ let package = Package(
             dependencies: [
                 .productItem(name: "ActomatonStore", package: "Actomaton", condition: nil)
             ],
-            path: "."
+            path: ".",
+            swiftSettings: [.unsafeFlags(["-warn-concurrency"], .when(configuration: .debug))]
         )
     ]
 

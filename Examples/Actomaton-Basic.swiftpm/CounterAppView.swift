@@ -7,7 +7,7 @@ struct CounterAppView: View
     @StateObject
     private var store: Store<Action, State> = .init(
         state: State(),
-        reducer: reducer
+        reducer: reducer()
     )
 
     init() {}

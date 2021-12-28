@@ -26,7 +26,7 @@ typealias Environment = ()
 
 // MARK: - Reducer
 
-var reducer: Reducer<Action, State, Environment>
+func reducer() -> Reducer<Action, State, Environment>
 {
     .init { action, state, _ in
         switch action {

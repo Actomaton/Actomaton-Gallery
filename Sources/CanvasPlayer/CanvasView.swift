@@ -69,7 +69,7 @@ public struct CanvasView<CanvasState>: View where CanvasState: Equatable
             self.store.send(.updateCanvasSize(geometrySize))
 
             Task {
-                await Task.sleep(100_000_000)
+                try await Task.sleep(nanoseconds: 100_000_000)
                 self.store.send(.startTimer)
             }
         }

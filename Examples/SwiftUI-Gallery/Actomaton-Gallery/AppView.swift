@@ -14,7 +14,7 @@ struct AppView: View
     @StateObject
     private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>> = .init(
         state: DebugRoot.State(inner: Root.State.initialState),
-        reducer: DebugRoot.reducer(inner: Root.reducer),
+        reducer: DebugRoot.reducer(inner: Root.reducer()),
         environment: HomeEnvironment.live
     )
 

@@ -55,7 +55,7 @@ public var reducer: Reducer<Action, State, Environment>
                 // Fetch & cache image.
                 return Effect(id: ImageEffectID(), queue: ImageEffectQueue()) {
                     // Slight delay to simulate the network delay.
-                    await Task.sleep(300_000_000)
+                    try await Task.sleep(nanoseconds: 300_000_000)
 
                     guard let image = await environment.fetchImage(url) else {
                         return nil

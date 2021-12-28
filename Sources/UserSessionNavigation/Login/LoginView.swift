@@ -39,7 +39,7 @@ public struct LoginView: View
         Task {
             onAction(.login)
 
-            await Task.sleep(100_000_000)
+            try await Task.sleep(nanoseconds: 100_000_000)
 
             onAction(.loginError)
         }

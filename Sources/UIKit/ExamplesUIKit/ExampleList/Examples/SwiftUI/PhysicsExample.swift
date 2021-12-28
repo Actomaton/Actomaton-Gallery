@@ -24,7 +24,7 @@ public struct PhysicsExample: Example
 //                    AsyncStream { continuation in
 //                        let task = Task {
 //                            while true {
-//                                await Task.sleep(UInt64(timeInterval * 1_000_000_000))
+//                                try await Task.sleep(nanoseconds: UInt64(timeInterval * 1_000_000_000))
 //                                if Task.isCancelled { break }
 //                                continuation.yield(Date())
 //                            }

@@ -60,7 +60,7 @@ extension RootEnvironment
             },
             loadPatterns: {
                 // Fake heavy loading just for fun.
-                await Task.sleep(500_000_000) // 0.5 sec
+                try await Task.sleep(nanoseconds: 500_000_000) // 0.5 sec
 
                 let urls = Bundle.module
                     .urls(forResourcesWithExtension: "", subdirectory: "GameOfLife-Patterns")
@@ -103,7 +103,7 @@ extension RootEnvironment
                 AsyncStream { continuation in
                     let task = Task {
                         while true {
-                            await Task.sleep(UInt64(timeInterval * 1_000_000_000))
+                            try await Task.sleep(nanoseconds: UInt64(timeInterval * 1_000_000_000))
                             if Task.isCancelled { break }
                             continuation.yield(Date())
                         }

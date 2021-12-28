@@ -105,7 +105,7 @@ public struct Environment
         // Search request.
         return Effect(id: GitHubRequestID()) {
             // Sleep + EffectID auto-cancellation as debounce.
-            await Task.sleep(UInt64(self.searchRequestDelay * TimeInterval(1_000_000_000)))
+            try await Task.sleep(nanoseconds: UInt64(self.searchRequestDelay * TimeInterval(1_000_000_000)))
 
             if Task.isCancelled {
                 print("fetch cancelled")

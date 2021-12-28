@@ -166,7 +166,7 @@ public typealias Environment = HomeEnvironment
 
 // MARK: - Reducer
 
-public var reducer: Reducer<Action, State, Environment>
+public func reducer() -> Reducer<Action, State, Environment>
 {
     .combine(
         tabReducer,
