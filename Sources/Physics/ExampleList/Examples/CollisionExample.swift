@@ -51,22 +51,21 @@ extension CollisionExample: ObjectWorldExample
             for j in (i + 1) ..< objects.count {
                 let other = objects[j]
                 let posDiff = obj.position - other.position
-                let distance = posDiff.length
-                let requiredDistance = obj.radius + other.radius
-                let overlappedDistance = requiredDistance - distance
+                let posDiffNorm = posDiff.normalized()
+                let overlappedDistance = obj.radius + other.radius - posDiff.length
 
                 // 2-objects collision https://en.wikipedia.org/wiki/Elastic_collision
                 // NOTE: Formula is derived from conservation of kinetic energy and conservation of momentum.
                 if overlappedDistance > 0 {
-                    let coeff = (obj.velocity - other.velocity).dot(posDiff)
-                        * 2 / (obj.mass + other.mass) / posDiff.lengthSquared
+                    let coeff = (obj.velocity - other.velocity).dot(posDiffNorm)
+                        * 2 / (obj.mass + other.mass)
 
-                    objects[i].velocity = obj.velocity - posDiff * other.mass * coeff
-                    objects[j].velocity = other.velocity + posDiff * obj.mass * coeff
+                    objects[i].velocity = obj.velocity - posDiffNorm * other.mass * coeff
+                    objects[j].velocity = other.velocity + posDiffNorm * obj.mass * coeff
 
                     // Sliding
-                    objects[i].position = obj.position + posDiff * (overlappedDistance / distance) * 0.05
-                    objects[j].position = other.position - posDiff * (overlappedDistance / distance) * 0.05
+                    objects[i].position = obj.position + posDiffNorm * overlappedDistance * 0.05
+                    objects[j].position = other.position - posDiffNorm * overlappedDistance * 0.05
                 }
             }
 
