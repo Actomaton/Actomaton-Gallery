@@ -74,29 +74,37 @@ extension Example
 /// Example using `World` and `WorldView`.
 protocol ObjectWorldExample: Example
 {
+    associatedtype Obj: _ObjectLike
+
     /// Custom logic called on every "tick" to modify `objects`, mainly to calculate surrounding forces.
     /// - Note: `object`'s `velocity` and `position` will be automatically calculated afterwards.
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [Obj], boardSize: CGSize)
 
-    /// Custom logic called on "dragging empty space" to modify `objects`.
-    func draggingVoid(_ objects: inout [Object], point: CGPoint)
+    /// Custom logic called on "dragging empty area" to modify `objects`.
+    func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint)
+
+    /// Custom logic called on "drag-end empty area" to modify `objects`.
+    func dragEndEmptyArea(_ objects: inout [Obj])
 
     /// Creating a new object on tap.
-    func exampleTapToMakeObject(point: CGPoint) -> Object?
+    func exampleTapToMakeObject(point: CGPoint) -> Obj?
 }
 
-extension ObjectWorldExample
+extension ObjectWorldExample where Obj == CircleObject
 {
     /// Default impl.
-    func draggingVoid(_ objects: inout [Object], point: CGPoint) {}
+    func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint) {}
 
     /// Default impl.
-    func exampleTapToMakeObject(point: CGPoint) -> Object?
+    func dragEndEmptyArea(_ objects: inout [Obj]) {}
+
+    /// Default impl.
+    func exampleTapToMakeObject(point: CGPoint) -> Obj?
     {
-        Object(position: Vector2(point))
+        CircleObject(position: Vector2(point))
     }
 
-    var reducer: Reducer<World.Action, World.State<Object>, World.Environment>
+    var reducer: Reducer<World.Action, World.State<Obj>, World.Environment>
     {
         World
             .reducer(
@@ -107,7 +115,36 @@ extension ObjectWorldExample
                     }
                 },
                 draggingObj: { $0.position = Vector2($1) },
-                draggingVoid: self.draggingVoid
+                draggingEmptyArea: self.draggingEmptyArea,
+                dragEndEmptyArea: self.dragEndEmptyArea
+            )
+    }
+}
+
+extension ObjectWorldExample where Obj == Object
+{
+    /// Default impl.
+    func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint) {}
+
+    /// Default impl.
+    func exampleTapToMakeObject(point: CGPoint) -> Obj?
+    {
+        .circle(CircleObject(position: Vector2(point)))
+    }
+
+    var reducer: Reducer<World.Action, World.State<Obj>, World.Environment>
+    {
+        World
+            .reducer(
+                tick: World.tickForObjects(self.step),
+                tap: { objects, point in
+                    if let object = exampleTapToMakeObject(point: point) {
+                        objects.append(object)
+                    }
+                },
+                draggingObj: { $0.position = Vector2($1) },
+                draggingEmptyArea: self.draggingEmptyArea,
+                dragEndEmptyArea: self.dragEndEmptyArea
             )
     }
 }
@@ -121,14 +158,20 @@ protocol BobWorldExample: Example
     /// - Parameter Δt: Simulated delta time per tick.
     func step(objects: inout [Bob], boardSize: CGSize, Δt: Scalar)
 
-    /// Custom logic called on "dragging empty space" to modify `objects`.
-    func draggingVoid(_ objects: inout [Bob], point: CGPoint)
+    /// Custom logic called on "dragging empty area" to modify `objects`.
+    func draggingEmptyArea(_ objects: inout [Bob], point: CGPoint)
+
+    /// Custom logic called on "drag-end empty area" to modify `objects`.
+    func dragEndEmptyArea(_ objects: inout [Bob])
 }
 
 extension BobWorldExample
 {
     /// Default impl.
-    func draggingVoid(_ objects: inout [Bob], point: CGPoint) {}
+    func draggingEmptyArea(_ objects: inout [Bob], point: CGPoint) {}
+
+    /// Default impl.
+    func dragEndEmptyArea(_ objects: inout [Bob]) {}
 
     var reducer: Reducer<World.Action, World.State<Bob>, World.Environment>
     {
@@ -137,7 +180,8 @@ extension BobWorldExample
                 tick: World.tickForBobs(self.step),
                 tap: { _, _ in },
                 draggingObj: { _, _ in },
-                draggingVoid: self.draggingVoid
+                draggingEmptyArea: self.draggingEmptyArea,
+                dragEndEmptyArea: self.dragEndEmptyArea
             )
     }
 }

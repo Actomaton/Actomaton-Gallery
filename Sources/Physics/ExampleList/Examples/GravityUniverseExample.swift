@@ -8,7 +8,7 @@ struct GravityUniverseExample: Example
 
     var exampleInitialState: PhysicsRoot.State.Current
     {
-        .gravityUniverse(World.State(objects: Object.orbitingObjects))
+        .gravityUniverse(World.State(objects: CircleObject.orbitingObjects))
     }
 
     var exampleArrowScale: ArrowScale
@@ -40,7 +40,7 @@ struct GravityUniverseExample: Example
 
 extension GravityUniverseExample: ObjectWorldExample
 {
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [CircleObject], boardSize: CGSize)
     {
         let objectCount = objects.count
 

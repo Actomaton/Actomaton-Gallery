@@ -9,12 +9,13 @@ extension PhysicsRoot.State
     public enum Current: Equatable
     {
         // Object
-        case gravityUniverse(World.State<Object>)
-        case gravitySurface(World.State<Object>)
-        case spring(World.State<Object>)
-        case collision(World.State<Object>)
-        case galtonBoard(World.State<Object>)
-        case springPendulum(World.State<Object>)
+        case gravityUniverse(World.State<CircleObject>)
+        case gravitySurface(World.State<CircleObject>)
+        case spring(World.State<CircleObject>)
+        case collision(World.State<CircleObject>)
+        case lineCollision(World.State<Object>)
+        case galtonBoard(World.State<CircleObject>)
+        case springPendulum(World.State<CircleObject>)
 
         // Pendulum (Bob)
         case pendulum(World.State<Bob>)
@@ -28,6 +29,7 @@ extension PhysicsRoot.State
             case .gravitySurface:   return GravitySurfaceExample()
             case .spring:           return SpringExample()
             case .collision:        return CollisionExample()
+            case .lineCollision:    return LineCollisionExample()
             case .galtonBoard:      return GaltonBoardExample()
             case .springPendulum:   return SpringPendulumExample()
             case .pendulum:         return PendulumExample()
@@ -54,6 +56,10 @@ extension PhysicsRoot.State
             case var .collision(state):
                 state.canvasPlayerState.canvasState.Δt = Δt
                 self = .collision(state)
+
+            case var .lineCollision(state):
+                state.canvasPlayerState.canvasState.Δt = Δt
+                self = .lineCollision(state)
 
             case var .galtonBoard(state):
                 state.canvasPlayerState.canvasState.Δt = Δt

@@ -1,54 +1,136 @@
-import Foundation
-import CoreGraphics
+import SwiftUI
 import VectorMath
 
-public struct Object: ObjectLike, Equatable
+public enum Object: _ObjectLike, Equatable
 {
-    public let id: ObjectLikeID = UUID()
+    case circle(CircleObject)
+    case line(LineObject)
 
-    public internal(set) var mass: Mass
-    public internal(set) var position: Vector2
-    public internal(set) var velocity: Vector2
-    public internal(set) var force: Vector2
-
-    public internal(set) var radius: Scalar
-
-    public init(
-        mass: Object.Mass = 1,
-        position: Vector2 = .zero,
-        velocity: Vector2 = .zero,
-        force: Vector2 = .zero,
-        radius: Scalar = 10
-    )
+    public var id: ObjectLikeID
     {
-        self.mass = mass
-        self.position = position
-        self.velocity = velocity
-        self.force = force
-        self.radius = radius
+        switch self {
+        case let .circle(circle):
+            return circle.id
+        case let .line(line):
+            return line.id
+        }
     }
 
-    public var circleRect: CGRect
+    public var mass: Scalar
     {
-        let origin = position - Vector2(radius, radius)
-        let diameter = radius * 2
-        return CGRect(x: origin.x, y: origin.y, width: diameter, height: diameter)
+        get {
+            switch self {
+            case let .circle(circle):
+                return circle.mass
+            case let .line(line):
+                return line.mass
+            }
+        }
+        set {
+            switch self {
+            case var .circle(circle):
+                circle.mass = newValue
+                self = .circle(circle)
+            case var .line(line):
+                line.mass = newValue
+                self = .line(line)
+            }
+        }
     }
 
-    /// Expands circle's touchable area if too small (at least 28 x 28).
-    public var circleTouchRect: CGRect
+    public var position: Vector2
     {
-        self.circleRect
-            .insetBy(
-                dx: -max(self.circleRect.width / 2, 14),
-                dy: -max(self.circleRect.height / 2, 14)
-            )
+        get {
+            switch self {
+            case let .circle(circle):
+                return circle.position
+            case let .line(line):
+                return line.position
+            }
+        }
+        set {
+            switch self {
+            case var .circle(circle):
+                circle.position = newValue
+                self = .circle(circle)
+            case var .line(line):
+                line.position = newValue
+                self = .line(line)
+            }
+        }
     }
-}
 
-// MARK: - Types
+    public var velocity: Vector2
+    {
+        get {
+            switch self {
+            case let .circle(circle):
+                return circle.velocity
+            case let .line(line):
+                return line.velocity
+            }
+        }
+        set {
+            switch self {
+            case var .circle(circle):
+                circle.velocity = newValue
+                self = .circle(circle)
+            case var .line(line):
+                line.velocity = newValue
+                self = .line(line)
+            }
+        }
+    }
 
-extension Object
-{
-    public typealias Mass = Scalar
+    public var force: Vector2
+    {
+        get {
+            switch self {
+            case let .circle(circle):
+                return circle.force
+            case let .line(line):
+                return line.force
+            }
+        }
+        set {
+            switch self {
+            case var .circle(circle):
+                circle.force = newValue
+                self = .circle(circle)
+            case var .line(line):
+                line.force = newValue
+                self = .line(line)
+            }
+        }
+    }
+
+    public func makeView(absolutePosition: CGPoint) -> AnyView
+    {
+        switch self {
+        case let .circle(circle):
+            return AnyView(circle.makeView(absolutePosition: absolutePosition))
+        case let .line(line):
+            return AnyView(line.makeView(absolutePosition: absolutePosition))
+        }
+    }
+
+    public var touchableRect: CGRect
+    {
+        switch self {
+        case let .circle(circle):
+            return circle.touchableRect
+        case let .line(line):
+            return line.touchableRect
+        }
+    }
+
+    public var isStatic: Bool
+    {
+        switch self {
+        case let .circle(circle):
+            return circle.isStatic
+        case let .line(line):
+            return line.isStatic
+        }
+    }
 }

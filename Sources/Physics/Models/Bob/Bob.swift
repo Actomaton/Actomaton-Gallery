@@ -1,5 +1,4 @@
-import Foundation
-import CoreGraphics
+import SwiftUI
 import VectorMath
 
 /// Pendulum's weight object.
@@ -52,8 +51,17 @@ extension Bob: ObjectLike
         tangentNorm * rodLength * angleAcceleration * mass // mrω'
     }
 
+    public func makeView(absolutePosition: CGPoint) -> some SwiftUI.View
+    {
+        Circle()
+            .position(absolutePosition)
+            .frame(width: visibleRect.width, height: visibleRect.height)
+            .foregroundColor(Color.green)
+            .contrast(1 - 0.2 * log10(Double(mass)))
+    }
+
     /// - Note: Using **relative position** from previous object's position.
-    public var circleRect: CGRect
+    private var visibleRect: CGRect
     {
         let origin = position - Vector2(radius, radius)
         let diameter = radius * 2
@@ -62,13 +70,18 @@ extension Bob: ObjectLike
 
     /// Expands circle's touchable area if too small (at least 28 x 28).
     /// - Note: Using **relative position** from previous object's position. 
-    public var circleTouchRect: CGRect
+    public var touchableRect: CGRect
     {
-        self.circleRect
+        self.visibleRect
             .insetBy(
-                dx: -max(self.circleRect.width / 2, 14),
-                dy: -max(self.circleRect.height / 2, 14)
+                dx: -max(self.visibleRect.width / 2, 14),
+                dy: -max(self.visibleRect.height / 2, 14)
             )
+    }
+
+    public var isStatic: Bool
+    {
+        false
     }
 
     fileprivate var tangentNorm: Vector2

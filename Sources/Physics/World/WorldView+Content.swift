@@ -97,13 +97,8 @@ extension WorldView
         return ForEach(objects, id: \.object.id) { absObj in
             let obj = absObj.object
             let absPos = absObj.absolutePosition
-            let rect = obj.circleRect
 
-            Circle()
-                .position(CGPoint(absPos + offset))
-                .frame(width: rect.width, height: rect.height)
-                .foregroundColor(Color.green)
-                .contrast(1 - 0.2 * log10(Double(obj.mass)))
+            obj.makeView(absolutePosition: CGPoint(absPos + offset))
         }
     }
 

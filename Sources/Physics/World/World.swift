@@ -102,12 +102,14 @@ public enum World
     ///   - tick: Custom logic called on every "tick" to modify `objects`, mainly to calculate surrounding forces.
     ///   - tap: Custom logic called on "tap" to modify `objects`.
     ///   - draggingObj: Custom logic called on "dragging object" to modify `object`.
-    ///   - draggingVoid: Custom logic called on "dragging empty space" to modify `objects`.
+    ///   - draggingEmptyArea: Custom logic called on "dragging empty area" to modify `objects`.
+    ///   - dragEndEmptyArea: Custom logic called on "drag-end empty area" to modify `objects`.
     public static func reducer<Obj>(
         tick: @escaping (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
         tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
         draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
-        draggingVoid: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in }
+        draggingEmptyArea: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
+        dragEndEmptyArea: @escaping (inout [Obj]) -> Void = { _ in }
     ) -> Reducer<World.Action, World.State<Obj>, Environment>
         where Obj: ObjectLike
     {
@@ -115,7 +117,13 @@ public enum World
             CanvasPlayer.reducer()
                 .contramap(state: \World.State.canvasPlayerState),
 
-            canvasReducer(tick: tick, tap: tap, draggingObj: draggingObj, draggingVoid: draggingVoid)
+            canvasReducer(
+                tick: tick,
+                tap: tap,
+                draggingObj: draggingObj,
+                draggingEmptyArea: draggingEmptyArea,
+                dragEndEmptyArea: dragEndEmptyArea
+            )
                 .contramap(state: \CanvasPlayer.State<World.CanvasState>.canvasState)
                 .contramap(state: \World.State.canvasPlayerState)
         )
@@ -125,7 +133,8 @@ public enum World
         tick: @escaping (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
         tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
         draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
-        draggingVoid: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in }
+        draggingEmptyArea: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
+        dragEndEmptyArea: @escaping (inout [Obj]) -> Void = { _ in }
     ) -> Reducer<Action, CanvasState<Obj>, Environment>
         where Obj: ObjectLike
     {
@@ -146,7 +155,7 @@ public enum World
 
             case let .dragging(point):
                 if state.dragState == .idle {
-                    if let obj = state.objects.first(where: { $0.circleTouchRect.contains(point) }) {
+                    if let obj = state.objects.first(where: { $0.touchableRect.contains(point) }) {
                         state.dragState = .draggingObject(obj.id)
                     }
                     else {
@@ -159,13 +168,14 @@ public enum World
                     draggingObj(&state.objects[index], point)
                 }
                 else {
-                    draggingVoid(&state.objects, point)
+                    draggingEmptyArea(&state.objects, point)
                 }
 
                 return .empty
 
             case .dragEnd:
                 state.dragState = .idle
+                dragEndEmptyArea(&state.objects)
                 return .empty
 
             case let .updateCanvasSize(size):

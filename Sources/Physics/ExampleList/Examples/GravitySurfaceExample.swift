@@ -9,9 +9,9 @@ struct GravitySurfaceExample: Example
     var exampleInitialState: PhysicsRoot.State.Current
     {
         .gravitySurface(World.State(objects: [
-            Object(mass: 1, position: .init(180, 200), velocity: .init(0, 0)),
-            Object(mass: 1, position: .init(0, 200), velocity: .init(3, -5)),
-            Object(mass: 1, position: .init(0, 200), velocity: .init(3, 0)),
+            CircleObject(mass: 1, position: .init(180, 200), velocity: .init(0, 0)),
+            CircleObject(mass: 1, position: .init(0, 200), velocity: .init(3, -5)),
+            CircleObject(mass: 1, position: .init(0, 200), velocity: .init(3, 0)),
         ]))
     }
 
@@ -44,7 +44,7 @@ struct GravitySurfaceExample: Example
 
 extension GravitySurfaceExample: ObjectWorldExample
 {
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [CircleObject], boardSize: CGSize)
     {
         // F = m * g
         for i in 0 ..< objects.count {
@@ -53,9 +53,9 @@ extension GravitySurfaceExample: ObjectWorldExample
         }
     }
 
-    func draggingVoid(_ objects: inout [Object], point: CGPoint)
+    func draggingEmptyArea(_ objects: inout [CircleObject], point: CGPoint)
     {
-        objects.append(Object(position: Vector2(point)))
+        objects.append(CircleObject(position: Vector2(point)))
     }
 }
 
