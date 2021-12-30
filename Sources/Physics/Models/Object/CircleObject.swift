@@ -12,12 +12,15 @@ public struct CircleObject: _ObjectLike, Equatable
 
     public internal(set) var radius: Scalar
 
+    public let isStatic: Bool
+
     public init(
         mass: Mass = 1,
         position: Vector2 = .zero,
         velocity: Vector2 = .zero,
         force: Vector2 = .zero,
-        radius: Scalar = 10
+        radius: Scalar = 10,
+        isStatic: Bool = false
     )
     {
         self.mass = mass
@@ -25,6 +28,7 @@ public struct CircleObject: _ObjectLike, Equatable
         self.velocity = velocity
         self.force = force
         self.radius = radius
+        self.isStatic = isStatic
     }
 
     public func makeView(absolutePosition: CGPoint) -> some SwiftUI.View

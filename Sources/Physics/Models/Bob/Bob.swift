@@ -79,6 +79,11 @@ extension Bob: ObjectLike
             )
     }
 
+    public var isStatic: Bool
+    {
+        false
+    }
+
     fileprivate var tangentNorm: Vector2
     {
         position.normalized().rotated(by: -.halfPi)

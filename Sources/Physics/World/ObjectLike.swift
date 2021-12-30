@@ -19,6 +19,8 @@ public protocol ObjectLike
     func makeView(absolutePosition: CGPoint) -> View
 
     var touchableRect: CGRect { get }
+
+    var isStatic: Bool { get }
 }
 
 protocol _ObjectLike: ObjectLike

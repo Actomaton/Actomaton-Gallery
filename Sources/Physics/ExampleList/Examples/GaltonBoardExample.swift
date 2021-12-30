@@ -46,11 +46,6 @@ extension GaltonBoardExample: ObjectWorldExample
         let staticCount = staticObjects.count
         let objectCount = objects.count
 
-        func canSlide(_ index: Int) -> Bool
-        {
-            index >= staticCount
-        }
-
         // F = m * g
         for i in staticCount ..< objects.count {
             let obj = objects[i]
@@ -58,57 +53,11 @@ extension GaltonBoardExample: ObjectWorldExample
         }
 
         for i in 0 ..< objectCount {
-            let obj = objects[i]
-
             for j in (i + 1) ..< objects.count {
-                let other = objects[j]
-                let posDiff = obj.position - other.position
-                let distance = posDiff.length
-                let requiredDistance = obj.radius + other.radius
-                let overlappedDistance = requiredDistance - distance
-
-                // 2-objects collision https://en.wikipedia.org/wiki/Elastic_collision
-                // NOTE: Formula is derived from conservation of kinetic energy and conservation of momentum.
-                if overlappedDistance > 0 {
-                    let coeff = (obj.velocity - other.velocity).dot(posDiff)
-                        * 2 / (obj.mass + other.mass) / posDiff.lengthSquared
-
-                    objects[i].velocity = obj.velocity - posDiff * other.mass * coeff
-                    objects[j].velocity = other.velocity + posDiff * obj.mass * coeff
-
-                    // Sliding
-                    if canSlide(i) {
-                        objects[i].position = obj.position + posDiff * (overlappedDistance / distance) * 0.25
-                    }
-                    if canSlide(j) {
-                        objects[j].position = other.position - posDiff * (overlappedDistance / distance) * 0.25
-                    }
-                }
+                resolveCircleCollision(circles: &objects, at1: i, at2: j)
             }
 
-            // Flip `velocity.x` if reached at the edge of `canvasSize`.
-            // WARNING: No continuous collision detection.
-            if obj.position.x - obj.radius < 0 {
-                objects[i].velocity.x = abs(objects[i].velocity.x) * 0.25
-                objects[i].position.x = obj.radius // sliding
-            }
-            else if obj.position.x + obj.radius > Scalar(boardSize.width) {
-                objects[i].velocity.x = -abs(objects[i].velocity.x) * 0.25
-                objects[i].position.x = Scalar(boardSize.width) - obj.radius // sliding
-            }
-
-            // Flip `velocity.y` if reached at the edge of `canvasSize`.
-            if obj.position.y - obj.radius < 0 {
-                objects[i].velocity.y = abs(objects[i].velocity.y) * wallDumping
-                objects[i].position.y = obj.radius // sliding
-            }
-            else if obj.position.y + obj.radius > Scalar(boardSize.height) {
-                objects[i].velocity.y = -abs(objects[i].velocity.y) * wallDumping
-                objects[i].position.y = Scalar(boardSize.height) - obj.radius // sliding
-            }
-
-            // Friction as opposite direction of velocity.
-            objects[i].force = objects[i].force + objects[i].velocity.normalized() * -0.0005
+            resolveCircleWallCollision(circle: &objects[i], boardSize: boardSize)
         }
 
         // Keep static.
@@ -156,7 +105,8 @@ private let staticObjects: [CircleObject] = {
                 mass: 1,
                 position: .init(x, y),
                 velocity: .init(0, 0),
-                radius: staticObjectRadius
+                radius: staticObjectRadius,
+                isStatic: true
             )
         }
     }

@@ -101,12 +101,15 @@ private func _resolveCollision<Obj>(objects: inout [Obj], at1 i: Int, at2 j: Int
     // NOTE: Formula is derived from conservation of kinetic energy and conservation of momentum.
     let coeff = (obj1.velocity - obj2.velocity).dot(normal) * 2
 
-    objects[i].velocity = obj1.velocity - normal * weightRatio2 * coeff
-    objects[j].velocity = obj2.velocity + normal * weightRatio1 * coeff
+    if !obj1.isStatic {
+        objects[i].velocity = obj1.velocity - normal * weightRatio2 * coeff
+        objects[i].position = obj1.position + normal * weightRatio2 * overlap // sliding
+    }
 
-    // Sliding
-    objects[i].position = obj1.position + normal * weightRatio2 * overlap
-    objects[j].position = obj2.position - normal * weightRatio1 * overlap
+    if !obj2.isStatic {
+        objects[j].velocity = obj2.velocity + normal * weightRatio1 * coeff
+        objects[j].position = obj2.position - normal * weightRatio1 * overlap // sliding
+    }
 }
 
 /// Objects collision resolution.

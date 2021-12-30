@@ -66,4 +66,9 @@ public struct LineObject: _ObjectLike, Equatable
     {
         .zero
     }
+
+    public var isStatic: Bool
+    {
+        true
+    }
 }

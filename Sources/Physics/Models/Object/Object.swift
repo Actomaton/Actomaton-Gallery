@@ -123,4 +123,14 @@ public enum Object: _ObjectLike, Equatable
             return line.touchableRect
         }
     }
+
+    public var isStatic: Bool
+    {
+        switch self {
+        case let .circle(circle):
+            return circle.isStatic
+        case let .line(line):
+            return line.isStatic
+        }
+    }
 }
