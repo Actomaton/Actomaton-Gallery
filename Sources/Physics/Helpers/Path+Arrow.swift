@@ -12,11 +12,10 @@ extension Path
     ) -> Path
     {
         Path {
-            $0.move(to: start)
-            $0.addLine(to: end)
-
             let startEndAngle = atan((end.y - start.y) / (end.x - start.x))
-            + ((end.x - start.x) < 0 ? CGFloat(Double.pi) : 0)
+                + ((end.x - start.x) < 0 ? CGFloat(Double.pi) : 0)
+
+            if startEndAngle.isNaN { return }
 
             let arrowLine1 = CGPoint(
                 x: end.x + pointerLength * cos(CGFloat(Double.pi) - startEndAngle + arrowAngle),
@@ -28,6 +27,8 @@ extension Path
                 y: end.y - pointerLength * sin(CGFloat(Double.pi) - startEndAngle - arrowAngle)
             )
 
+            $0.move(to: start)
+            $0.addLine(to: end)
             $0.addLine(to: arrowLine1)
             $0.move(to: end)
             $0.addLine(to: arrowLine2)
