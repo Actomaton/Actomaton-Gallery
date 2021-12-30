@@ -27,6 +27,11 @@ extension PhysicsRoot.State
         .init(example: CollisionExample())
     }
 
+    public static var lineCollision: PhysicsRoot.State
+    {
+        .init(example: LineCollisionExample())
+    }
+
     public static var galtonBoard: PhysicsRoot.State
     {
         .init(example: GaltonBoardExample())

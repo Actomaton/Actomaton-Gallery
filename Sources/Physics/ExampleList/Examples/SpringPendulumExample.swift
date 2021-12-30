@@ -9,7 +9,7 @@ struct SpringPendulumExample: Example
     var exampleInitialState: PhysicsRoot.State.Current
     {
         .springPendulum(World.State(objects: [
-            Object(mass: 1, position: .init(120, 0), velocity: .zero)
+            CircleObject(mass: 1, position: .init(120, 0), velocity: .zero)
         ]))
     }
 
@@ -53,7 +53,7 @@ struct SpringPendulumExample: Example
                         rodPath
                             .stroke(Color.green, lineWidth: 1)
 
-                        WorldView<Object>.makeContentView(
+                        WorldView<CircleObject>.makeContentView(
                             store: store.canvasState,
                             configuration: configuration,
                             absolutePosition: self.absolutePosition,
@@ -73,7 +73,7 @@ struct SpringPendulumExample: Example
 
 extension SpringPendulumExample: ObjectWorldExample
 {
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [CircleObject], boardSize: CGSize)
     {
         let objectCount = objects.count
 

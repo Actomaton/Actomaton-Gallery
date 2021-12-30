@@ -8,7 +8,7 @@ struct SpringExample: Example
 
     var exampleInitialState: PhysicsRoot.State.Current
     {
-        .spring(World.State(objects: Object.orbitingObjects))
+        .spring(World.State(objects: CircleObject.orbitingObjects))
     }
 
     var exampleArrowScale: ArrowScale
@@ -40,7 +40,7 @@ struct SpringExample: Example
 
 extension SpringExample: ObjectWorldExample
 {
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [CircleObject], boardSize: CGSize)
     {
         let objectCount = objects.count
 

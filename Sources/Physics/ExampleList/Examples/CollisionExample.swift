@@ -8,7 +8,7 @@ struct CollisionExample: Example
 
     var exampleInitialState: PhysicsRoot.State.Current
     {
-        .collision(World.State(objects: Object.collidingObjects))
+        .collision(World.State(objects: CircleObject.collidingObjects))
     }
 
     var exampleArrowScale: ArrowScale
@@ -41,63 +41,22 @@ struct CollisionExample: Example
 
 extension CollisionExample: ObjectWorldExample
 {
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [CircleObject], boardSize: CGSize)
     {
         let objectCount = objects.count
 
         for i in 0 ..< objectCount {
-            let obj = objects[i]
-
             for j in (i + 1) ..< objects.count {
-                let other = objects[j]
-                let posDiff = obj.position - other.position
-                let posDiffNorm = posDiff.normalized()
-                let overlappedDistance = obj.radius + other.radius - posDiff.length
-
-                // 2-objects collision https://en.wikipedia.org/wiki/Elastic_collision
-                // NOTE: Formula is derived from conservation of kinetic energy and conservation of momentum.
-                if overlappedDistance > 0 {
-                    let coeff = (obj.velocity - other.velocity).dot(posDiffNorm)
-                        * 2 / (obj.mass + other.mass)
-
-                    objects[i].velocity = obj.velocity - posDiffNorm * other.mass * coeff
-                    objects[j].velocity = other.velocity + posDiffNorm * obj.mass * coeff
-
-                    // Sliding
-                    objects[i].position = obj.position + posDiffNorm * overlappedDistance * 0.05
-                    objects[j].position = other.position - posDiffNorm * overlappedDistance * 0.05
-                }
+                resolveCircleCollision(circles: &objects, at1: i, at2: j)
             }
 
-            // Flip `velocity.x` if reached at the edge of `canvasSize`.
-            // WARNING: No continuous collision detection.
-            if obj.position.x - obj.radius < 0 {
-                objects[i].velocity.x = abs(objects[i].velocity.x) * 0.25
-                objects[i].position.x = obj.radius // sliding
-            }
-            else if obj.position.x + obj.radius > Scalar(boardSize.width) {
-                objects[i].velocity.x = -abs(objects[i].velocity.x) * 0.25
-                objects[i].position.x = Scalar(boardSize.width) - obj.radius // sliding
-            }
-
-            // Flip `velocity.y` if reached at the edge of `canvasSize`.
-            if obj.position.y - obj.radius < 0 {
-                objects[i].velocity.y = abs(objects[i].velocity.y)
-                objects[i].position.y = obj.radius // sliding
-            }
-            else if obj.position.y + obj.radius > Scalar(boardSize.height) {
-                objects[i].velocity.y = -abs(objects[i].velocity.y)
-                objects[i].position.y = Scalar(boardSize.height) - obj.radius // sliding
-            }
-
-            // Friction as opposite direction of velocity.
-            objects[i].force = objects[i].velocity.normalized() * -0.0005
+            resolveCircleWallCollision(circle: &objects[i], boardSize: boardSize)
         }
     }
 
-    func draggingVoid(_ objects: inout [Object], point: CGPoint)
+    func draggingEmptyArea(_ objects: inout [CircleObject], point: CGPoint)
     {
-        objects.append(Object(position: Vector2(point)))
+        objects.append(CircleObject(position: Vector2(point)))
     }
 }
 

@@ -41,7 +41,7 @@ struct GaltonBoardExample: Example
 
 extension GaltonBoardExample: ObjectWorldExample
 {
-    func step(objects: inout [Object], boardSize: CGSize)
+    func step(objects: inout [CircleObject], boardSize: CGSize)
     {
         let staticCount = staticObjects.count
         let objectCount = objects.count
@@ -126,14 +126,14 @@ extension GaltonBoardExample: ObjectWorldExample
         }
     }
 
-    func draggingVoid(_ objects: inout [Object], point: CGPoint)
+    func draggingEmptyArea(_ objects: inout [CircleObject], point: CGPoint)
     {
-        objects.append(Object(position: Vector2(point), radius: fallingObjectRadius))
+        objects.append(CircleObject(position: Vector2(point), radius: fallingObjectRadius))
     }
 
-    func exampleTapToMakeObject(point: CGPoint) -> Object?
+    func exampleTapToMakeObject(point: CGPoint) -> CircleObject?
     {
-        Object(position: Vector2(point), radius: fallingObjectRadius)
+        CircleObject(position: Vector2(point), radius: fallingObjectRadius)
     }
 }
 
@@ -147,12 +147,12 @@ private let wallDumping: Scalar = 0.75 // 0.1
 private let staticObjectRadius: Scalar = 6
 private let fallingObjectRadius: Scalar = 4
 
-private let staticObjects: [Object] = {
-    (2 ... 10).flatMap { row -> [Object] in
-        (0 ..< row).map { col -> Object in
+private let staticObjects: [CircleObject] = {
+    (2 ... 10).flatMap { row -> [CircleObject] in
+        (0 ..< row).map { col -> CircleObject in
             let x: Scalar = 180 - staticObjectRadius * 2 * (Scalar(row) - 1) + staticObjectRadius * 4 * Scalar(col)
             let y: Scalar = 100 + staticObjectRadius * 2 * Scalar(row) * sqrt(3)
-            return Object(
+            return CircleObject(
                 mass: 1,
                 position: .init(x, y),
                 velocity: .init(0, 0),
@@ -162,6 +162,6 @@ private let staticObjects: [Object] = {
     }
 }()
 
-private let fallingObjects: [Object] = [
-    Object(mass: 1, position: .init(180 - 1, 0), velocity: .init(0, 0), radius: fallingObjectRadius)
+private let fallingObjects: [CircleObject] = [
+    CircleObject(mass: 1, position: .init(180 - 1, 0), velocity: .init(0, 0), radius: fallingObjectRadius)
 ]

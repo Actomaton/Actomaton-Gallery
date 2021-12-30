@@ -6,8 +6,9 @@ extension World
 {
     /// Resets `objects` forces, `run` custom logic, and calculates `velocity` & `position`.
     /// - Parameter Δt: Simulated delta time per tick. 
-    static func tickForObjects(_ run: @escaping (inout [Object], _ boardSize: CGSize) -> Void)
-        -> (inout [Object], _ boardSize: CGSize, _ Δt: Scalar) -> Void
+    static func tickForObjects<Obj>(_ run: @escaping (inout [Obj], _ boardSize: CGSize) -> Void)
+        -> (inout [Obj], _ boardSize: CGSize, _ Δt: Scalar) -> Void
+        where Obj: _ObjectLike
     {
         { objects, boardSize, Δt in
             let Δt_ = Scalar(Δt)
