@@ -6,13 +6,6 @@ import TimeTravel
 public enum Action<InnerAction>
 {
     case timeTravel(TimeTravel.Action<InnerAction>)
-
-    #if !DEBUG
-    // Workaround additional `case` for avoiding broken Action in 'Release' build,
-    // which is likely due to Swift compiler bug that optimizes enum case (possibly when single case) in strange way.
-    // https://github.com/inamiy/Actomaton-Gallery/issues/26
-    case doNotUseThis(Never)
-    #endif
 }
 
 // MARK: - State
