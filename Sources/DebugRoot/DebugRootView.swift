@@ -18,7 +18,9 @@ public struct DebugRootView<RootView>: View
         VStack {
             RootView(
                 store: self.store.timeTravel.inner
+                    .contramap(action: { print("Received action (transformed & broken)", $0); return $0 })
                     .contramap(action: { DebugAction.timeTravel(.inner($0)) })
+                    .contramap(action: { print("Received action: ", $0); return $0 })
             )
                 .frame(maxHeight: .infinity)
 
