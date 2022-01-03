@@ -80,15 +80,13 @@ private typealias Environment = SendRouteEnvironment<Counter.Environment, Route>
 @MainActor
 private final class CounterRouteViewController: UIViewController
 {
-    let _store: Store<Action, Counter.State>
-
-    var store: Store<Action, Counter.State>.Proxy { _store.proxy }
+    let store: Store<Action, Counter.State>
 
     var cancellables: [AnyCancellable] = []
 
     init(store: Store<Action, Counter.State>)
     {
-        self._store = store
+        self.store = store
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -218,7 +216,7 @@ private final class CounterRouteViewController: UIViewController
 
         // MARK: - Apply Binding
 
-        self._store.$state
+        self.store.$state
             .map { "\($0.count)" }
             .assign(to: \.text, on: countLabel)
             .store(in: &self.cancellables)

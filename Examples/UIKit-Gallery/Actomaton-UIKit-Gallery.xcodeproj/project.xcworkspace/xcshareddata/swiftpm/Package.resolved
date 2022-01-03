@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/inamiy/Actomaton",
         "state": {
           "branch": "main",
-          "revision": "23dc0c37e89135204386853a6271fc64e7462932",
+          "revision": "71ea1703f6bce2d49cec46b0bb95f26bf91d19c1",
           "version": null
         }
       },
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
           "branch": null,
-          "revision": "d226d167bd4a68b51e352af5655c92bce8ee0463",
-          "version": "0.7.0"
+          "revision": "241301b67d8551c26d8f09bd2c0e52cc49f18007",
+          "version": "0.8.0"
         }
       },
       {

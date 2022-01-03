@@ -98,7 +98,7 @@ public final class RootViewController: UIViewController
                     actions: [
                         UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
                             guard let self = self else { return }
-                            self.store.proxy.send(Action.userSession(.forceLogout))
+                            self.store.send(Action.userSession(.forceLogout))
                         })
                     ]
                 )
@@ -120,7 +120,7 @@ public final class RootViewController: UIViewController
         case .loggedOut:
             let vc = UIHostingController(
                 rootView: LoginView(onAction: { [store] in
-                    store.proxy.send(Action.loggedOut($0))
+                    store.send(Action.loggedOut($0))
                 })
             )
             self.currentViewController = vc

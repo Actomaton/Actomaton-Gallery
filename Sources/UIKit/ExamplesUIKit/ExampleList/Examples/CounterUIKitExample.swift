@@ -29,15 +29,13 @@ public struct CounterUIKitExample: Example
 @MainActor
 private final class CounterViewController: UIViewController
 {
-    let _store: Store<Counter.Action, Counter.State>
-
-    var store: Store<Counter.Action, Counter.State>.Proxy { _store.proxy }
+    let store: Store<Counter.Action, Counter.State>
 
     var cancellables: [AnyCancellable] = []
 
     init(store: Store<Counter.Action, Counter.State>)
     {
-        self._store = store
+        self.store = store
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -122,7 +120,7 @@ private final class CounterViewController: UIViewController
 
         // MARK: - Apply Binding
 
-        self._store.$state
+        self.store.$state
             .map { "\($0.count)" }
             .assign(to: \.text, on: countLabel)
             .store(in: &self.cancellables)

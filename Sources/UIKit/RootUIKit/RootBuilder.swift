@@ -69,15 +69,15 @@ public enum RootBuilder
                     settingsStore.subscribeRoutes { route in
                         switch route {
                         case .logout:
-                            rootStore.proxy.send(.userSession(.logout))
+                            rootStore.send(.userSession(.logout))
                         case .onboarding:
-                            rootStore.proxy.send(.resetOnboarding)
+                            rootStore.send(.resetOnboarding)
                         case .insertTab:
                             let randomTabIndex = Int.random(in: 0 ... 4)
-                            rootStore.proxy.send(.insertRandomTab(index: randomTabIndex))
+                            rootStore.send(.insertRandomTab(index: randomTabIndex))
                         case .removeTab:
                             let randomTabIndex = Int.random(in: 0 ... 4)
-                            rootStore.proxy.send(.removeTab(index: randomTabIndex))
+                            rootStore.send(.removeTab(index: randomTabIndex))
                         }
                     }
 
