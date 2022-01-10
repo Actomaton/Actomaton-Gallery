@@ -1,0 +1,495 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		33110EA8278990D900CF816E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EA7278990D900CF816E /* HUD.swift */; };
+		33110EAB2789B87300CF816E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EA92789B87300CF816E /* DetailView.swift */; };
+		33110EAC2789B87300CF816E /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EAA2789B87300CF816E /* Detail.swift */; };
+		33110EAE2789B8E400CF816E /* DetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EAD2789B8E400CF816E /* DetailBuilder.swift */; };
+		333017FA278966EA002A5536 /* Environment.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333017F9278966EA002A5536 /* Environment.live.swift */; };
+		333E95D5278C6E2A00792AEE /* CardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E95D4278C6E2A00792AEE /* CardStore.swift */; };
+		33D7DA0E278961EC00B362ED /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA0D278961EC00B362ED /* MyApp.swift */; };
+		33D7DA12278961ED00B362ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D7DA11278961ED00B362ED /* Assets.xcassets */; };
+		33D7DA15278961ED00B362ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D7DA14278961ED00B362ED /* Preview Assets.xcassets */; };
+		33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */ = {isa = PBXBuildFile; productRef = 33D7DA1C2789626500B362ED /* ActomatonStore */; };
+		33D7DA2C2789628100B362ED /* UIKitToSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA1E2789628100B362ED /* UIKitToSwiftUI.swift */; };
+		33D7DA2D2789628100B362ED /* FavoriteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA202789628100B362ED /* FavoriteStore.swift */; };
+		33D7DA2E2789628100B362ED /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA232789628100B362ED /* HomeBuilder.swift */; };
+		33D7DA2F2789628100B362ED /* FavoriteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA252789628100B362ED /* FavoriteBuilder.swift */; };
+		33D7DA302789628100B362ED /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA282789628100B362ED /* CardListView.swift */; };
+		33D7DA312789628100B362ED /* CardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA292789628100B362ED /* CardList.swift */; };
+		33D7DA322789628100B362ED /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA2B2789628100B362ED /* Card.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		33110EA7278990D900CF816E /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		33110EA92789B87300CF816E /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		33110EAA2789B87300CF816E /* Detail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		33110EAD2789B8E400CF816E /* DetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBuilder.swift; sourceTree = "<group>"; };
+		333017F9278966EA002A5536 /* Environment.live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.live.swift; sourceTree = "<group>"; };
+		333E95D4278C6E2A00792AEE /* CardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStore.swift; sourceTree = "<group>"; };
+		33D7DA0A278961EC00B362ED /* Actomaton-Favorite-Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-Favorite-Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33D7DA0D278961EC00B362ED /* MyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
+		33D7DA11278961ED00B362ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		33D7DA14278961ED00B362ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		33D7DA1E2789628100B362ED /* UIKitToSwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitToSwiftUI.swift; sourceTree = "<group>"; };
+		33D7DA202789628100B362ED /* FavoriteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStore.swift; sourceTree = "<group>"; };
+		33D7DA232789628100B362ED /* HomeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
+		33D7DA252789628100B362ED /* FavoriteBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteBuilder.swift; sourceTree = "<group>"; };
+		33D7DA282789628100B362ED /* CardListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
+		33D7DA292789628100B362ED /* CardList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardList.swift; sourceTree = "<group>"; };
+		33D7DA2B2789628100B362ED /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		33D7DA07278961EC00B362ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		33110EAF2789E15900CF816E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA1E2789628100B362ED /* UIKitToSwiftUI.swift */,
+				33110EA7278990D900CF816E /* HUD.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		33110EB02789E1DB00CF816E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA1F2789628100B362ED /* Stores */,
+				33D7DA2A2789628100B362ED /* Models */,
+				33110EAF2789E15900CF816E /* Views */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		33D7DA01278961EC00B362ED = {
+			isa = PBXGroup;
+			children = (
+				33D7DA0C278961EC00B362ED /* Actomaton-Favorite-Sync */,
+				33D7DA0B278961EC00B362ED /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		33D7DA0B278961EC00B362ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA0A278961EC00B362ED /* Actomaton-Favorite-Sync.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		33D7DA0C278961EC00B362ED /* Actomaton-Favorite-Sync */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA0D278961EC00B362ED /* MyApp.swift */,
+				333017F9278966EA002A5536 /* Environment.live.swift */,
+				33110EB02789E1DB00CF816E /* Core */,
+				33D7DA212789628100B362ED /* Scenes */,
+				33D7DA11278961ED00B362ED /* Assets.xcassets */,
+				33D7DA13278961ED00B362ED /* Preview Content */,
+			);
+			path = "Actomaton-Favorite-Sync";
+			sourceTree = "<group>";
+		};
+		33D7DA13278961ED00B362ED /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA14278961ED00B362ED /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		33D7DA1F2789628100B362ED /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				333E95D4278C6E2A00792AEE /* CardStore.swift */,
+				33D7DA202789628100B362ED /* FavoriteStore.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		33D7DA212789628100B362ED /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA222789628100B362ED /* Home */,
+				33D7DA242789628100B362ED /* Favorite */,
+				33D7DA262789628100B362ED /* Detail */,
+				33D7DA272789628100B362ED /* CardList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		33D7DA222789628100B362ED /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA232789628100B362ED /* HomeBuilder.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		33D7DA242789628100B362ED /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA252789628100B362ED /* FavoriteBuilder.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		33D7DA262789628100B362ED /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				33110EAA2789B87300CF816E /* Detail.swift */,
+				33110EA92789B87300CF816E /* DetailView.swift */,
+				33110EAD2789B8E400CF816E /* DetailBuilder.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		33D7DA272789628100B362ED /* CardList */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA282789628100B362ED /* CardListView.swift */,
+				33D7DA292789628100B362ED /* CardList.swift */,
+			);
+			path = CardList;
+			sourceTree = "<group>";
+		};
+		33D7DA2A2789628100B362ED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA2B2789628100B362ED /* Card.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		33D7DA09278961EC00B362ED /* Actomaton-Favorite-Sync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 33D7DA18278961ED00B362ED /* Build configuration list for PBXNativeTarget "Actomaton-Favorite-Sync" */;
+			buildPhases = (
+				33D7DA06278961EC00B362ED /* Sources */,
+				33D7DA07278961EC00B362ED /* Frameworks */,
+				33D7DA08278961EC00B362ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Actomaton-Favorite-Sync";
+			packageProductDependencies = (
+				33D7DA1C2789626500B362ED /* ActomatonStore */,
+			);
+			productName = "Actomaton-Favorite-Sync";
+			productReference = 33D7DA0A278961EC00B362ED /* Actomaton-Favorite-Sync.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		33D7DA02278961EC00B362ED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					33D7DA09278961EC00B362ED = {
+						CreatedOnToolsVersion = 13.2;
+					};
+				};
+			};
+			buildConfigurationList = 33D7DA05278961EC00B362ED /* Build configuration list for PBXProject "Actomaton-Favorite-Sync" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 33D7DA01278961EC00B362ED;
+			packageReferences = (
+				33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */,
+			);
+			productRefGroup = 33D7DA0B278961EC00B362ED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				33D7DA09278961EC00B362ED /* Actomaton-Favorite-Sync */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		33D7DA08278961EC00B362ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33D7DA15278961ED00B362ED /* Preview Assets.xcassets in Resources */,
+				33D7DA12278961ED00B362ED /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		33D7DA06278961EC00B362ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33110EAB2789B87300CF816E /* DetailView.swift in Sources */,
+				33D7DA2F2789628100B362ED /* FavoriteBuilder.swift in Sources */,
+				33110EA8278990D900CF816E /* HUD.swift in Sources */,
+				333017FA278966EA002A5536 /* Environment.live.swift in Sources */,
+				33D7DA2E2789628100B362ED /* HomeBuilder.swift in Sources */,
+				333E95D5278C6E2A00792AEE /* CardStore.swift in Sources */,
+				33D7DA0E278961EC00B362ED /* MyApp.swift in Sources */,
+				33D7DA2C2789628100B362ED /* UIKitToSwiftUI.swift in Sources */,
+				33110EAC2789B87300CF816E /* Detail.swift in Sources */,
+				33D7DA302789628100B362ED /* CardListView.swift in Sources */,
+				33D7DA2D2789628100B362ED /* FavoriteStore.swift in Sources */,
+				33110EAE2789B8E400CF816E /* DetailBuilder.swift in Sources */,
+				33D7DA312789628100B362ED /* CardList.swift in Sources */,
+				33D7DA322789628100B362ED /* Card.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		33D7DA16278961ED00B362ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		33D7DA17278961ED00B362ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		33D7DA19278961ED00B362ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Actomaton-Favorite-Sync/Preview Content\"";
+				DEVELOPMENT_TEAM = UMBZ5WL247;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-Favorite-Sync";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		33D7DA1A278961ED00B362ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Actomaton-Favorite-Sync/Preview Content\"";
+				DEVELOPMENT_TEAM = UMBZ5WL247;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-Favorite-Sync";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		33D7DA05278961EC00B362ED /* Build configuration list for PBXProject "Actomaton-Favorite-Sync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33D7DA16278961ED00B362ED /* Debug */,
+				33D7DA17278961ED00B362ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		33D7DA18278961ED00B362ED /* Build configuration list for PBXNativeTarget "Actomaton-Favorite-Sync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33D7DA19278961ED00B362ED /* Debug */,
+				33D7DA1A278961ED00B362ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/inamiy/Actomaton";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		33D7DA1C2789626500B362ED /* ActomatonStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */;
+			productName = ActomatonStore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 33D7DA02278961EC00B362ED /* Project object */;
+}
