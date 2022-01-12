@@ -4,7 +4,11 @@ import ActomatonStore
 @MainActor
 public enum DetailBuilder
 {
-    static func build(card: CardWithFavorite, environment: Detail._Environment) -> UIViewController
+    static func build(
+        card: CardWithFavorite,
+        environment: Detail._Environment,
+        usesUIKit: Bool
+    ) -> UIViewController
     {
         let store = RouteStore(
             state: Detail.State(card: card),
@@ -13,7 +17,9 @@ public enum DetailBuilder
             routeType: Detail.Route.self
         )
 
-        let vc = HostingViewController(store: store, makeView: DetailView.init)
+        let vc = usesUIKit
+            ? DetailViewController(store: store)
+            : HostingViewController(store: store, makeView: DetailView.init)
         vc.title = "Detail"
 
         return vc

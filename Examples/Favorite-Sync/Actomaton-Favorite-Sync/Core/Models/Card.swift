@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Card: Equatable
+struct Card: Hashable
 {
     let id: ID
     var symbol: String
@@ -12,7 +12,7 @@ struct Card: Equatable
 }
 
 @dynamicMemberLookup
-struct CardWithFavorite: Equatable
+struct CardWithFavorite: Hashable
 {
     var card: Card
     var color: Color

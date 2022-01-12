@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330DF517278EE7130084A751 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330DF516278EE7130084A751 /* DetailViewController.swift */; };
+		330DF51A278F1CD10084A751 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 330DF519278F1CD10084A751 /* CombineCocoa */; };
+		330DF51C278F1E810084A751 /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330DF51B278F1E810084A751 /* CardListViewController.swift */; };
 		33110EA8278990D900CF816E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EA7278990D900CF816E /* HUD.swift */; };
 		33110EAB2789B87300CF816E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EA92789B87300CF816E /* DetailView.swift */; };
 		33110EAC2789B87300CF816E /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33110EAA2789B87300CF816E /* Detail.swift */; };
@@ -27,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		330DF516278EE7130084A751 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		330DF51B278F1E810084A751 /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
 		33110EA7278990D900CF816E /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		33110EA92789B87300CF816E /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		33110EAA2789B87300CF816E /* Detail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				330DF51A278F1CD10084A751 /* CombineCocoa in Frameworks */,
 				33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,6 +161,7 @@
 			children = (
 				33110EAA2789B87300CF816E /* Detail.swift */,
 				33110EA92789B87300CF816E /* DetailView.swift */,
+				330DF516278EE7130084A751 /* DetailViewController.swift */,
 				33110EAD2789B8E400CF816E /* DetailBuilder.swift */,
 			);
 			path = Detail;
@@ -163,8 +170,9 @@
 		33D7DA272789628100B362ED /* CardList */ = {
 			isa = PBXGroup;
 			children = (
-				33D7DA282789628100B362ED /* CardListView.swift */,
 				33D7DA292789628100B362ED /* CardList.swift */,
+				33D7DA282789628100B362ED /* CardListView.swift */,
+				330DF51B278F1E810084A751 /* CardListViewController.swift */,
 			);
 			path = CardList;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 			name = "Actomaton-Favorite-Sync";
 			packageProductDependencies = (
 				33D7DA1C2789626500B362ED /* ActomatonStore */,
+				330DF519278F1CD10084A751 /* CombineCocoa */,
 			);
 			productName = "Actomaton-Favorite-Sync";
 			productReference = 33D7DA0A278961EC00B362ED /* Actomaton-Favorite-Sync.app */;
@@ -226,6 +235,7 @@
 			mainGroup = 33D7DA01278961EC00B362ED;
 			packageReferences = (
 				33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */,
+				330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			productRefGroup = 33D7DA0B278961EC00B362ED /* Products */;
 			projectDirPath = "";
@@ -265,6 +275,8 @@
 				33D7DA302789628100B362ED /* CardListView.swift in Sources */,
 				33D7DA2D2789628100B362ED /* FavoriteStore.swift in Sources */,
 				33110EAE2789B8E400CF816E /* DetailBuilder.swift in Sources */,
+				330DF51C278F1E810084A751 /* CardListViewController.swift in Sources */,
+				330DF517278EE7130084A751 /* DetailViewController.swift in Sources */,
 				33D7DA312789628100B362ED /* CardList.swift in Sources */,
 				33D7DA322789628100B362ED /* Card.swift in Sources */,
 			);
@@ -473,6 +485,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
 		33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/inamiy/Actomaton";
@@ -484,6 +504,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		330DF519278F1CD10084A751 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
 		33D7DA1C2789626500B362ED /* ActomatonStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */;

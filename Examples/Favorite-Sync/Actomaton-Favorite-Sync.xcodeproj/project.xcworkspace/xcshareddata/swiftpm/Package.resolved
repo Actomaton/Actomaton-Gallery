@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "CombineCocoa",
+        "repositoryURL": "https://github.com/CombineCommunity/CombineCocoa",
+        "state": {
+          "branch": null,
+          "revision": "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
+          "version": "0.4.0"
+        }
+      },
+      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {

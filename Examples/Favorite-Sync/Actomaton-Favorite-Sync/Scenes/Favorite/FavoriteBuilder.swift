@@ -4,7 +4,10 @@ import ActomatonStore
 @MainActor
 public enum FavoriteBuilder
 {
-    static func buildNavigation(environment: CardList._Environment) -> UIViewController
+    static func buildNavigation(
+        environment: CardList._Environment,
+        usesUIKit: Bool
+    ) -> UIViewController
     {
         let store = RouteStore(
             state: CardList.State(showsFavoriteOnly: true),
@@ -13,7 +16,9 @@ public enum FavoriteBuilder
             routeType: CardList.Route.self
         )
 
-        let vc = HostingViewController(store: store, makeView: CardListView.init)
+        let vc = usesUIKit
+            ? CardListViewController(store: store)
+            : HostingViewController(store: store, makeView: CardListView.init)
         vc.title = "Favorite"
         vc.tabBarItem = UITabBarItem(
             title: "Favorite",
@@ -33,7 +38,8 @@ public enum FavoriteBuilder
                         cardStore: environment.cardStore,
                         favoriteStore: environment.favoriteStore,
                         sleep: environment.sleep
-                    )
+                    ),
+                    usesUIKit: usesUIKit
                 )
                 navC?.pushViewController(vc, animated: true)
             }

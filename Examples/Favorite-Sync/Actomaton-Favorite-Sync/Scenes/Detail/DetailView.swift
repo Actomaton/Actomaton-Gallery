@@ -34,7 +34,7 @@ struct DetailView: View
                 .cornerRadius(10)
 
             Button {
-                store.send(.didTapHeart(card.id))
+                store.send(.didTapHeart)
             } label: {
                 Image(systemName: card.isFavorite ? "heart.fill" : "heart")
                     .font(.system(size: 30))
