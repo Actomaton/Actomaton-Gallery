@@ -18,7 +18,7 @@ enum Detail
         case fetchCard
         case _didFetchCard(Card)
 
-        case didTapHeart(Card.ID)
+        case didTapHeart
     }
 
     // MARK: - State
@@ -139,11 +139,11 @@ enum Detail
                 state.isFetchingCard = false
                 return .empty
 
-            case let .didTapHeart(cardID):
+            case let .didTapHeart:
                 state.card.isFavorite.toggle()
 
                 return Effect { [state] in
-                    await env.environment.favoriteStore.saveFavorite(id: cardID, isFavorite: state.card.isFavorite)
+                    await env.environment.favoriteStore.saveFavorite(id: state.card.id, isFavorite: state.card.isFavorite)
                     return nil
                 }
 

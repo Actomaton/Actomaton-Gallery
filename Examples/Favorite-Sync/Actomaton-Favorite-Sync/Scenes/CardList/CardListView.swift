@@ -40,7 +40,7 @@ struct CardListView: View
     @ViewBuilder
     var completedOrEmpty: some View
     {
-        if store.state.cards.isEmpty {
+        if store.state.shouldShowEmptyView {
             emptyView
         }
         else {
@@ -108,6 +108,7 @@ struct CardListView: View
     private var emptyView: some View
     {
         Text("No Cards")
+            .font(.system(size: 48))
     }
 
     typealias Action = CardList.Action

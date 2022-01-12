@@ -31,8 +31,10 @@ enum CardList
         fileprivate var favoriteCardIDs: Set<Card.ID>
         fileprivate var showsFavoriteOnly: Bool
 
-        fileprivate var isFetchingCards: Bool = false
-        fileprivate var isLoadingFavorites: Bool = false
+        // Mark fetching states as `true` on init so that `emptyView` won't be presented.
+        fileprivate var isFetchingCards: Bool = true
+        fileprivate var isLoadingFavorites: Bool = true
+
         fileprivate var errorString: ErrorString?
 
         init(cards: [Card] = [], favoriteCardIDs: Set<Card.ID> = [], showsFavoriteOnly: Bool)
@@ -66,6 +68,7 @@ enum CardList
                 return .error(errorString)
             }
 
+            // Show loading only when starting from `emptyView`.
             if (isFetchingCards || isLoadingFavorites) && cards.isEmpty {
                 return .loading
             }
@@ -73,6 +76,7 @@ enum CardList
             return .idle
         }
 
+        /// - Note: `case empty` shouldn't exist here because it may be overlapped with `error`.
         enum LoadingState: Equatable
         {
             case idle
@@ -90,6 +94,11 @@ enum CardList
                     return (false, errorString)
                 }
             }
+        }
+
+        var shouldShowEmptyView: Bool
+        {
+            self.cards.isEmpty && self.loadingState == .idle
         }
 
         /// Error localizedDescription.
