@@ -19,7 +19,6 @@ final class CardListViewController: UIViewController
         collectionView.delegate = self
         collectionView.clipsToBounds = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(CardListCell.self, forCellWithReuseIdentifier: CardListCell.cellIdentifier)
 
         self.dataSource = makeDataSource(
             collectionView: collectionView,
@@ -180,17 +179,7 @@ private func makeDataSource(
     store: Store<CardList.Action, CardList.State>
 ) -> UICollectionViewDiffableDataSource<Section, Item>
 {
-    let dataSource = UICollectionViewDiffableDataSource<Section, Item>(
-        collectionView: collectionView
-    ) { [weak store] collectionView, indexPath, item -> UICollectionViewCell? in
-
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CardListCell.cellIdentifier,
-            for: indexPath
-        ) as? CardListCell else {
-            return UICollectionViewCell()
-        }
-
+    let cellRegistration = UICollectionView.CellRegistration<CardListCell, Item>() { cell, indexPath, item in
         let color = colors[indexPath.item % colors.count]
 
         cell.backgroundColor = color
@@ -216,8 +205,12 @@ private func makeDataSource(
                 store?.send(.didTapHeart(item.card.id))
             }
             .store(in: &cell.cancellables)
+    }
 
-        return cell
+    let dataSource = UICollectionViewDiffableDataSource<Section, Item>(
+        collectionView: collectionView
+    ) { collectionView, indexPath, item -> UICollectionViewCell? in
+        return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
     }
 
     return dataSource
