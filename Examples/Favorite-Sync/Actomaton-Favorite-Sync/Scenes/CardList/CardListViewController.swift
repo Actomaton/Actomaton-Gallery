@@ -73,6 +73,7 @@ final class CardListViewController: UIViewController
 
         self.store.$state
             .map { $0.cards }
+            .removeDuplicates()
             .sink { [weak self] cards in
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
                 snapshot.appendSections([.main])
@@ -180,9 +181,7 @@ private func makeDataSource(
 ) -> UICollectionViewDiffableDataSource<Section, Item>
 {
     let cellRegistration = UICollectionView.CellRegistration<CardListCell, Item>() { cell, indexPath, item in
-        let color = colors[indexPath.item % colors.count]
-
-        cell.backgroundColor = color
+        cell.backgroundColor = UIColor(item.card.color)
         cell.layer.cornerRadius = 16
 
         cell.imageView.image = UIImage(
