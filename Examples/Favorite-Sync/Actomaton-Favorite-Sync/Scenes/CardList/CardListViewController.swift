@@ -287,4 +287,4 @@ class CardListCell: UICollectionViewCell
 
 // MARK: - Private
 
-private let colors: [UIColor] = [.yellow, .purple, .green]
+private let colors: [UIColor] = [.systemYellow, .systemPurple, .systemGreen]
