@@ -66,16 +66,15 @@ struct CardListView: View
             let cards = store.state.cards
 
             LazyVGrid(columns: columns) {
-                ForEach(0 ..< cards.count, id: \.self) { i in
-                    let card = cards[i]
-                    cardView(card: card, at: i)
+                ForEach(cards) { card in
+                    cardView(card: card)
                 }
             }
         }
     }
 
     @ViewBuilder
-    private func cardView(card: CardWithFavorite, at index: Int) -> some View
+    private func cardView(card: CardWithFavorite) -> some View
     {
         ZStack(alignment: .topTrailing) {
             Button {
