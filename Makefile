@@ -1,16 +1,24 @@
 DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 13 Pro'
 
+.PHONY: build-SwiftUI-Basic
 build-SwiftUI-Basic:
 	cd Examples/Actomaton-Basic.swiftpm && \
 	xcodebuild build -scheme Actomaton-Basic $(DESTINATION) | xcpretty
 
+.PHONY: build-SwiftUI-Gallery
 build-SwiftUI-Gallery:
 	cd Examples/SwiftUI-Gallery/ && \
 	xcodebuild build -scheme Actomaton-Gallery $(DESTINATION) | xcpretty
 
+.PHONY: build-UIKit-Gallery
 build-UIKit-Gallery:
 	cd Examples/UIKit-Gallery/ && \
 	xcodebuild build -scheme Actomaton-UIKit-Gallery $(DESTINATION) | xcpretty
+
+.PHONY: build-Favorite-Sync
+build-Favorite-Sync:
+	cd Examples/Favorite-Sync/ && \
+	xcodebuild build -scheme Actomaton-Favorite-Sync $(DESTINATION) | xcpretty
 
 # e.g.
 # make universal-link
@@ -18,5 +26,6 @@ build-UIKit-Gallery:
 # make universal-link path=physics
 # make universal-link path=physics/gravity-universe  # WARNING: iOS 15 SwiftUI double-push navigation doesn't work well
 # make universal-link path=tab?index=2
+.PHONY: universal-link
 universal-link:
 	xcrun simctl openurl booted https://inamiy-universal-link.web.app/$(path)
