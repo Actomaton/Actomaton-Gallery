@@ -23,18 +23,20 @@ public struct TabView<InnerAction, InnerState, TabID>: View
         // `SwiftUI.TabView`'s "More Tab" doesn't work well if `selection` is used.
         SwiftUI.TabView(selection: store.currentTabID.stateBinding(onChange: { .changeTab($0) })) {
         // SwiftUI.TabView {
-            ForEach(store.tabs.$state, id: \.id) { tab in
-                let tab_ = tab.wrappedValue
-                
-                let childStore = Store.Proxy(state: tab.state, send: self.store.send)
-                    .contramap(action: { Action<InnerAction, InnerState, TabID>.inner(tab_.id, $0) })
+            ForEach(store: store.tabs, id: \.id) { tabStore in
+                let tab = tabStore.state
 
-                self.content(tab_.id, childStore)
+                self
+                    .content(
+                        tab.id,
+                        tabStore.inner
+                            .contramap(action: { Action<InnerAction, InnerState, TabID>.inner(tab.id, $0) })
+                    )
                     .tabItem {
-                        tab_.tabItemIcon
-                        Text(tab_.tabItemTitle)
+                        tab.tabItemIcon
+                        Text(tab.tabItemTitle)
                     }
-                    .tag(tab_.id)
+                    .tag(tab.id)
             }
         }
     }

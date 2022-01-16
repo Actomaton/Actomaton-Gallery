@@ -6,19 +6,19 @@ public struct TabItem<InnerState, ID>: Equatable, Identifiable
 {
     public var id: ID
 
-    public var state: InnerState
+    public var inner: InnerState
 
     public var tabItemTitle: String
     public var tabItemIcon: Image
 
     public init(
         id: ID,
-        state: InnerState,
+        inner: InnerState,
         tabItemTitle: String,
         tabItemIcon: Image
     ) {
         self.id = id
-        self.state = state
+        self.inner = inner
         self.tabItemTitle = tabItemTitle
         self.tabItemIcon = tabItemIcon
     }

@@ -72,7 +72,7 @@ private func tabChildrenReducer<InnerAction, InnerState, Environment, TabID>(
 
                 guard tabID == tabID_ else { return .empty }
 
-                let stateKeyPath = \State<InnerState, TabID>.tabs[index].state
+                let stateKeyPath = \State<InnerState, TabID>.tabs[index].inner
 
                 return reducer
                     .contramap(state: stateKeyPath)

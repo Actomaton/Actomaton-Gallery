@@ -15,11 +15,12 @@ public struct SyncCountersView: View
     public var body: some View
     {
         VStack {
-            ForEach(Array(store.state.children.enumerated()), id: \.element) { i, child in
-                let childStore = store.children[i].counterState.contramap(action: SyncCounters.Action.child)
-
-                CounterView(store: childStore)
-                Text("Counter \(i)")
+            ForEach(store: store.children) { childStore in
+                CounterView(
+                    store: childStore
+                        .counterState
+                        .contramap(action: SyncCounters.Action.child)
+                )
             }
 
             Spacer()
