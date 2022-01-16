@@ -93,13 +93,13 @@ extension State
                 tabs: [
                     Tab.TabItem(
                         id: .home,
-                        state: .home(initialHomeState),
+                        inner: .home(initialHomeState),
                         tabItemTitle: "Home",
                         tabItemIcon: Image(systemName: "house")
                     ),
                     Tab.TabItem(
                         id: .settings,
-                        state: .settings(.init(user: user)),
+                        inner: .settings(.init(user: user)),
                         tabItemTitle: "Settings",
                         tabItemIcon: Image(systemName: "gear")
                     ),
@@ -116,7 +116,7 @@ extension State
 
     public var homeState: Home.State?
     {
-        self.tab.tabs.first(where: { $0.id == .home })?.state.home
+        self.tab.tabs.first(where: { $0.id == .home })?.inner.home
     }
 
     fileprivate mutating func updateHomeState(_ update: (inout Home.State) -> Void)
@@ -126,12 +126,12 @@ extension State
 
         update(&homeState)
 
-        self.tab.tabs[tabIndex].state = .home(homeState)
+        self.tab.tabs[tabIndex].inner = .home(homeState)
     }
 
     public var settingsState: SettingsScene.State?
     {
-        self.tab.tabs.first(where: { $0.id == .settings })?.state.settings
+        self.tab.tabs.first(where: { $0.id == .settings })?.inner.settings
     }
 
     fileprivate mutating func updateSettingsState(_ update: (inout SettingsScene.State) -> Void)
@@ -141,7 +141,7 @@ extension State
 
         update(&settingsState)
 
-        self.tab.tabs[tabIndex].state = .settings(settingsState)
+        self.tab.tabs[tabIndex].inner = .settings(settingsState)
     }
 
     public var isDebuggingTab: Bool
@@ -154,7 +154,7 @@ public func counterTabItem(index: Int) -> Tab.TabItem<TabCaseState, TabID>
 {
     Tab.TabItem(
         id: .counter(UUID()),
-        state: .counter(Counter.State(count: 0)),
+        inner: .counter(Counter.State(count: 0)),
         tabItemTitle: "Counter \(index)",
         tabItemIcon: Image(systemName: "\(index).square.fill")
     )
@@ -343,7 +343,7 @@ public var debugTabInsertRemoveReducer: Reducer<Action, State, Environment>
                 return .tab(.insertTab(
                     Tab.TabItem(
                         id: .counter(UUID()),
-                        state: .counter(.init(count: 0)),
+                        inner: .counter(.init(count: 0)),
                         tabItemTitle: "Tab \(char)",
                         tabItemIcon: Image(systemName: "\(char.lowercased()).circle")
                     ),
