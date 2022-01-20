@@ -4,11 +4,11 @@ import Stopwatch
 import GitHub
 import GameOfLife
 
-public struct HomeEnvironment
+public struct HomeEnvironment: Sendable
 {
-    let getDate: () -> Date
-    let timer: (TimeInterval) -> AsyncStream<Date>
-    let fetchRequest: (URLRequest) async throws -> Data
+    let getDate: @Sendable () -> Date
+    let timer: @Sendable (TimeInterval) -> AsyncStream<Date>
+    let fetchRequest: @Sendable (URLRequest) async throws -> Data
 
     let gameOfLife: GameOfLife.Root.Environment
 }

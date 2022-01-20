@@ -57,3 +57,8 @@ public struct CircleObject: _ObjectLike, Equatable
             )
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension Vector2: @unchecked Sendable {}

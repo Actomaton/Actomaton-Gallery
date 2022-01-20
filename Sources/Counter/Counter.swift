@@ -2,7 +2,7 @@ import Actomaton
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case increment
     case decrement
@@ -10,7 +10,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     public var count: Int
 

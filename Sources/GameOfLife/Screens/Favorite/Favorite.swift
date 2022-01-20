@@ -6,7 +6,7 @@ public enum Favorite {}
 
 extension Favorite
 {
-    public enum Action
+    public enum Action: Sendable
     {
         case addFavorite(patternName: String)
         case removeFavorite(patternName: String)
@@ -17,20 +17,20 @@ extension Favorite
         case didSaveFavorites
     }
 
-    struct State: Equatable
+    struct State: Equatable, Sendable
     {
         /// Favorite pattern names.
         var patternNames: [String] = []
     }
 
-    struct Environment
+    struct Environment: Sendable
     {
-        var loadFavorites: () throws -> [String]
-        var saveFavorites: ([String]) throws -> Void
+        var loadFavorites: @Sendable () throws -> [String]
+        var saveFavorites: @Sendable ([String]) throws -> Void
 
         init(
-            loadFavorites: @escaping () throws -> [String],
-            saveFavorites: @escaping ([String]) throws -> Void
+            loadFavorites: @Sendable @escaping () throws -> [String],
+            saveFavorites: @Sendable @escaping ([String]) throws -> Void
         )
         {
             self.loadFavorites = loadFavorites

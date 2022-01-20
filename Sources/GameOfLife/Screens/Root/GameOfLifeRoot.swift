@@ -14,7 +14,7 @@ extension Root
 {
     // MARK: - Action
 
-    public enum Action
+    public enum Action: Sendable
     {
         case presentPatternSelect
         case dismissPatternSelect
@@ -26,7 +26,7 @@ extension Root
 
     // MARK: - State
 
-    public struct State: Equatable
+    public struct State: Equatable, Sendable
     {
         var game: Game.State
         var favorite: Favorite.State
@@ -102,7 +102,7 @@ extension Root
                     let effect = Game.reducer()
                         .run(.updatePattern(pattern), &state.game, environment.game)
 
-                    gameEffect = effect.map(Root.Action.game)
+                    gameEffect = effect.map { Root.Action.game($0) }
                 }
                 else {
                     // TODO: show parse failure alert

@@ -3,7 +3,8 @@ import TimeTravel
 
 // MARK: - Action
 
-public enum Action<InnerAction>
+public enum Action<InnerAction>: Sendable
+    where InnerAction: Sendable
 {
     case timeTravel(TimeTravel.Action<InnerAction>)
 
@@ -17,8 +18,8 @@ public enum Action<InnerAction>
 
 // MARK: - State
 
-public struct State<InnerState>: Equatable
-    where InnerState: RootStateProtocol & Equatable
+public struct State<InnerState>: Equatable, Sendable
+    where InnerState: RootStateProtocol & Equatable & Sendable
 {
     public var timeTravel: TimeTravel.State<InnerState>
 

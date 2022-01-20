@@ -7,11 +7,11 @@ import Actomaton
 /// - Note:
 ///   This example uses `directStateBinding`, so `Action` will not run,
 ///   and will not be part of `TimeTravel`-able action.
-public enum Action {}
+public enum Action: Sendable {}
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     /// - Note: 0 (0 degree) to 1 (360 degrees).
     public var hue: CGFloat = 1

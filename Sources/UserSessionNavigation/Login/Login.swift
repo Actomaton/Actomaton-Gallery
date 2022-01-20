@@ -1,4 +1,4 @@
-public enum Action
+public enum Action: Sendable
 {
     case login
     case loginError

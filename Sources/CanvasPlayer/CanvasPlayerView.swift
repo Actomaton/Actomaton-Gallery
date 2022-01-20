@@ -4,7 +4,8 @@ import CommonUI
 
 /// Canvas + timer player view that attaches `content`, `bottomView`, UI controls, tap / drag gestures, orientation detection.
 @MainActor
-public struct CanvasPlayerView<CanvasState>: View where CanvasState: Equatable
+public struct CanvasPlayerView<CanvasState>: View
+    where CanvasState: Equatable & Sendable
 {
     let store: Store<Action, State<CanvasState>>.Proxy
     let content: @MainActor (Store<Action, State<CanvasState>>.Proxy) -> AnyView

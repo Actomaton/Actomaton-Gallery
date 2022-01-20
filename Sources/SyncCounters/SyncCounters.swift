@@ -4,7 +4,7 @@ import Counter
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case addChild
     case removeChild
@@ -13,7 +13,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     private var _count: Int = 0
 
@@ -48,7 +48,7 @@ public struct State: Equatable
 
     // MARK: - CounterState
 
-    public struct CounterState: Hashable, Identifiable
+    public struct CounterState: Hashable, Identifiable, Sendable
     {
         public let id = UUID()
 
@@ -96,3 +96,8 @@ public var reducer: Reducer<Action, State, Environment>
         }
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension UUID: @unchecked Sendable {}

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public struct User: Equatable
+public struct User: Equatable, Sendable
 {
     public let id: UUID
     public var name: String
@@ -34,3 +34,9 @@ extension User
         icon: Image(systemName: "person.fill.questionmark")
     )
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension UUID: @unchecked Sendable {}
+extension Image: @unchecked Sendable {}

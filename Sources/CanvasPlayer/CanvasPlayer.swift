@@ -4,7 +4,7 @@ import Actomaton
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case startTimer
     case stopTimer
@@ -21,7 +21,8 @@ public enum Action
 // MARK: - State
 
 @dynamicMemberLookup
-public struct State<CanvasState>: Equatable where CanvasState: Equatable
+public struct State<CanvasState>: Equatable, Sendable
+    where CanvasState: Equatable & Sendable
 {
     public fileprivate(set) var canvasSize: CGSize = .zero
     public fileprivate(set) var isRunningTimer: Bool = false
@@ -53,12 +54,12 @@ public struct State<CanvasState>: Equatable where CanvasState: Equatable
 
 // MARK: - Environment
 
-public struct Environment
+public struct Environment: Sendable
 {
-    public let timer: (TimeInterval) -> AsyncStream<Date>
+    public let timer: @Sendable (TimeInterval) -> AsyncStream<Date>
 
     public init(
-        timer: @escaping (TimeInterval) -> AsyncStream<Date>
+        timer: @Sendable @escaping (TimeInterval) -> AsyncStream<Date>
     )
     {
         self.timer = timer

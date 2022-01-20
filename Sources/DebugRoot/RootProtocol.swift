@@ -19,8 +19,8 @@ extension RootStateProtocol
 @MainActor
 public protocol RootViewProtocol
 {
-    associatedtype Action
-    associatedtype State: RootStateProtocol & Equatable
+    associatedtype Action: Sendable
+    associatedtype State: RootStateProtocol & Equatable & Sendable
 
     init(store: Store<Action, State>.Proxy)
 }

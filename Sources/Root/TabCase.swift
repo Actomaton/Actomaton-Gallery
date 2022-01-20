@@ -4,7 +4,7 @@ import Home
 import SettingsScene
 import Counter
 
-public enum TabID: Hashable
+public enum TabID: Hashable, Sendable
 {
     case home
     case settings
@@ -13,14 +13,14 @@ public enum TabID: Hashable
     static let protectedTabIDs: Set<TabID> = [.home, .settings]
 }
 
-public enum TabCaseAction
+public enum TabCaseAction: Sendable
 {
     case home(Home.Action)
     case settings(SettingsScene.Action)
     case counter(Counter.Action)
 }
 
-public enum TabCaseState: Equatable
+public enum TabCaseState: Equatable, Sendable
 {
     case home(Home.State)
     case settings(SettingsScene.State)

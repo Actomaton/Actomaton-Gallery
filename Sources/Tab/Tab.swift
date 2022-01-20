@@ -2,8 +2,8 @@ import Actomaton
 
 // MARK: - Action
 
-public enum Action<InnerAction, InnerState, TabID>
-    where InnerState: Equatable, TabID: Hashable
+public enum Action<InnerAction, InnerState, TabID>: Sendable
+    where InnerAction: Sendable, InnerState: Equatable & Sendable, TabID: Hashable & Sendable
 {
     case insertTab(TabItem<InnerState, TabID>, index: Int)
     case removeTab(TabID)
@@ -14,8 +14,8 @@ public enum Action<InnerAction, InnerState, TabID>
 
 // MARK: - State
 
-public struct State<InnerState, TabID>: Equatable
-    where InnerState: Equatable, TabID: Hashable
+public struct State<InnerState, TabID>: Equatable, Sendable
+    where InnerState: Equatable & Sendable, TabID: Hashable & Sendable
 {
     public var tabs: [TabItem<InnerState, TabID>]
     public var currentTabID: TabID

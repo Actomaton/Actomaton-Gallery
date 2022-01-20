@@ -1,17 +1,17 @@
 import Foundation
 
-public struct RootEnvironment
+public struct RootEnvironment: Sendable
 {
     var favorite: Favorite.Environment
     var patternSelect: PatternSelect.Environment
     var game: Game.Environment
 
     public init(
-        loadFavorites: @escaping () throws -> [String],
-        saveFavorites: @escaping ([String]) throws -> Void,
-        loadPatterns: @escaping () async throws -> [PatternSelect.Section<PatternSelect.Unit>],
-        parseRunLengthEncoded: @escaping (URL) throws -> Pattern,
-        timer: @escaping (TimeInterval) -> AsyncStream<Date>
+        loadFavorites: @Sendable @escaping () throws -> [String],
+        saveFavorites: @Sendable @escaping ([String]) throws -> Void,
+        loadPatterns: @Sendable @escaping () async throws -> [PatternSelect.Section<PatternSelect.Unit>],
+        parseRunLengthEncoded: @Sendable @escaping (URL) throws -> Pattern,
+        timer: @Sendable @escaping (TimeInterval) -> AsyncStream<Date>
     )
     {
         self.favorite = .init(loadFavorites: loadFavorites, saveFavorites: saveFavorites)

@@ -3,7 +3,7 @@ import ActomatonStore
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case requestImage(url: URL)
     case _cacheImage(url: URL, image: UIImage)
@@ -13,7 +13,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     public var images: [URL: UIImage] = [:]
     public var isRequesting: [URL: Bool] = [:]
@@ -93,3 +93,9 @@ public struct Response
 {
     public let image: UIImage
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension URL: @unchecked Sendable {}
+extension UIImage: @unchecked Sendable {}

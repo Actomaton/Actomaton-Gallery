@@ -3,7 +3,7 @@ import UserSession
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case logout
     case onboarding
@@ -14,7 +14,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     public var user: User
 

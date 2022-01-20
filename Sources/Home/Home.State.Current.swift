@@ -13,7 +13,7 @@ import Physics
 extension State
 {
     /// Current example state as sum type where each state is not shared.
-    public enum Current: Equatable
+    public enum Current: Equatable, Sendable
     {
         case counter(Counter.State)
         case syncCounters(SyncCounters.State)

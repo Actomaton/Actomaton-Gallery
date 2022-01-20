@@ -3,7 +3,8 @@ import ActomatonStore
 
 // MARK: - Action
 
-public enum Action<InnerAction>
+public enum Action<InnerAction>: Sendable
+    where InnerAction: Sendable
 {
     case timeTravelStepper(diff: Int)
     case timeTravelSlider(sliderValue: Double)
@@ -15,7 +16,8 @@ public enum Action<InnerAction>
 
 // MARK: - State
 
-public struct State<InnerState: Equatable>: Equatable
+public struct State<InnerState>: Equatable, Sendable
+    where InnerState: Equatable & Sendable
 {
     public var inner: InnerState
 
@@ -83,6 +85,7 @@ public struct Environment<InnerEnvironment>
 public func reducer<InnerAction, InnerState, InnerEnvironment>()
     -> Reducer<Action<InnerAction>, State<InnerState>, Environment<InnerEnvironment>>
 {
+    @Sendable
     func tryTimeTravel(state: inout State<InnerState>, newIndex: Int, environment: Environment<InnerEnvironment>)
         -> Effect<Action<InnerAction>>
     {

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Pattern: Identifiable, Equatable
+public struct Pattern: Identifiable, Equatable, Sendable
 {
     let title: String
     let cells: [Board.Point]

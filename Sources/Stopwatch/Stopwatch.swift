@@ -3,7 +3,7 @@ import Actomaton
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case start
     case _didStart(Date)
@@ -16,7 +16,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     var status: Status
     var laps: [Lap]
@@ -65,7 +65,7 @@ public struct State: Equatable
         self.status = .idle
     }
 
-    public enum Status: Equatable
+    public enum Status: Equatable, Sendable
     {
         case idle
         case preparing(time: TimeInterval)
@@ -108,7 +108,7 @@ public struct State: Equatable
         }
     }
 
-    public struct Lap: Identifiable, Equatable
+    public struct Lap: Identifiable, Equatable, Sendable
     {
         public var id: Int
         public var time: TimeInterval
@@ -197,3 +197,8 @@ public var reducer: Reducer<Action, State, Environment>
         }
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension Date: @unchecked Sendable {}

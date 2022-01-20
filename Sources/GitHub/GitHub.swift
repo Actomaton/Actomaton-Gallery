@@ -10,7 +10,7 @@ import ImageLoader
 ///   - https://github.com/marty-suzuki/GitHubSearchWithSwiftUI
 ///   - https://github.com/ra1028/SwiftUI-Combine
 
-public enum Action
+public enum Action: Sendable
 {
     case onAppear
     case updateSearchText(String)
@@ -34,7 +34,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     var searchText: String = "SwiftUI"
 

@@ -3,7 +3,7 @@ import ActomatonStore
 
 @MainActor
 public struct TabView<InnerAction, InnerState, TabID>: View
-    where InnerState: Equatable, TabID: Hashable
+    where InnerAction: Sendable, InnerState: Equatable & Sendable, TabID: Hashable & Sendable
 {
     private let store: Store<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>>.Proxy
     private let content: (TabID, Store<InnerAction, InnerState>.Proxy) -> AnyView

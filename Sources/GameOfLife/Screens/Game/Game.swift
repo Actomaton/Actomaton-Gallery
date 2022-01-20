@@ -10,7 +10,7 @@ extension Game
 {
     // MARK: - Action
 
-    public enum Action
+    public enum Action: Sendable
     {
         case updatePattern(Pattern)
 
@@ -21,7 +21,7 @@ extension Game
 
     /// - Note: Wrapper of `CanvasPlayer.State<CanvasState>` to add convenient initializer.
     @dynamicMemberLookup
-    struct State: Equatable
+    struct State: Equatable, Sendable
     {
         var canvasPlayerState: CanvasPlayer.State<CanvasState>
 
@@ -54,7 +54,7 @@ extension Game
         }
     }
 
-    struct CanvasState: Equatable
+    struct CanvasState: Equatable, Sendable
     {
         var cellLength: CGFloat
         var canvasSize: Board.Size
