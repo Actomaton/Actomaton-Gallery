@@ -3,18 +3,19 @@ import SwiftUI
 import ActomatonStore
 import ExampleListUIKit
 
-public struct TabItem<ID>: Equatable where ID: Equatable
+public struct TabItem<ID>: Equatable, Sendable
+    where ID: Equatable & Sendable
 {
     public var id: ID
     public var title: String
     public var tabBarItem: UITabBarItem
-    public var build: @MainActor () -> UIViewController
+    public var build: @Sendable @MainActor () -> UIViewController
 
     public init(
         id: ID,
         title: String,
         tabBarItem: UITabBarItem,
-        build: @escaping @MainActor () -> UIViewController
+        build: @Sendable @escaping @MainActor () -> UIViewController
     )
     {
         self.id = id
@@ -36,7 +37,7 @@ extension TabItem
         id: ID,
         title: String,
         image: UIImage,
-        build: @escaping @MainActor () -> UIViewController
+        build: @Sendable @escaping @MainActor () -> UIViewController
     )
     {
         self.id = id
@@ -111,3 +112,7 @@ extension TabItem
         }
     }
 }
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+
+extension UITabBarItem: @unchecked Sendable {}

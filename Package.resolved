@@ -1,47 +1,52 @@
 {
-  "object" : {
-    "pins" : [
+  "object": {
+    "pins": [
       {
-        "package" : "Actomaton",
-        "repositoryURL" : "https://github.com/inamiy/Actomaton",
-        "state" : {
-          "branch" : "main",
-          "revision" : "bb425ffb7556037926b4fc9ac7b2c8881f016077"
+        "package": "Actomaton",
+        "repositoryURL": "https://github.com/inamiy/Actomaton",
+        "state": {
+          "branch": "main",
+          "revision": "bb425ffb7556037926b4fc9ac7b2c8881f016077",
+          "version": null
         }
       },
       {
-        "package" : "OrientationKit",
-        "repositoryURL" : "https://github.com/inamiy/OrientationKit",
-        "state" : {
-          "revision" : "491927e9cc835c0fcc7eac349c0245024f5d8579",
-          "version" : "0.1.0"
+        "package": "OrientationKit",
+        "repositoryURL": "https://github.com/inamiy/OrientationKit",
+        "state": {
+          "branch": null,
+          "revision": "491927e9cc835c0fcc7eac349c0245024f5d8579",
+          "version": "0.1.0"
         }
       },
       {
-        "package" : "swift-case-paths",
-        "repositoryURL" : "https://github.com/pointfreeco/swift-case-paths",
-        "state" : {
-          "revision" : "d226d167bd4a68b51e352af5655c92bce8ee0463",
-          "version" : "0.7.0"
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "d226d167bd4a68b51e352af5655c92bce8ee0463",
+          "version": "0.7.0"
         }
       },
       {
-        "package" : "SwiftUI-PhotoPicker",
-        "repositoryURL" : "https://github.com/inamiy/SwiftUI-PhotoPicker",
-        "state" : {
-          "branch" : "main",
-          "revision" : "7fa6cc560e9c48dca41de152686ebd572eb88edf"
+        "package": "SwiftUI-PhotoPicker",
+        "repositoryURL": "https://github.com/inamiy/SwiftUI-PhotoPicker",
+        "state": {
+          "branch": "main",
+          "revision": "7fa6cc560e9c48dca41de152686ebd572eb88edf",
+          "version": null
         }
       },
       {
-        "package" : "VectorMath",
-        "repositoryURL" : "https://github.com/nicklockwood/VectorMath",
-        "state" : {
-          "revision" : "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
-          "version" : "0.4.1"
+        "package": "VectorMath",
+        "repositoryURL": "https://github.com/nicklockwood/VectorMath",
+        "state": {
+          "branch": null,
+          "revision": "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
+          "version": "0.4.1"
         }
       }
     ]
   },
-  "version" : 1
+  "version": 1
 }

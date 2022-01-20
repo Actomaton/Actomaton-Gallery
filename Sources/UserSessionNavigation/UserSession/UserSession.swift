@@ -3,7 +3,7 @@ import ActomatonStore
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case login
     case loginOK(User)
@@ -15,7 +15,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     public var authStatus: AuthStatus
 
@@ -33,7 +33,7 @@ public struct State: Equatable
 
     // MARK: - State.AuthStatus
 
-    public enum AuthStatus: Equatable
+    public enum AuthStatus: Equatable, Sendable
     {
         case loggedOut
         case loggingIn

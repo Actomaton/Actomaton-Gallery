@@ -11,14 +11,14 @@ enum ExampleList {}
 
 extension ExampleList
 {
-    public enum Action
+    public enum Action: Sendable
     {
         case showExample(Example)
 
         case debugIncrement
     }
 
-    public struct State
+    public struct State: Sendable
     {
         public let examples: [Example]
 

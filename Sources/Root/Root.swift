@@ -11,7 +11,7 @@ import UserSession
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case tab(Tab.Action<TabCaseAction, TabCaseState, TabID>)
 
@@ -33,7 +33,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     public var tab: Tab.State<TabCaseState, TabID>
 

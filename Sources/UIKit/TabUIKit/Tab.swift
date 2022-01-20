@@ -4,7 +4,8 @@ import SettingsUIKit
 
 // MARK: - Action
 
-public enum Action<TabID> where TabID: Equatable
+public enum Action<TabID>: Sendable
+    where TabID: Equatable & Sendable
 {
     case settings(SettingsScene.Action)
 
@@ -15,7 +16,8 @@ public enum Action<TabID> where TabID: Equatable
 
 // MARK: - State
 
-public struct State<TabID>: Equatable where TabID: Equatable
+public struct State<TabID>: Equatable, Sendable
+    where TabID: Equatable & Sendable
 {
     public var tabs: [TabItem<TabID>]
     public var currentTabID: TabID

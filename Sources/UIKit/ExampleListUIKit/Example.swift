@@ -1,7 +1,7 @@
 import SwiftUI
 import ActomatonStore
 
-public protocol Example
+public protocol Example: Sendable
 {
     var exampleTitle: String { get }
     var exampleIcon: Image { get }

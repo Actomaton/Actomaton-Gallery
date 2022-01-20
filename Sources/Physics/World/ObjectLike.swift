@@ -1,7 +1,7 @@
 import SwiftUI
 import VectorMath
 
-public protocol ObjectLike
+public protocol ObjectLike: Sendable
 {
     associatedtype View: SwiftUI.View
 

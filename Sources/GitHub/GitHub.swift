@@ -10,7 +10,7 @@ import ImageLoader
 ///   - https://github.com/marty-suzuki/GitHubSearchWithSwiftUI
 ///   - https://github.com/ra1028/SwiftUI-Combine
 
-public enum Action
+public enum Action: Sendable
 {
     case onAppear
     case updateSearchText(String)
@@ -34,7 +34,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     var searchText: String = "SwiftUI"
 
@@ -72,18 +72,18 @@ public struct State: Equatable
 
 // MARK: - Environment
 
-public struct Environment
+public struct Environment: Sendable
 {
-    let fetchRepositories: (_ searchText: String) async throws -> SearchRepositoryResponse
-    let fetchImage: (URL) async -> UIImage?
+    let fetchRepositories: @Sendable (_ searchText: String) async throws -> SearchRepositoryResponse
+    let fetchImage: @Sendable (URL) async -> UIImage?
 
     var searchRequestDelay: TimeInterval
 
     var imageLoadMaxConcurrency: Int
 
     public init(
-        fetchRepositories: @escaping (_ searchText: String) async throws -> SearchRepositoryResponse,
-        fetchImage: @escaping (URL) async -> UIImage?,
+        fetchRepositories: @Sendable @escaping (_ searchText: String) async throws -> SearchRepositoryResponse,
+        fetchImage: @Sendable @escaping (URL) async -> UIImage?,
         searchRequestDelay: TimeInterval,
         imageLoadMaxConcurrency: Int
     )

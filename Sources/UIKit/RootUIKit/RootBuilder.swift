@@ -16,7 +16,19 @@ public enum RootBuilder
     ) -> UIViewController
     {
         let user = User.makeSample()
-        weak var weakRootStore: Store<Action, State>?
+
+        class WeakBox<T>: @unchecked Sendable
+            where T: AnyObject & Sendable
+        {
+            weak var value: T?
+
+            init(value: T? = nil)
+            {
+                self.value = value
+            }
+        }
+
+        let weakRootStore = WeakBox<Store<Action, State>>()
 
         let tabItems: [TabItem<TabID>] = [
             TabItem(
@@ -48,7 +60,7 @@ public enum RootBuilder
                 title: "Settings",
                 image: UIImage(systemName: "gear")!,
                 build: {
-                    guard let rootStore = weakRootStore else { fatalError() }
+                    guard let rootStore = weakRootStore.value else { fatalError() }
 
                     let user = rootStore.state.tab.settings.user
 
@@ -109,7 +121,7 @@ public enum RootBuilder
             reducer: reducer(),
             environment: environment
         )
-        weakRootStore = rootStore
+        weakRootStore.value = rootStore
 
         let rootVC = RootViewController(store: rootStore)
         return rootVC

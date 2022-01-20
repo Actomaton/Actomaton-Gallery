@@ -11,7 +11,7 @@ extension VideoDetector
 {
     // MARK: - Action
 
-    public enum Action
+    public enum Action: Sendable
     {
         case _didDetectRects([CGRect])
         case _didDetectTexts([CGRect], [String], [UIImage])
@@ -21,7 +21,7 @@ extension VideoDetector
 
     // MARK: - State
 
-    public struct State: Equatable
+    public struct State: Equatable, Sendable
     {
         public var detectMode: DetectMode
         public var detectedRects: [CGRect]
@@ -44,7 +44,7 @@ extension VideoDetector
             self.videoCapture = videoCapture
         }
 
-        public enum DetectMode
+        public enum DetectMode: Sendable
         {
             case face
             case textRect
@@ -140,3 +140,8 @@ extension VideoDetector
         }
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension UIImage: @unchecked Sendable {}

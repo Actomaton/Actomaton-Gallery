@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Card: Hashable, Identifiable
+struct Card: Hashable, Identifiable, Sendable
 {
     let id: ID
     var symbol: String
@@ -12,7 +12,7 @@ struct Card: Hashable, Identifiable
 }
 
 @dynamicMemberLookup
-struct CardWithFavorite: Hashable, Identifiable
+struct CardWithFavorite: Hashable, Identifiable, Sendable
 {
     var card: Card
     var color: Color
@@ -26,3 +26,7 @@ struct CardWithFavorite: Hashable, Identifiable
         set { card[keyPath: keyPath] = newValue }
     }
 }
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+
+extension Color: @unchecked Sendable {}

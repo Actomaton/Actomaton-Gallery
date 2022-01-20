@@ -6,7 +6,7 @@ public enum PatternSelect {}
 
 extension PatternSelect
 {
-    public enum Action
+    public enum Action: Sendable
     {
         case loadPatternFiles
         case didLoadPatternFiles([Section<Unit>])
@@ -18,7 +18,7 @@ extension PatternSelect
         case favorite(Favorite.Action)
     }
 
-    struct State: Equatable
+    struct State: Equatable, Sendable
     {
         var status: Status = .loading
         var searchText: String = ""
@@ -69,23 +69,23 @@ extension PatternSelect
             return sections2
         }
 
-        enum Status: Equatable
+        enum Status: Equatable, Sendable
         {
             case loading
             case loaded([Section<Unit>])
         }
     }
 
-    struct Environment
+    struct Environment: Sendable
     {
-        var loadPatterns: () async throws -> [PatternSelect.Section<Unit>]
-        var parseRunLengthEncoded: (URL) throws -> Pattern
+        var loadPatterns: @Sendable () async throws -> [PatternSelect.Section<Unit>]
+        var parseRunLengthEncoded: @Sendable (URL) throws -> Pattern
 
         var favorite: Favorite.Environment
 
         init(
-            loadPatterns: @escaping () async throws -> [PatternSelect.Section<Unit>],
-            parseRunLengthEncoded: @escaping (URL) throws -> Pattern,
+            loadPatterns: @Sendable @escaping () async throws -> [PatternSelect.Section<Unit>],
+            parseRunLengthEncoded: @Sendable @escaping (URL) throws -> Pattern,
             favorite: Favorite.Environment
         )
         {
@@ -153,7 +153,8 @@ extension PatternSelect
 
 extension PatternSelect
 {
-    public struct Section<Fav>: Identifiable, Equatable where Fav: Equatable
+    public struct Section<Fav>: Identifiable, Equatable, Sendable
+        where Fav: Equatable & Sendable
     {
         var title: String
         var rows: [Row<Fav>]
@@ -161,7 +162,8 @@ extension PatternSelect
         public var id: String { self.title }
     }
 
-    struct Row<Fav>: Identifiable, Equatable where Fav: Equatable
+    struct Row<Fav>: Identifiable, Equatable, Sendable
+        where Fav: Equatable & Sendable
     {
         var title: String
         var url: URL
@@ -170,7 +172,7 @@ extension PatternSelect
         var id: String { self.title }
     }
 
-    public struct Unit: Equatable {}
+    public struct Unit: Equatable, Sendable {}
 }
 
 // MARK: - Enum Properties
@@ -189,3 +191,8 @@ extension PatternSelect.State.Status
         return value
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension URL: @unchecked Sendable {}

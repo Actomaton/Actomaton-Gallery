@@ -1,8 +1,8 @@
 import SwiftUI
 import ActomatonStore
 
-public struct TabItem<InnerState, ID>: Equatable, Identifiable
-    where InnerState: Equatable, ID: Hashable
+public struct TabItem<InnerState, ID>: Equatable, Identifiable, Sendable
+    where InnerState: Equatable & Sendable, ID: Hashable & Sendable
 {
     public var id: ID
 
@@ -23,3 +23,8 @@ public struct TabItem<InnerState, ID>: Equatable, Identifiable
         self.tabItemIcon = tabItemIcon
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension Image: @unchecked Sendable {}

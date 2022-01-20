@@ -11,7 +11,7 @@ import GameOfLife
 import VideoDetector
 import Physics
 
-public enum Action
+public enum Action: Sendable
 {
     case changeCurrent(State.Current?)
 
@@ -30,7 +30,7 @@ public enum Action
     case debugToggleTab(Bool)
 }
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     /// Current example state.
     public var current: Current?
@@ -166,7 +166,9 @@ private func changeCurrentReducer() -> Reducer<Action, State, Environment>
             // so `.changeCurrent` (revisiting the same screen) is
             // the best timing to cancel them.
             return current
-                .map { Effect.cancel(ids: $0.cancelAllEffectsPredicate) } ?? .empty
+                .map { current in
+                    Effect.cancel(ids: { current.cancelAllEffectsPredicate($0) })
+                } ?? .empty
 
         default:
             return .empty

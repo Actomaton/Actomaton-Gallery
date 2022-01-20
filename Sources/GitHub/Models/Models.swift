@@ -1,7 +1,7 @@
 import UIKit
 import Utilities
 
-public struct Repository: Decodable, Identifiable, Equatable
+public struct Repository: Decodable, Identifiable, Equatable, Sendable
 {
     public let id: Int
     let fullName: String
@@ -27,7 +27,7 @@ public struct Repository: Decodable, Identifiable, Equatable
         self.owner = owner
     }
 
-    public struct Owner: Decodable, Identifiable, Equatable
+    public struct Owner: Decodable, Identifiable, Equatable, Sendable
     {
         public let id: Int
         let login: String

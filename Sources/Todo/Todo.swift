@@ -3,7 +3,7 @@ import ActomatonStore
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case updateNewText(String)
     case createTodo
@@ -16,7 +16,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     fileprivate var items: [Item] = [
         .init(id: -1, text: "🍎 Buy Apple", isCompleted: false),
@@ -87,7 +87,7 @@ public var reducer: Reducer<Action, State, Environment>
 
 // MARK: - Data Models
 
-public struct Item: Identifiable, Equatable
+public struct Item: Identifiable, Equatable, Sendable
 {
     public var id: ID
     public var text: String = ""
@@ -96,7 +96,7 @@ public struct Item: Identifiable, Equatable
     public typealias ID = Int
 }
 
-public enum DisplayMode: Int, CaseIterable, Equatable
+public enum DisplayMode: Int, CaseIterable, Equatable, Sendable
 {
     case all
     case active
@@ -119,3 +119,8 @@ public enum DisplayMode: Int, CaseIterable, Equatable
         }
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension IndexSet: @unchecked Sendable {}

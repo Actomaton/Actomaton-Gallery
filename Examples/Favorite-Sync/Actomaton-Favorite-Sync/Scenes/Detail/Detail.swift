@@ -8,7 +8,7 @@ enum Detail
 {
     // MARK: - Action
 
-    enum Action
+    enum Action: Sendable
     {
         case loadFavorite
         case _didLoadFavorite(Bool)
@@ -23,7 +23,7 @@ enum Detail
 
     // MARK: - State
 
-    struct State: Equatable
+    struct State: Equatable, Sendable
     {
         fileprivate(set) var card: CardWithFavorite
 
@@ -86,11 +86,11 @@ enum Detail
 
     // MARK: - Environment
 
-    struct _Environment
+    struct _Environment: Sendable
     {
         let cardStore: CardStore
         let favoriteStore: FavoriteStore
-        let sleep: (_ nanoseconds: UInt64) async throws -> Void
+        let sleep: @Sendable (_ nanoseconds: UInt64) async throws -> Void
     }
 
     typealias Environment = SendRouteEnvironment<_Environment, Route>
@@ -139,7 +139,7 @@ enum Detail
                 state.isFetchingCard = false
                 return .empty
 
-            case let .didTapHeart:
+            case .didTapHeart:
                 state.card.isFavorite.toggle()
 
                 return Effect { [state] in

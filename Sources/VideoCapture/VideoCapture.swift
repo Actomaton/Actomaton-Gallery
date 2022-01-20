@@ -10,7 +10,7 @@ extension VideoCapture
 {
     // MARK: - Action
 
-    public enum Action
+    public enum Action: Sendable
     {
         case makeSession
         case _didMakeSession(SessionID)
@@ -26,7 +26,7 @@ extension VideoCapture
 
     // MARK: - State
 
-    public struct State: Equatable
+    public struct State: Equatable, Sendable
     {
         var cameraPosition: AVCaptureDevice.Position
         public var sessionState: SessionState
@@ -44,7 +44,7 @@ extension VideoCapture
             self.deviceOrientation = deviceOrientation
         }
 
-        public enum SessionState: Equatable, CustomStringConvertible
+        public enum SessionState: Equatable, Sendable, CustomStringConvertible
         {
             case noSession
             case idle(SessionID)
@@ -185,3 +185,8 @@ extension VideoCapture.State.SessionState
         return true
     }
 }
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension CMSampleBuffer: @unchecked Sendable {}

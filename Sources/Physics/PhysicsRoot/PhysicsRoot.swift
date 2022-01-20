@@ -11,7 +11,7 @@ extension PhysicsRoot
 {
     // MARK: - Action
 
-    public enum Action
+    public enum Action: Sendable
     {
         case changeCurrent(State.Current?)
         case changeΔt(Scalar)
@@ -32,7 +32,7 @@ extension PhysicsRoot
 
     // MARK: - State
 
-    public struct State: Equatable
+    public struct State: Equatable, Sendable
     {
         /// Current example state.
         private var _current: Current?
@@ -161,7 +161,9 @@ extension PhysicsRoot
                 // so `.changeCurrent` (revisiting the same screen) is
                 // the best timing to cancel them.
                 return current
-                    .map { Effect.cancel(ids: $0.cancelAllEffectsPredicate) } ?? .empty
+                    .map { current in
+                        Effect.cancel(ids: { current.cancelAllEffectsPredicate($0) })
+                    } ?? .empty
 
             case let .changeΔt(Δt):
                 state.Δt = Δt

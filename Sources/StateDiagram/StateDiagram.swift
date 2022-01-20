@@ -3,7 +3,7 @@ import Actomaton
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case login
     case loginOK
@@ -14,7 +14,7 @@ public enum Action
 
 // MARK: - State
 
-public enum State: Equatable
+public enum State: Equatable, Sendable
 {
     case loggedOut
     case loggingIn

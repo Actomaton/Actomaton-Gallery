@@ -35,7 +35,8 @@ public enum World
 
     /// - Note: Wrapper of `CanvasPlayer.State<CanvasState<Obj>>` to add convenient initializer.
     @dynamicMemberLookup
-    public struct State<Obj>: Equatable where Obj: Equatable
+    public struct State<Obj>: Equatable, Sendable
+        where Obj: Equatable & Sendable
     {
         public var canvasPlayerState: CanvasPlayer.State<CanvasState<Obj>>
 
@@ -55,7 +56,8 @@ public enum World
         }
     }
 
-    public struct CanvasState<Obj>: Equatable where Obj: Equatable
+    public struct CanvasState<Obj>: Equatable, Sendable
+        where Obj: Equatable & Sendable
     {
         public var canvasSize: CGSize = .zero
         public fileprivate(set) var offset: CGPoint

@@ -4,7 +4,8 @@ import CommonUI
 
 /// Canvas view that tracks tap / drag gestures and orientation.
 @MainActor
-public struct CanvasView<CanvasState>: View where CanvasState: Equatable
+public struct CanvasView<CanvasState>: View
+    where CanvasState: Equatable & Sendable
 {
     let store: Store<Action, State<CanvasState>>.Proxy
     let content: @MainActor (Store<Action, State<CanvasState>>.Proxy) -> AnyView

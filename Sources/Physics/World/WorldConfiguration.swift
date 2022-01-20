@@ -1,4 +1,4 @@
-public struct WorldConfiguration: Equatable
+public struct WorldConfiguration: Equatable, Sendable
 {
     public var showsVelocityArrows: Bool
     public var showsForceArrows: Bool

@@ -6,7 +6,7 @@ extension PhysicsRoot.State
 {
     /// Current example state as sum type where each state is not shared.
     /// - Note: `World.State` contains `Δt`, but will be replaced with `update` provided from `PhysicsRoot.State`.
-    public enum Current: Equatable
+    public enum Current: Equatable, Sendable
     {
         // Object
         case gravityUniverse(World.State<CircleObject>)

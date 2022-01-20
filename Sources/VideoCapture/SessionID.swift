@@ -1,4 +1,4 @@
-public struct SessionID: Hashable
+public struct SessionID: Hashable, Sendable
 {
     internal var value: UInt64
 
