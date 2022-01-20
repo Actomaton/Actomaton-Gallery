@@ -9,7 +9,7 @@ enum CardList
 {
     // MARK: - Action
 
-    enum Action
+    enum Action: Sendable
     {
         case loadFavorites
         case _didLoadFavorites([Card.ID])
@@ -25,7 +25,7 @@ enum CardList
 
     // MARK: - State
 
-    struct State: Equatable
+    struct State: Equatable, Sendable
     {
         fileprivate var _cards: [Card]
         fileprivate var favoriteCardIDs: Set<Card.ID>
@@ -115,11 +115,11 @@ enum CardList
 
     // MARK: - Environment
 
-    struct _Environment
+    struct _Environment: Sendable
     {
         let cardStore: CardStore
         let favoriteStore: FavoriteStore
-        let sleep: (_ nanoseconds: UInt64) async throws -> Void
+        let sleep: @Sendable (_ nanoseconds: UInt64) async throws -> Void
     }
 
     typealias Environment = SendRouteEnvironment<_Environment, Route>

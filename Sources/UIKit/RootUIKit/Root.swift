@@ -7,7 +7,7 @@ import TabUIKit
 
 // MARK: - Action
 
-public enum Action
+public enum Action: Sendable
 {
     case tab(TabUIKit.Action<TabID>)
 
@@ -30,7 +30,7 @@ public enum Action
 
 // MARK: - State
 
-public struct State: Equatable
+public struct State: Equatable, Sendable
 {
     public var tab: TabUIKit.State<TabID>
 
@@ -60,7 +60,7 @@ public struct State: Equatable
 
 // MARK: - Environment
 
-public struct Environment
+public struct Environment: Sendable
 {
     /// - Note: View-traversal from root `window` is often needed for dirty hacks.
     public let window: UIWindow

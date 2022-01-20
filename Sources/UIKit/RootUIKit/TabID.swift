@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TabID: Equatable
+public enum TabID: Equatable, Sendable
 {
     case uiKit
     case swiftUIHosting

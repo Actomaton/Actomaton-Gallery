@@ -117,14 +117,14 @@ public struct State: Equatable, Sendable
 
 // MARK: - Environment
 
-public struct Environment
+public struct Environment: Sendable
 {
-    public let getDate: () -> Date
-    public let timer: (TimeInterval) -> AsyncStream<Date>
+    public let getDate: @Sendable () -> Date
+    public let timer: @Sendable (TimeInterval) -> AsyncStream<Date>
 
     public init(
-        getDate: @escaping () -> Date,
-        timer: @escaping (TimeInterval) -> AsyncStream<Date>
+        getDate: @Sendable @escaping () -> Date,
+        timer: @Sendable @escaping (TimeInterval) -> AsyncStream<Date>
     )
     {
         self.getDate = getDate

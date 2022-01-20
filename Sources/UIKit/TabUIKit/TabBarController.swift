@@ -7,7 +7,7 @@ import SettingsUIKit
 
 @MainActor
 public final class TabBarController<TabID>: UITabBarController
-    where TabID: Equatable
+    where TabID: Equatable & Sendable
 {
     private let store: Store<Action<TabID>, State<TabID>>.ObservableProxy
     private var cancellables: [AnyCancellable] = []

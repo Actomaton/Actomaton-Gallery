@@ -72,18 +72,18 @@ public struct State: Equatable, Sendable
 
 // MARK: - Environment
 
-public struct Environment
+public struct Environment: Sendable
 {
-    let fetchRepositories: (_ searchText: String) async throws -> SearchRepositoryResponse
-    let fetchImage: (URL) async -> UIImage?
+    let fetchRepositories: @Sendable (_ searchText: String) async throws -> SearchRepositoryResponse
+    let fetchImage: @Sendable (URL) async -> UIImage?
 
     var searchRequestDelay: TimeInterval
 
     var imageLoadMaxConcurrency: Int
 
     public init(
-        fetchRepositories: @escaping (_ searchText: String) async throws -> SearchRepositoryResponse,
-        fetchImage: @escaping (URL) async -> UIImage?,
+        fetchRepositories: @Sendable @escaping (_ searchText: String) async throws -> SearchRepositoryResponse,
+        fetchImage: @Sendable @escaping (URL) async -> UIImage?,
         searchRequestDelay: TimeInterval,
         imageLoadMaxConcurrency: Int
     )
