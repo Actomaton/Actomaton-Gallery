@@ -52,7 +52,7 @@ public enum RootBuilder
                     GitHubExample(),
                     GameOfLifeExample(),
                     VideoDetectorExample(),
-//                    PhysicsExample()
+                    PhysicsExample()
                 ]
             ),
             TabItem(

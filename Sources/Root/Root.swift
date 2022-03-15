@@ -264,17 +264,17 @@ private func universalLinkReducer() -> Reducer<Action, State, Environment>
             }
             state.tab.currentTabID = .home
 
-//        case ["/", "physics"]:
-//            state.updateHomeState {
-//                $0.current = .physics(.init(current: nil))
-//            }
-//            state.tab.currentTabID = .home
-//
-//        case ["/", "physics", "gravity-universe"]:
-//            state.updateHomeState {
-//                $0.current = .physics(.gravityUniverse)
-//            }
-//            state.tab.currentTabID = .home
+        case ["/", "physics"]:
+            state.updateHomeState {
+                $0.current = .physics(.init(current: nil))
+            }
+            state.tab.currentTabID = .home
+
+        case ["/", "physics", "gravity-universe"]:
+            state.updateHomeState {
+                $0.current = .physics(.gravityUniverse)
+            }
+            state.tab.currentTabID = .home
 
         case ["/", "tab"]:
             guard !state.tab.tabs.isEmpty else { break }

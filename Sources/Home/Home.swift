@@ -9,7 +9,7 @@ import Stopwatch
 import GitHub
 import GameOfLife
 import VideoDetector
-//import Physics
+import Physics
 
 public enum Action: Sendable
 {
@@ -24,7 +24,7 @@ public enum Action: Sendable
     case github(GitHub.Action)
     case gameOfLife(GameOfLife.Root.Action)
     case videoDetector(VideoDetector.Action)
-//    case physics(PhysicsRoot.Action)
+    case physics(PhysicsRoot.Action)
 
     case debugToggleTimeTravel(Bool)
     case debugToggleTab(Bool)
@@ -112,13 +112,13 @@ public var reducer: Reducer<Action, State, Environment>
                 .contramap(action: /Action.videoDetector)
                 .contramap(state: /State.Current.videoDetector)
                 .contramap(state: \State.current)
-                .contramap(environment: { _ in () })
+                .contramap(environment: { _ in () }),
 
-//            PhysicsRoot.reducer
-//                .contramap(action: /Action.physics)
-//                .contramap(state: /State.Current.physics)
-//                .contramap(state: \State.current)
-//                .contramap(environment: { .init(timer: $0.timer) })
+            PhysicsRoot.reducer
+                .contramap(action: /Action.physics)
+                .contramap(state: /State.Current.physics)
+                .contramap(state: \State.current)
+                .contramap(environment: { .init(timer: $0.timer) })
         )
     )
 }
