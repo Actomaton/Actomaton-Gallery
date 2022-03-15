@@ -96,13 +96,13 @@ let package = Package(
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "VideoCapture"
             ]),
-//        .target(
-//            name: "Physics",
-//            dependencies: [
-//                .product(name: "ActomatonStore", package: "Actomaton"),
-//                "VectorMath",
-//                "CommonUI", "CanvasPlayer"
-//            ]),
+        .target(
+            name: "Physics",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "VectorMath",
+                "CommonUI", "CanvasPlayer"
+            ]),
 
         // MARK: - SwiftUI-Gallery
 
@@ -111,7 +111,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector", // "Physics",
+                "GameOfLife", "VideoDetector", "Physics",
                 "CommonEffects"
             ]),
         .target(

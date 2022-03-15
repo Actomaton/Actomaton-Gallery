@@ -89,58 +89,58 @@ extension PhysicsRoot
     public static var reducer: Reducer<Action, State, Environment>
     {
         .combine(
-            changeCurrentReducer(),
+            changeCurrentReducer()
 
             // Objects
-            Reducer<Action, State, Environment>.combine(
-                GravityUniverseExample().reducer
-                    .contramap(action: /Action.gravityUniverse)
-                    .contramap(state: /State.Current.gravityUniverse)
-                    .contramap(state: \State.current),
-
-                GravitySurfaceExample().reducer
-                    .contramap(action: /Action.gravitySurface)
-                    .contramap(state: /State.Current.gravitySurface)
-                    .contramap(state: \State.current),
-
-                SpringExample().reducer
-                    .contramap(action: /Action.spring)
-                    .contramap(state: /State.Current.spring)
-                    .contramap(state: \State.current),
-
-                CollisionExample().reducer
-                    .contramap(action: /Action.collision)
-                    .contramap(state: /State.Current.collision)
-                    .contramap(state: \State.current),
-
-                LineCollisionExample().reducer
-                    .contramap(action: /Action.lineCollision)
-                    .contramap(state: /State.Current.lineCollision)
-                    .contramap(state: \State.current),
-
-                GaltonBoardExample().reducer
-                    .contramap(action: /Action.galtonBoard)
-                    .contramap(state: /State.Current.galtonBoard)
-                    .contramap(state: \State.current),
-
-                SpringPendulumExample().reducer
-                    .contramap(action: /Action.springPendulum)
-                    .contramap(state: /State.Current.springPendulum)
-                    .contramap(state: \State.current)
-            ),
+//            Reducer<Action, State, Environment>.combine(
+//                GravityUniverseExample().reducer
+//                    .contramap(action: /Action.gravityUniverse)
+//                    .contramap(state: /State.Current.gravityUniverse)
+//                    .contramap(state: \State.current),
+//
+//                GravitySurfaceExample().reducer
+//                    .contramap(action: /Action.gravitySurface)
+//                    .contramap(state: /State.Current.gravitySurface)
+//                    .contramap(state: \State.current),
+//
+//                SpringExample().reducer
+//                    .contramap(action: /Action.spring)
+//                    .contramap(state: /State.Current.spring)
+//                    .contramap(state: \State.current),
+//
+//                CollisionExample().reducer
+//                    .contramap(action: /Action.collision)
+//                    .contramap(state: /State.Current.collision)
+//                    .contramap(state: \State.current),
+//
+//                LineCollisionExample().reducer
+//                    .contramap(action: /Action.lineCollision)
+//                    .contramap(state: /State.Current.lineCollision)
+//                    .contramap(state: \State.current),
+//
+//                GaltonBoardExample().reducer
+//                    .contramap(action: /Action.galtonBoard)
+//                    .contramap(state: /State.Current.galtonBoard)
+//                    .contramap(state: \State.current),
+//
+//                SpringPendulumExample().reducer
+//                    .contramap(action: /Action.springPendulum)
+//                    .contramap(state: /State.Current.springPendulum)
+//                    .contramap(state: \State.current)
+//            ),
 
             // Pendulum (Bob)
-            Reducer<Action, State, Environment>.combine(
-                PendulumExample().reducer
-                    .contramap(action: /Action.pendulum)
-                    .contramap(state: /State.Current.pendulum)
-                    .contramap(state: \State.current),
-
-                DoublePendulumExample().reducer
-                    .contramap(action: /Action.doublePendulum)
-                    .contramap(state: /State.Current.doublePendulum)
-                    .contramap(state: \State.current)
-            )
+//            Reducer<Action, State, Environment>.combine(
+//                PendulumExample().reducer
+//                    .contramap(action: /Action.pendulum)
+//                    .contramap(state: /State.Current.pendulum)
+//                    .contramap(state: \State.current),
+//
+//                DoublePendulumExample().reducer
+//                    .contramap(action: /Action.doublePendulum)
+//                    .contramap(state: /State.Current.doublePendulum)
+//                    .contramap(state: \State.current)
+//            )
         )
     }
 
