@@ -90,36 +90,36 @@ protocol ObjectWorldExample: Example
     func exampleTapToMakeObject(point: CGPoint) -> Obj?
 }
 
-//extension ObjectWorldExample where Obj == CircleObject
-//{
-//    /// Default impl.
-//    func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint) {}
-//
-//    /// Default impl.
-//    func dragEndEmptyArea(_ objects: inout [Obj]) {}
-//
-//    /// Default impl.
-//    func exampleTapToMakeObject(point: CGPoint) -> Obj?
-//    {
-//        CircleObject(position: Vector2(point))
-//    }
-//
-//    var reducer: Reducer<World.Action, World.State<Obj>, World.Environment>
-//    {
-//        World
-//            .reducer(
-//                tick: World.tickForObjects(self.step),
-//                tap: { objects, point in
-//                    if let object = exampleTapToMakeObject(point: point) {
-//                        objects.append(object)
-//                    }
-//                },
-//                draggingObj: { $0.position = Vector2($1) },
-//                draggingEmptyArea: self.draggingEmptyArea,
-//                dragEndEmptyArea: self.dragEndEmptyArea
-//            )
-//    }
-//}
+extension ObjectWorldExample where Obj == CircleObject
+{
+    /// Default impl.
+    func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint) {}
+
+    /// Default impl.
+    func dragEndEmptyArea(_ objects: inout [Obj]) {}
+
+    /// Default impl.
+    func exampleTapToMakeObject(point: CGPoint) -> Obj?
+    {
+        CircleObject(position: Vector2(point))
+    }
+
+    var reducer: Reducer<World.Action, World.State<Obj>, World.Environment>
+    {
+        World
+            .reducer(
+                tick: World.tickForObjects(self.step),
+                tap: { objects, point in
+                    if let object = exampleTapToMakeObject(point: point) {
+                        objects.append(object)
+                    }
+                },
+                draggingObj: { $0.position = Vector2($1) },
+                draggingEmptyArea: self.draggingEmptyArea,
+                dragEndEmptyArea: self.dragEndEmptyArea
+            )
+    }
+}
 
 extension ObjectWorldExample where Obj == Object
 {
