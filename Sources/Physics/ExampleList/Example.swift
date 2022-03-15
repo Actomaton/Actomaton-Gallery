@@ -90,7 +90,7 @@ protocol ObjectWorldExample: Example
     func exampleTapToMakeObject(point: CGPoint) -> Obj?
 }
 
-extension ObjectWorldExample where Obj == CircleObject
+extension ObjectWorldExample where Obj: Equatable // where Obj == CircleObject
 {
     /// Default impl.
     func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint) {}
@@ -101,7 +101,7 @@ extension ObjectWorldExample where Obj == CircleObject
     /// Default impl.
     func exampleTapToMakeObject(point: CGPoint) -> Obj?
     {
-        CircleObject(position: Vector2(point))
+        CircleObject(position: Vector2(point)) as? Obj
     }
 
     var reducer: Reducer<World.Action, World.State<Obj>, World.Environment>
