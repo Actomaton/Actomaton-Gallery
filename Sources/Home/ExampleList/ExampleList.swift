@@ -11,5 +11,5 @@ let exampleList: [Example] = [
     GitHubExample(),
     GameOfLifeExample(),
     VideoDetectorExample(),
-    PhysicsExample()
+//    PhysicsExample()
 ]
