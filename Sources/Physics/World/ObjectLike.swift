@@ -33,3 +33,8 @@ protocol _ObjectLike: ObjectLike
 
 public typealias ObjectLikeID = AnyHashable
 public typealias Mass = Scalar
+
+// MARK: - @unchecked Sendable
+
+// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
+extension AnyHashable: @unchecked Sendable {}
