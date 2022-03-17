@@ -72,7 +72,7 @@ struct PendulumExample: Example
                         trackPath
                             .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
 
-                        ForEach(0 ..< store.state.objects.count) {
+                        ForEach(0 ..< store.state.objects.count, id: \.self) {
                             rodPath(index: $0)
                         }
 

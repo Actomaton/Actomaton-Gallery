@@ -107,7 +107,7 @@ struct DoublePendulumExample: Example
                         trackPath
                             .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
 
-                        ForEach(0 ..< store.state.objects.count / 2) {
+                        ForEach(0 ..< store.state.objects.count / 2, id: \.self) {
                             rodPath(index: $0)
                         }
 

@@ -37,5 +37,5 @@ public typealias Environment = ()
 /// - Note: This example uses `directStateBinding`, so `Reducer` will not run.
 public var reducer: Reducer<Action, State, Environment>
 {
-    .init { _, _, _ in .empty } // TODO: How to stop "Will never be executed" warning?
+    .empty
 }

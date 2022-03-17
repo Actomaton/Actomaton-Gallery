@@ -12,13 +12,17 @@ import DebugRoot
 struct AppView: View
 {
     @StateObject
-    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>> = .init(
-        state: DebugRoot.State(inner: Root.State.initialState),
-        reducer: DebugRoot.reducer(inner: Root.reducer()),
-        environment: HomeEnvironment.live
-    )
+    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>>
 
-    init() {}
+    init()
+    {
+        let store = Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>>(
+            state: DebugRoot.State(inner: Root.State.initialState),
+            reducer: DebugRoot.reducer(inner: Root.reducer()),
+            environment: HomeEnvironment.live
+        )
+        self._store = StateObject(wrappedValue: store)
+    }
 
     var body: some View
     {
