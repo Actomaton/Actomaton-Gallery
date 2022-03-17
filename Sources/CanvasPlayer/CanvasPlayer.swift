@@ -72,7 +72,7 @@ private struct TimerEffectID: EffectIDProtocol {}
 
 public func cancelAllEffectsPredicate(id: EffectID) -> Bool
 {
-    return id is TimerEffectID
+    return id.value is TimerEffectID
 }
 
 // MARK: - Reducer

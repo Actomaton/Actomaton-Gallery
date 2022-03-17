@@ -132,7 +132,7 @@ public struct GitHubRequestID: EffectIDProtocol {}
 
 public func cancelAllEffectsPredicate(id: EffectID) -> Bool
 {
-    id is GitHubRequestID || id is ImageLoader.ImageEffectID
+    id.value is GitHubRequestID || id.value is ImageLoader.ImageEffectID
 }
 
 // MARK: - Reducer
