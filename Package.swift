@@ -107,9 +107,15 @@ let package = Package(
                 // Workaroudn for Xcode 13.3 (Swift 5.6) segfault
                 // https://github.com/inamiy/Actomaton-Gallery/pull/33
                 // https://twitter.com/slava_pestov/status/1503903893389983745
-                .unsafeFlags([
-                    "-Xfrontend", "-requirement-machine=off",
-                ])
+                .unsafeFlags({
+#if swift(>=5.6)
+                    [
+                        "-Xfrontend", "-requirement-machine=off",
+                    ]
+#else
+                    []
+#endif
+                }())
             ]
         ),
 
