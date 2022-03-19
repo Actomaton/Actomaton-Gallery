@@ -82,6 +82,7 @@ extension VideoDetector
                     )
                     .map { Action._didDetectRects($0.map { $0.boundingBox }) }
                     .catch { _ in Just(Action._error(.detectionFailed)) }
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
                     return publisher.toEffect()
 
@@ -92,6 +93,7 @@ extension VideoDetector
                     )
                         .map { Action._didDetectRects($0.map { $0.boundingBox }) }
                         .catch { _ in Just(Action._error(.detectionFailed)) }
+                        .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
                     return publisher.toEffect()
 
@@ -109,6 +111,7 @@ extension VideoDetector
                         )
                     }
                     .catch { _ in Just(Action._error(.detectionFailed)) }
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
                     return publisher.toEffect()
                 }

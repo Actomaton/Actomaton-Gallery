@@ -5,12 +5,16 @@ import ActomatonStore
 struct CounterAppView: View
 {
     @StateObject
-    private var store: Store<Action, State> = .init(
-        state: State(),
-        reducer: reducer()
-    )
+    private var store: Store<Action, State>
 
-    init() {}
+    init()
+    {
+        let store = Store<Action, State>(
+            state: State(),
+            reducer: reducer()
+        )
+        self._store = StateObject(wrappedValue: store)
+    }
 
     var body: some View
     {

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/inamiy/Actomaton",
         "state": {
           "branch": null,
-          "revision": "23dc0c37e89135204386853a6271fc64e7462932",
-          "version": "0.2.1"
+          "revision": "45d04852eaf32d382b7c907767f0ad3fc11065c8",
+          "version": "0.3.1"
         }
       },
       {
@@ -17,6 +17,24 @@
           "branch": null,
           "revision": "d226d167bd4a68b51e352af5655c92bce8ee0463",
           "version": "0.7.0"
+        }
+      },
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "51698ece74ecf31959d3fa81733f0a5363ef1b4e",
+          "version": "0.3.0"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
         }
       }
     ]

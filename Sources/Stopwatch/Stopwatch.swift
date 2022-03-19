@@ -170,10 +170,12 @@ public var reducer: Reducer<Action, State, Environment>
 
             return Effect(
                 id: TimerEffectID(),
-                sequence: environment.timer(0.01)
-                    .map {
-                        Action._update(start: date, current: $0)
-                    }
+                sequence: {
+                    environment.timer(0.01)
+                        .map {
+                            Action._update(start: date, current: $0)
+                        }
+                }
             )
 
         case let (._update(startDate, currentDate), .running(time, _, _)):

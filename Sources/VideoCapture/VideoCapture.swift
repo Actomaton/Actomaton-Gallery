@@ -93,6 +93,8 @@ extension VideoCapture
                 let publisher = makeSession(cameraPosition: state.cameraPosition)
                     .map(Action._didMakeSession)
                     .catch { Just(Action._error($0)) }
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+
                 return publisher.toEffect()
 
             case let ._didMakeSession(sessionID):
@@ -109,9 +111,11 @@ extension VideoCapture
                 let sessionPublisher = startSession(sessionID: sessionID)
                     .map(Action._didOutput)
                     .catch { Just(Action._error($0))}
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
                 let orientationPublisher = startOrientation(interval: 0.1)
                     .map(Action._didUpdateOrientation)
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
                 return sessionPublisher.toEffect()
                     + orientationPublisher.toEffect(id: OrientationEffectID())
@@ -136,6 +140,7 @@ extension VideoCapture
                 )
                 .compactMap { _ in nil }
                 .catch { Just(Action._error($0))}
+                .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
                 return publisher.toEffect()
 
@@ -146,7 +151,9 @@ extension VideoCapture
 
                 let publisher = stopSession(sessionID: sessionID)
                     .map { _ in Action._didStopSession }
-                    .catch { Just(Action._error($0))}
+                    .catch { Just(Action._error($0)) }
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+
                 return publisher.toEffect()
 
             case ._didStopSession:
@@ -159,6 +166,8 @@ extension VideoCapture
             case let ._error(error):
                 let publisher = log("\(error)")
                     .flatMap { Empty<Action, Never>(completeImmediately: true) }
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+
                 return publisher.toEffect()
 
             case .removeSession:
@@ -169,6 +178,8 @@ extension VideoCapture
 
                 let publisher = removeSession()
                     .flatMap { Empty<Action, Never>(completeImmediately: true) }
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+
                 return publisher.toEffect()
             }
         }
