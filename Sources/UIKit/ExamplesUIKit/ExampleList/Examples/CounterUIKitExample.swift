@@ -29,11 +29,11 @@ public struct CounterUIKitExample: Example
 @MainActor
 private final class CounterViewController: UIViewController
 {
-    let store: Store<Counter.Action, Counter.State>
+    let store: Store<Counter.Action, Counter.State, Counter.Environment>
 
     var cancellables: [AnyCancellable] = []
 
-    init(store: Store<Counter.Action, Counter.State>)
+    init(store: Store<Counter.Action, Counter.State, Counter.Environment>)
     {
         self.store = store
         super.init(nibName: nil, bundle: nil)

@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 public struct TodoView: View
 {
-    private let store: Store<Todo.Action, Todo.State>.Proxy
+    private let store: Store<Todo.Action, Todo.State, Void>.Proxy
 
-    public init(store: Store<Todo.Action, Todo.State>.Proxy)
+    public init(store: Store<Todo.Action, Todo.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -127,6 +127,7 @@ struct TodoView_Previews: PreviewProvider
         TodoView(
             store: .init(
                 state: .constant(.init()),
+                environment: (),
                 send: { _ in }
             )
         )

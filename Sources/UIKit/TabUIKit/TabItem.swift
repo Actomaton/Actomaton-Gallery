@@ -67,8 +67,8 @@ extension TabItem
         id: ID,
         title: String,
         image: UIImage,
-        store: Store<Action, State>,
-        view: @escaping (Store<Action, State>.Proxy) -> V
+        store: Store<Action, State, Environment>,
+        view: @escaping (Store<Action, State, Void>.Proxy) -> V
     )
     {
         self.id = id
@@ -84,8 +84,8 @@ extension TabItem
         id: ID,
         title: String,
         image: UIImage,
-        store: Store<Action, State>.ObservableProxy,
-        view: @escaping (Store<Action, State>.Proxy) -> V
+        store: Store<Action, State, Environment>.ObservableProxy,
+        view: @escaping (Store<Action, State, Void>.Proxy) -> V
     )
     {
         self.id = id

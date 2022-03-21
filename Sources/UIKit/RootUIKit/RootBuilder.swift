@@ -28,7 +28,7 @@ public enum RootBuilder
             }
         }
 
-        let weakRootStore = WeakBox<Store<Action, State>>()
+        let weakRootStore = WeakBox<Store<Action, State, Environment>>()
 
         let tabItems: [TabItem<TabID>] = [
             TabItem(
@@ -64,7 +64,7 @@ public enum RootBuilder
 
                     let user = rootStore.state.tab.settings.user
 
-                    let settingsStore = RouteStore<SettingsScene.Action, SettingsScene.State, SettingsScene.Action>(
+                    let settingsStore = RouteStore<SettingsScene.Action, SettingsScene.State, SettingsScene.Environment, SettingsScene.Action>(
                         state: .init(user: user),
                         reducer: SettingsUIKit.reducer,
                         environment: ()
@@ -93,7 +93,7 @@ public enum RootBuilder
                         }
                     }
 
-                    return HostingViewController(
+                    return HostingViewController.make(
                         store: settingsStore,
                         makeView: { store in
                             SettingsView(
@@ -116,7 +116,7 @@ public enum RootBuilder
             isOnboardingComplete: true
         )
 
-        let rootStore = Store<Action, State>(
+        let rootStore = Store<Action, State, Environment>(
             state: state,
             reducer: reducer(),
             environment: environment

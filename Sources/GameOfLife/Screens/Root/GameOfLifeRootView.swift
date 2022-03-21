@@ -5,9 +5,9 @@ import CanvasPlayer
 @MainActor
 public struct RootView: View
 {
-    private let store: Store<Root.Action, Root.State>.Proxy
+    private let store: Store<Root.Action, Root.State, Void>.Proxy
 
-    public init(store: Store<Root.Action, Root.State>.Proxy)
+    public init(store: Store<Root.Action, Root.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -101,6 +101,7 @@ struct RootView_Previews: PreviewProvider
         let gameOfLifeView = RootView(
             store: .init(
                 state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
+                environment: (),
                 send: { _ in }
             )
         )

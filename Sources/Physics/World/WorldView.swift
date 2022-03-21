@@ -7,15 +7,15 @@ import CanvasPlayer
 @MainActor
 struct WorldView<Obj>: View where Obj: ObjectLike & Equatable
 {
-    let store: Store<World.Action, World.State<Obj>>.Proxy
+    let store: Store<World.Action, World.State<Obj>, Void>.Proxy
     let configuration: WorldConfiguration
-    let content: @MainActor (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>>.Proxy, WorldConfiguration) -> AnyView
+    let content: @MainActor (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>, Void>.Proxy, WorldConfiguration) -> AnyView
 
     /// Initializer with custom `content`.
     init(
-        store: Store<World.Action, World.State<Obj>>.Proxy,
+        store: Store<World.Action, World.State<Obj>, Void>.Proxy,
         configuration: WorldConfiguration,
-        content: @MainActor @escaping (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>>.Proxy, WorldConfiguration) -> AnyView
+        content: @MainActor @escaping (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>, Void>.Proxy, WorldConfiguration) -> AnyView
     )
     {
         self.store = store

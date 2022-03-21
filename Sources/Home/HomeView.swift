@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 public struct HomeView: View
 {
-    private let store: Store<Action, State>.Proxy
+    private let store: Store<Action, State, Environment>.Proxy
 
-    public init(store: Store<Action, State>.Proxy)
+    public init(store: Store<Action, State, Environment>.Proxy)
     {
         self.store = store
     }
@@ -80,6 +80,7 @@ struct HomeView_Previews: PreviewProvider
             HomeView(
                 store: .init(
                     state: .constant(State(current: nil, usesTimeTravel: true, isDebuggingTab: true)),
+                    environment: .live,
                     send: { _ in }
                 )
             )
@@ -89,6 +90,7 @@ struct HomeView_Previews: PreviewProvider
             HomeView(
                 store: .init(
                     state: .constant(State(current: .counter(.init()), usesTimeTravel: true, isDebuggingTab: true)),
+                    environment: .live,
                     send: { _ in }
                 )
             )

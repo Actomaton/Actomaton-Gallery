@@ -9,10 +9,10 @@ import SettingsUIKit
 public final class TabBarController<TabID>: UITabBarController
     where TabID: Equatable & Sendable
 {
-    private let store: Store<Action<TabID>, State<TabID>>.ObservableProxy
+    private let store: Store<Action<TabID>, State<TabID>, Environment>.ObservableProxy
     private var cancellables: [AnyCancellable] = []
 
-    public init(store: Store<Action<TabID>, State<TabID>>.ObservableProxy)
+    public init(store: Store<Action<TabID>, State<TabID>, Environment>.ObservableProxy)
     {
         self.store = store
 

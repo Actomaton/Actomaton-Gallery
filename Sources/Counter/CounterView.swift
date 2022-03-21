@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 public struct CounterView: View
 {
-    private let store: Store<Counter.Action, Counter.State>.Proxy
+    private let store: Store<Counter.Action, Counter.State, Void>.Proxy
 
-    public init(store: Store<Counter.Action, Counter.State>.Proxy)
+    public init(store: Store<Counter.Action, Counter.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -38,6 +38,7 @@ struct CounterView_Previews: PreviewProvider
         CounterView(
             store: .init(
                 state: .constant(.init()),
+                environment: (),
                 send: { _ in }
             )
         )

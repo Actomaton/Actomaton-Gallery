@@ -11,9 +11,9 @@ import UserSession
 @MainActor
 public struct RootView: View
 {
-    private let store: Store<Action, State>.Proxy
+    private let store: Store<Action, State, Environment>.Proxy
 
-    public init(store: Store<Action, State>.Proxy)
+    public init(store: Store<Action, State, Environment>.Proxy)
     {
         self.store = store
     }
@@ -93,14 +93,16 @@ public struct RootView: View
                     HomeView(store: childStore_)
                 }
                 else if let childStore_ = childStore
-                            .contramap(action: TabCaseAction.settings)[casePath: /TabCaseState.settings]
-                            .traverse(\.self)
+                    .map(environment: { _ in () })
+                    .contramap(action: TabCaseAction.settings)[casePath: /TabCaseState.settings]
+                    .traverse(\.self)
                 {
                     SettingsView(store: childStore_, usesNavigationView: true)
                 }
                 else if let childStore_ = childStore
-                            .contramap(action: TabCaseAction.counter)[casePath: /TabCaseState.counter]
-                            .traverse(\.self)
+                    .map(environment: { _ in () })
+                    .contramap(action: TabCaseAction.counter)[casePath: /TabCaseState.counter]
+                    .traverse(\.self)
                 {
                     CounterView(store: childStore_)
                 }
@@ -138,7 +140,7 @@ public struct RootView: View
 
     // MARK: - SubStore
 
-    private var userSessionStore: Store<UserSession.Action, UserSession.State>.Proxy
+    private var userSessionStore: Store<UserSession.Action, UserSession.State, Environment>.Proxy
     {
         self.store.userSession.contramap(action: Action.userSession)
     }

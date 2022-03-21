@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 struct DetailView: View
 {
-    private let store: Store<Action, State>.Proxy
+    private let store: Store<Action, State, Void>.Proxy
 
-    init(store: Store<Action, State>.Proxy)
+    init(store: Store<Action, State, Void>.Proxy)
     {
         self.store = store
     }
@@ -73,6 +73,7 @@ struct DetailView_Previews: PreviewProvider
                         )
                     )
                 ),
+                environment: (),
                 send: { _ in }
             )
         )

@@ -21,6 +21,7 @@ public protocol RootViewProtocol
 {
     associatedtype Action: Sendable
     associatedtype State: RootStateProtocol & Equatable & Sendable
+    associatedtype Environment: Sendable
 
-    init(store: Store<Action, State>.Proxy)
+    init(store: Store<Action, State, Environment>.Proxy)
 }

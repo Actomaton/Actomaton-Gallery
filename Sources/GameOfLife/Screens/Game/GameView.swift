@@ -5,10 +5,10 @@ import CommonUI
 @MainActor
 struct GameView: View
 {
-    private let store: Store<Game.Action, Game.State>.Proxy
+    private let store: Store<Game.Action, Game.State, Void>.Proxy
 
     init(
-        store: Store<Game.Action, Game.State>.Proxy
+        store: Store<Game.Action, Game.State, Void>.Proxy
     )
     {
         self.store = store
@@ -60,6 +60,7 @@ struct GameView_Previews: PreviewProvider
         let gameView = GameView(
             store: .init(
                 state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
+                environment: (),
                 send: { _ in }
             )
         )

@@ -13,9 +13,9 @@ public struct ColorFilterView: View
     @SwiftUI.State
     private var isShowingPicker = false
 
-    private let store: Store<ColorFilter.Action, ColorFilter.State>.Proxy
+    private let store: Store<ColorFilter.Action, ColorFilter.State, Void>.Proxy
 
-    public init(store: Store<ColorFilter.Action, ColorFilter.State>.Proxy)
+    public init(store: Store<ColorFilter.Action, ColorFilter.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -104,6 +104,7 @@ struct ColorFilterView_Previews: PreviewProvider
         ColorFilterView(
             store: .init(
                 state: .constant(.init()),
+                environment: (),
                 send: { _ in }
             )
         )

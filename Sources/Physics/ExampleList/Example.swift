@@ -17,7 +17,7 @@ protocol Example
     var exampleArrowScale: ArrowScale { get }
 
     @MainActor
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
 }
 
 extension Example
@@ -46,10 +46,10 @@ extension Example
     /// Helper method to transform parent `Store` into child `Store`, then `makeView`.
     @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
-        store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy,
+        store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy,
         action: @escaping (ChildAction) -> PhysicsRoot.Action,
         statePath: CasePath<PhysicsRoot.State.Current, ChildState>,
-        makeView: @MainActor (Store<ChildAction, ChildState>.Proxy) -> V
+        makeView: @MainActor (Store<ChildAction, ChildState, Void>.Proxy) -> V
     ) -> AnyView
     {
         @MainActor

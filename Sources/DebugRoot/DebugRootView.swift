@@ -6,9 +6,9 @@ import ActomatonStore
 public struct DebugRootView<RootView>: View
     where RootView: View & RootViewProtocol
 {
-    private let store: Store<DebugAction, DebugState>.Proxy
+    private let store: Store<DebugAction, DebugState, RootView.Environment>.Proxy
 
-    public init(store: Store<DebugAction, DebugState>.Proxy)
+    public init(store: Store<DebugAction, DebugState, RootView.Environment>.Proxy)
     {
         self.store = store
     }
@@ -21,8 +21,6 @@ public struct DebugRootView<RootView>: View
                     .contramap(action: { DebugAction.timeTravel(.inner($0)) })
             )
                 .frame(maxHeight: .infinity)
-
-
 
             if self.store.state.usesTimeTravel {
                 self.timeTravelDebugView()
@@ -99,7 +97,7 @@ struct DebugRootView_Previews: PreviewProvider
 
         struct RootView: View, RootViewProtocol
         {
-            init(store: Store<RootAction, RootState>.Proxy) {}
+            init(store: Store<RootAction, RootState, Void>.Proxy) {}
 
             var body: some View
             {
@@ -111,6 +109,7 @@ struct DebugRootView_Previews: PreviewProvider
             DebugRootView<RootView>(
                 store: .init(
                     state: .constant(.init(inner: RootState())),
+                    environment: (),
                     send: { _ in }
                 )
             )

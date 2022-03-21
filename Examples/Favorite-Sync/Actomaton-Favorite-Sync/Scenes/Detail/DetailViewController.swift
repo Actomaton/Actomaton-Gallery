@@ -5,11 +5,11 @@ import ActomatonStore
 
 final class DetailViewController: UIViewController
 {
-    private let store: Store<Action, State>
+    private let store: Store<Action, State, Environment>
 
     private var cancellables: Set<AnyCancellable> = []
 
-    init(store: Store<Action, State>)
+    init(store: Store<Action, State, Environment>)
     {
         self.store = store
         super.init(nibName: nil, bundle: nil)
@@ -103,5 +103,6 @@ final class DetailViewController: UIViewController
 
     typealias Action = Detail.Action
     typealias State = Detail.State
+    typealias Environment = Detail.Environment
     typealias Route = Detail.Route
 }

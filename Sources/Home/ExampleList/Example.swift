@@ -8,7 +8,7 @@ protocol Example
     var exampleInitialState: Home.State.Current { get }
 
     @MainActor
-    func exampleView(store: Store<Home.Action, Home.State>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
 }
 
 extension Example
@@ -29,11 +29,12 @@ extension Example
 {
     /// Helper method to transform parent `Store` into child `Store`, then `makeView`.
     @MainActor
-    static func exampleView<ChildAction, ChildState, V: View>(
-        store: Store<Home.Action, Home.State>.Proxy,
+    static func exampleView<ChildAction, ChildState, ChildEnvironment, V: View>(
+        store: Store<Home.Action, Home.State, Home.Environment>.Proxy,
         action: @escaping (ChildAction) -> Home.Action,
         statePath: CasePath<Home.State.Current, ChildState>,
-        makeView: @MainActor (Store<ChildAction, ChildState>.Proxy) -> V
+        environment: (Home.Environment) -> ChildEnvironment,
+        makeView: @MainActor (Store<ChildAction, ChildState, ChildEnvironment>.Proxy) -> V
     ) -> AnyView
     {
         @MainActor
@@ -44,6 +45,33 @@ extension Example
                 .traverse(\.self)?[casePath: statePath]
                 .traverse(\.self)?
                 .contramap(action: action)
+                .map(environment: environment)
+            {
+                makeView(substore)
+            }
+        }
+
+        return AnyView(_exampleView())
+    }
+
+    /// Helper method to transform parent `Store` into child `Store` (with child `Environment` as `Void`), then `makeView`.
+    @MainActor
+    static func exampleView<ChildAction, ChildState, V: View>(
+        store: Store<Home.Action, Home.State, Home.Environment>.Proxy,
+        action: @escaping (ChildAction) -> Home.Action,
+        statePath: CasePath<Home.State.Current, ChildState>,
+        makeView: @MainActor (Store<ChildAction, ChildState, Void>.Proxy) -> V
+    ) -> AnyView
+    {
+        @MainActor
+        @ViewBuilder
+        func _exampleView() -> some View
+        {
+            if let substore = store.current
+                .traverse(\.self)?[casePath: statePath]
+                .traverse(\.self)?
+                .contramap(action: action)
+                .map(environment: { _ in () })
             {
                 makeView(substore)
             }

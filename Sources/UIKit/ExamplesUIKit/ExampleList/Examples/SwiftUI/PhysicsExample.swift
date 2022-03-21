@@ -12,7 +12,7 @@ public struct PhysicsExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController(
+        HostingViewController.make(
             store: Store(
                 state: .init(current: nil),
                 reducer: PhysicsRoot.reducer,
