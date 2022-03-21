@@ -3,6 +3,8 @@ import CommonEffects
 import Stopwatch
 import GitHub
 import GameOfLife
+import VideoPlayer
+import VideoPlayerMulti
 
 public struct HomeEnvironment: Sendable
 {
@@ -11,6 +13,8 @@ public struct HomeEnvironment: Sendable
     let fetchRequest: @Sendable (URLRequest) async throws -> Data
 
     let gameOfLife: GameOfLife.Root.Environment
+    let videoPlayer: VideoPlayer.Environment
+    let videoPlayerMulti: VideoPlayerMulti.Environment
 }
 
 // MARK: - Live Environment
@@ -44,7 +48,9 @@ extension HomeEnvironment
             fetchRequest: { urlRequest in
                 try await CommonEffects.fetchData(for: urlRequest, delegate: nil)
             },
-            gameOfLife: .live
+            gameOfLife: .live,
+            videoPlayer: .live,
+            videoPlayerMulti: .live
         )
     }
 }

@@ -20,6 +20,7 @@
 		331E1FE026ED20A000719530 /* TestAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppView.swift; sourceTree = "<group>"; };
 		332642E226E4056F00438A10 /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		3326433C26E4094200438A10 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		339BF50727E4B62B009A90ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "Actomaton-Gallery/Info.plist"; sourceTree = "<group>"; };
 		339F821726FA399B006809CE /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Actomaton-Gallery"; path = ../..; sourceTree = "<group>"; };
 		33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E8F81E26E3B375009CC65D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +42,7 @@
 		33E8F80E26E3B374009CC65D = {
 			isa = PBXGroup;
 			children = (
+				339BF50727E4B62B009A90ED /* Info.plist */,
 				339F821726FA399B006809CE /* Actomaton-Gallery */,
 				33E8F81926E3B374009CC65D /* Actomaton-Gallery */,
 				33E8F81826E3B374009CC65D /* Products */,
@@ -299,6 +301,7 @@
 				DEVELOPMENT_TEAM = UMBZ5WL247;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Actomaton-Gallery/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Uses Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -336,6 +339,7 @@
 				DEVELOPMENT_TEAM = UMBZ5WL247;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Actomaton-Gallery/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Uses Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
