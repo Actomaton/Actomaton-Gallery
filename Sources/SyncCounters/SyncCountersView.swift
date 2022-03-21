@@ -5,9 +5,9 @@ import Counter
 @MainActor
 public struct SyncCountersView: View
 {
-    private let store: Store<SyncCounters.Action, SyncCounters.State>.Proxy
+    private let store: Store<SyncCounters.Action, SyncCounters.State, Void>.Proxy
 
-    public init(store: Store<SyncCounters.Action, SyncCounters.State>.Proxy)
+    public init(store: Store<SyncCounters.Action, SyncCounters.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -54,6 +54,7 @@ struct SyncCountersView_Previews: PreviewProvider
         SyncCountersView(
             store: .init(
                 state: .constant(.init()),
+                environment: (),
                 send: { _ in }
             )
         )

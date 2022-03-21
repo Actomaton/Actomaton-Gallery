@@ -16,7 +16,7 @@ struct GravityUniverseExample: Example
         .init(velocityArrowScale: 15, forceArrowScale: 300)
     }
 
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
     {
         let configuration = store.state.configuration
 

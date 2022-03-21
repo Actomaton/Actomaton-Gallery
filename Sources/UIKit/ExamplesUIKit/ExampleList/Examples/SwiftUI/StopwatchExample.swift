@@ -12,7 +12,7 @@ public struct StopwatchExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController(
+        HostingViewController.make(
             store: Store(
                 state: .init(),
                 reducer: Stopwatch.reducer,

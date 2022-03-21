@@ -8,7 +8,7 @@ extension WorldView
     /// Initializer with default `content`.
     /// - Note: Makes contents, UI controls, etc.
     init(
-        store: Store<World.Action, World.State<Obj>>.Proxy,
+        store: Store<World.Action, World.State<Obj>, Void>.Proxy,
         configuration: WorldConfiguration,
         absolutePosition: ((_ relativePosition: Vector2, _ index: Int, _ previous: Vector2) -> Vector2)?,
         arrowScale: ArrowScale
@@ -32,7 +32,7 @@ extension WorldView
     /// Makes contents i.e. `objects`, `velocityArrows`, `forceArrows`.
     @MainActor
     static func makeContentView(
-        store: Store<World.Action, World.CanvasState<Obj>>.Proxy,
+        store: Store<World.Action, World.CanvasState<Obj>, Void>.Proxy,
         configuration: WorldConfiguration,
         absolutePosition: ((_ relativePosition: Vector2, _ index: Int, _ previous: Vector2) -> Vector2)?,
         arrowScale: ArrowScale

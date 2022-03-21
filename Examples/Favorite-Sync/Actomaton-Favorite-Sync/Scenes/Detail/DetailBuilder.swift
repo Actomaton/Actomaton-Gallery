@@ -19,7 +19,7 @@ public enum DetailBuilder
 
         let vc = usesUIKit
             ? DetailViewController(store: store)
-            : HostingViewController(store: store, makeView: DetailView.init)
+            : HostingViewController.make(store: store, makeView: DetailView.init)
         vc.title = "Detail"
 
         return vc

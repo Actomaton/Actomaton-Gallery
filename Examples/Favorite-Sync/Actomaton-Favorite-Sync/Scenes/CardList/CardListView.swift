@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 struct CardListView: View
 {
-    private let store: Store<Action, State>.Proxy
+    private let store: Store<Action, State, Void>.Proxy
 
-    init(store: Store<Action, State>.Proxy)
+    init(store: Store<Action, State, Void>.Proxy)
     {
         self.store = store
     }
@@ -122,6 +122,7 @@ struct CardListView_Previews: PreviewProvider
         CardListView(
             store: .init(
                 state: .constant(CardList.State(cards: Card.fakedFetchedCards, showsFavoriteOnly: false)),
+                environment: (),
                 send: { _ in }
             )
         )

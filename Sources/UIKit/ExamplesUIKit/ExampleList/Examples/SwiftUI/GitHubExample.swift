@@ -12,7 +12,7 @@ public struct GitHubExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController(
+        HostingViewController.make(
             store: Store(
                 state: .init(),
                 reducer: GitHub.reducer,

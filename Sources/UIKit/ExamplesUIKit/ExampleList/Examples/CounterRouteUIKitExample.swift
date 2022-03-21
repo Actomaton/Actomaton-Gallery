@@ -80,11 +80,11 @@ private typealias Environment = SendRouteEnvironment<Counter.Environment, Route>
 @MainActor
 private final class CounterRouteViewController: UIViewController
 {
-    let store: Store<Action, Counter.State>
+    let store: Store<Action, Counter.State, Environment>
 
     var cancellables: [AnyCancellable] = []
 
-    init(store: Store<Action, Counter.State>)
+    init(store: Store<Action, Counter.State, Environment>)
     {
         self.store = store
         super.init(nibName: nil, bundle: nil)

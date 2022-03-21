@@ -7,13 +7,13 @@ import CommonUI
 public struct CanvasView<CanvasState>: View
     where CanvasState: Equatable & Sendable
 {
-    let store: Store<Action, State<CanvasState>>.Proxy
-    let content: @MainActor (Store<Action, State<CanvasState>>.Proxy) -> AnyView
+    let store: Store<Action, State<CanvasState>, Void>.Proxy
+    let content: @MainActor (Store<Action, State<CanvasState>, Void>.Proxy) -> AnyView
 
     /// Initializer with custom `content`.
     public init(
-        store: Store<Action, State<CanvasState>>.Proxy,
-        content: @MainActor @escaping (Store<Action, State<CanvasState>>.Proxy) -> AnyView
+        store: Store<Action, State<CanvasState>, Void>.Proxy,
+        content: @MainActor @escaping (Store<Action, State<CanvasState>, Void>.Proxy) -> AnyView
     )
     {
         self.store = store

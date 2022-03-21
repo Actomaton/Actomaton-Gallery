@@ -11,7 +11,7 @@ import SettingsUIKit
 @MainActor
 public final class RootViewController: UIViewController
 {
-    private let store: Store<Action, State>
+    private let store: Store<Action, State, Environment>
     private var cancellables: [AnyCancellable] = []
 
     private var currentViewController: UIViewController?
@@ -37,7 +37,7 @@ public final class RootViewController: UIViewController
         }
     }
 
-    public init(store: Store<Action, State>)
+    public init(store: Store<Action, State, Environment>)
     {
         self.store = store
 
@@ -129,6 +129,7 @@ public final class RootViewController: UIViewController
             let substore = store.observableProxy
                 .contramap(action: Action.tab)
                 .map { $0.tab }
+                .map(environment: { _ in () })
 
             let vc = TabBuilder.build(store: substore)
             self.currentViewController = vc

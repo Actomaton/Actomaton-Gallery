@@ -12,11 +12,11 @@ import DebugRoot
 struct AppView: View
 {
     @StateObject
-    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>>
+    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>
 
     init()
     {
-        let store = Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>>(
+        let store = Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>(
             state: DebugRoot.State(inner: Root.State.initialState),
             reducer: DebugRoot.reducer(inner: Root.reducer()),
             environment: HomeEnvironment.live

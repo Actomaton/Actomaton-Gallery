@@ -5,9 +5,9 @@ import CommonUI
 @MainActor
 public struct GitHubView: View
 {
-    private let store: Store<GitHub.Action, GitHub.State>.Proxy
+    private let store: Store<GitHub.Action, GitHub.State, Void>.Proxy
 
-    public init(store: Store<GitHub.Action, GitHub.State>.Proxy)
+    public init(store: Store<GitHub.Action, GitHub.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -120,6 +120,7 @@ struct GitHubView_Previews: PreviewProvider
         GitHubView(
             store: .init(
                 state: .constant(.init()),
+                environment: (),
                 send: { _ in }
             )
         )

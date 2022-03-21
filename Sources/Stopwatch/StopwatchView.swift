@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 public struct StopwatchView: View
 {
-    private let store: Store<Stopwatch.Action, Stopwatch.State>.Proxy
+    private let store: Store<Stopwatch.Action, Stopwatch.State, Void>.Proxy
 
-    public init(store: Store<Stopwatch.Action, Stopwatch.State>.Proxy)
+    public init(store: Store<Stopwatch.Action, Stopwatch.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -102,6 +102,7 @@ struct StopwatchView_Previews: PreviewProvider
                         .init(id: 2, time: 1.0),
                     ]
                 )),
+                environment: (),
                 send: { _ in }
             )
         )

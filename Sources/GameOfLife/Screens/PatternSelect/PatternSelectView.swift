@@ -5,9 +5,9 @@ import CommonUI
 @MainActor
 struct PatternSelectView: View
 {
-    private let store: Store<PatternSelect.Action, PatternSelect.State>.Proxy
+    private let store: Store<PatternSelect.Action, PatternSelect.State, Void>.Proxy
 
-    init(store: Store<PatternSelect.Action, PatternSelect.State>.Proxy)
+    init(store: Store<PatternSelect.Action, PatternSelect.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -112,6 +112,7 @@ struct PatternSelectView_Previews: PreviewProvider
         let gameOfLifeView = PatternSelectView(
             store: .init(
                 state: .constant(.init()),
+                environment: (),
                 send: { _ in }
             )
         )

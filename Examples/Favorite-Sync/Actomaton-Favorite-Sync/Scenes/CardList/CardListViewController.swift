@@ -5,7 +5,7 @@ import ActomatonStore
 
 final class CardListViewController: UIViewController
 {
-    private let store: Store<Action, State>
+    private let store: Store<Action, State, Environment>
 
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
 
@@ -39,7 +39,7 @@ final class CardListViewController: UIViewController
         return emptyLabel
     }()
 
-    init(store: Store<Action, State>)
+    init(store: Store<Action, State, Environment>)
     {
         self.store = store
         super.init(nibName: nil, bundle: nil)
@@ -113,6 +113,7 @@ final class CardListViewController: UIViewController
 
     typealias Action = CardList.Action
     typealias State = CardList.State
+    typealias Environment = CardList.Environment
     typealias Route = CardList.Route
 }
 
@@ -177,7 +178,7 @@ private struct Item: Hashable
 
 private func makeDataSource(
     collectionView: UICollectionView,
-    store: Store<CardList.Action, CardList.State>
+    store: Store<CardList.Action, CardList.State, CardList.Environment>
 ) -> UICollectionViewDiffableDataSource<Section, Item>
 {
     let cellRegistration = UICollectionView.CellRegistration<CardListCell, Item>() { cell, indexPath, item in

@@ -5,9 +5,9 @@ import VideoCapture
 @MainActor
 public struct VideoDetectorView: View
 {
-    private let store: Store<VideoDetector.Action, VideoDetector.State>.Proxy
+    private let store: Store<VideoDetector.Action, VideoDetector.State, Void>.Proxy
 
-    public init(store: Store<VideoDetector.Action, VideoDetector.State>.Proxy)
+    public init(store: Store<VideoDetector.Action, VideoDetector.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -162,6 +162,7 @@ struct VideoDetectorView_Previews: PreviewProvider
                             videoCapture: .init(sessionState: sessionState)
                         )
                     ),
+                    environment: (),
                     send: { _ in }
                 )
             )

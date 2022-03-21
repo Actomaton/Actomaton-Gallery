@@ -13,7 +13,7 @@ public enum ExampleListBuilder
             environment: ()
         )
 
-        let exampleListVC = HostingViewController(
+        let exampleListVC = HostingViewController.make(
             store: exampleListStore,
             makeView: ExampleListView.init
         )

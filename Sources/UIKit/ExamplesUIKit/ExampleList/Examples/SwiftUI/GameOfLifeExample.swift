@@ -12,7 +12,7 @@ public struct GameOfLifeExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController(
+        HostingViewController.make(
             store: Store(
                 state: .init(pattern: .glider, cellLength: 5),
                 reducer: GameOfLife.Root.reducer(),

@@ -2,15 +2,16 @@ import SwiftUI
 import ActomatonStore
 
 @MainActor
-public struct TabView<InnerAction, InnerState, TabID>: View
-    where InnerAction: Sendable, InnerState: Equatable & Sendable, TabID: Hashable & Sendable
+public struct TabView<InnerAction, InnerState, InnerEnvironment, TabID>: View
+where InnerAction: Sendable, InnerState: Equatable & Sendable,
+      InnerEnvironment: Sendable, TabID: Hashable & Sendable
 {
-    private let store: Store<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>>.Proxy
-    private let content: (TabID, Store<InnerAction, InnerState>.Proxy) -> AnyView
+    private let store: Store<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>, InnerEnvironment>.Proxy
+    private let content: (TabID, Store<InnerAction, InnerState, InnerEnvironment>.Proxy) -> AnyView
 
     public init<V: View>(
-        store: Store<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>>.Proxy,
-        @ViewBuilder content: @escaping (TabID, Store<InnerAction, InnerState>.Proxy) -> V
+        store: Store<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>, InnerEnvironment>.Proxy,
+        @ViewBuilder content: @escaping (TabID, Store<InnerAction, InnerState, InnerEnvironment>.Proxy) -> V
     )
     {
         self.store = store

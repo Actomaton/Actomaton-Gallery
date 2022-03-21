@@ -6,7 +6,7 @@ public enum TabBuilder
 {
     @MainActor
     public static func build<TabID>(
-        store: Store<Action<TabID>, State<TabID>>.ObservableProxy
+        store: Store<Action<TabID>, State<TabID>, Environment>.ObservableProxy
     ) -> UIViewController
         where TabID: Equatable
     {

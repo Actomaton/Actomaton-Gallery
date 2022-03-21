@@ -11,7 +11,7 @@ struct GameOfLifeExample: Example
         .gameOfLife(GameOfLife.Root.State(pattern: .glider, cellLength: 5))
     }
 
-    func exampleView(store: Store<Action, State>.Proxy) -> AnyView
+    func exampleView(store: Store<Action, State, Environment>.Proxy) -> AnyView
     {
         Self.exampleView(
             store: store,

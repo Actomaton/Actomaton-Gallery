@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 struct ExampleListView: View
 {
-    private let store: Store<ExampleList.Action, ExampleList.State>.Proxy
+    private let store: Store<ExampleList.Action, ExampleList.State, Void>.Proxy
 
-    init(store: Store<ExampleList.Action, ExampleList.State>.Proxy)
+    init(store: Store<ExampleList.Action, ExampleList.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -47,6 +47,7 @@ struct ExampleListView_Previews: PreviewProvider
             ExampleListView(
                 store: .init(
                     state: .constant(ExampleList.State(examples: [])),
+                    environment: (),
                     send: { _ in }
                 )
             )
@@ -56,6 +57,7 @@ struct ExampleListView_Previews: PreviewProvider
             ExampleListView(
                 store: .init(
                     state: .constant(ExampleList.State(examples: [])),
+                    environment: (),
                     send: { _ in }
                 )
             )

@@ -24,7 +24,7 @@ struct PendulumExample: Example
         .init(velocityArrowScale: 5, forceArrowScale: 100)
     }
 
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
     {
         let configuration = store.state.configuration
 

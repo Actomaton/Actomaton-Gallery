@@ -4,9 +4,9 @@ import ActomatonStore
 @MainActor
 public struct StateDiagramView: View
 {
-    private let store: Store<StateDiagram.Action, StateDiagram.State>.Proxy
+    private let store: Store<StateDiagram.Action, StateDiagram.State, Void>.Proxy
 
-    public init(store: Store<StateDiagram.Action, StateDiagram.State>.Proxy)
+    public init(store: Store<StateDiagram.Action, StateDiagram.State, Void>.Proxy)
     {
         self.store = store
     }
@@ -99,6 +99,7 @@ struct StateDiagramView_Previews: PreviewProvider
         let stateDiagramView = StateDiagramView(
             store: .init(
                 state: .constant(.loggedOut),
+                environment: (),
                 send: { _ in }
             )
         )

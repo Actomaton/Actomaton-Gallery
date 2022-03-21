@@ -5,10 +5,10 @@ import UserSession
 @MainActor
 public struct SettingsView: View
 {
-    private let store: Store<Action, State>.Proxy
+    private let store: Store<Action, State, Void>.Proxy
     private let usesNavigationView: Bool
 
-    public init(store: Store<Action, State>.Proxy, usesNavigationView: Bool)
+    public init(store: Store<Action, State, Void>.Proxy, usesNavigationView: Bool)
     {
         self.store = store
         self.usesNavigationView = usesNavigationView
@@ -72,6 +72,7 @@ struct SettingsView_Previews: PreviewProvider
         SettingsView(
             store: .init(
                 state: .constant(.init(user: .anonymous)),
+                environment: (),
                 send: { _ in }
             ),
             usesNavigationView: true

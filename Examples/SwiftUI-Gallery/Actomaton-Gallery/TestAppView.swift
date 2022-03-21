@@ -6,11 +6,11 @@ import GameOfLife
 struct TestAppView: View
 {
     @StateObject
-    private var store: Store<GameOfLife.Root.Action, GameOfLife.Root.State>
+    private var store: Store<GameOfLife.Root.Action, GameOfLife.Root.State, GameOfLife.Root.Environment>
 
     init()
     {
-        let store = Store<GameOfLife.Root.Action, GameOfLife.Root.State>(
+        let store = Store<GameOfLife.Root.Action, GameOfLife.Root.State, GameOfLife.Root.Environment>(
             state: GameOfLife.Root.State(pattern: .glider, cellLength: 5),
             reducer: GameOfLife.Root.reducer(),
             environment: .live
@@ -21,6 +21,6 @@ struct TestAppView: View
     var body: some View
     {
         // IMPORTANT: Pass `Store.Proxy` to children.
-        GameOfLife.RootView(store: self.store.proxy)
+        GameOfLife.RootView(store: self.store.proxy.map(environment: { _ in () }))
     }
 }

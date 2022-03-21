@@ -5,9 +5,9 @@ import Utilities
 @MainActor
 public struct PhysicsRootView: View
 {
-    private let store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy
+    private let store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy
 
-    public init(store: Store<PhysicsRoot.Action, PhysicsRoot.State>.Proxy)
+    public init(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy)
     {
         self.store = store
     }
