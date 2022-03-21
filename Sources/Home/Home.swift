@@ -8,6 +8,8 @@ import StateDiagram
 import Stopwatch
 import GitHub
 import GameOfLife
+import VideoPlayer
+import VideoPlayerMulti
 import VideoDetector
 import Physics
 
@@ -23,6 +25,8 @@ public enum Action: Sendable
     case todo(Todo.Action)
     case github(GitHub.Action)
     case gameOfLife(GameOfLife.Root.Action)
+    case videoPlayer(VideoPlayer.Action)
+    case videoPlayerMulti(VideoPlayerMulti.Action)
     case videoDetector(VideoDetector.Action)
     case physics(PhysicsRoot.Action)
 
@@ -107,6 +111,18 @@ public var reducer: Reducer<Action, State, Environment>
                 .contramap(state: /State.Current.gameOfLife)
                 .contramap(state: \State.current)
                 .contramap(environment: { $0.gameOfLife }),
+
+            VideoPlayer.reducer
+                .contramap(action: /Action.videoPlayer)
+                .contramap(state: /State.Current.videoPlayer)
+                .contramap(state: \State.current)
+                .contramap(environment: \.videoPlayer),
+
+            VideoPlayerMulti.reducer
+                .contramap(action: /Action.videoPlayerMulti)
+                .contramap(state: /State.Current.videoPlayerMulti)
+                .contramap(state: \State.current)
+                .contramap(environment: \.videoPlayerMulti),
 
             VideoDetector.reducer
                 .contramap(action: /Action.videoDetector)

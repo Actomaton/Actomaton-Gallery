@@ -7,6 +7,8 @@ import StateDiagram
 import Stopwatch
 import GitHub
 import GameOfLife
+import VideoPlayer
+import VideoPlayerMulti
 import VideoDetector
 import Physics
 
@@ -23,6 +25,8 @@ extension State
         case todo(Todo.State)
         case github(GitHub.State)
         case gameOfLife(GameOfLife.Root.State)
+        case videoPlayer(VideoPlayer.State)
+        case videoPlayerMulti(VideoPlayerMulti.State)
         case videoDetector(VideoDetector.State)
         case physics(PhysicsRoot.State)
 
@@ -31,13 +35,15 @@ extension State
         {
             switch self {
             case .counter:          return CounterExample()
-            case .syncCounters:    return SyncCountersExample()
+            case .syncCounters:     return SyncCountersExample()
             case .colorFilter:      return ColorFilterExample()
             case .stopwatch:        return StopwatchExample()
             case .stateDiagram:     return StateDiagramExample()
             case .todo:             return TodoExample()
             case .github:           return GitHubExample()
             case .gameOfLife:       return GameOfLifeExample()
+            case .videoPlayer:      return VideoPlayerExample()
+            case .videoPlayerMulti: return VideoPlayerMultiExample()
             case .videoDetector:    return VideoDetectorExample()
             case .physics:          return PhysicsExample()
             }

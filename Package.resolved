@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "AVFoundation-Combine",
+        "repositoryURL": "https://github.com/inamiy/AVFoundation-Combine",
+        "state": {
+          "branch": "main",
+          "revision": "9168c37ae9ff0a43bbfc2806eb15006edc3b2552",
+          "version": null
+        }
+      },
+      {
         "package": "OrientationKit",
         "repositoryURL": "https://github.com/inamiy/OrientationKit",
         "state": {

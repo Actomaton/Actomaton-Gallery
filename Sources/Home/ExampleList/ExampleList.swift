@@ -10,6 +10,8 @@ let exampleList: [Example] = [
     StopwatchExample(),
     GitHubExample(),
     GameOfLifeExample(),
+    VideoPlayerExample(),
+    VideoPlayerMultiExample(),
     VideoDetectorExample(),
     PhysicsExample()
 ]

@@ -18,6 +18,7 @@ let package = Package(
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
         .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main")),
+        .package(url: "https://github.com/inamiy/AVFoundation-Combine", .branch("main")),
         .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1")
     ],
     targets: [
@@ -85,6 +86,18 @@ let package = Package(
             ],
             resources: [.copy("GameOfLife-Patterns/")]),
         .target(
+            name: "VideoPlayer",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "AVFoundation-Combine"
+            ]),
+        .target(
+            name: "VideoPlayerMulti",
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "VideoPlayer"
+            ]),
+        .target(
             name: "VideoCapture",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
@@ -126,7 +139,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoDetector", "Physics",
+                "GameOfLife", "VideoPlayerMulti", "VideoDetector", "Physics",
                 "CommonEffects"
             ]),
         .target(

@@ -79,6 +79,7 @@ extension State
 //                current: .physics(.doublePendulum),
 //                current: .physics(.galtonBoard),
 //                current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
+//                current: .videoPlayerMulti(.init(mode: .singleSyncedPlayer)),
 
                 current: nil,
                 usesTimeTravel: true,
