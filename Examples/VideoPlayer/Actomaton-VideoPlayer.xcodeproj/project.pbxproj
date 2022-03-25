@@ -1,0 +1,487 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		330DF51A278F1CD10084A751 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 330DF519278F1CD10084A751 /* CombineCocoa */; };
+		331BD25027EB5E3000E5A288 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331BD24F27EB5E3000E5A288 /* RootView.swift */; };
+		339D629027EB608B00CCFEE5 /* AVFoundation-Combine in Frameworks */ = {isa = PBXBuildFile; productRef = 339D628F27EB608B00CCFEE5 /* AVFoundation-Combine */; };
+		339D629227EB60D100CCFEE5 /* UncheckedSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629127EB60D100CCFEE5 /* UncheckedSendable.swift */; };
+		339D629627EB61FD00CCFEE5 /* AVFoundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629527EB61FD00CCFEE5 /* AVFoundation+Extensions.swift */; };
+		339D629827EB625D00CCFEE5 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629727EB625D00CCFEE5 /* Foundation+Extensions.swift */; };
+		339D629C27EB68B700CCFEE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629B27EB68B700CCFEE5 /* Constants.swift */; };
+		339D62A027EB6D7000CCFEE5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629F27EB6D7000CCFEE5 /* PlayerState.swift */; };
+		33C59F2127ECC3280090BD9F /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C59F2027ECC3280090BD9F /* PlayerAction.swift */; };
+		33C97A3927ED52AD00CF7F96 /* RootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C97A3527ED52AD00CF7F96 /* RootState.swift */; };
+		33C97A3A27ED52AD00CF7F96 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C97A3627ED52AD00CF7F96 /* RootReducer.swift */; };
+		33C97A3B27ED52AD00CF7F96 /* RootEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C97A3727ED52AD00CF7F96 /* RootEnvironment.swift */; };
+		33C97A3C27ED52AD00CF7F96 /* RootAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C97A3827ED52AD00CF7F96 /* RootAction.swift */; };
+		33D7DA0E278961EC00B362ED /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA0D278961EC00B362ED /* MyApp.swift */; };
+		33D7DA12278961ED00B362ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D7DA11278961ED00B362ED /* Assets.xcassets */; };
+		33D7DA15278961ED00B362ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D7DA14278961ED00B362ED /* Preview Assets.xcassets */; };
+		33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */ = {isa = PBXBuildFile; productRef = 33D7DA1C2789626500B362ED /* ActomatonStore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		331BD24F27EB5E3000E5A288 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		339D629127EB60D100CCFEE5 /* UncheckedSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UncheckedSendable.swift; sourceTree = "<group>"; };
+		339D629527EB61FD00CCFEE5 /* AVFoundation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+Extensions.swift"; sourceTree = "<group>"; };
+		339D629727EB625D00CCFEE5 /* Foundation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Extensions.swift"; sourceTree = "<group>"; };
+		339D629B27EB68B700CCFEE5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		339D629D27EB69FA00CCFEE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		339D629F27EB6D7000CCFEE5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
+		33C59F2027ECC3280090BD9F /* PlayerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
+		33C97A3527ED52AD00CF7F96 /* RootState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootState.swift; sourceTree = "<group>"; };
+		33C97A3627ED52AD00CF7F96 /* RootReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootReducer.swift; sourceTree = "<group>"; };
+		33C97A3727ED52AD00CF7F96 /* RootEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootEnvironment.swift; sourceTree = "<group>"; };
+		33C97A3827ED52AD00CF7F96 /* RootAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootAction.swift; sourceTree = "<group>"; };
+		33D7DA0A278961EC00B362ED /* Actomaton-VideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actomaton-VideoPlayer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33D7DA0D278961EC00B362ED /* MyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
+		33D7DA11278961ED00B362ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		33D7DA14278961ED00B362ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		33D7DA07278961EC00B362ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				339D629027EB608B00CCFEE5 /* AVFoundation-Combine in Frameworks */,
+				330DF51A278F1CD10084A751 /* CombineCocoa in Frameworks */,
+				33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		338CAD7E27ECD40F00E2EEED /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				33C97A3827ED52AD00CF7F96 /* RootAction.swift */,
+				33C97A3727ED52AD00CF7F96 /* RootEnvironment.swift */,
+				33C97A3627ED52AD00CF7F96 /* RootReducer.swift */,
+				33C97A3527ED52AD00CF7F96 /* RootState.swift */,
+				331BD24F27EB5E3000E5A288 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		339D628E27EB608B00CCFEE5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		339D629E27EB6A2E00CCFEE5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				339D629727EB625D00CCFEE5 /* Foundation+Extensions.swift */,
+				339D629527EB61FD00CCFEE5 /* AVFoundation+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		339D62A127EB6E6000CCFEE5 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				33C59F2027ECC3280090BD9F /* PlayerAction.swift */,
+				339D629F27EB6D7000CCFEE5 /* PlayerState.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		33D7DA01278961EC00B362ED = {
+			isa = PBXGroup;
+			children = (
+				33D7DA0C278961EC00B362ED /* Actomaton-VideoPlayer */,
+				33D7DA0B278961EC00B362ED /* Products */,
+				339D628E27EB608B00CCFEE5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		33D7DA0B278961EC00B362ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA0A278961EC00B362ED /* Actomaton-VideoPlayer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		33D7DA0C278961EC00B362ED /* Actomaton-VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				339D629E27EB6A2E00CCFEE5 /* Extensions */,
+				338CAD7E27ECD40F00E2EEED /* Root */,
+				339D62A127EB6E6000CCFEE5 /* Player */,
+				33D7DA0D278961EC00B362ED /* MyApp.swift */,
+				339D629B27EB68B700CCFEE5 /* Constants.swift */,
+				339D629127EB60D100CCFEE5 /* UncheckedSendable.swift */,
+				33D7DA11278961ED00B362ED /* Assets.xcassets */,
+				33D7DA13278961ED00B362ED /* Preview Content */,
+				339D629D27EB69FA00CCFEE5 /* Info.plist */,
+			);
+			path = "Actomaton-VideoPlayer";
+			sourceTree = "<group>";
+		};
+		33D7DA13278961ED00B362ED /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				33D7DA14278961ED00B362ED /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		33D7DA09278961EC00B362ED /* Actomaton-VideoPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 33D7DA18278961ED00B362ED /* Build configuration list for PBXNativeTarget "Actomaton-VideoPlayer" */;
+			buildPhases = (
+				33D7DA06278961EC00B362ED /* Sources */,
+				33D7DA07278961EC00B362ED /* Frameworks */,
+				33D7DA08278961EC00B362ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Actomaton-VideoPlayer";
+			packageProductDependencies = (
+				33D7DA1C2789626500B362ED /* ActomatonStore */,
+				330DF519278F1CD10084A751 /* CombineCocoa */,
+				339D628F27EB608B00CCFEE5 /* AVFoundation-Combine */,
+			);
+			productName = "Actomaton-VideoPlayer";
+			productReference = 33D7DA0A278961EC00B362ED /* Actomaton-VideoPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		33D7DA02278961EC00B362ED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					33D7DA09278961EC00B362ED = {
+						CreatedOnToolsVersion = 13.2;
+					};
+				};
+			};
+			buildConfigurationList = 33D7DA05278961EC00B362ED /* Build configuration list for PBXProject "Actomaton-VideoPlayer" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 33D7DA01278961EC00B362ED;
+			packageReferences = (
+				33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */,
+				330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				33601F5027EB5DAB00C6D1AA /* XCRemoteSwiftPackageReference "AVFoundation-Combine" */,
+			);
+			productRefGroup = 33D7DA0B278961EC00B362ED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				33D7DA09278961EC00B362ED /* Actomaton-VideoPlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		33D7DA08278961EC00B362ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33D7DA15278961ED00B362ED /* Preview Assets.xcassets in Resources */,
+				33D7DA12278961ED00B362ED /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		33D7DA06278961EC00B362ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				339D62A027EB6D7000CCFEE5 /* PlayerState.swift in Sources */,
+				33C97A3C27ED52AD00CF7F96 /* RootAction.swift in Sources */,
+				33C97A3B27ED52AD00CF7F96 /* RootEnvironment.swift in Sources */,
+				33D7DA0E278961EC00B362ED /* MyApp.swift in Sources */,
+				331BD25027EB5E3000E5A288 /* RootView.swift in Sources */,
+				339D629227EB60D100CCFEE5 /* UncheckedSendable.swift in Sources */,
+				339D629827EB625D00CCFEE5 /* Foundation+Extensions.swift in Sources */,
+				33C97A3927ED52AD00CF7F96 /* RootState.swift in Sources */,
+				339D629627EB61FD00CCFEE5 /* AVFoundation+Extensions.swift in Sources */,
+				33C59F2127ECC3280090BD9F /* PlayerAction.swift in Sources */,
+				339D629C27EB68B700CCFEE5 /* Constants.swift in Sources */,
+				33C97A3A27ED52AD00CF7F96 /* RootReducer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		33D7DA16278961ED00B362ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		33D7DA17278961ED00B362ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		33D7DA19278961ED00B362ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Actomaton-VideoPlayer/Preview Content\"";
+				DEVELOPMENT_TEAM = UMBZ5WL247;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Actomaton-VideoPlayer/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-concurrency -Xfrontend -enable-actor-data-race-checks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-VideoPlayer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		33D7DA1A278961ED00B362ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Actomaton-VideoPlayer/Preview Content\"";
+				DEVELOPMENT_TEAM = UMBZ5WL247;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Actomaton-VideoPlayer/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-concurrency -Xfrontend -enable-actor-data-race-checks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-VideoPlayer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		33D7DA05278961EC00B362ED /* Build configuration list for PBXProject "Actomaton-VideoPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33D7DA16278961ED00B362ED /* Debug */,
+				33D7DA17278961ED00B362ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		33D7DA18278961ED00B362ED /* Build configuration list for PBXNativeTarget "Actomaton-VideoPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33D7DA19278961ED00B362ED /* Debug */,
+				33D7DA1A278961ED00B362ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+		33601F5027EB5DAB00C6D1AA /* XCRemoteSwiftPackageReference "AVFoundation-Combine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/inamiy/AVFoundation-Combine";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+		33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/inamiy/Actomaton";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		330DF519278F1CD10084A751 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+		339D628F27EB608B00CCFEE5 /* AVFoundation-Combine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33601F5027EB5DAB00C6D1AA /* XCRemoteSwiftPackageReference "AVFoundation-Combine" */;
+			productName = "AVFoundation-Combine";
+		};
+		33D7DA1C2789626500B362ED /* ActomatonStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */;
+			productName = ActomatonStore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 33D7DA02278961EC00B362ED /* Project object */;
+}

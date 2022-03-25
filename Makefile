@@ -20,6 +20,11 @@ build-Favorite-Sync:
 	cd Examples/Favorite-Sync/ && \
 	xcodebuild build -scheme Actomaton-Favorite-Sync $(DESTINATION) | xcpretty
 
+.PHONY: build-VideoPlayer
+build-VideoPlayer:
+	cd Examples/VideoPlayer/ && \
+	xcodebuild build -scheme Actomaton-VideoPlayer $(DESTINATION) | xcpretty
+
 # e.g.
 # make universal-link
 # make universal-link path=counter?count=3
