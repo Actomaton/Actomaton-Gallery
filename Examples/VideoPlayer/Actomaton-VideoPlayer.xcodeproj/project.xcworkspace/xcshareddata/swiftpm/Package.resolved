@@ -1,59 +1,61 @@
 {
-  "pins" : [
-    {
-      "identity" : "actomaton",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/Actomaton",
-      "state" : {
-        "branch" : "main",
-        "revision" : "2cef51434218713343f3b8e3d2d3a70b3832b272"
+  "object": {
+    "pins": [
+      {
+        "package": "Actomaton",
+        "repositoryURL": "https://github.com/inamiy/Actomaton",
+        "state": {
+          "branch": "main",
+          "revision": "96f664f6ff98ddbc524403e10734f40861ec12a8",
+          "version": null
+        }
+      },
+      {
+        "package": "AVFoundation-Combine",
+        "repositoryURL": "https://github.com/inamiy/AVFoundation-Combine",
+        "state": {
+          "branch": null,
+          "revision": "637ba786561616297554365d12402414d5024335",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "CombineCocoa",
+        "repositoryURL": "https://github.com/CombineCommunity/CombineCocoa",
+        "state": {
+          "branch": null,
+          "revision": "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "241301b67d8551c26d8f09bd2c0e52cc49f18007",
+          "version": "0.8.0"
+        }
+      },
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "51698ece74ecf31959d3fa81733f0a5363ef1b4e",
+          "version": "0.3.0"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
+        }
       }
-    },
-    {
-      "identity" : "avfoundation-combine",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/AVFoundation-Combine",
-      "state" : {
-        "revision" : "637ba786561616297554365d12402414d5024335",
-        "version" : "0.1.0"
-      }
-    },
-    {
-      "identity" : "combinecocoa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CombineCommunity/CombineCocoa",
-      "state" : {
-        "revision" : "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
-        "version" : "0.4.0"
-      }
-    },
-    {
-      "identity" : "swift-case-paths",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-case-paths",
-      "state" : {
-        "revision" : "241301b67d8551c26d8f09bd2c0e52cc49f18007",
-        "version" : "0.8.0"
-      }
-    },
-    {
-      "identity" : "swift-custom-dump",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-custom-dump",
-      "state" : {
-        "revision" : "51698ece74ecf31959d3fa81733f0a5363ef1b4e",
-        "version" : "0.3.0"
-      }
-    },
-    {
-      "identity" : "xctest-dynamic-overlay",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
-      "state" : {
-        "revision" : "50a70a9d3583fe228ce672e8923010c8df2deddd",
-        "version" : "0.2.1"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }
