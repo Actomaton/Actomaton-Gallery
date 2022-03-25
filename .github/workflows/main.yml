@@ -41,7 +41,7 @@ jobs:
     - name: Build Favorite-Sync
       run: make build-Favorite-Sync
 
-  build-Favorite-Sync:
+  build-VideoPlayer:
     runs-on: macos-11
     steps:
     - uses: actions/checkout@v2
