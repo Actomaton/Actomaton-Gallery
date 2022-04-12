@@ -2,6 +2,7 @@ import Foundation
 import Actomaton
 import Counter
 import SyncCounters
+import AnimationDemo
 import ColorFilter
 import Todo
 import StateDiagram
@@ -19,6 +20,7 @@ public enum Action: Sendable
 
     case counter(Counter.Action)
     case syncCounters(SyncCounters.Action)
+    case animationDemo(AnimationDemo.Action)
     case colorFilter(ColorFilter.Action)
     case stopwatch(Stopwatch.Action)
     case stateDiagram(StateDiagram.Action)
@@ -71,6 +73,12 @@ public var reducer: Reducer<Action, State, Environment>
             SyncCounters.reducer
                 .contramap(action: /Action.syncCounters)
                 .contramap(state: /State.Current.syncCounters)
+                .contramap(state: \State.current)
+                .contramap(environment: { _ in () }),
+
+            AnimationDemo.reducer
+                .contramap(action: /Action.animationDemo)
+                .contramap(state: /State.Current.animationDemo)
                 .contramap(state: \State.current)
                 .contramap(environment: { _ in () }),
 

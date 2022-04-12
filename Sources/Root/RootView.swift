@@ -7,6 +7,7 @@ import Counter
 import Onboarding
 import Login
 import UserSession
+import AnimationDemo
 
 @MainActor
 public struct RootView: View
@@ -105,6 +106,13 @@ public struct RootView: View
                     .traverse(\.self)
                 {
                     CounterView(store: childStore_)
+                }
+                else if let childStore_ = childStore
+                            .map(environment: { _ in () })
+                            .contramap(action: TabCaseAction.animationDemo)[casePath: /TabCaseState.animationDemo]
+                            .traverse(\.self)
+                {
+                    AnimationDemoView(store: childStore_)
                 }
                 else {
                     Text("Should never reach here")

@@ -1,6 +1,7 @@
 import Actomaton
 import Counter
 import SyncCounters
+import AnimationDemo
 import ColorFilter
 import Todo
 import StateDiagram
@@ -19,6 +20,7 @@ extension State
     {
         case counter(Counter.State)
         case syncCounters(SyncCounters.State)
+        case animationDemo(AnimationDemo.State)
         case colorFilter(ColorFilter.State)
         case stopwatch(Stopwatch.State)
         case stateDiagram(StateDiagram.State)
@@ -36,6 +38,7 @@ extension State
             switch self {
             case .counter:          return CounterExample()
             case .syncCounters:     return SyncCountersExample()
+            case .animationDemo:    return AnimationExample()
             case .colorFilter:      return ColorFilterExample()
             case .stopwatch:        return StopwatchExample()
             case .stateDiagram:     return StateDiagramExample()

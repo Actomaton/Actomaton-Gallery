@@ -8,6 +8,7 @@ import SettingsScene
 import Counter
 import Login
 import UserSession
+import AnimationDemo
 
 // MARK: - Action
 
@@ -97,6 +98,12 @@ extension State
                         inner: .home(initialHomeState),
                         tabItemTitle: "Home",
                         tabItemIcon: Image(systemName: "house")
+                    ),
+                    Tab.TabItem(
+                        id: .animationDemo,
+                        inner: .animationDemo(.init()),
+                        tabItemTitle: "Animation",
+                        tabItemIcon: Image(systemName: "pip.swap")
                     ),
                     Tab.TabItem(
                         id: .settings,
@@ -207,6 +214,12 @@ private var tabReducer: Reducer<Action, State, Environment>
                     return Counter.reducer
                         .contramap(action: /TabCaseAction.counter)
                         .contramap(state: /TabCaseState.counter)
+                        .contramap(environment: { _ in () })
+
+                case .animationDemo:
+                    return AnimationDemo.reducer
+                        .contramap(action: /TabCaseAction.animationDemo)
+                        .contramap(state: /TabCaseState.animationDemo)
                         .contramap(environment: { _ in () })
                 }
             }
