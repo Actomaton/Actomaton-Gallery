@@ -4,6 +4,7 @@ import Foundation
 let exampleList: [Example] = [
     CounterExample(),
     SyncCountersExample(),
+    AnimationExample(),
     ColorFilterExample(),
     TodoExample(),
     StateDiagramExample(),

@@ -56,6 +56,9 @@ let package = Package(
                 "Counter"
             ]),
         .target(
+            name: "AnimationDemo",
+            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+        .target(
             name: "ColorFilter",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
@@ -138,7 +141,7 @@ let package = Package(
             name: "Home",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
+                "Counter", "SyncCounters", "AnimationDemo", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoPlayerMulti", "VideoDetector", "Physics",
                 "CommonEffects"
             ]),
