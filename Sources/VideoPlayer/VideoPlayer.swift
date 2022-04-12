@@ -9,7 +9,6 @@ import Utilities
 @preconcurrency import AVFoundation_Combine
 #else
 import AVFoundation_Combine
-extension PlayingStatus: @unchecked Sendable {}
 #endif
 
 // MARK: - Action
