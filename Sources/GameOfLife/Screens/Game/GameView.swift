@@ -58,10 +58,9 @@ struct GameView_Previews: PreviewProvider
     static var previews: some View
     {
         let gameView = GameView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
 

@@ -97,10 +97,9 @@ struct StateDiagramView_Previews: PreviewProvider
     static var previews: some View
     {
         let stateDiagramView = StateDiagramView(
-            store: .init(
+            store: .mock(
                 state: .constant(.loggedOut),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
 

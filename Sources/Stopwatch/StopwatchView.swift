@@ -93,7 +93,7 @@ struct StopwatchView_Previews: PreviewProvider
     static var previews: some View
     {
         StopwatchView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init(
                     status: .idle,
                     laps: [
@@ -102,8 +102,7 @@ struct StopwatchView_Previews: PreviewProvider
                         .init(id: 2, time: 1.0),
                     ]
                 )),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
             .previewLayout(.sizeThatFits)

@@ -118,10 +118,9 @@ struct GitHubView_Previews: PreviewProvider
     static var previews: some View
     {
         GitHubView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init()),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
             .previewLayout(.sizeThatFits)

@@ -78,20 +78,18 @@ struct HomeView_Previews: PreviewProvider
     {
         return Group {
             HomeView(
-                store: .init(
+                store: .mock(
                     state: .constant(State(current: nil, usesTimeTravel: true, isDebuggingTab: true)),
-                    environment: .live,
-                    send: { _ in }
+                    environment: .live
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))
                 .previewDisplayName("Home")
 
             HomeView(
-                store: .init(
+                store: .mock(
                     state: .constant(State(current: .counter(.init()), usesTimeTravel: true, isDebuggingTab: true)),
-                    environment: .live,
-                    send: { _ in }
+                    environment: .live
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))

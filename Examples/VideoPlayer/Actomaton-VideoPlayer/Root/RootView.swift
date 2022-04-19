@@ -171,10 +171,9 @@ struct RootView_Previews: PreviewProvider
     static var previews: some View
     {
         RootView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init()),
-                environment: .init(getPlayer: { nil }, getRandomVideoURL: { nil }),
-                send: { _ in }
+                environment: .init(getPlayer: { nil }, getRandomVideoURL: { nil })
             )
         )
     }

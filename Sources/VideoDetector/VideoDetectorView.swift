@@ -150,7 +150,7 @@ struct VideoDetectorView_Previews: PreviewProvider
         @MainActor
         func makeView(sessionState: VideoCapture.State.SessionState) -> some View {
             VideoDetectorView(
-                store: .init(
+                store: .mock(
                     state: .constant(
                         VideoDetector.State(
                             detectMode: .face,
@@ -162,8 +162,7 @@ struct VideoDetectorView_Previews: PreviewProvider
                             videoCapture: .init(sessionState: sessionState)
                         )
                     ),
-                    environment: (),
-                    send: { _ in }
+                    environment: ()
                 )
             )
         }

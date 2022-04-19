@@ -125,10 +125,9 @@ struct TodoView_Previews: PreviewProvider
     static var previews: some View
     {
         TodoView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init()),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
             .previewLayout(.sizeThatFits)

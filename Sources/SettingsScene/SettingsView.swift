@@ -70,10 +70,9 @@ struct SettingsView_Previews: PreviewProvider
     static var previews: some View
     {
         SettingsView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init(user: .anonymous)),
-                environment: (),
-                send: { _ in }
+                environment: ()
             ),
             usesNavigationView: true
         )

@@ -176,6 +176,7 @@ private struct Item: Hashable
     let card: CardWithFavorite
 }
 
+@MainActor
 private func makeDataSource(
     collectionView: UICollectionView,
     store: Store<CardList.Action, CardList.State, CardList.Environment>

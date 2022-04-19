@@ -45,20 +45,18 @@ struct ExampleListView_Previews: PreviewProvider
     {
         return Group {
             ExampleListView(
-                store: .init(
+                store: .mock(
                     state: .constant(ExampleList.State(examples: [])),
-                    environment: (),
-                    send: { _ in }
+                    environment: ()
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))
                 .previewDisplayName("ExampleList")
 
             ExampleListView(
-                store: .init(
+                store: .mock(
                     state: .constant(ExampleList.State(examples: [])),
-                    environment: (),
-                    send: { _ in }
+                    environment: ()
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))

@@ -63,7 +63,7 @@ struct DetailView_Previews: PreviewProvider
     static var previews: some View
     {
         DetailView(
-            store: .init(
+            store: .mock(
                 state: .constant(
                     Detail.State(
                         card: .init(
@@ -73,8 +73,7 @@ struct DetailView_Previews: PreviewProvider
                         )
                     )
                 ),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
     }

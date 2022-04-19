@@ -120,10 +120,9 @@ struct CardListView_Previews: PreviewProvider
     static var previews: some View
     {
         CardListView(
-            store: .init(
+            store: .mock(
                 state: .constant(CardList.State(cards: Card.fakedFetchedCards, showsFavoriteOnly: false)),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
     }

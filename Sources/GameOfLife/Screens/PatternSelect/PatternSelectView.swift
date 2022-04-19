@@ -110,10 +110,9 @@ struct PatternSelectView_Previews: PreviewProvider
     static var previews: some View
     {
         let gameOfLifeView = PatternSelectView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init()),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
 

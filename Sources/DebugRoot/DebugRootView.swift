@@ -107,10 +107,9 @@ struct DebugRootView_Previews: PreviewProvider
 
         return Group {
             DebugRootView<RootView>(
-                store: .init(
+                store: .mock(
                     state: .constant(.init(inner: RootState())),
-                    environment: (),
-                    send: { _ in }
+                    environment: ()
                 )
             )
                 .previewLayout(.fixed(width: 320, height: 480))

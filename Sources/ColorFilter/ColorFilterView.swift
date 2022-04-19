@@ -102,10 +102,9 @@ struct ColorFilterView_Previews: PreviewProvider
     static var previews: some View
     {
         ColorFilterView(
-            store: .init(
+            store: .mock(
                 state: .constant(.init()),
-                environment: (),
-                send: { _ in }
+                environment: ()
             )
         )
             .previewLayout(.sizeThatFits)
