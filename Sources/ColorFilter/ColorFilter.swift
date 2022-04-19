@@ -5,7 +5,7 @@ import Actomaton
 // MARK: - Action
 
 /// - Note:
-///   This example uses `directStateBinding`, so `Action` will not run,
+///   This example uses direct-state-binding via `Store.Proxy.$state`, so `Action` will not run,
 ///   and will not be part of `TimeTravel`-able action.
 public enum Action: Sendable {}
 
@@ -34,7 +34,7 @@ public typealias Environment = ()
 
 // MARK: - Reducer
 
-/// - Note: This example uses `directStateBinding`, so `Reducer` will not run.
+/// - Note: This example uses direct-state-binding via `Store.Proxy.$state`, so `Reducer` will not run.
 public var reducer: Reducer<Action, State, Environment>
 {
     .empty

@@ -54,7 +54,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Hue").frame(width: 100)
                 Slider(
-                    value: self.store.directStateBinding.hue,
+                    value: self.store.$state.hue,
                     in: 0 ... 1,
                     step: 0.01
                 )
@@ -62,7 +62,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Saturation").frame(width: 100)
                 Slider(
-                    value: self.store.directStateBinding.saturation,
+                    value: self.store.$state.saturation,
                     in: 0 ... 1,
                     step: 0.01
                 )
@@ -70,7 +70,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Brightness").frame(width: 100)
                 Slider(
-                    value: self.store.directStateBinding.brightness,
+                    value: self.store.$state.brightness,
                     in: -1 ... 1,
                     step: 0.01
                 )
@@ -78,7 +78,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Contrast").frame(width: 100)
                 Slider(
-                    value: self.store.directStateBinding.contrast,
+                    value: self.store.$state.contrast,
                     in: -10 ... 10,
                     step: 0.01
                 )

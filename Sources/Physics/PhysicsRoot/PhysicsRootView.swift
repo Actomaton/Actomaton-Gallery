@@ -87,10 +87,10 @@ public struct PhysicsRootView: View
     {
         content.toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Toggle(isOn: store.configuration.showsVelocityArrows.directStateBinding) {
+                Toggle(isOn: store.configuration.showsVelocityArrows.$state) {
                     Image(systemName: "v.square")
                 }
-                Toggle(isOn: store.configuration.showsForceArrows.directStateBinding) {
+                Toggle(isOn: store.configuration.showsForceArrows.$state) {
                     Image(systemName: "f.square")
                 }
             }
