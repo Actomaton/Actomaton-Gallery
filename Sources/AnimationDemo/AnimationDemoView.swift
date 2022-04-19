@@ -19,9 +19,15 @@ public struct AnimationDemoView: View
     public var body: some View
     {
         VStack {
-            Toggle("Toggle", isOn: store.$state.isPresenting.animation())
+            // Direct state binding + animation.
+            Toggle("Toggle 1", isOn: store.$state.isPresenting.animation())
                 .frame(width: 200)
 
+            // Indirect state binding + animation using `stateBinding`.
+            Toggle("Toggle 2", isOn: store.isPresenting.stateBinding(onChange: { _ in .tap }).animation())
+                .frame(width: 200)
+
+            // Manual action dispatch (send) + `withAnimation`.
             Button(store.state.isPresenting ? "Hide" : "Show") {
                 withAnimation() {
                     _ = self.store.send(.tap)
