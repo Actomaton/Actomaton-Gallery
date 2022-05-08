@@ -14,5 +14,6 @@ let exampleList: [Example] = [
     VideoPlayerExample(),
     VideoPlayerMultiExample(),
     VideoDetectorExample(),
-    PhysicsExample()
+    PhysicsExample(),
+    DownloaderExample(),
 ]

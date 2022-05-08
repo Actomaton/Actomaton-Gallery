@@ -134,6 +134,9 @@ let package = Package(
                 }())
             ]
         ),
+        .target(
+            name: "Downloader",
+            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
 
         // MARK: - SwiftUI-Gallery
 
@@ -142,7 +145,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "AnimationDemo", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoPlayerMulti", "VideoDetector", "Physics",
+                "GameOfLife", "VideoPlayerMulti", "VideoDetector", "Physics", "Downloader",
                 "CommonEffects"
             ]),
         .target(

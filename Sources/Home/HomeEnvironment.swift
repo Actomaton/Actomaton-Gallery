@@ -5,6 +5,7 @@ import GitHub
 import GameOfLife
 import VideoPlayer
 import VideoPlayerMulti
+import Downloader
 
 public struct HomeEnvironment: Sendable
 {
@@ -15,6 +16,7 @@ public struct HomeEnvironment: Sendable
     let gameOfLife: GameOfLife.Root.Environment
     let videoPlayer: VideoPlayer.Environment
     let videoPlayerMulti: VideoPlayerMulti.Environment
+    let downloader: Downloader.Environment
 }
 
 // MARK: - Live Environment
@@ -50,7 +52,8 @@ extension HomeEnvironment
             },
             gameOfLife: .live,
             videoPlayer: .live,
-            videoPlayerMulti: .live
+            videoPlayerMulti: .live,
+            downloader: .live
         )
     }
 }
