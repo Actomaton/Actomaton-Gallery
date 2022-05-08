@@ -13,6 +13,7 @@ import VideoPlayer
 import VideoPlayerMulti
 import VideoDetector
 import Physics
+import Downloader
 
 public enum Action: Sendable
 {
@@ -31,6 +32,7 @@ public enum Action: Sendable
     case videoPlayerMulti(VideoPlayerMulti.Action)
     case videoDetector(VideoDetector.Action)
     case physics(PhysicsRoot.Action)
+    case downloader(Downloader.Action)
 
     case debugToggleTimeTravel(Bool)
     case debugToggleTab(Bool)
@@ -142,7 +144,13 @@ public var reducer: Reducer<Action, State, Environment>
                 .contramap(action: /Action.physics)
                 .contramap(state: /State.Current.physics)
                 .contramap(state: \State.current)
-                .contramap(environment: { .init(timer: $0.timer) })
+                .contramap(environment: { .init(timer: $0.timer) }),
+
+            Downloader.reducer
+                .contramap(action: /Action.downloader)
+                .contramap(state: /State.Current.downloader)
+                .contramap(state: \State.current)
+                .contramap(environment: \.downloader)
         )
     )
 }

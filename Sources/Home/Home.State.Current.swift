@@ -12,6 +12,7 @@ import VideoPlayer
 import VideoPlayerMulti
 import VideoDetector
 import Physics
+import Downloader
 
 extension State
 {
@@ -31,6 +32,7 @@ extension State
         case videoPlayerMulti(VideoPlayerMulti.State)
         case videoDetector(VideoDetector.State)
         case physics(PhysicsRoot.State)
+        case downloader(Downloader.State)
 
         @MainActor
         var example: Example
@@ -49,6 +51,7 @@ extension State
             case .videoPlayerMulti: return VideoPlayerMultiExample()
             case .videoDetector:    return VideoDetectorExample()
             case .physics:          return PhysicsExample()
+            case .downloader:       return DownloaderExample()
             }
         }
     }
