@@ -19,7 +19,7 @@ struct AppView: View
         let store = Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>(
             state: DebugRoot.State(inner: Root.State.initialState),
             reducer: DebugRoot.reducer(inner: Root.reducer()),
-            environment: HomeEnvironment.live,
+            environment: HomeEnvironment.live(commonEffects: .live),
             configuration: .init(updatesStateImmediately: true)
         )
         self._store = StateObject(wrappedValue: store)

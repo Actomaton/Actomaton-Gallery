@@ -1,15 +1,10 @@
 import UIKit
 import Combine
 import AVFoundation
+import AVFoundation_Combine
 import Actomaton
 import ActomatonDebugging
 import Utilities
-
-#if swift(>=5.6)
-@preconcurrency import AVFoundation_Combine
-#else
-import AVFoundation_Combine
-#endif
 
 // MARK: - Action
 

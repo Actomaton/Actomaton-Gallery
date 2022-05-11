@@ -27,7 +27,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "CommonEffects",
-            dependencies: []),
+            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
         .target(
             name: "CommonUI",
             dependencies: []),
@@ -74,7 +74,10 @@ let package = Package(
             resources: [.process("Resources/")]),
         .target(
             name: "Stopwatch",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "CommonEffects"
+            ]),
         .target(
             name: "GitHub",
             dependencies: [

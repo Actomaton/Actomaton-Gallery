@@ -16,7 +16,7 @@ public struct GitHubExample: Example
             store: Store(
                 state: .init(),
                 reducer: GitHub.reducer,
-                environment: .live
+                environment: .live(commonEffects: .live)
             ),
             makeView: GitHubView.init
         )

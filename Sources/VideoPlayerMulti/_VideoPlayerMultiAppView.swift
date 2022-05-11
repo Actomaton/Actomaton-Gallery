@@ -2,7 +2,7 @@ import SwiftUI
 import ActomatonStore
 
 @MainActor
-public struct DownloaderAppView: View
+public struct VideoPlayerMultiAppView: View
 {
     @StateObject
     private var store: Store<Action, State, Environment>
@@ -10,7 +10,7 @@ public struct DownloaderAppView: View
     public init()
     {
         let store = Store<Action, State, Environment>(
-            state: State(),
+            state: State(displayMode: .multiplePlayers),
             reducer: reducer,
             environment: .live
         )
@@ -20,6 +20,6 @@ public struct DownloaderAppView: View
     public var body: some View
     {
         // IMPORTANT: Pass `Store.Proxy` to children.
-        DownloaderView(store: self.store.proxy.map(environment: { _ in () }))
+        VideoPlayerMultiView(store: self.store.proxy)
     }
 }
