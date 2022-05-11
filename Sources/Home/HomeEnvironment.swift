@@ -23,32 +23,13 @@ public struct HomeEnvironment: Sendable
 
 extension HomeEnvironment
 {
-    public static var live: HomeEnvironment
+    public static func live(commonEffects: CommonEffects) -> HomeEnvironment
     {
         HomeEnvironment(
-            getDate: { Date() },
-            timer: { timeInterval in
-                Timer.publish(every: timeInterval, tolerance: timeInterval * 0.1, on: .main, in: .common)
-                    .autoconnect()
-                    .toAsyncStream()
-
-                // Warning: Using `Task.sleep` may not be accurate timer.
-//                AsyncStream { continuation in
-//                    let task = Task {
-//                        while true {
-//                            if Task.isCancelled { break }
-//                            try await Task.sleep(nanoseconds: UInt64(timeInterval * 1_000_000_000))
-//                            continuation.yield(Date())
-//                        }
-//                        continuation.finish()
-//                    }
-//                    continuation.onTermination = { @Sendable _ in
-//                        task.cancel()
-//                    }
-//                }
-            },
+            getDate: commonEffects.now,
+            timer: commonEffects.timer,
             fetchRequest: { urlRequest in
-                try await CommonEffects.fetchData(for: urlRequest, delegate: nil)
+                try await commonEffects.fetch(request: urlRequest)
             },
             gameOfLife: .live,
             videoPlayer: .live,

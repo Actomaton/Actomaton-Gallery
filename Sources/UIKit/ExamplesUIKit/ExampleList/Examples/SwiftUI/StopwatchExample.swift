@@ -16,7 +16,7 @@ public struct StopwatchExample: Example
             store: Store(
                 state: .init(),
                 reducer: Stopwatch.reducer,
-                environment: .live
+                environment: .live(commonEffects: .live)
             ),
             makeView: StopwatchView.init
         )
