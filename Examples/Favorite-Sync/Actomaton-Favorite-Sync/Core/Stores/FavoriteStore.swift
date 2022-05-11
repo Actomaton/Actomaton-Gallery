@@ -3,14 +3,14 @@ import Foundation
 /// Safe Favorites loader using UserDefaults.
 actor FavoriteStore
 {
-    func loadFavorites() -> [String]?
+    func loadFavorites() -> [String]
     {
-        UserDefaults.standard.array(forKey: Self.favoritesKey) as? [String]
+        (UserDefaults.standard.array(forKey: Self.favoritesKey) as? [String]) ?? []
     }
 
-    func loadFavorite(id: Card.ID) -> Bool?
+    func loadFavorite(id: Card.ID) -> Bool
     {
-        loadFavorites()?.contains(id)
+        loadFavorites().contains(id)
     }
 
     func saveFavorites(_ favorites: [String])
@@ -21,7 +21,7 @@ actor FavoriteStore
 
     func saveFavorite(id: Card.ID, isFavorite: Bool)
     {
-        var ids = Set(loadFavorites() ?? [])
+        var ids = Set(loadFavorites())
 
         switch (isFavorite, ids.contains(id)) {
         case (false, true):

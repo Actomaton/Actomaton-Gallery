@@ -107,12 +107,10 @@ enum Detail
                 let cardID = state.card.id
 
                 return Effect {
-                    if let isFavorite = await env.environment.favoriteStore.loadFavorite(id: cardID) {
-                        return ._didLoadFavorite(isFavorite)
-                    }
-                    else {
-                        return ._showError(Error.failedLoadingFavorites)
-                    }
+                    let isFavorite = await env.environment.favoriteStore.loadFavorite(id: cardID)
+                    return ._didLoadFavorite(isFavorite)
+
+                    // return ._showError(Error.failedLoadingFavorites)
                 }
 
             case let ._didLoadFavorite(isFavorite):

@@ -134,12 +134,10 @@ enum CardList
                 state.isLoadingFavorites = true
 
                 return Effect {
-                    if let cardIDs = await env.environment.favoriteStore.loadFavorites() {
-                        return ._didLoadFavorites(cardIDs)
-                    }
-                    else {
-                        return ._showError(Error.failedLoadingFavorites)
-                    }
+                    let cardIDs = await env.environment.favoriteStore.loadFavorites()
+                    return ._didLoadFavorites(cardIDs)
+
+                    // return ._showError(Error.failedLoadingFavorites)
                 }
 
             case let ._didLoadFavorites(cardIDs):
