@@ -15,10 +15,9 @@ public struct SyncCountersView: View
     public var body: some View
     {
         VStack {
-            ForEach(store: store.children) { childStore in
+            ForEach(0 ..< store.state.numberOfCounters, id: \.self) { _ in
                 CounterView(
-                    store: childStore
-                        .counterState
+                    store: store.commonCounterState
                         .contramap(action: SyncCounters.Action.child)
                 )
             }
