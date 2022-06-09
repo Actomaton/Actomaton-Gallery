@@ -127,7 +127,7 @@ let package = Package(
                 // https://github.com/inamiy/Actomaton-Gallery/pull/33
                 // https://twitter.com/slava_pestov/status/1503903893389983745
                 .unsafeFlags({
-#if swift(>=5.6)
+#if swift(>=5.6) && swift(<5.7)
                     [
                         "-Xfrontend", "-requirement-machine=off",
                     ]
