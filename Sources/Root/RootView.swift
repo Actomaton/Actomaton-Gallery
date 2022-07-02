@@ -8,6 +8,7 @@ import Onboarding
 import Login
 import UserSession
 import AnimationDemo
+import Utilities
 
 @MainActor
 public struct RootView: View
@@ -16,11 +17,14 @@ public struct RootView: View
 
     public init(store: Store<Action, State, Environment>.Proxy)
     {
+        let _ = Debug.print("RootView.init")
         self.store = store
     }
 
     public var body: some View
     {
+        let _ = Debug.print("RootView.body")
+
         let isPresented = self.store.userSession.error
             .isPresented(onDismiss: Action.userSession(.forceLogout))
 

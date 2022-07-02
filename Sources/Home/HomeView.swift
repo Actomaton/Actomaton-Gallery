@@ -1,5 +1,6 @@
 import SwiftUI
 import ActomatonStore
+import Utilities
 
 @MainActor
 public struct HomeView: View
@@ -8,11 +9,14 @@ public struct HomeView: View
 
     public init(store: Store<Action, State, Environment>.Proxy)
     {
+        let _ = Debug.print("HomeView.init")
         self.store = store
     }
 
     public var body: some View
     {
+        let _ = Debug.print("HomeView.body")
+
         return VStack {
             NavigationView {
                 List(exampleList, id: \.exampleTitle) { example in

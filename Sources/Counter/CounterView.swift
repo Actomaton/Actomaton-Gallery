@@ -1,5 +1,6 @@
 import SwiftUI
 import ActomatonStore
+import Utilities
 
 @MainActor
 public struct CounterView: View
@@ -8,11 +9,14 @@ public struct CounterView: View
 
     public init(store: Store<Counter.Action, Counter.State, Void>.Proxy)
     {
+        let _ = Debug.print("CounterView.init")
         self.store = store
     }
 
     public var body: some View
     {
+        let _ = Debug.print("CounterView.body")
+
         HStack(spacing: 20) {
             HStack(spacing: 20) {
                 Button(action: { self.store.send(.decrement) }) {

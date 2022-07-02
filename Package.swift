@@ -48,7 +48,10 @@ let package = Package(
             dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
         .target(
             name: "Counter",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [
+                .product(name: "ActomatonStore", package: "Actomaton"),
+                "Utilities"
+            ]),
         .target(
             name: "SyncCounters",
             dependencies: [
@@ -149,7 +152,7 @@ let package = Package(
                 .product(name: "ActomatonStore", package: "Actomaton"),
                 "Counter", "SyncCounters", "AnimationDemo", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoPlayerMulti", "VideoDetector", "Physics", "Downloader",
-                "CommonEffects"
+                "CommonEffects", "Utilities"
             ]),
         .target(
             name: "SettingsScene", // NOTE: Avoid naming with `SwiftUI.Settings`.
@@ -169,7 +172,7 @@ let package = Package(
             name: "DebugRoot",
             dependencies: [
                 .product(name: "ActomatonStore", package: "Actomaton"),
-                "TimeTravel"
+                "Utilities", "TimeTravel"
             ]),
 
         // MARK: - UIKit-Gallery

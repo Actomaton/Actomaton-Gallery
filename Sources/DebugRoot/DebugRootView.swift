@@ -1,6 +1,7 @@
 import SwiftUI
 import Actomaton
 import ActomatonStore
+import Utilities
 
 @MainActor
 public struct DebugRootView<RootView>: View
@@ -10,11 +11,14 @@ public struct DebugRootView<RootView>: View
 
     public init(store: Store<DebugAction, DebugState, RootView.Environment>.Proxy)
     {
+        let _ = Debug.print("DebugRootView.init")
         self.store = store
     }
 
     public var body: some View
     {
+        let _ = Debug.print("DebugRootView.body")
+
         VStack {
             RootView(
                 store: self.store.timeTravel.inner
