@@ -1,5 +1,5 @@
 import UIKit
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 public enum HomeBuilder
@@ -18,7 +18,7 @@ public enum HomeBuilder
 
         let vc = usesUIKit
             ? CardListViewController(store: store)
-            : HostingViewController.make(store: store, makeView: CardListView.init)
+            : HostingViewController(store: store.noEnvironment, makeView: CardListView.init)
         vc.title = "Home"
         vc.tabBarItem = UITabBarItem(
             title: "Home",

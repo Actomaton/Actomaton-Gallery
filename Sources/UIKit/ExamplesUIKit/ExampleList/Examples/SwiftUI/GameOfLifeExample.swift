@@ -1,7 +1,8 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import GameOfLife
 import ExampleListUIKit
+import LiveEnvironments
 
 public struct GameOfLifeExample: Example
 {
@@ -12,12 +13,13 @@ public struct GameOfLifeExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController.make(
+        HostingViewController(
             store: Store(
-                state: .init(pattern: .glider, cellLength: 5),
+                state: .init(pattern: .glider, cellLength: 5, timerInterval: 0.05),
                 reducer: GameOfLife.Root.reducer(),
                 environment: .live
-            ),
+            )
+            .noEnvironment,
             makeView: GameOfLife.RootView.init
         )
     }

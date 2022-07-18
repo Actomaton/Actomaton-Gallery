@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Physics
 
 struct PhysicsExample: Example
@@ -11,7 +11,7 @@ struct PhysicsExample: Example
         .physics(PhysicsRoot.State(current: nil))
     }
 
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,

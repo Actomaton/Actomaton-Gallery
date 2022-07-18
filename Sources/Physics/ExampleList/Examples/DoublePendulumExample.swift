@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VectorMath
 
 /// https://www.myphysicslab.com/pendulum/double-pendulum-en.html
@@ -47,80 +47,82 @@ struct DoublePendulumExample: Example
         }
     }
 
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>) -> AnyView
     {
-        let configuration = store.state.configuration
+        let configuration = store.viewStore.configuration
 
         return Self.exampleView(
             store: store,
             action: PhysicsRoot.Action.doublePendulum,
             statePath: /PhysicsRoot.State.Current.doublePendulum,
-            makeView: {
+            makeView: { store in
                 // Additionally draws track & rods.
-                WorldView(store: $0, configuration: configuration, content: { store, configuration in
-                    guard store.state.objects.count >= 2 else {
-                        return AnyView(EmptyView())
-                    }
-
-                    let offset = Vector2(store.state.offset)
-
-                    let trackPath = Path {
-                        $0.addArc(
-                            center: store.state.offset,
-                            radius: CGFloat(store.state.objects[0].rodLength),
-                            startAngle: .degrees(0),
-                            endAngle: .degrees(360),
-                            clockwise: false
-                        )
-                    }
-
-                    @MainActor
-                    func rodPath(index: Int) -> some View
-                    {
-                        let obj0 = store.state.objects[index * 2]
-                        let obj1 = store.state.objects[index * 2 + 1]
-
-                        let pos0 = offset + obj0.position
-                        let pos1 = pos0 + obj1.position
-
-                        let rodPath = Path {
-                            $0.move(to: CGPoint(offset))
-                            $0.addLine(to: CGPoint(pos0))
+                WorldView<Bob>(store: store, configuration: configuration, content: { store, configuration in
+                    WithViewStore(store) { viewStore -> AnyView in
+                        guard viewStore.objects.count >= 2 else {
+                            return AnyView(EmptyView())
                         }
 
-                        let rod2Path = Path {
-                            $0.move(to: CGPoint(pos0))
-                            $0.addLine(to: CGPoint(pos1))
+                        let offset = Vector2(viewStore.offset)
+
+                        let trackPath = Path {
+                            $0.addArc(
+                                center: viewStore.offset,
+                                radius: CGFloat(viewStore.objects[0].rodLength),
+                                startAngle: .degrees(0),
+                                endAngle: .degrees(360),
+                                clockwise: false
+                            )
                         }
 
-                        return Group {
-                            rodPath
-                                .stroke(Color.green, lineWidth: 1)
+                        @MainActor
+                        func rodPath(index: Int) -> some View
+                        {
+                            let obj0 = viewStore.objects[index * 2]
+                            let obj1 = viewStore.objects[index * 2 + 1]
 
-                            rod2Path
-                                .stroke(Color.blue, lineWidth: 1)
+                            let pos0 = offset + obj0.position
+                            let pos1 = pos0 + obj1.position
+
+                            let rodPath = Path {
+                                $0.move(to: CGPoint(offset))
+                                $0.addLine(to: CGPoint(pos0))
+                            }
+
+                            let rod2Path = Path {
+                                $0.move(to: CGPoint(pos0))
+                                $0.addLine(to: CGPoint(pos1))
+                            }
+
+                            return Group {
+                                rodPath
+                                    .stroke(Color.green, lineWidth: 1)
+
+                                rod2Path
+                                    .stroke(Color.blue, lineWidth: 1)
+                            }
                         }
-                    }
 
-                    let zStack = ZStack(alignment: .topLeading) {
-                        // Dashed curve.
-                        trackPath
-                            .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
+                        let zStack = ZStack(alignment: .topLeading) {
+                            // Dashed curve.
+                            trackPath
+                                .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
 
-                        ForEach(0 ..< store.state.objects.count / 2, id: \.self) {
-                            rodPath(index: $0)
-                        }
+                            ForEach(0 ..< viewStore.objects.count / 2, id: \.self) { index in
+                                rodPath(index: index)
+                            }
 
-                        WorldView<Bob>.makeContentView(
-                            store: store.canvasState,   
-                            configuration: configuration,
-                            absolutePosition: self.absolutePosition,
-                            arrowScale: self.exampleArrowScale
-                        )
+                            WorldView<Bob>.makeContentView(
+                                store: store.map(state: \.canvasState),
+                                configuration: configuration,
+                                absolutePosition: self.absolutePosition,
+                                arrowScale: self.exampleArrowScale
+                            )
                             .frame(maxWidth: nil, maxHeight: nil, alignment: .center)
-                    }
+                        }
 
-                    return AnyView(zStack)
+                        return AnyView(zStack)
+                    }
                 })
             }
         )

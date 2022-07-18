@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 protocol Example
 {
@@ -8,7 +8,7 @@ protocol Example
     var exampleInitialState: Home.State.Current { get }
 
     @MainActor
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
 }
 
 extension Example
@@ -30,20 +30,22 @@ extension Example
     /// Helper method to transform parent `Store` into child `Store`, then `makeView`.
     @MainActor
     static func exampleView<ChildAction, ChildState, ChildEnvironment, V: View>(
-        store: Store<Home.Action, Home.State, Home.Environment>.Proxy,
+        store: Store<Home.Action, Home.State, Home.Environment>,
         action: @escaping (ChildAction) -> Home.Action,
         statePath: CasePath<Home.State.Current, ChildState>,
-        environment: (Home.Environment) -> ChildEnvironment,
-        makeView: @MainActor (Store<ChildAction, ChildState, ChildEnvironment>.Proxy) -> V
+        environment: @escaping (Home.Environment) -> ChildEnvironment,
+        makeView: @MainActor (Store<ChildAction, ChildState, ChildEnvironment>) -> V
     ) -> AnyView
     {
         @MainActor
         @ViewBuilder
         func _exampleView() -> some View
         {
-            if let substore = store.current
-                .traverse(\.self)?[casePath: statePath]
-                .traverse(\.self)?
+            if let substore = store
+                .map(state: \.current)
+                .optionalize()?
+                .caseMap(state: statePath)
+                .optionalize()?
                 .contramap(action: action)
                 .map(environment: environment)
             {
@@ -57,19 +59,21 @@ extension Example
     /// Helper method to transform parent `Store` into child `Store` (with child `Environment` as `Void`), then `makeView`.
     @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
-        store: Store<Home.Action, Home.State, Home.Environment>.Proxy,
+        store: Store<Home.Action, Home.State, Home.Environment>,
         action: @escaping (ChildAction) -> Home.Action,
         statePath: CasePath<Home.State.Current, ChildState>,
-        makeView: @MainActor (Store<ChildAction, ChildState, Void>.Proxy) -> V
+        makeView: @MainActor (Store<ChildAction, ChildState, Void>) -> V
     ) -> AnyView
     {
         @MainActor
         @ViewBuilder
         func _exampleView() -> some View
         {
-            if let substore = store.current
-                .traverse(\.self)?[casePath: statePath]
-                .traverse(\.self)?
+            if let substore = store
+                .map(state: \.current)
+                .optionalize()?
+                .caseMap(state: statePath)
+                .optionalize()?
                 .contramap(action: action)
                 .map(environment: { _ in () })
             {

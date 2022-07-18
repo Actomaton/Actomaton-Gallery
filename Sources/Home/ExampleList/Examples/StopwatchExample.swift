@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Stopwatch
 
 struct StopwatchExample: Example
@@ -11,7 +11,7 @@ struct StopwatchExample: Example
         .stopwatch(Stopwatch.State())
     }
 
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,

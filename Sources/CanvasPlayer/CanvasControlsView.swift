@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 /// Play/pause, tick, rewind buttons.
 @MainActor

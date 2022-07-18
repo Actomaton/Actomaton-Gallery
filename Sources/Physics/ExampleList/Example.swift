@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VectorMath
 import CanvasPlayer
 
@@ -17,7 +17,7 @@ protocol Example
     var exampleArrowScale: ArrowScale { get }
 
     @MainActor
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>) -> AnyView
 }
 
 extension Example
@@ -46,19 +46,21 @@ extension Example
     /// Helper method to transform parent `Store` into child `Store`, then `makeView`.
     @MainActor
     static func exampleView<ChildAction, ChildState, V: View>(
-        store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy,
+        store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>,
         action: @escaping (ChildAction) -> PhysicsRoot.Action,
         statePath: CasePath<PhysicsRoot.State.Current, ChildState>,
-        makeView: @MainActor (Store<ChildAction, ChildState, Void>.Proxy) -> V
+        makeView: @MainActor (Store<ChildAction, ChildState, Void>) -> V
     ) -> AnyView
     {
         @MainActor
         @ViewBuilder
         func _exampleView() -> some View
         {
-            if let substore = store.current
-                .traverse(\.self)?[casePath: statePath]
-                .traverse(\.self)?
+            if let substore = store
+                .map(state: \.current)
+                .optionalize()?
+                .caseMap(state: statePath)
+                .optionalize()?
                 .contramap(action: action)
             {
                 makeView(substore)

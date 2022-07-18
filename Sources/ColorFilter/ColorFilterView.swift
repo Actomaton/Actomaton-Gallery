@@ -1,7 +1,8 @@
 import SwiftUI
 import PhotosUI
-import ActomatonStore
+import ActomatonUI
 import PhotoPicker
+import Utilities
 
 @MainActor
 public struct ColorFilterView: View
@@ -13,25 +14,33 @@ public struct ColorFilterView: View
     @SwiftUI.State
     private var isShowingPicker = false
 
-    private let store: Store<ColorFilter.Action, ColorFilter.State, Void>.Proxy
+    private let store: Store<ColorFilter.Action, ColorFilter.State, Void>
 
-    public init(store: Store<ColorFilter.Action, ColorFilter.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<ColorFilter.Action, ColorFilter.State>
+
+    public init(store: Store<ColorFilter.Action, ColorFilter.State, Void>)
     {
+        let _ = Debug.print("ColorFilterView.init")
+
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
     {
+        let _ = Debug.print("ColorFilterView.body")
+
         let image = photoDatas.first??.image
             ?? UIImage(named: "color.jpg", in: .module, with: nil)!
 
         return VStack {
             Image(uiImage: image)
                 .resizable()
-                .hueRotation(Angle(degrees: store.state.hue * 360))
-                .saturation(store.state.saturation)
-                .brightness(store.state.brightness)
-                .contrast(store.state.contrast)
+                .hueRotation(Angle(degrees: viewStore.hue * 360))
+                .saturation(viewStore.saturation)
+                .brightness(viewStore.brightness)
+                .contrast(viewStore.contrast)
 
             controls()
         }
@@ -54,7 +63,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Hue").frame(width: 100)
                 Slider(
-                    value: self.store.$state.hue,
+                    value: self.viewStore.directBinding.hue,
                     in: 0 ... 1,
                     step: 0.01
                 )
@@ -62,7 +71,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Saturation").frame(width: 100)
                 Slider(
-                    value: self.store.$state.saturation,
+                    value: self.viewStore.directBinding.saturation,
                     in: 0 ... 1,
                     step: 0.01
                 )
@@ -70,7 +79,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Brightness").frame(width: 100)
                 Slider(
-                    value: self.store.$state.brightness,
+                    value: self.viewStore.directBinding.brightness,
                     in: -1 ... 1,
                     step: 0.01
                 )
@@ -78,7 +87,7 @@ public struct ColorFilterView: View
             HStack {
                 Text("Contrast").frame(width: 100)
                 Slider(
-                    value: self.store.$state.contrast,
+                    value: self.viewStore.directBinding.contrast,
                     in: -10 ... 10,
                     step: 0.01
                 )
@@ -97,16 +106,15 @@ private let pickerConfig: PHPickerConfiguration = {
     return config
 }()
 
-struct ColorFilterView_Previews: PreviewProvider
+public struct ColorFilterView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         ColorFilterView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: .init(
+                state: .init(),
+                reducer: ColorFilter.reducer
             )
         )
-            .previewLayout(.sizeThatFits)
     }
 }

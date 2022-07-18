@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 import Vision
 import Combine
-import ActomatonStore
+import ActomatonUI
 import VideoCapture
 
 private enum Global

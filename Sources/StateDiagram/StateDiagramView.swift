@@ -1,14 +1,18 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 public struct StateDiagramView: View
 {
-    private let store: Store<StateDiagram.Action, StateDiagram.State, Void>.Proxy
+    private let store: Store<StateDiagram.Action, StateDiagram.State, Void>
 
-    public init(store: Store<StateDiagram.Action, StateDiagram.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<StateDiagram.Action, StateDiagram.State>
+
+    public init(store: Store<StateDiagram.Action, StateDiagram.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
@@ -20,15 +24,15 @@ public struct StateDiagramView: View
                         .resizable()
 
                     Rectangle()
-                        .stroke(focusColor(state: self.store.state), lineWidth: 4)
+                        .stroke(focusColor(state: self.viewStore.state), lineWidth: 4)
                         .frame(
                             width: focusSize(imageWidth: geometry.size.width).width,
                             height: focusSize(imageWidth: geometry.size.width).height
                         )
                         .offset(
-                            focusOffsets(imageSize: geometry.size, state: self.store.state)
+                            focusOffsets(imageSize: geometry.size, state: self.viewStore.state)
                         )
-                        .animation(.easeInOut(duration: 0.3), value: self.store.state)
+                        .animation(.easeInOut(duration: 0.3), value: self.viewStore.state)
                 }
             }
             .aspectRatio(actualImageSize, contentMode: .fit)
@@ -92,23 +96,24 @@ private func focusColor(state: StateDiagram.State) -> Color
     }
 }
 
-struct StateDiagramView_Previews: PreviewProvider
+public struct StateDiagramView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         let stateDiagramView = StateDiagramView(
-            store: .mock(
-                state: .constant(.loggedOut),
-                environment: ()
+            store: .init(
+                state: .loggedOut,
+                reducer: StateDiagram.reducer
             )
         )
 
-        return Group {
-            stateDiagramView.previewLayout(.sizeThatFits)
-                .previewDisplayName("Portrait")
+        stateDiagramView
+            .previewDisplayName("Portrait")
+        
+//            .previewInterfaceOrientation(.portrait)
 
-            stateDiagramView.previewLayout(.fixed(width: 568, height: 320))
-                .previewDisplayName("Landscape")
-        }
+//        stateDiagramView
+//            .previewDisplayName("Landscape")
+//            .previewInterfaceOrientation(.landscapeRight)
     }
 }

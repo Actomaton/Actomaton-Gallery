@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VectorMath
 
 struct LineCollisionExample: Example
@@ -23,9 +23,9 @@ struct LineCollisionExample: Example
         .init(velocityArrowScale: 10, forceArrowScale: 0)
     }
 
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>) -> AnyView
     {
-        let configuration = store.state.configuration
+        let configuration = store.viewStore.configuration
 
         return Self.exampleView(
             store: store,

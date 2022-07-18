@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
-import ActomatonStore
+import ActomatonUI
 import UserSession
 import SettingsUIKit
 
@@ -9,10 +9,10 @@ import SettingsUIKit
 public final class TabBarController<TabID>: UITabBarController
     where TabID: Equatable & Sendable
 {
-    private let store: Store<Action<TabID>, State<TabID>, Environment>.ObservableProxy
+    private let store: Store<Action<TabID>, State<TabID>, Environment>
     private var cancellables: [AnyCancellable] = []
 
-    public init(store: Store<Action<TabID>, State<TabID>, Environment>.ObservableProxy)
+    public init(store: Store<Action<TabID>, State<TabID>, Environment>)
     {
         self.store = store
 
@@ -30,7 +30,7 @@ public final class TabBarController<TabID>: UITabBarController
 
         // Main presentation.
         // FIXME: Improve diffing.
-        self.store.state
+        self.store.$state
             .map { $0.tabs }
             .withNonDuplicatePrevious(initial: [])
             .sink { [weak self] oldTabs, newTabs in

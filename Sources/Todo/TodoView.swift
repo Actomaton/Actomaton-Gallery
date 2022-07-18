@@ -1,26 +1,35 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
+import Utilities
 
 @MainActor
 public struct TodoView: View
 {
-    private let store: Store<Todo.Action, Todo.State, Void>.Proxy
+    private let store: Store<Todo.Action, Todo.State, Void>
 
-    public init(store: Store<Todo.Action, Todo.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Todo.Action, Todo.State>
+
+    public init(store: Store<Todo.Action, Todo.State, Void>)
     {
+        let _ = Debug.print("TodoView.init")
+
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
     {
+        let _ = Debug.print("TodoView.body")
+
         VStack {
             newItemTextField()
 
             Divider()
 
             List {
-                ForEach(self.store.state.visibleItems.indices, id: \.self) { index in
-                    self.itemRow(at: index, isEditing: self.store.state.isEditing)
+                ForEach(self.viewStore.visibleItems.indices, id: \.self) { index in
+                    self.itemRow(at: index, isEditing: self.viewStore.isEditing)
                 }
                 .onDelete(perform: { self.store.send(.delete($0)) })
             }
@@ -29,7 +38,7 @@ public struct TodoView: View
         }
         .navigationBarItems(
             trailing: Button(action: { self.store.send(.toggleEdit) }) {
-                if self.store.state.isEditing {
+                if self.viewStore.isEditing {
                     Text("Done")
                 }
                 else {
@@ -54,9 +63,9 @@ public struct TodoView: View
                 // This issue occurs when `TodoView` is navigation-poped.
                 //text: self.store.$state[\.newText],
 
-                // Or, use `stateBinding(onChange:)` with providing an explicit next `Action`.
+                // Or, use `binding(onChange:)` with providing an explicit next `Action`.
                 // NOTE: This also allows to time-travel each character inputting.
-                text: self.store.newText.stateBinding(onChange: Todo.Action.updateNewText),
+                text: self.viewStore.binding(get: \.newText, onChange: Todo.Action.updateNewText),
                 onCommit: { self.store.send(.createTodo) }
             )
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -66,14 +75,14 @@ public struct TodoView: View
 
     private func itemRow(at visibleIndex: Int, isEditing: Bool) -> some View
     {
-        let textBinding = self.store
-            .stateBinding(
+        let textBinding = self.viewStore
+            .binding(
                 get: { $0.visibleItems[visibleIndex] },
                 onChange: { .updateText($0.id, $0.text) }
             )
             .text
 
-        let item = self.store.state.visibleItems[visibleIndex]
+        let item = self.viewStore.visibleItems[visibleIndex]
 
         return HStack {
             if isEditing {
@@ -107,8 +116,8 @@ public struct TodoView: View
 
     private func picker() -> some View
     {
-        let selection = self.store.displayMode
-            .stateBinding(onChange: Todo.Action.updateDisplayMode)
+        let selection = self.viewStore
+            .binding(get: \.displayMode, onChange: Todo.Action.updateDisplayMode)
 
         return Picker("Picker", selection: selection) {
             ForEach(Todo.DisplayMode.allCases, id: \.self) {
@@ -120,16 +129,15 @@ public struct TodoView: View
     }
 }
 
-struct TodoView_Previews: PreviewProvider
+public struct TodoView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         TodoView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: .init(
+                state: .init(),
+                reducer: Todo.reducer
             )
         )
-            .previewLayout(.sizeThatFits)
     }
 }

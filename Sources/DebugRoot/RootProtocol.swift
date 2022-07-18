@@ -1,4 +1,4 @@
-import ActomatonStore
+import ActomatonUI
 
 // MARK: - RootStateProtocol
 
@@ -23,5 +23,5 @@ public protocol RootViewProtocol
     associatedtype State: RootStateProtocol & Equatable & Sendable
     associatedtype Environment: Sendable
 
-    init(store: Store<Action, State, Environment>.Proxy)
+    init(store: Store<Action, State, Environment>)
 }

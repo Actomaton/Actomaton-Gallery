@@ -1,15 +1,19 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Utilities
 
 @MainActor
 public struct PhysicsRootView: View
 {
-    private let store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy
+    private let store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>
 
-    public init(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<PhysicsRoot.Action, PhysicsRoot.State>
+
+    public init(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
@@ -54,8 +58,8 @@ public struct PhysicsRootView: View
 
                 Δt_slider
             },
-            isActive: self.store.current
-                .stateBinding(onChange: PhysicsRoot.Action.changeCurrent)
+            isActive: viewStore
+                .binding(get: \.current, onChange: PhysicsRoot.Action.changeCurrent)
                 .transform(
                     get: { $0?.example.exampleTitle == example.exampleTitle },
                     set: { _, isPresenting in
@@ -76,7 +80,7 @@ public struct PhysicsRootView: View
     private var Δt_slider: some View
     {
         Slider(
-            value: self.store.Δt.stateBinding(onChange: PhysicsRoot.Action.changeΔt),
+            value: self.viewStore.binding(get: \.Δt, onChange: PhysicsRoot.Action.changeΔt),
             in: 0.01 ... 1,
             step: 0.01
         )
@@ -87,10 +91,10 @@ public struct PhysicsRootView: View
     {
         content.toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Toggle(isOn: store.configuration.showsVelocityArrows.$state) {
+                Toggle(isOn: viewStore.directBinding.configuration.showsVelocityArrows) {
                     Image(systemName: "v.square")
                 }
-                Toggle(isOn: store.configuration.showsForceArrows.$state) {
+                Toggle(isOn: viewStore.directBinding.configuration.showsForceArrows) {
                     Image(systemName: "f.square")
                 }
             }
@@ -101,5 +105,48 @@ public struct PhysicsRootView: View
 //                Δt_slider
 //            }
         }
+    }
+}
+
+// MARK: - Preview
+
+public struct PhysicsRootView_Previews: PreviewProvider
+{
+    @ViewBuilder
+    public static func makePreviews(environment: PhysicsRoot.Environment, isMultipleScreens: Bool) -> some View
+    {
+        let physicsView = PhysicsRootView(
+            store: Store<PhysicsRoot.Action, PhysicsRoot.State, PhysicsRoot.Environment>(
+                state: .init(current: nil),
+                reducer: PhysicsRoot.reducer,
+                environment: environment
+            )
+            .noEnvironment
+        )
+
+        NavigationView {
+            physicsView
+                .previewDisplayName("Portrait")
+//                .previewInterfaceOrientation(.portrait)
+        }
+
+        if isMultipleScreens {
+//            NavigationView {
+//                physicsView
+//                    .previewDisplayName("Landscape")
+//                    .previewInterfaceOrientation(.landscapeRight)
+//            }
+        }
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                timer: { _ in AsyncStream { nil } }
+            ),
+            isMultipleScreens: true
+        )
     }
 }

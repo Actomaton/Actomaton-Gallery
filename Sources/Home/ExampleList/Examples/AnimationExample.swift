@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import AnimationDemo
 
 struct AnimationExample: Example
@@ -11,18 +11,13 @@ struct AnimationExample: Example
         .animationDemo(AnimationDemo.State())
     }
 
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,
             action: Home.Action.animationDemo,
             statePath: /Home.State.Current.animationDemo,
-            makeView: {
-                AnimationDemoView(
-                    store: $0,
-                    footnote: #"NOTE: This screen is placed inside SwiftUI NavigationView which causes animation not working properly. See "Animation" tab instead."#
-                )
-            }
+            makeView: AnimationDemoView.init
         )
     }
 }

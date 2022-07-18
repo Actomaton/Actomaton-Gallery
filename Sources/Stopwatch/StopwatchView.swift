@@ -1,14 +1,18 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 public struct StopwatchView: View
 {
-    private let store: Store<Stopwatch.Action, Stopwatch.State, Void>.Proxy
+    private let store: Store<Stopwatch.Action, Stopwatch.State, Void>
 
-    public init(store: Store<Stopwatch.Action, Stopwatch.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Stopwatch.Action, Stopwatch.State>
+
+    public init(store: Store<Stopwatch.Action, Stopwatch.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
@@ -23,7 +27,7 @@ public struct StopwatchView: View
 
     private func largeTime() -> some View
     {
-        Text("\(self.store.state.status.timeString)")
+        Text("\(self.viewStore.status.timeString)")
             //.font(.system(size: 64, design: .monospaced))
             .font(Font.system(size: 64).monospacedDigit())
             .padding(.horizontal)
@@ -33,7 +37,7 @@ public struct StopwatchView: View
     private func buttons() -> some View
     {
         HStack {
-            if self.store.state.status.isRunning {
+            if self.viewStore.status.isRunning {
                 Button(action: { self.store.send(.lap) }) {
                     Text("Lap").font(.title)
                 }
@@ -45,7 +49,7 @@ public struct StopwatchView: View
                 }
             }
             else {
-                if self.store.state.status.isPaused {
+                if self.viewStore.status.isPaused {
                     Button(action: { self.store.send(.reset) }) {
                         Text("Reset").font(.title)
                     }
@@ -69,7 +73,7 @@ public struct StopwatchView: View
 
     private func lapList() -> some View
     {
-        List(self.store.state.laps.reversed()) { lap in
+        List(self.viewStore.laps.reversed()) { lap in
             HStack {
                 Text("Lap \(lap.id)")
                     .font(Font.body.monospacedDigit())
@@ -78,9 +82,9 @@ public struct StopwatchView: View
                     .font(Font.body.monospacedDigit())
             }
             .foregroundColor(
-                lap.id == self.store.state.fastestLapID
+                lap.id == self.viewStore.fastestLapID
                 ? Color.green
-                : lap.id == self.store.state.slowestLapID
+                : lap.id == self.viewStore.slowestLapID
                 ? Color.red
                 : nil
             )
@@ -88,24 +92,40 @@ public struct StopwatchView: View
     }
 }
 
-struct StopwatchView_Previews: PreviewProvider
+public struct StopwatchView_Previews: PreviewProvider
 {
-    static var previews: some View
+    @ViewBuilder
+    public static func makePreviews(environment: Stopwatch.Environment, isMultipleScreens: Bool) -> some View
     {
         StopwatchView(
-            store: .mock(
-                state: .constant(.init(
+            store: Store(
+                state: .init(
                     status: .idle,
                     laps: [
                         .init(id: 0, time: 0.01),
                         .init(id: 1, time: 0.5),
                         .init(id: 2, time: 1.0),
                     ]
-                )),
-                environment: ()
+                ),
+                reducer: Stopwatch.reducer,
+                environment: environment
             )
+            .noEnvironment
         )
-            .previewLayout(.sizeThatFits)
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: Environment(
+                getDate: { Date.init(timeIntervalSince1970: 0) },
+                timer: { _ in
+                    AsyncStream(unfolding: { nil })
+                }
+            ),
+            isMultipleScreens: true
+        )
     }
 }
 

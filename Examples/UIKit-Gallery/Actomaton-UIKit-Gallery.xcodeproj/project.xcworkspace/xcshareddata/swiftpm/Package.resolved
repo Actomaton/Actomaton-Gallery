@@ -5,8 +5,8 @@
         "package": "Actomaton",
         "repositoryURL": "https://github.com/inamiy/Actomaton",
         "state": {
-          "branch": "main",
-          "revision": "0cce51a83f6128e972f62c86c01b5379f4ecc49e",
+          "branch": "ActomatonUI",
+          "revision": "e7c57e25cc8e9871621bbeed7dad75f69c96e8e7",
           "version": null
         }
       },

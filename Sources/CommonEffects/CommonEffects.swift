@@ -1,5 +1,5 @@
 import Foundation
-import ActomatonStore
+import ActomatonUI
 
 public struct CommonEffects
 {
@@ -23,6 +23,7 @@ public struct CommonEffects
 
 extension CommonEffects
 {
+    @Sendable
     public func fetch(request: URLRequest) async throws -> Data
     {
         try await urlSession.fetchData(for: request)
@@ -39,34 +40,4 @@ extension CommonEffects
     {
         self._now()
     }
-}
-
-// MARK: - CommonEffects.live
-
-extension CommonEffects
-{
-    public static var live = CommonEffects(
-        urlSession: URLSession.shared,
-        timer: { timeInterval in
-            Timer.publish(every: timeInterval, tolerance: timeInterval * 0.1, on: .main, in: .common)
-                .autoconnect()
-                .toAsyncStream()
-
-            // Warning: Using `Task.sleep` may not be accurate timer.
-//            AsyncStream { continuation in
-//                let task = Task {
-//                    while true {
-//                        if Task.isCancelled { break }
-//                        try await Task.sleep(nanoseconds: UInt64(timeInterval * 1_000_000_000))
-//                        continuation.yield(Date())
-//                    }
-//                    continuation.finish()
-//                }
-//                continuation.onTermination = { @Sendable _ in
-//                    task.cancel()
-//                }
-//            }
-        },
-        now: { Date() }
-    )
 }

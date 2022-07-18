@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 public protocol Example: Sendable
 {
@@ -22,4 +22,15 @@ extension Example
             return title
         }
     }
+}
+
+#if swift(>=5.7)
+public typealias AnyExample = any Example
+#else
+public typealias AnyExample = Example
+#endif
+
+func examplesAreEqual(_ examples1: [AnyExample], _ examples2: [AnyExample]) -> Bool
+{
+    examples1.map(\.exampleTitle) == examples2.map(\.exampleTitle)
 }

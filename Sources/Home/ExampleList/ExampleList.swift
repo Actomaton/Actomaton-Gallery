@@ -10,10 +10,10 @@ let exampleList: [Example] = [
     StateDiagramExample(),
     StopwatchExample(),
     GitHubExample(),
-    GameOfLifeExample(),
+    DownloaderExample(),
     VideoPlayerExample(),
     VideoPlayerMultiExample(),
     VideoDetectorExample(),
+    GameOfLifeExample(),
     PhysicsExample(),
-    DownloaderExample(),
 ]

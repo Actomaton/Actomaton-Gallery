@@ -1,15 +1,19 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CommonUI
 
 @MainActor
 public struct GitHubView: View
 {
-    private let store: Store<GitHub.Action, GitHub.State, Void>.Proxy
+    private let store: Store<GitHub.Action, GitHub.State, Void>
 
-    public init(store: Store<GitHub.Action, GitHub.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<GitHub.Action, GitHub.State>
+
+    public init(store: Store<GitHub.Action, GitHub.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
@@ -20,23 +24,23 @@ public struct GitHubView: View
             Divider()
 
             List {
-                ForEach(self.store.state.items.indices, id: \.self) { index in
+                ForEach(self.viewStore.items.indices, id: \.self) { index in
                     self.itemRow(at: index)
                         .onTapGesture {
                             self.store.send(.tapRow(at: index))
                         }
                 }
             }
-            .sheet(isPresented: self.store.$state.isWebViewPresented) {
-                WebView(url: self.store.state.selectedWebURL!)
+            .sheet(isPresented: self.viewStore.directBinding.isWebViewPresented) {
+                WebView(url: self.viewStore.selectedWebURL!)
             }
         }
         .navigationBarItems(
             trailing: ActivityIndicatorView()
-                .opacity(self.store.state.isLoading ? 1 : 0)
+                .opacity(self.viewStore.isLoading ? 1 : 0)
         )
         .onAppear { self.store.send(.onAppear) }
-        .alert(item: self.store.$state.errorMessage) {
+        .alert(item: self.viewStore.directBinding.errorMessage) {
             Alert(
                 title: Text("Network Error"),
                 message: Text("\($0.message)"),
@@ -57,7 +61,7 @@ public struct GitHubView: View
                 // Requires indirect state-to-action conversion binding here because
                 // `Action.updateSearchText` will trigger side-effect
                 // which is not possible via direct state binding.
-                text: self.store.stateBinding(
+                text: self.viewStore.binding(
                     get: { $0.searchText },
                     onChange: GitHub.Action.updateSearchText
                 )
@@ -69,7 +73,7 @@ public struct GitHubView: View
             }) {
                 Image(systemName: "xmark.circle.fill")
                     .foregroundColor(.secondary)
-                    .opacity(self.store.state.searchText == "" ? 0 : 1)
+                    .opacity(self.viewStore.searchText == "" ? 0 : 1)
             }
         }
         .padding(10)
@@ -77,8 +81,8 @@ public struct GitHubView: View
 
     private func itemRow(at visibleIndex: Int) -> some View
     {
-        let item = self.store.state.items[visibleIndex]
-        let image = self.store.state.imageLoader.images[item.owner.avatarUrl]
+        let item = self.viewStore.items[visibleIndex]
+        let image = self.viewStore.imageLoader.images[item.owner.avatarUrl]
 
         return HStack(alignment: .top) {
             if let image = image {
@@ -113,16 +117,32 @@ public struct GitHubView: View
     }
 }
 
-struct GitHubView_Previews: PreviewProvider
+public struct GitHubView_Previews: PreviewProvider
 {
-    static var previews: some View
+    @ViewBuilder
+    public static func makePreviews(environment: GitHub.Environment, isMultipleScreens: Bool) -> some View
     {
         GitHubView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: Store(
+                state: .init(),
+                reducer: GitHub.reducer,
+                environment: environment
             )
+            .noEnvironment
         )
-            .previewLayout(.sizeThatFits)
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                fetchRepositories: { _ in throw CancellationError() },
+                fetchImage: { _ in nil },
+                searchRequestDelay: 1,
+                imageLoadMaxConcurrency: 1
+            ),
+            isMultipleScreens: true
+        )
     }
 }

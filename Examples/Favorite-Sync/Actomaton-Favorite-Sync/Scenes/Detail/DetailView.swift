@@ -1,21 +1,25 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 struct DetailView: View
 {
-    private let store: Store<Action, State, Void>.Proxy
+    private let store: Store<Action, State, Void>
 
-    init(store: Store<Action, State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Action, State>
+
+    init(store: Store<Action, State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     var body: some View
     {
         VStack {
-            cardView(card: store.state.card)
-            cardViewFooter(card: store.state.card)
+            cardView(card: viewStore.card)
+            cardViewFooter(card: viewStore.card)
         }
         .onAppear {
             store.send(.loadFavorite)
@@ -63,18 +67,25 @@ struct DetailView_Previews: PreviewProvider
     static var previews: some View
     {
         DetailView(
-            store: .mock(
-                state: .constant(
-                    Detail.State(
-                        card: .init(
-                            card: Card.fakedFetchedCards[0],
-                            color: .yellow,
-                            isFavorite: false
-                        )
+            store: Store(
+                state: Detail.State(
+                    card: .init(
+                        card: Card.fakedFetchedCards[0],
+                        color: .yellow,
+                        isFavorite: false
                     )
                 ),
-                environment: ()
+                reducer: Detail.reducer(),
+                environment: .init(
+                    environment: .init(
+                        cardStore: .init(),
+                        favoriteStore: .init(),
+                        sleep: { _ in }
+                    ),
+                    sendRoute: { _ in }
+                )
             )
+            .noEnvironment
         )
     }
 }

@@ -1,17 +1,17 @@
 import AVFoundation
 import AVKit
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 struct RootView: View
 {
-    private let store: Store<RootAction, RootState, RootEnvironment>.Proxy
+    private let store: Store<RootAction, RootState, RootEnvironment>
 
     @SwiftUI.State
     private var isInitialOnAppear: Bool = true
 
-    init(store: Store<RootAction, RootState, RootEnvironment>.Proxy)
+    init(store: Store<RootAction, RootState, RootEnvironment>)
     {
         self.store = store
     }
@@ -19,20 +19,22 @@ struct RootView: View
     var body: some View
     {
         ZStack {
-            main()
+            WithViewStore(store) { viewStore in
+                main(viewStore)
 
-            if let text = store.state.dialogText {
-                dialog(text: text)
+                if let text = viewStore.dialogText {
+                    dialog(text: text)
+                }
             }
         }
     }
 
-    private func main() -> some View
+    private func main(_ viewStore: ViewStore<RootAction, RootState>) -> some View
     {
         VStack(spacing: 24) {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                    ForEach(store.state.mirroredChildren, id: \.label, content: { label, value in
+                    ForEach(viewStore.mirroredChildren, id: \.label, content: { label, value in
                         Group {
                             Text("\(label)").bold()
                             valueText(value).truncationMode(.head)
@@ -50,7 +52,7 @@ struct RootView: View
 
             HStack(spacing: 16) {
                 VStack(spacing: 16) {
-                    controlButtons()
+                    controlButtons(viewStore)
 
                     Button(action: { store.send(.reloadRandom) }, label: {
                         Text("Reload")
@@ -58,7 +60,7 @@ struct RootView: View
                         .font(.body)
 
                     Slider(
-                        value: store.sliderValue.stateBinding(onChange: RootAction.updateSliderValue),
+                        value: viewStore.binding(get: \.sliderValue, onChange: RootAction.updateSliderValue),
                         in: 0 ... 1,
                         onEditingChanged: { isStarted in
                             if !isStarted {
@@ -66,8 +68,8 @@ struct RootView: View
                             }
                         }
                     )
-                        .opacity(store.state.isSliderEnabled ? 1 : 0.5)
-                        .disabled(!store.state.isSliderEnabled)
+                    .opacity(viewStore.isSliderEnabled ? 1 : 0.5)
+                    .disabled(!viewStore.isSliderEnabled)
                 }
 
                 AVKit.VideoPlayer(player: store.environment.getPlayer())
@@ -100,13 +102,13 @@ struct RootView: View
         }
     }
 
-    private func controlButtons() -> some View
+    private func controlButtons(_ viewStore: ViewStore<RootAction, RootState>) -> some View
     {
         HStack(spacing: 16) {
             Button(action: { store.send(.advance(seconds: -10)) }, label: {
                 Image(systemName: "gobackward.10")
             })
-            playOrPauseButton()
+            playOrPauseButton(viewStore)
             Button(action: { store.send(.advance(seconds: 10)) }, label: {
                 Image(systemName: "goforward.10")
             })
@@ -114,9 +116,9 @@ struct RootView: View
     }
 
     @ViewBuilder
-    private func playOrPauseButton() -> some View
+    private func playOrPauseButton(_ viewStore: ViewStore<RootAction, RootState>) -> some View
     {
-        switch store.state.playerState.playingStatus {
+        switch viewStore.playerState.playingStatus {
         case .playing, .waitingToPlay, .unknown:
             Button(action: { store.send(.pause) }, label: {
                 Image(systemName: "pause.circle")
@@ -171,8 +173,9 @@ struct RootView_Previews: PreviewProvider
     static var previews: some View
     {
         RootView(
-            store: .mock(
-                state: .constant(.init()),
+            store: Store(
+                state: .init(),
+                reducer: rootReducer(),
                 environment: .init(getPlayer: { nil }, getRandomVideoURL: { nil })
             )
         )

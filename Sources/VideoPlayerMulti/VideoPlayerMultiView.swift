@@ -1,30 +1,37 @@
 import AVFoundation
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VideoPlayer
 
 @MainActor
 public struct VideoPlayerMultiView: View
 {
-    private let store: Store<Action, State, Environment>.Proxy
+    private let store: Store<Action, State, Environment>
 
-    @SwiftUI.State private var isInitial: Bool = true
+    @ObservedObject
+    private var viewStore: ViewStore<Action, State>
 
-    public init(store: Store<Action, State, Environment>.Proxy)
+    @SwiftUI.State
+    private var isInitial: Bool = true
+
+    public init(store: Store<Action, State, Environment>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
     {
-        let childStore1 = store.videoPlayer1
+        let childStore1 = store
+            .map(state: \.videoPlayer1)
             .contramap(action: Action.videoPlayer1)
             .map(environment: \.videoPlayer1)
 
-        let childStore2 = store.videoPlayer2
+        let childStore2 = store
+            .map(state: \.videoPlayer2)
             .contramap(action: Action.videoPlayer2)
             .map(environment: { () -> (Environment) -> VideoPlayer.Environment in
-                switch store.state.displayMode {
+                switch viewStore.displayMode {
                 case .singleSyncedPlayer:
                     return \.videoPlayer1
                 case .multiplePlayers:
@@ -33,7 +40,7 @@ public struct VideoPlayerMultiView: View
             }())
 
         VStack(spacing: 16) {
-            Picker("", selection: store.$state.displayMode) {
+            Picker("", selection: viewStore.directBinding.displayMode) {
                 Text("Single Synced Player")
                     .tag(State.DisplayMode.singleSyncedPlayer)
                 Text("Multiple Players")
@@ -53,7 +60,7 @@ public struct VideoPlayerMultiView: View
                 store.environment.videoPlayer2.setPlayer(makePlayer())
             }
         }
-        .onChange(of: store.state.displayMode) { _ in
+        .onChange(of: viewStore.displayMode) { _ in
             // Re-subscribe each player on `displayMode` changes.
             childStore1.send(.subscribePlayer)
             childStore2.send(.subscribePlayer)
@@ -62,7 +69,7 @@ public struct VideoPlayerMultiView: View
 
     @ViewBuilder
     private func videoPlayerView(
-        childStore: Store<VideoPlayer.Action, VideoPlayer.State, VideoPlayer.Environment>.Proxy
+        childStore: Store<VideoPlayer.Action, VideoPlayer.State, VideoPlayer.Environment>
     ) -> some View
     {
         VideoPlayerView(store: childStore)
@@ -73,6 +80,42 @@ public struct VideoPlayerMultiView: View
             .onDisappear {
                 childStore.send(.stop)
             }
+    }
+}
+
+// MARK: - Preview
+
+public struct VideoPlayerMultiView_Previews: PreviewProvider
+{
+    @ViewBuilder
+    public static func makePreviews(environment: Environment, isMultipleScreens: Bool) -> some View
+    {
+        let store = Store<Action, State, Environment>(
+            state: State(displayMode: .multiplePlayers),
+            reducer: reducer,
+            environment: environment
+        )
+
+        VideoPlayerMultiView(store: store)
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                description: "description",
+                videoPlayer1: .init(
+                    getPlayer: { nil },
+                    setPlayer: { _ in }
+                ),
+                videoPlayer2: .init(
+                    getPlayer: { nil },
+                    setPlayer: { _ in }
+                )
+            ),
+            isMultipleScreens: true
+        )
     }
 }
 

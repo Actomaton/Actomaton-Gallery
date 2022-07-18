@@ -1,27 +1,39 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CanvasPlayer
+import Utilities
 
 @MainActor
 public struct RootView: View
 {
-    private let store: Store<Root.Action, Root.State, Void>.Proxy
+    private let store: Store<Root.Action, Root.State, Void>
 
-    public init(store: Store<Root.Action, Root.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Root.Action, Root.State>
+
+    public init(store: Store<Root.Action, Root.State, Void>)
     {
+        let _ = Debug.print("GameOfLife.RootView.init")
+
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
     {
+        let _ = Debug.print("GameOfLife.RootView.body")
+
         CanvasPlayerView(
-            store: self.store.game.canvasPlayerState
+            store: self.store
+                .map(state: \.game.canvasPlayerState)
                 .contramap(action: Root.Action.game)
                 .contramap(action: Game.Action.canvasPlayer),
             content: { store in
                 AnyView(
                     GameView(
-                        store: self.store.game.contramap(action: (/Root.Action.game).embed)
+                        store: self.store
+                            .map(state: \.game)
+                            .contramap(action: (/Root.Action.game).embed)
                     )
                 )
             },
@@ -39,8 +51,8 @@ public struct RootView: View
         )
         .padding()
         .sheet(
-            isPresented: self.store.patternSelect.stateBinding(
-                get: { $0 != nil },
+            isPresented: self.viewStore.binding(
+                get: { $0.patternSelect != nil },
                 onChange: { isPresenting in
                     isPresenting ? .presentPatternSelect : .dismissPatternSelect
                 }
@@ -56,18 +68,18 @@ public struct RootView: View
     {
         HStack {
             Image(systemName: "star")
-                .foregroundColor(self.store.state.isFavoritePattern ? Color.yellow : Color(white: 0.8))
+                .foregroundColor(self.viewStore.isFavoritePattern ? Color.yellow : Color(white: 0.8))
                 .onTapGesture {
-                    let pattern = self.store.state.game.selectedPattern
+                    let pattern = self.viewStore.game.selectedPattern
                     self.store.send(.favorite(
-                        self.store.state.isFavoritePattern
+                        self.viewStore.isFavoritePattern
                             ? .removeFavorite(patternName: pattern.title)
                             : .addFavorite(patternName: pattern.title)
                     ))
                 }
 
             Button(action: { self.store.send(.presentPatternSelect) }) {
-                Text("\(self.store.state.game.selectedPattern.title)")
+                Text("\(self.viewStore.game.selectedPattern.title)")
                     .lineLimit(1)
             }
 
@@ -80,8 +92,9 @@ public struct RootView: View
     @ViewBuilder
     private func patternSelectView() -> some View
     {
-        if let substore = store.patternSelect
-            .traverse(\.self)?
+        if let substore = store
+            .map(state: \.patternSelect)
+            .optionalize()?
             .contramap(action: Root.Action.patternSelect)
         {
             let patternSelectView = PatternSelectView(store: substore)
@@ -94,23 +107,41 @@ public struct RootView: View
 
 // MARK: - Preview
 
-struct RootView_Previews: PreviewProvider
+public struct GameOfLife_RootView_Previews: PreviewProvider
 {
-    static var previews: some View
+    @ViewBuilder
+    public static func makePreviews(environment: GameOfLife.Root.Environment, isMultipleScreens: Bool) -> some View
     {
         let gameOfLifeView = RootView(
-            store: .mock(
-                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
-                environment: ()
+            store: Store<Root.Action, Root.State, GameOfLife.Root.Environment>(
+                state: .init(pattern: .glider, cellLength: 5, timerInterval: 0.05),
+                reducer: GameOfLife.Root.reducer(),
+                environment: environment
             )
+            .noEnvironment
         )
 
-        return Group {
-            gameOfLifeView.previewLayout(.sizeThatFits)
-                .previewDisplayName("Portrait")
+        gameOfLifeView
+            .previewDisplayName("Portrait")
+//            .previewInterfaceOrientation(.portrait)
 
-            gameOfLifeView.previewLayout(.fixed(width: 568, height: 320))
-                .previewDisplayName("Landscape")
-        }
+//        gameOfLifeView
+//            .previewDisplayName("Landscape")
+//            .previewInterfaceOrientation(.landscapeRight)
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                loadFavorites: { [] },
+                saveFavorites: { _ in },
+                loadPatterns: { [] },
+                parseRunLengthEncoded: { _ in .glider },
+                timer: { _ in AsyncStream(unfolding: { nil }) }
+            ),
+            isMultipleScreens: true
+        )
     }
 }

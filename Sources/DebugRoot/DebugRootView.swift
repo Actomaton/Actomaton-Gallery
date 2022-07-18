@@ -1,17 +1,19 @@
 import SwiftUI
 import Actomaton
-import ActomatonStore
+import ActomatonUI
 import Utilities
+import TimeTravel
 
 @MainActor
 public struct DebugRootView<RootView>: View
     where RootView: View & RootViewProtocol
 {
-    private let store: Store<DebugAction, DebugState, RootView.Environment>.Proxy
+    private let store: Store<DebugAction, DebugState, RootView.Environment>
 
-    public init(store: Store<DebugAction, DebugState, RootView.Environment>.Proxy)
+    public init(store: Store<DebugAction, DebugState, RootView.Environment>)
     {
         let _ = Debug.print("DebugRootView.init")
+
         self.store = store
     }
 
@@ -21,13 +23,20 @@ public struct DebugRootView<RootView>: View
 
         VStack {
             RootView(
-                store: self.store.timeTravel.inner
+                store: self.store
+                    .map(state: \.timeTravel.inner)
                     .contramap(action: { DebugAction.timeTravel(.inner($0)) })
             )
-                .frame(maxHeight: .infinity)
+            .frame(maxHeight: .infinity)
 
-            if self.store.state.usesTimeTravel {
-                self.timeTravelDebugView()
+            // IMPORTANT:
+            // `State.timeTravel.inner` needs to be observed
+            // rather than `State.timeTravel.inner.usesTimeTravel` only.
+            // Otherwise, `timeTravelStepper` gets disabled after several time-travelling for some reason.
+            WithViewStore(store.map(state: \.timeTravel.inner)) { viewStore in
+                if viewStore.usesTimeTravel {
+                    self.timeTravelDebugView()
+                }
             }
         }
     }
@@ -59,20 +68,25 @@ public struct DebugRootView<RootView>: View
 
     private func timeTravelSlider() -> some View
     {
-        HStack {
-            Slider(
-                value: self.store.timeTravel.timeTravellingSliderValue
-                    .stateBinding(onChange: {
-                        DebugAction.timeTravel(.timeTravelSlider(sliderValue: $0))
-                    }),
-                in: self.store.state.timeTravel.timeTravellingSliderRange,
-                step: 1
-            )
-                .disabled(!self.store.state.timeTravel.canTimeTravel)
+        WithViewStore(store.indirectMap(state: \.timeTravel.common)) { viewStore in
+            HStack {
+                Slider(
+                    value: viewStore
+                        .binding(
+                            get: \.timeTravellingSliderValue,
+                            onChange: {
+                                DebugAction.timeTravel(.timeTravelSlider(sliderValue: $0))
+                            }
+                        ),
+                    in: viewStore.timeTravellingSliderRange,
+                    step: 1
+                )
+                .disabled(!viewStore.canTimeTravel)
 
-            Text("\(self.store.state.timeTravel.timeTravellingIndex) / \(Int(self.store.state.timeTravel.timeTravellingSliderRange.upperBound))")
-                .font(Font.body.monospacedDigit())
-                .frame(minWidth: 80, alignment: .center)
+                Text("\(viewStore.timeTravellingIndex) / \(Int(viewStore.timeTravellingSliderRange.upperBound))")
+                    .font(Font.body.monospacedDigit())
+                    .frame(minWidth: 80, alignment: .center)
+            }
         }
     }
 
@@ -91,17 +105,20 @@ public struct DebugRootView<RootView>: View
     public typealias DebugState = State<RootView.State>
 }
 
-struct DebugRootView_Previews: PreviewProvider
+public struct DebugRootView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         enum RootAction {}
 
-        struct RootState: RootStateProtocol, Equatable {}
+        struct RootState: RootStateProtocol, Equatable
+        {
+            var usesTimeTravel: Bool { true }
+        }
 
         struct RootView: View, RootViewProtocol
         {
-            init(store: Store<RootAction, RootState, Void>.Proxy) {}
+            init(store: Store<RootAction, RootState, Void>) {}
 
             var body: some View
             {
@@ -109,15 +126,11 @@ struct DebugRootView_Previews: PreviewProvider
             }
         }
 
-        return Group {
-            DebugRootView<RootView>(
-                store: .mock(
-                    state: .constant(.init(inner: RootState())),
-                    environment: ()
-                )
+        return DebugRootView<RootView>(
+            store: .init(
+                state: .init(inner: RootState()),
+                reducer: DebugRoot.reducer(inner: .empty)
             )
-                .previewLayout(.fixed(width: 320, height: 480))
-                .previewDisplayName("Root")
-        }
+        )
     }
 }

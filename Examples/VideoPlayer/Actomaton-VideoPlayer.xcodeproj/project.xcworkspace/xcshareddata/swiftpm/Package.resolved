@@ -1,59 +1,88 @@
 {
-  "pins" : [
-    {
-      "identity" : "actomaton",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/Actomaton",
-      "state" : {
-        "branch" : "main",
-        "revision" : "0cce51a83f6128e972f62c86c01b5379f4ecc49e"
+  "object": {
+    "pins": [
+      {
+        "package": "Actomaton",
+        "repositoryURL": "https://github.com/inamiy/Actomaton",
+        "state": {
+          "branch": "ActomatonUI",
+          "revision": "e7c57e25cc8e9871621bbeed7dad75f69c96e8e7",
+          "version": null
+        }
+      },
+      {
+        "package": "AVFoundation-Combine",
+        "repositoryURL": "https://github.com/inamiy/AVFoundation-Combine",
+        "state": {
+          "branch": "main",
+          "revision": "637ba786561616297554365d12402414d5024335",
+          "version": null
+        }
+      },
+      {
+        "package": "CombineCocoa",
+        "repositoryURL": "https://github.com/CombineCommunity/CombineCocoa",
+        "state": {
+          "branch": null,
+          "revision": "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "OrientationKit",
+        "repositoryURL": "https://github.com/inamiy/OrientationKit",
+        "state": {
+          "branch": null,
+          "revision": "491927e9cc835c0fcc7eac349c0245024f5d8579",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "ce9c0d897db8a840c39de64caaa9b60119cf4be8",
+          "version": "0.8.1"
+        }
+      },
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "c4f78db9b90ca57b7b6abc2223e235242739ea3c",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "SwiftUI-PhotoPicker",
+        "repositoryURL": "https://github.com/inamiy/SwiftUI-PhotoPicker",
+        "state": {
+          "branch": "main",
+          "revision": "7fa6cc560e9c48dca41de152686ebd572eb88edf",
+          "version": null
+        }
+      },
+      {
+        "package": "VectorMath",
+        "repositoryURL": "https://github.com/nicklockwood/VectorMath",
+        "state": {
+          "branch": null,
+          "revision": "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
+          "version": "0.4.1"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
+        }
       }
-    },
-    {
-      "identity" : "avfoundation-combine",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/AVFoundation-Combine",
-      "state" : {
-        "revision" : "637ba786561616297554365d12402414d5024335",
-        "version" : "0.1.0"
-      }
-    },
-    {
-      "identity" : "combinecocoa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CombineCommunity/CombineCocoa",
-      "state" : {
-        "revision" : "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
-        "version" : "0.4.0"
-      }
-    },
-    {
-      "identity" : "swift-case-paths",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-case-paths",
-      "state" : {
-        "revision" : "ce9c0d897db8a840c39de64caaa9b60119cf4be8",
-        "version" : "0.8.1"
-      }
-    },
-    {
-      "identity" : "swift-custom-dump",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-custom-dump",
-      "state" : {
-        "revision" : "c4f78db9b90ca57b7b6abc2223e235242739ea3c",
-        "version" : "0.4.0"
-      }
-    },
-    {
-      "identity" : "xctest-dynamic-overlay",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
-      "state" : {
-        "revision" : "50a70a9d3583fe228ce672e8923010c8df2deddd",
-        "version" : "0.2.1"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }

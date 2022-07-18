@@ -1,12 +1,12 @@
 import UIKit
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 public enum TabBuilder
 {
     @MainActor
     public static func build<TabID>(
-        store: Store<Action<TabID>, State<TabID>, Environment>.ObservableProxy
+        store: Store<Action<TabID>, State<TabID>, Environment>
     ) -> UIViewController
         where TabID: Equatable
     {

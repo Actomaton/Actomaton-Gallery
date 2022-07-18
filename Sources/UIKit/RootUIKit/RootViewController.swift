@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
-import ActomatonStore
+import ActomatonUI
 import UserSession
 import Onboarding
 import Login
@@ -126,9 +126,9 @@ public final class RootViewController: UIViewController
             self.currentViewController = vc
 
         case .loggedIn:
-            let substore = store.observableProxy
+            let substore = store
                 .contramap(action: Action.tab)
-                .map { $0.tab }
+                .map(state: \.tab)
                 .map(environment: { _ in () })
 
             let vc = TabBuilder.build(store: substore)
@@ -157,12 +157,14 @@ public final class RootViewController: UIViewController
     private func onStateBeforeOnboarding()
     {
         let vc = HostingViewController(
-            store: self.store.observableProxy,
+            store: self.store,
             makeView: { store in
-                OnboardingView(
-                    isOnboardingComplete: store.isOnboardingComplete
-                        .stateBinding(onChange: { $0 ? .didFinishOnboarding : nil })
-                )
+                WithViewStore(store.map(state: \.isOnboardingComplete)) { viewStore in
+                    OnboardingView(
+                        isOnboardingComplete: viewStore
+                            .binding(onChange: { $0 ? .didFinishOnboarding : nil })
+                    )
+                }
             }
         )
         self.currentViewController = vc

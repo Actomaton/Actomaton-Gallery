@@ -1,4 +1,4 @@
-import ActomatonStore
+import ActomatonUI
 import Counter
 import Todo
 import StateDiagram
@@ -13,20 +13,25 @@ extension ExampleList
 {
     public enum Action: Sendable
     {
-        case showExample(Example)
+        case showExample(AnyExample)
 
         case debugIncrement
     }
 
-    public struct State: Sendable
+    public struct State: Equatable, Sendable
     {
-        public let examples: [Example]
+        public let examples: [AnyExample]
 
         public var debugCount: Int = 0
 
-        public init(examples: [Example])
+        public init(examples: [AnyExample])
         {
             self.examples = examples
+        }
+
+        public static func == (l: Self, r: Self) -> Bool
+        {
+            l.examples.map(\.exampleTitle) == r.examples.map(\.exampleTitle)
         }
     }
 
@@ -34,7 +39,7 @@ extension ExampleList
 
     public enum Route
     {
-        case showExample(Example)
+        case showExample(AnyExample)
     }
 
     public static var reducer: Reducer<Action, State, SendRouteEnvironment<Environment, Route>>

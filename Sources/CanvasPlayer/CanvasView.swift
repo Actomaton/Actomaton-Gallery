@@ -1,27 +1,36 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CommonUI
+import Utilities
 
 /// Canvas view that tracks tap / drag gestures and orientation.
 @MainActor
 public struct CanvasView<CanvasState>: View
     where CanvasState: Equatable & Sendable
 {
-    let store: Store<Action, State<CanvasState>, Void>.Proxy
-    let content: @MainActor (Store<Action, State<CanvasState>, Void>.Proxy) -> AnyView
+    let store: Store<Action, State<CanvasState>, Void>
+    let content: @MainActor (Store<Action, State<CanvasState>, Void>) -> AnyView
+
+    @ObservedObject
+    private var canvasSize: ViewStore<Action, CGSize>
 
     /// Initializer with custom `content`.
     public init(
-        store: Store<Action, State<CanvasState>, Void>.Proxy,
-        content: @MainActor @escaping (Store<Action, State<CanvasState>, Void>.Proxy) -> AnyView
+        store: Store<Action, State<CanvasState>, Void>,
+        content: @MainActor @escaping (Store<Action, State<CanvasState>, Void>) -> AnyView
     )
     {
+        let _ = Debug.print("CanvasPlayer.CanvasView.init")
+
         self.store = store
         self.content = content
+        self.canvasSize = store.indirectMap(state: \.canvasSize).viewStore
     }
 
     public var body: some View
     {
+        let _ = Debug.print("CanvasPlayer.CanvasView.body")
+
         GeometryReader { geometry in
             self.canvas(geometrySize: geometry.size)
         }
@@ -29,7 +38,7 @@ public struct CanvasView<CanvasState>: View
 
     private func canvas(geometrySize: CGSize) -> some View
     {
-        let contentSize = self.store.state.canvasSize
+        let contentSize = self.canvasSize.state
 
         return ZStack(alignment: .topLeading) {
             // Content to be drawn, e.g. objects, pendulums.
@@ -62,7 +71,7 @@ public struct CanvasView<CanvasState>: View
         .border(Color.green, width: 2)
         .onChange(of: geometrySize) { newValue in
             print("===> onChange(of: self.geometrySize) = \(newValue)")
-            if self.store.state.canvasSize != newValue {
+            if self.canvasSize.state != newValue {
                 self.store.send(.updateCanvasSize(newValue))
             }
         }

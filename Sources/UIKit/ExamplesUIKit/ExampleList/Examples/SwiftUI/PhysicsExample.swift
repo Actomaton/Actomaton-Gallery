@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Physics
 import ExampleListUIKit
 
@@ -12,7 +12,7 @@ public struct PhysicsExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController.make(
+        HostingViewController(
             store: Store(
                 state: .init(current: nil),
                 reducer: PhysicsRoot.reducer,
@@ -35,7 +35,8 @@ public struct PhysicsExample: Example
 //                        }
 //                    }
                 })
-            ),
+            )
+            .noEnvironment,
             makeView: PhysicsRootView.init
         )
     }

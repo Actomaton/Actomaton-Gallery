@@ -19,6 +19,8 @@ public struct User: Equatable, Sendable
     }
 }
 
+// MARK: - Presets
+
 extension User
 {
     public static func makeSample() -> User

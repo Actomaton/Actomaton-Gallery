@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import StateDiagram
 
 struct StateDiagramExample: Example
@@ -11,7 +11,7 @@ struct StateDiagramExample: Example
         .stateDiagram(.loggedOut)
     }
 
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,

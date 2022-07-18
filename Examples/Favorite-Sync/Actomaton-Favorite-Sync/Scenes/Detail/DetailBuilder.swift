@@ -1,5 +1,5 @@
 import UIKit
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 public enum DetailBuilder
@@ -19,7 +19,7 @@ public enum DetailBuilder
 
         let vc = usesUIKit
             ? DetailViewController(store: store)
-            : HostingViewController.make(store: store, makeView: DetailView.init)
+            : HostingViewController.init(store: store.noEnvironment, makeView: DetailView.init)
         vc.title = "Detail"
 
         return vc
