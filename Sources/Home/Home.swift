@@ -40,20 +40,36 @@ public enum Action: Sendable
 
 public struct State: Equatable, Sendable
 {
+    public var common: Common
+
     /// Current example state.
     public var current: Current?
 
-    /// Flag to show TimeTravel.
-    public var usesTimeTravel: Bool
-
-    /// Flag to show Tab insert/remove Debug UI.
-    public var isDebuggingTab: Bool
-
-    public init(current: State.Current?, usesTimeTravel: Bool, isDebuggingTab: Bool)
+    public init(common: Common, current: Current? = nil)
     {
+        self.common = common
         self.current = current
-        self.usesTimeTravel = usesTimeTravel
-        self.isDebuggingTab = isDebuggingTab
+    }
+
+    public init(current: Current? = nil, usesTimeTravel: Bool, isDebuggingTab: Bool)
+    {
+        self.common = .init(usesTimeTravel: usesTimeTravel, isDebuggingTab: isDebuggingTab)
+        self.current = current
+    }
+
+    public struct Common: Equatable, Sendable
+    {
+        /// Flag to show TimeTravel.
+        public var usesTimeTravel: Bool
+
+        /// Flag to show Tab insert/remove Debug UI.
+        public var isDebuggingTab: Bool
+
+        public init(usesTimeTravel: Bool, isDebuggingTab: Bool)
+        {
+            self.usesTimeTravel = usesTimeTravel
+            self.isDebuggingTab = isDebuggingTab
+        }
     }
 }
 
@@ -160,7 +176,7 @@ private func debugToggleTimeTravelReducer() -> Reducer<Action, State, Environmen
     .init { action, state, environment in
         switch action {
         case let .debugToggleTimeTravel(isDebug):
-            state.usesTimeTravel = isDebug
+            state.common.usesTimeTravel = isDebug
             return .empty
         default:
             return .empty
@@ -173,7 +189,7 @@ private func debugToggleTabReducer() -> Reducer<Action, State, Environment>
     .init { action, state, environment in
         switch action {
         case let .debugToggleTab(isDebug):
-            state.isDebuggingTab = isDebug
+            state.common.isDebuggingTab = isDebug
             return .empty
         default:
             return .empty

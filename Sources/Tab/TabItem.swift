@@ -1,26 +1,45 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 public struct TabItem<InnerState, ID>: Equatable, Identifiable, Sendable
     where InnerState: Equatable & Sendable, ID: Hashable & Sendable
 {
-    public var id: ID
-
+    public var common: Common
     public var inner: InnerState
-
-    public var tabItemTitle: String
-    public var tabItemIcon: Image
 
     public init(
         id: ID,
         inner: InnerState,
         tabItemTitle: String,
         tabItemIcon: Image
-    ) {
-        self.id = id
+    )
+    {
+        self.common = Common(id: id, tabItemTitle: tabItemTitle, tabItemIcon: tabItemIcon)
         self.inner = inner
-        self.tabItemTitle = tabItemTitle
-        self.tabItemIcon = tabItemIcon
+    }
+
+    public var id: ID
+    {
+        self.common.id
+    }
+
+    public struct Common: Equatable, Identifiable, Sendable
+    {
+        public var id: ID
+
+        public var tabItemTitle: String
+        public var tabItemIcon: Image
+
+        public init(
+            id: ID,
+            tabItemTitle: String,
+            tabItemIcon: Image
+        )
+        {
+            self.id = id
+            self.tabItemTitle = tabItemTitle
+            self.tabItemIcon = tabItemIcon
+        }
     }
 }
 

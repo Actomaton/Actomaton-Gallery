@@ -35,6 +35,5 @@ struct OnboardingView_Previews: PreviewProvider
         OnboardingView(
             isOnboardingComplete: .constant(false)
         )
-            .previewLayout(.sizeThatFits)
     }
 }

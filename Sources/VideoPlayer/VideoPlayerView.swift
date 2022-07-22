@@ -1,20 +1,29 @@
 import AVFoundation
 import SwiftUI
 import AVKit
-import ActomatonStore
+import ActomatonUI
+import Utilities
 
 @MainActor
 public struct VideoPlayerView: View
 {
-    private let store: Store<Action, State, Environment>.Proxy
+    private let store: Store<Action, State, Environment>
 
-    public init(store: Store<Action, State, Environment>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Action, State>
+
+    public init(store: Store<Action, State, Environment>)
     {
+        let _ = Debug.print("VideoPlayerView.init")
+
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
     {
+        let _ = Debug.print("VideoPlayerView.body")
+
         VStack(spacing: 16) {
             AVKit.VideoPlayer(player: store.environment.getPlayer())
                 .background(Color.black)
@@ -31,7 +40,7 @@ public struct VideoPlayerView: View
                 Image(systemName: "gobackward.5")
             }
 
-            if store.state.playingStatus == .paused || store.state.playingStatus == .unknown {
+            if viewStore.playingStatus == .paused || viewStore.playingStatus == .unknown {
                 Button(action: { store.send(.start) }) {
                     Image(systemName: "play.circle")
                 }
@@ -48,4 +57,48 @@ public struct VideoPlayerView: View
         }
         .font(.largeTitle)
     }
+}
+
+// MARK: - Preview
+
+public struct VideoPlayerView_Previews: PreviewProvider
+{
+    @ViewBuilder
+    public static func makePreviews(environment: Environment, isMultipleScreens: Bool) -> some View
+    {
+        let store = Store<Action, State, Environment>(
+            state: .init(label: "label"),
+            reducer: reducer,
+            environment: environment
+        )
+
+        VideoPlayerView(store: store)
+            .onAppear {
+                store.environment.setPlayer(makePlayer())
+                store.send(.subscribePlayer)
+                store.send(.start)
+            }
+            .onDisappear {
+                store.send(.stop)
+            }
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                getPlayer: { nil },
+                setPlayer: { _ in }
+            ),
+            isMultipleScreens: true
+        )
+    }
+}
+
+private func makePlayer() -> AVPlayer
+{
+    let urlString = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    let player = AVPlayer(url: URL(string: urlString)!)
+    return player
 }

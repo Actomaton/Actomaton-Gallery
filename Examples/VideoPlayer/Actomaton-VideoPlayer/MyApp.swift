@@ -1,14 +1,13 @@
 import AVFoundation
 import SwiftUI
 import UIKit
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 @main
 struct MyApp: App
 {
-    @StateObject
-    private var store: Store<RootAction, RootState, RootEnvironment>
+    private let store: Store<RootAction, RootState, RootEnvironment>
 
     init()
     {
@@ -19,14 +18,12 @@ struct MyApp: App
 
         let player = Player()
 
-        self._store = StateObject(
-            wrappedValue: Store(
-                state: .init(),
-                reducer: rootReducer(),
-                environment: RootEnvironment(
-                    getPlayer: { player.avPlayer },
-                    getRandomVideoURL: { Constants.videoURLs.randomElement()! }
-                )
+        self.store = Store(
+            state: .init(),
+            reducer: rootReducer(),
+            environment: RootEnvironment(
+                getPlayer: { player.avPlayer },
+                getRandomVideoURL: { Constants.videoURLs.randomElement()! }
             )
         )
     }
@@ -35,7 +32,7 @@ struct MyApp: App
     {
         WindowGroup {
             ZStack(alignment: .bottomTrailing) {
-                RootView(store: store.proxy)
+                RootView(store: store)
             }
         }
     }

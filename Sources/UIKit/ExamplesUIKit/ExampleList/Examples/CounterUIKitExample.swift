@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import ActomatonStore
+import ActomatonUI
 import Counter
 import ExampleListUIKit
 

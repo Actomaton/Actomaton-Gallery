@@ -1,15 +1,19 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VideoCapture
 
 @MainActor
 public struct VideoDetectorView: View
 {
-    private let store: Store<VideoDetector.Action, VideoDetector.State, Void>.Proxy
+    private let store: Store<VideoDetector.Action, VideoDetector.State, Void>
 
-    public init(store: Store<VideoDetector.Action, VideoDetector.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<VideoDetector.Action, VideoDetector.State>
+
+    public init(store: Store<VideoDetector.Action, VideoDetector.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
@@ -22,7 +26,7 @@ public struct VideoDetectorView: View
 
                     VideoPreviewView(
                         sessionID: sessionID,
-                        detectedRects: store.state.detectedRects
+                        detectedRects: viewStore.detectedRects
                     )
                     .map { $0.ignoresSafeArea() }
 
@@ -45,7 +49,7 @@ public struct VideoDetectorView: View
     {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
-                ForEach(store.state.detectedTextImages, id: \.self) {
+                ForEach(viewStore.detectedTextImages, id: \.self) {
                     Image(uiImage: $0)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -54,21 +58,21 @@ public struct VideoDetectorView: View
                 }
             }
 
-            Picker("Detector Mode", selection: store.$state.detectMode) {
+            Picker("Detector Mode", selection: viewStore.directBinding.detectMode) {
                 Text("Face").tag(VideoDetector.State.DetectMode.face)
                 Text("Text Rect").tag(VideoDetector.State.DetectMode.textRect)
                 Text("Vision").tag(VideoDetector.State.DetectMode.textRecognitionIOSVision)
             }
             .pickerStyle(SegmentedPickerStyle())
 
-            switch store.state.detectMode {
+            switch viewStore.detectMode {
             case .textRecognitionIOSVision:
-                Text("\(store.state.detectedTexts.count): \(store.state.detectedTexts.joined(separator: ", "))")
+                Text("\(viewStore.detectedTexts.count): \(viewStore.detectedTexts.joined(separator: ", "))")
                     .lineLimit(3)
                     .font(.title3)
                     .padding()
             default:
-                Text(self.captureState.sessionState.description + ", detect = \(store.state.detectedRects.count)")
+                Text(self.captureState.sessionState.description + ", detect = \(viewStore.detectedRects.count)")
                     .lineLimit(3)
                     .font(.title3)
                     .padding()
@@ -130,7 +134,7 @@ public struct VideoDetectorView: View
 
     private var captureState: VideoCapture.State
     {
-        self.store.state.videoCapture
+        self.viewStore.videoCapture
     }
 
     private func sendToCapture(_ action: VideoCapture.Action)
@@ -141,28 +145,24 @@ public struct VideoDetectorView: View
 
 // MARK: - Preview
 
-struct VideoDetectorView_Previews: PreviewProvider
+public struct VideoDetectorView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         let sessionID = SessionID.testID
 
         @MainActor
         func makeView(sessionState: VideoCapture.State.SessionState) -> some View {
             VideoDetectorView(
-                store: .mock(
-                    state: .constant(
-                        VideoDetector.State(
-                            detectMode: .face,
-                            detectedRects: [.zero, .zero],
-                            detectedTextImages: [
-
-                            ],
-                            detectedTexts: [],
-                            videoCapture: .init(sessionState: sessionState)
-                        )
+                store: .init(
+                    state: VideoDetector.State(
+                        detectMode: .face,
+                        detectedRects: [.zero, .zero],
+                        detectedTextImages: [],
+                        detectedTexts: [],
+                        videoCapture: .init(sessionState: sessionState)
                     ),
-                    environment: ()
+                    reducer: VideoDetector.reducer
                 )
             )
         }

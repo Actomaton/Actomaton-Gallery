@@ -15,20 +15,36 @@ public enum Action: Sendable
 
 public struct State: Equatable, Sendable
 {
-    public var commonCounterState: Counter.State = .init(count: 0)
+    public var common: Common
+    public var counterState: Counter.State
 
-    internal fileprivate(set) var numberOfCounters: Int = 1
-
-    public init() {}
-
-    public var canAddChild: Bool
+    public init(
+        common: Common = .init(),
+        counterState: Counter.State = .init(count: 0)
+    )
     {
-        self.numberOfCounters < 5
+        self.counterState = counterState
+        self.common = common
     }
 
-    public var canRemoveChild: Bool
+    public struct Common: Equatable, Sendable
     {
-        self.numberOfCounters > 0
+        internal fileprivate(set) var numberOfCounters: Int
+
+        public init(numberOfCounters: Int = 1)
+        {
+            self.numberOfCounters = numberOfCounters
+        }
+
+        public var canAddChild: Bool
+        {
+            self.numberOfCounters < 5
+        }
+
+        public var canRemoveChild: Bool
+        {
+            self.numberOfCounters > 0
+        }
     }
 }
 
@@ -43,19 +59,19 @@ public var reducer: Reducer<Action, State, Environment>
     .init { action, state, _ in
         switch action {
         case .addChild:
-            state.numberOfCounters = max(state.numberOfCounters + 1, 0)
+            state.common.numberOfCounters = max(state.common.numberOfCounters + 1, 0)
             return .empty
 
         case .removeChild:
-            state.numberOfCounters = max(state.numberOfCounters - 1, 0)
+            state.common.numberOfCounters = max(state.common.numberOfCounters - 1, 0)
             return .empty
 
         case .child(.increment):
-            state.commonCounterState.count += 1
+            state.counterState.count += 1
             return .empty
 
         case .child(.decrement):
-            state.commonCounterState.count -= 1
+            state.counterState.count -= 1
             return .empty
         }
     }

@@ -38,12 +38,12 @@ public struct State: Equatable, Sendable
 
 public struct Environment: Sendable
 {
-    public let getPlayer: @Sendable () -> AVPlayer?
-    public let setPlayer: @Sendable (AVPlayer?) -> Void
+    public let getPlayer: @MainActor @Sendable () -> AVPlayer?
+    public let setPlayer: @MainActor @Sendable (AVPlayer?) -> Void
 
     public init(
-        getPlayer: @Sendable @escaping () -> AVPlayer?,
-        setPlayer: @Sendable @escaping (AVPlayer?) -> Void
+        getPlayer: @escaping @MainActor @Sendable () -> AVPlayer?,
+        setPlayer: @escaping @MainActor @Sendable (AVPlayer?) -> Void
     )
     {
         self.getPlayer = getPlayer

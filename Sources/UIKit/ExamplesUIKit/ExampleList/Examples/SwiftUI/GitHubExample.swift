@@ -1,7 +1,8 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import GitHub
 import ExampleListUIKit
+import LiveEnvironments
 
 public struct GitHubExample: Example
 {
@@ -12,12 +13,13 @@ public struct GitHubExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController.make(
+        HostingViewController(
             store: Store(
                 state: .init(),
                 reducer: GitHub.reducer,
-                environment: .live(commonEffects: .live)
-            ),
+                environment: .live
+            )
+            .noEnvironment,
             makeView: GitHubView.init
         )
     }

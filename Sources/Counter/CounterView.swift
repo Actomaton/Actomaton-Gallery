@@ -1,16 +1,20 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Utilities
 
 @MainActor
 public struct CounterView: View
 {
-    private let store: Store<Counter.Action, Counter.State, Void>.Proxy
+    private let store: Store<Counter.Action, Counter.State, Void>
 
-    public init(store: Store<Counter.Action, Counter.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Counter.Action, Counter.State>
+
+    public init(store: Store<Counter.Action, Counter.State, Void>)
     {
         let _ = Debug.print("CounterView.init")
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
@@ -23,7 +27,7 @@ public struct CounterView: View
                     Image(systemName: "minus.circle")
                 }
 
-                Text("\(store.state.count)")
+                Text("\(viewStore.count)")
                     .frame(width: 100)
 
                 Button(action: { self.store.send(.increment) }) {
@@ -35,16 +39,15 @@ public struct CounterView: View
     }
 }
 
-struct CounterView_Previews: PreviewProvider
+public struct CounterView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         CounterView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: .init(
+                state: .init(),
+                reducer: Counter.reducer
             )
         )
-            .previewLayout(.sizeThatFits)
     }
 }

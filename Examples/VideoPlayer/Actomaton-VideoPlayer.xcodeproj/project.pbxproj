@@ -15,6 +15,7 @@
 		339D629827EB625D00CCFEE5 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629727EB625D00CCFEE5 /* Foundation+Extensions.swift */; };
 		339D629C27EB68B700CCFEE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629B27EB68B700CCFEE5 /* Constants.swift */; };
 		339D62A027EB6D7000CCFEE5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339D629F27EB6D7000CCFEE5 /* PlayerState.swift */; };
+		33BF033128854DB6004AC930 /* ActomatonUI-shim in Frameworks */ = {isa = PBXBuildFile; productRef = 33BF033028854DB6004AC930 /* ActomatonUI-shim */; };
 		33C59F2127ECC3280090BD9F /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C59F2027ECC3280090BD9F /* PlayerAction.swift */; };
 		33C97A3927ED52AD00CF7F96 /* RootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C97A3527ED52AD00CF7F96 /* RootState.swift */; };
 		33C97A3A27ED52AD00CF7F96 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C97A3627ED52AD00CF7F96 /* RootReducer.swift */; };
@@ -23,7 +24,6 @@
 		33D7DA0E278961EC00B362ED /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7DA0D278961EC00B362ED /* MyApp.swift */; };
 		33D7DA12278961ED00B362ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D7DA11278961ED00B362ED /* Assets.xcassets */; };
 		33D7DA15278961ED00B362ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33D7DA14278961ED00B362ED /* Preview Assets.xcassets */; };
-		33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */ = {isa = PBXBuildFile; productRef = 33D7DA1C2789626500B362ED /* ActomatonStore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +34,7 @@
 		339D629B27EB68B700CCFEE5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		339D629D27EB69FA00CCFEE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		339D629F27EB6D7000CCFEE5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
+		33BF032D28854AF4004AC930 /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Actomaton-Gallery"; path = ../..; sourceTree = "<group>"; };
 		33C59F2027ECC3280090BD9F /* PlayerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
 		33C97A3527ED52AD00CF7F96 /* RootState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootState.swift; sourceTree = "<group>"; };
 		33C97A3627ED52AD00CF7F96 /* RootReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootReducer.swift; sourceTree = "<group>"; };
@@ -50,9 +51,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33BF033128854DB6004AC930 /* ActomatonUI-shim in Frameworks */,
 				339D629027EB608B00CCFEE5 /* AVFoundation-Combine in Frameworks */,
 				330DF51A278F1CD10084A751 /* CombineCocoa in Frameworks */,
-				33D7DA1D2789626500B362ED /* ActomatonStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +100,7 @@
 		33D7DA01278961EC00B362ED = {
 			isa = PBXGroup;
 			children = (
+				33BF032D28854AF4004AC930 /* Actomaton-Gallery */,
 				33D7DA0C278961EC00B362ED /* Actomaton-VideoPlayer */,
 				33D7DA0B278961EC00B362ED /* Products */,
 				339D628E27EB608B00CCFEE5 /* Frameworks */,
@@ -154,9 +156,9 @@
 			);
 			name = "Actomaton-VideoPlayer";
 			packageProductDependencies = (
-				33D7DA1C2789626500B362ED /* ActomatonStore */,
 				330DF519278F1CD10084A751 /* CombineCocoa */,
 				339D628F27EB608B00CCFEE5 /* AVFoundation-Combine */,
+				33BF033028854DB6004AC930 /* ActomatonUI-shim */,
 			);
 			productName = "Actomaton-VideoPlayer";
 			productReference = 33D7DA0A278961EC00B362ED /* Actomaton-VideoPlayer.app */;
@@ -187,7 +189,6 @@
 			);
 			mainGroup = 33D7DA01278961EC00B362ED;
 			packageReferences = (
-				33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */,
 				330DF518278F1CD10084A751 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				33601F5027EB5DAB00C6D1AA /* XCRemoteSwiftPackageReference "AVFoundation-Combine" */,
 			);
@@ -455,14 +456,6 @@
 				minimumVersion = 0.1.0;
 			};
 		};
-		33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/inamiy/Actomaton";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -476,10 +469,9 @@
 			package = 33601F5027EB5DAB00C6D1AA /* XCRemoteSwiftPackageReference "AVFoundation-Combine" */;
 			productName = "AVFoundation-Combine";
 		};
-		33D7DA1C2789626500B362ED /* ActomatonStore */ = {
+		33BF033028854DB6004AC930 /* ActomatonUI-shim */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 33D7DA1B2789626500B362ED /* XCRemoteSwiftPackageReference "Actomaton" */;
-			productName = ActomatonStore;
+			productName = "ActomatonUI-shim";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

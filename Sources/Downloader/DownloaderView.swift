@@ -1,21 +1,25 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 public struct DownloaderView: View
 {
-    private let store: Store<Downloader.Action, Downloader.State, Void>.Proxy
+    private let store: Store<Downloader.Action, Downloader.State, Void>
 
-    public init(store: Store<Downloader.Action, Downloader.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Downloader.Action, Downloader.State>
+
+    public init(store: Store<Downloader.Action, Downloader.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     public var body: some View
     {
         VStack(spacing: 20) {
             Group {
-                let runningTasks = store.state.runningTasks.map { $0 }
+                let runningTasks = viewStore.runningTasks.map { $0 }
 
                 ForEach(runningTasks, id: \.key) { downloadID, progress in
                     progressView(downloadID: downloadID)
@@ -43,7 +47,7 @@ public struct DownloaderView: View
     private func progressView(downloadID: DownloadID) -> some View
     {
         HStack(alignment: .center, spacing: 20) {
-            let downloadState = store.state.runningTasks[downloadID, default: .waiting(progress: 0)]
+            let downloadState = viewStore.runningTasks[downloadID, default: .waiting(progress: 0)]
             let progressValue = downloadState.progressValue
 
             ProgressView(
@@ -70,7 +74,7 @@ public struct DownloaderView: View
     @ViewBuilder
     private func runOrPauseButton(downloadID: DownloadID) -> some View
     {
-        let progress = store.state.runningTasks[downloadID, default: .waiting(progress: 0)]
+        let progress = viewStore.runningTasks[downloadID, default: .waiting(progress: 0)]
 
         Button(
             action: {
@@ -94,16 +98,29 @@ public struct DownloaderView: View
     }
 }
 
-struct DownloaderView_Previews: PreviewProvider
+public struct DownloaderView_Previews: PreviewProvider
 {
-    static var previews: some View
+    @ViewBuilder
+    public static func makePreviews(environment: Environment, isMultipleScreens: Bool) -> some View
     {
         DownloaderView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: Store(
+                state: .init(),
+                reducer: reducer,
+                environment: environment
             )
+            .noEnvironment
         )
-            .previewLayout(.sizeThatFits)
+    }
+
+    /// - Note: Uses mock environment.
+    public static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                download: { _, _ in AsyncStream { nil } }
+            ),
+            isMultipleScreens: true
+        )
     }
 }

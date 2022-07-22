@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VectorMath
 
 struct PendulumExample: Example
@@ -24,68 +24,70 @@ struct PendulumExample: Example
         .init(velocityArrowScale: 5, forceArrowScale: 100)
     }
 
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>) -> AnyView
     {
-        let configuration = store.state.configuration
+        let configuration = store.viewStore.configuration
 
         return Self.exampleView(
             store: store,
             action: PhysicsRoot.Action.pendulum,
             statePath: /PhysicsRoot.State.Current.pendulum,
-            makeView: {
+            makeView: { store in
                 // Additionally draws track & rods.
-                WorldView(store: $0, configuration: configuration, content: { store, configuration in
-                    guard store.state.objects.count >= 1 else {
-                        return AnyView(EmptyView())
-                    }
-
-                    let offset = Vector2(store.state.offset)
-
-                    let trackPath = Path {
-                        $0.addArc(
-                            center: store.state.offset,
-                            radius: CGFloat(store.state.objects[0].rodLength),
-                            startAngle: .degrees(0),
-                            endAngle: .degrees(360),
-                            clockwise: false
-                        )
-                    }
-
-                    @MainActor
-                    func rodPath(index: Int) -> some View
-                    {
-                        let obj0 = store.state.objects[index]
-
-                        let pos0 = offset + obj0.position
-
-                        let rodPath = Path {
-                            $0.move(to: CGPoint(offset))
-                            $0.addLine(to: CGPoint(pos0))
+                WorldView(store: store, configuration: configuration, content: { store, configuration in
+                    WithViewStore(store) { viewStore -> AnyView in
+                        guard viewStore.objects.count >= 1 else {
+                            return AnyView(EmptyView())
                         }
 
-                        return rodPath
-                            .stroke(Color.green, lineWidth: 1)
-                    }
+                        let offset = Vector2(viewStore.offset)
 
-                    let zStack = ZStack(alignment: .topLeading) {
-                        // Dashed curve.
-                        trackPath
-                            .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
-
-                        ForEach(0 ..< store.state.objects.count, id: \.self) {
-                            rodPath(index: $0)
+                        let trackPath = Path {
+                            $0.addArc(
+                                center: viewStore.offset,
+                                radius: CGFloat(viewStore.objects[0].rodLength),
+                                startAngle: .degrees(0),
+                                endAngle: .degrees(360),
+                                clockwise: false
+                            )
                         }
 
-                        WorldView<Bob>.makeContentView(
-                            store: store.canvasState,
-                            configuration: configuration,
-                            absolutePosition: self.absolutePosition,
-                            arrowScale: self.exampleArrowScale
-                        )
+                        @MainActor
+                        func rodPath(index: Int) -> some View
+                        {
+                            let obj0 = viewStore.objects[index]
+
+                            let pos0 = offset + obj0.position
+
+                            let rodPath = Path {
+                                $0.move(to: CGPoint(offset))
+                                $0.addLine(to: CGPoint(pos0))
+                            }
+
+                            return rodPath
+                                .stroke(Color.green, lineWidth: 1)
+                        }
+
+                        let zStack = ZStack(alignment: .topLeading) {
+                            // Dashed curve.
+                            trackPath
+                                .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
+
+                            ForEach(0 ..< viewStore.objects.count, id: \.self) { index in
+                                rodPath(index: index)
+                            }
+
+                            WorldView<Bob>.makeContentView(
+                                store: store.map(state: \.canvasState),
+                                configuration: configuration,
+                                absolutePosition: self.absolutePosition,
+                                arrowScale: self.exampleArrowScale
+                            )
                             .frame(maxWidth: nil, maxHeight: nil, alignment: .center)
-                    }
+                        }
 
-                    return AnyView(zStack)
+                        return AnyView(zStack)
+                    }
                 })
             }
         )

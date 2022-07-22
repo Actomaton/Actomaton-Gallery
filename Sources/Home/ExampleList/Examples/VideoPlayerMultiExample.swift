@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VideoPlayerMulti
 import AVFoundation
 
@@ -12,7 +12,7 @@ struct VideoPlayerMultiExample: Example
         .videoPlayerMulti(VideoPlayerMulti.State(displayMode: .singleSyncedPlayer))
     }
 
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,

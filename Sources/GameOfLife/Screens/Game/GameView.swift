@@ -1,17 +1,21 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CommonUI
 
 @MainActor
 struct GameView: View
 {
-    private let store: Store<Game.Action, Game.State, Void>.Proxy
+    private let store: Store<Game.Action, Game.State, Void>
+
+    @ObservedObject
+    private var viewStore: ViewStore<Game.Action, Game.State>
 
     init(
-        store: Store<Game.Action, Game.State, Void>.Proxy
+        store: Store<Game.Action, Game.State, Void>
     )
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     var body: some View
@@ -37,8 +41,8 @@ struct GameView: View
 
     private func cellsPath() -> Path
     {
-        let cellLength = self.store.state.cellLength
-        let liveCellPoints = self.store.state.board.liveCellPoints
+        let cellLength = self.viewStore.cellLength
+        let liveCellPoints = self.viewStore.board.liveCellPoints
 
         var path = Path()
 
@@ -53,23 +57,39 @@ struct GameView: View
 
 // MARK: - Preview
 
-struct GameView_Previews: PreviewProvider
+struct GameOfLife_GameView_Previews: PreviewProvider
 {
-    static var previews: some View
+    @ViewBuilder
+    static func makePreviews(environment: Game.Environment, isMultipleScreens: Bool) -> some View
     {
         let gameView = GameView(
-            store: .mock(
-                state: .constant(.init(pattern: .glider, cellLength: 5, timerInterval: 1)),
-                environment: ()
+            store: Store(
+                state: .init(pattern: .glider, cellLength: 5, timerInterval: 0.05),
+                reducer: Game.reducer(),
+                environment: environment
             )
+            .noEnvironment
         )
 
-        return Group {
-            gameView.previewLayout(.sizeThatFits)
-                .previewDisplayName("Portrait")
+        gameView
+            .previewDisplayName("Portrait")
+//            .previewInterfaceOrientation(.portrait)
 
-            gameView.previewLayout(.fixed(width: 568, height: 320))
-                .previewDisplayName("Landscape")
+        if isMultipleScreens {
+//            gameView
+//                .previewDisplayName("Landscape")
+//                .previewInterfaceOrientation(.landscapeRight)
         }
+    }
+
+    /// - Note: Uses mock environment.
+    static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                timer: { _ in AsyncStream(unfolding: { nil }) }
+            ),
+            isMultipleScreens: true
+        )
     }
 }

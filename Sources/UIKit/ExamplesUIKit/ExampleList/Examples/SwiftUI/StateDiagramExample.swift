@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import StateDiagram
 import ExampleListUIKit
 

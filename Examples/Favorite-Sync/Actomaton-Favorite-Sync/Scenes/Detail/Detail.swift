@@ -1,6 +1,6 @@
 import Foundation
 import Actomaton
-import ActomatonStore
+import ActomatonUI
 import ActomatonDebugging
 
 /// Detail (namespace).

@@ -1,30 +1,32 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 struct ExampleListView: View
 {
-    private let store: Store<ExampleList.Action, ExampleList.State, Void>.Proxy
+    private let store: Store<ExampleList.Action, ExampleList.State, Void>
 
-    init(store: Store<ExampleList.Action, ExampleList.State, Void>.Proxy)
+    init(store: Store<ExampleList.Action, ExampleList.State, Void>)
     {
         self.store = store
     }
 
     var body: some View
     {
-        VStack {
-//            Button(action: { self.store.send(.debugIncrement) }) {
-//                Text("\(self.store.state.debugCount)")
-//            }
+        WithViewStore(store.indirectMap(state: \.examples), areStatesEqual: examplesAreEqual) { viewStore in
+            VStack {
+//                Button(action: { self.store.send(.debugIncrement) }) {
+//                    Text("\(self.store.state.debugCount)")
+//                }
 
-            List(self.store.state.examples, id: \.exampleTitle) { example in
-                exampleButton(example)
+                List(viewStore.state, id: \.exampleTitle) { example in
+                    exampleButton(example)
+                }
             }
         }
     }
 
-    private func exampleButton(_ example: Example) -> some View
+    private func exampleButton(_ example: AnyExample) -> some View
     {
         Button(action: { self.store.send(.showExample(example)) }) {
             HStack(alignment: .firstTextBaseline) {
@@ -45,19 +47,21 @@ struct ExampleListView_Previews: PreviewProvider
     {
         return Group {
             ExampleListView(
-                store: .mock(
-                    state: .constant(ExampleList.State(examples: [])),
-                    environment: ()
+                store: RouteStore(
+                    state: ExampleList.State(examples: []),
+                    reducer: ExampleList.reducer
                 )
+                .noEnvironment
             )
                 .previewLayout(.fixed(width: 320, height: 480))
                 .previewDisplayName("ExampleList")
 
             ExampleListView(
-                store: .mock(
-                    state: .constant(ExampleList.State(examples: [])),
-                    environment: ()
+                store: RouteStore(
+                    state: ExampleList.State(examples: []),
+                    reducer: ExampleList.reducer
                 )
+                .noEnvironment
             )
                 .previewLayout(.fixed(width: 320, height: 480))
                 .previewDisplayName("Intro")

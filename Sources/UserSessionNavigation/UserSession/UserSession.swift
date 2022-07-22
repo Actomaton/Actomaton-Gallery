@@ -1,5 +1,5 @@
 import Foundation
-import ActomatonStore
+import ActomatonUI
 
 // MARK: - Action
 

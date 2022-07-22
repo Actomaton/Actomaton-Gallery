@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CommonUI
 import CanvasPlayer
 
@@ -7,27 +7,32 @@ import CanvasPlayer
 @MainActor
 struct WorldView<Obj>: View where Obj: ObjectLike & Equatable
 {
-    let store: Store<World.Action, World.State<Obj>, Void>.Proxy
+    let store: Store<World.Action, World.State<Obj>, Void>
     let configuration: WorldConfiguration
-    let content: @MainActor (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>, Void>.Proxy, WorldConfiguration) -> AnyView
+    let content: @MainActor (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>, Void>, WorldConfiguration) -> AnyView
 
     /// Initializer with custom `content`.
-    init(
-        store: Store<World.Action, World.State<Obj>, Void>.Proxy,
+    init<V>(
+        store: Store<World.Action, World.State<Obj>, Void>,
         configuration: WorldConfiguration,
-        content: @MainActor @escaping (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>, Void>.Proxy, WorldConfiguration) -> AnyView
-    )
+        content: @MainActor @escaping (Store<CanvasPlayer.Action, CanvasPlayer.State<World.CanvasState<Obj>>, Void>, WorldConfiguration) -> V
+    ) where V: View
     {
         self.store = store
         self.configuration = configuration
-        self.content = content
+        self.content = { AnyView(content($0, $1)) }
     }
 
     var body: some View
     {
-        CanvasPlayerView(store: self.store.canvasPlayerState, content: { store in
-            self.content(store, self.configuration)
-        })
-            .padding()
+        CanvasPlayerView(
+            store: self.store.map(state: \.canvasPlayerState),
+            content: { store in
+                AnyView(
+                    self.content(store, self.configuration)
+                )
+            }
+        )
+        .padding()
     }
 }

@@ -99,7 +99,7 @@ public struct Pattern: Identifiable, Equatable, Sendable
         return cells
     }
 
-    static func parseRunLengthEncoded(url: URL) throws -> Pattern
+    public static func parseRunLengthEncoded(url: URL) throws -> Pattern
     {
         let text = try String(contentsOf: url)
 
@@ -119,7 +119,7 @@ public struct Pattern: Identifiable, Equatable, Sendable
 
     // MARK: - Presets
 
-    static var defaultPatternNames: [String]
+    public static var defaultPatternNames: [String]
     {
         [
             "glider", "glidersbythedozen", "gosperglidergun", "circleoffire", "pentadecathlon", "trafficlight",

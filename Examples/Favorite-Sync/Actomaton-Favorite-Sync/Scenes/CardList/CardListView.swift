@@ -1,19 +1,23 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 struct CardListView: View
 {
-    private let store: Store<Action, State, Void>.Proxy
+    private let store: Store<Action, State, Void>
 
-    init(store: Store<Action, State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<Action, State>
+
+    init(store: Store<Action, State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     var body: some View
     {
-        let (isLoading, errorString) = store.state.loadingState.values
+        let (isLoading, errorString) = viewStore.loadingState.values
 
         ZStack {
             completedOrEmpty
@@ -40,7 +44,7 @@ struct CardListView: View
     @ViewBuilder
     var completedOrEmpty: some View
     {
-        if store.state.shouldShowEmptyView {
+        if viewStore.shouldShowEmptyView {
             emptyView
         }
         else {
@@ -63,7 +67,7 @@ struct CardListView: View
     {
         ScrollView {
             let columns = [GridItem(.flexible()), GridItem(.flexible())]
-            let cards = store.state.cards
+            let cards = viewStore.cards
 
             LazyVGrid(columns: columns) {
                 ForEach(cards) { card in
@@ -120,10 +124,19 @@ struct CardListView_Previews: PreviewProvider
     static var previews: some View
     {
         CardListView(
-            store: .mock(
-                state: .constant(CardList.State(cards: Card.fakedFetchedCards, showsFavoriteOnly: false)),
-                environment: ()
+            store: Store(
+                state: CardList.State(cards: Card.fakedFetchedCards, showsFavoriteOnly: false),
+                reducer: CardList.reducer(),
+                environment: .init(
+                    environment: .init(
+                        cardStore: .init(),
+                        favoriteStore: .init(),
+                        sleep: { _ in }
+                    ),
+                    sendRoute: { _ in }
+                )
             )
+            .noEnvironment
         )
     }
 }

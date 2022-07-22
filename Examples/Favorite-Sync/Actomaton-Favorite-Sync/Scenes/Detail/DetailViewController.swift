@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 import CombineCocoa
-import ActomatonStore
+import ActomatonUI
 
 final class DetailViewController: UIViewController
 {

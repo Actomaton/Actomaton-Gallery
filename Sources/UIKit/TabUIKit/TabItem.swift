@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import ExampleListUIKit
 
 public struct TabItem<ID>: Equatable, Sendable
@@ -51,7 +51,7 @@ extension TabItem
         id: ID,
         title: String,
         image: UIImage,
-        examples: [Example]
+        examples: [AnyExample]
     )
     {
         self.id = id
@@ -68,25 +68,8 @@ extension TabItem
         title: String,
         image: UIImage,
         store: Store<Action, State, Environment>,
-        view: @escaping (Store<Action, State, Void>.Proxy) -> V
-    )
-    {
-        self.id = id
-        self.title = title
-        self.tabBarItem = .init(title: title, image: image, tag: 0)
-        self.build = { @MainActor in
-            HostingViewController(store: store, makeView: view)
-        }
-    }
-
-    /// Initializes with `Store.ObservableProxy` and `SwiftUI.View`.
-    public init<Action, State, V: View>(
-        id: ID,
-        title: String,
-        image: UIImage,
-        store: Store<Action, State, Environment>.ObservableProxy,
-        view: @escaping (Store<Action, State, Void>.Proxy) -> V
-    )
+        view: @escaping (Store<Action, State, Void>) -> V
+    ) where State: Equatable
     {
         self.id = id
         self.title = title

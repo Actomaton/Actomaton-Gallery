@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import UserSession
 import TabUIKit
 import ExampleListUIKit
@@ -93,8 +93,8 @@ public enum RootBuilder
                         }
                     }
 
-                    return HostingViewController.make(
-                        store: settingsStore,
+                    return HostingViewController(
+                        store: settingsStore.noEnvironment,
                         makeView: { store in
                             SettingsView(
                                 store: store,

@@ -1,6 +1,6 @@
 import SwiftUI
 import UIKit
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 @main

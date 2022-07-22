@@ -8,13 +8,16 @@ let package = Package(
     products: [
         .library(
             name: "SwiftUI-Gallery",
-            targets: ["Root", "DebugRoot"]),
-
+            targets: ["Root", "DebugRoot", "LiveEnvironments"]),
         .library(
             name: "UIKit-Gallery",
-            targets: ["RootUIKit"])
+            targets: ["RootUIKit"]),
+        .library(
+            name: "ActomatonUI-shim",
+            targets: ["CommonEffects"]) // Use non-empty `CommonEffects` as a handy re-export shim.
     ],
     dependencies: [
+//        .package(name: "Actomaton", path: "../Actomaton"), // local
         .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
         .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main")),
@@ -27,103 +30,113 @@ let package = Package(
             dependencies: []),
         .target(
             name: "CommonEffects",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "CommonUI",
             dependencies: []),
         .target(
             name: "CanvasPlayer",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "ImageLoader",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "TimeTravel",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "Tab",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "Counter",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "SyncCounters",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter"
             ]),
         .target(
             name: "AnimationDemo",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
+            ]),
         .target(
             name: "ColorFilter",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                .product(name: "PhotoPicker", package: "SwiftUI-PhotoPicker")
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                .product(name: "PhotoPicker", package: "SwiftUI-PhotoPicker"),
+                "Utilities"
             ],
             resources: [.process("Resources/")]),
         .target(
             name: "Todo",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
+            ]),
         .target(
             name: "StateDiagram",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")],
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
+            ],
             resources: [.process("Resources/")]),
         .target(
             name: "Stopwatch",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "CommonEffects"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
             ]),
         .target(
             name: "GitHub",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "Utilities", "CommonEffects", "CommonUI", "ImageLoader"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities", "CommonUI", "ImageLoader"
             ]),
         .target(
             name: "GameOfLife",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "CommonUI", "CanvasPlayer"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "CommonUI", "CanvasPlayer", "Utilities"
             ],
             resources: [.copy("GameOfLife-Patterns/")]),
         .target(
             name: "VideoPlayer",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "AVFoundation-Combine"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "AVFoundation-Combine", "Utilities"
             ]),
         .target(
             name: "VideoPlayerMulti",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "VideoPlayer"
             ]),
         .target(
             name: "VideoCapture",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "OrientationKit"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "OrientationKit", "Utilities"
             ]),
         .target(
             name: "VideoDetector",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "VideoCapture"
             ]),
         .target(
             name: "Physics",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "VectorMath",
-                "CommonUI", "CanvasPlayer"
+                "CommonUI", "CanvasPlayer", "Utilities"
             ],
             swiftSettings: [
                 // Workaroudn for Xcode 13.3 (Swift 5.6) segfault
@@ -142,28 +155,32 @@ let package = Package(
         ),
         .target(
             name: "Downloader",
-            dependencies: [.product(name: "ActomatonStore", package: "Actomaton")]),
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
+            ]),
 
         // MARK: - SwiftUI-Gallery
 
         .target(
             name: "Home",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "Counter", "SyncCounters", "AnimationDemo", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
-                "GameOfLife", "VideoPlayerMulti", "VideoDetector", "Physics", "Downloader",
-                "CommonEffects", "Utilities"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Counter", "SyncCounters", "AnimationDemo", "ColorFilter",
+                "Todo", "StateDiagram", "Stopwatch", "GitHub", "Downloader",
+                "VideoPlayerMulti", "VideoDetector", "GameOfLife", "Physics",
+                "Utilities"
             ]),
         .target(
             name: "SettingsScene", // NOTE: Avoid naming with `SwiftUI.Settings`.
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "UserSession"
             ]),
         .target(
             name: "Root",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Tab", "Home", "SettingsScene", "Counter",
                 "Onboarding", "Login", "UserSession",
                 "Utilities"
@@ -171,7 +188,7 @@ let package = Package(
         .target(
             name: "DebugRoot",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities", "TimeTravel"
             ]),
 
@@ -180,7 +197,7 @@ let package = Package(
         .target(
             name: "ExampleListUIKit",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoDetector", "Physics"
             ],
@@ -189,15 +206,15 @@ let package = Package(
         .target(
             name: "ExamplesUIKit",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
-                "ExampleListUIKit"
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "ExampleListUIKit", "LiveEnvironments"
             ],
             path: "Sources/UIKit/ExamplesUIKit"),
 
         .target(
             name: "TabUIKit",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "ExamplesUIKit", "SettingsUIKit"
             ],
             path: "Sources/UIKit/TabUIKit"),
@@ -205,7 +222,7 @@ let package = Package(
         .target(
             name: "SettingsUIKit",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "SettingsScene"
             ],
             path: "Sources/UIKit/SettingsUIKit"),
@@ -213,7 +230,7 @@ let package = Package(
         .target(
             name: "RootUIKit",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "SettingsScene", "UserSession", "Onboarding", "Login",
                 "TabUIKit", "ExampleListUIKit", "ExamplesUIKit"
             ],
@@ -224,7 +241,7 @@ let package = Package(
         .target(
             name: "UserSession",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton")
+                .product(name: "ActomatonUI", package: "Actomaton")
             ],
             path: "Sources/UserSessionNavigation/UserSession"),
 
@@ -236,9 +253,22 @@ let package = Package(
         .target(
             name: "Login",
             dependencies: [
-                .product(name: "ActomatonStore", package: "Actomaton"),
+                .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ],
-            path: "Sources/UserSessionNavigation/Login")
+            path: "Sources/UserSessionNavigation/Login"),
+
+        // MARK: - LiveEnvironments
+
+        .target(
+            name: "LiveEnvironments",
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Counter", "SyncCounters", "AnimationDemo", "ColorFilter",
+                "Todo", "StateDiagram", "Stopwatch", "GitHub", "Downloader",
+                "VideoPlayerMulti", "VideoDetector", "GameOfLife", "Physics",
+                "Home",
+                "CommonEffects", "Utilities"
+            ])
     ]
 )

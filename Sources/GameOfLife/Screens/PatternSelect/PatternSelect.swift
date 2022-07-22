@@ -156,23 +156,39 @@ extension PatternSelect
     public struct Section<Fav>: Identifiable, Equatable, Sendable
         where Fav: Equatable & Sendable
     {
-        var title: String
-        var rows: [Row<Fav>]
+        public var title: String
+        public var rows: [Row<Fav>]
+
+        public init(title: String, rows: [Row<Fav>])
+        {
+            self.title = title
+            self.rows = rows
+        }
 
         public var id: String { self.title }
     }
 
-    struct Row<Fav>: Identifiable, Equatable, Sendable
+    public struct Row<Fav>: Identifiable, Equatable, Sendable
         where Fav: Equatable & Sendable
     {
-        var title: String
-        var url: URL
-        var isFavorite: Fav
+        public var title: String
+        public var url: URL
+        public var isFavorite: Fav
 
-        var id: String { self.title }
+        public init(title: String, url: URL, isFavorite: Fav)
+        {
+            self.title = title
+            self.url = url
+            self.isFavorite = isFavorite
+        }
+
+        public var id: String { self.title }
     }
 
-    public struct Unit: Equatable, Sendable {}
+    public struct Unit: Equatable, Sendable
+    {
+        public init() {}
+    }
 }
 
 // MARK: - Enum Properties

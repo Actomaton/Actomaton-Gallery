@@ -27,11 +27,6 @@ public struct State<InnerState>: Equatable, Sendable
     {
         self.timeTravel = .init(inner: state)
     }
-
-    var usesTimeTravel: Bool
-    {
-        self.timeTravel.inner.usesTimeTravel
-    }
 }
 
 // MARK: - Reducer
@@ -62,7 +57,7 @@ public func reducer<InnerAction, InnerState, Environment>(
         var effect2: Effect<Action<InnerAction>>?
 
         // Important: TimeTravel reducer needs to be called after `innerReducer` (after `InnerState` changed).
-        if state.usesTimeTravel {
+        if state.timeTravel.inner.usesTimeTravel {
             effect2 = timeTravelReducer.run(action, &state, environment)
         }
 

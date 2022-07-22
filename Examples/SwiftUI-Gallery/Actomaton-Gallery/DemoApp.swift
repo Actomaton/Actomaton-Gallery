@@ -1,5 +1,7 @@
 import SwiftUI
-import ActomatonStore
+import AVFoundation
+import ActomatonUI
+import CommonEffects
 import Counter
 import SyncCounters
 import AnimationDemo
@@ -8,39 +10,42 @@ import Todo
 import StateDiagram
 import Stopwatch
 import GitHub
-import GameOfLife
+import Downloader
 import VideoPlayer
 import VideoPlayerMulti
 import VideoDetector
+import GameOfLife
 import Physics
-import Downloader
+import LiveEnvironments
 import Home
 import Root
+import DebugRoot
 
 @main
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
             AppView()
-//            RootAppView()
-//            HomeAppView()
+//            RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            HomeView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 
             //----------------------------------------
             // Per screen
             //----------------------------------------
-//            CounterAppView()
-//            SyncCountersAppView()
-//            AnimationDemoAppView()
-//            ColorFilterAppView()
-//            TodoAppView()
-//            StateDiagramAppView()
-//            StopwatchAppView()
-//            GitHubAppView()
-//            GameOfLifeAppView()
-//            VideoPlayerAppView()
-//            VideoPlayerMultiAppView()
-//            PhysicsAppView()
-//            DownloaderAppView()
+//            CounterView_Previews.previews
+//            SyncCountersView_Previews.previews
+//            AnimationDemoView_Previews.previews
+//            ColorFilterView_Previews.previews
+//            TodoView_Previews.previews
+//            StateDiagramView_Previews.previews
+//            StopwatchView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            GitHubView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            DownloaderView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            VideoPlayerView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            VideoPlayerMultiView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            VideoDetectorView_Previews.previews
+//            GameOfLife_RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            PhysicsRootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
         }
     }
 }

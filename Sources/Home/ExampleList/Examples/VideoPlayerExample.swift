@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VideoPlayer
 import AVFoundation
 
@@ -12,7 +12,7 @@ struct VideoPlayerExample: Example
         .videoPlayer(VideoPlayer.State(label: ""))
     }
 
-    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Home.Action, Home.State, Home.Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,

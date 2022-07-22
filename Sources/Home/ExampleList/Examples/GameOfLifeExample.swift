@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import GameOfLife
 
 struct GameOfLifeExample: Example
@@ -8,10 +8,10 @@ struct GameOfLifeExample: Example
 
     var exampleInitialState: State.Current
     {
-        .gameOfLife(GameOfLife.Root.State(pattern: .glider, cellLength: 5))
+        .gameOfLife(GameOfLife.Root.State(pattern: .glider, cellLength: 5, timerInterval: 0.05))
     }
 
-    func exampleView(store: Store<Action, State, Environment>.Proxy) -> AnyView
+    func exampleView(store: Store<Action, State, Environment>) -> AnyView
     {
         Self.exampleView(
             store: store,

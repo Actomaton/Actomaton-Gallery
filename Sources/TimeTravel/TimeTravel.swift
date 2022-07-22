@@ -1,5 +1,5 @@
 import Foundation
-import ActomatonStore
+import ActomatonUI
 
 // MARK: - Action
 
@@ -19,51 +19,54 @@ public enum Action<InnerAction>: Sendable
 public struct State<InnerState>: Equatable, Sendable
     where InnerState: Equatable & Sendable
 {
+    public fileprivate(set) var common: Common = .init()
     public var inner: InnerState
-
-    fileprivate var histories: [InnerState] = []
-
-    public fileprivate(set) var timeTravellingIndex: Int = 0
-
-    /// Workaround flag for avoiding SwiftUI iOS navigation binding issue
-    /// where `isActive = false` binding is called during time-travelling.
-    fileprivate var isTimeTravelling: Bool = false
 
     public init(inner: InnerState)
     {
         self.inner = inner
-        self.histories.append(inner)
+        self.common.histories.append(inner)
     }
 
-    public var timeTravellingSliderRange: ClosedRange<Double>
+    public struct Common: Equatable, Sendable
     {
-        let count = self.histories.count
+        fileprivate var histories: [InnerState] = []
 
-        // NOTE: `0 ... 0` is not allowed in `Slider`.
-        return count > 1
-            ? 0 ... Double(count - 1)
-            : -1 ... 0
-    }
+        public fileprivate(set) var timeTravellingIndex: Int = 0
 
-    public var timeTravellingSliderValue: Double
-    {
-        get { Double(timeTravellingIndex) }
-        set { assertionFailure("Should be replaced by `Store.Proxy.stateBinding`") }
-    }
+        /// Workaround flag for avoiding SwiftUI iOS navigation binding issue
+        /// where `isActive = false` binding is called during time-travelling.
+        fileprivate var isTimeTravelling: Bool = false
 
-    public var canTimeTravel: Bool
-    {
-        self.histories.count > 1
-    }
+        public var timeTravellingSliderRange: ClosedRange<Double>
+        {
+            let count = self.histories.count
 
-    mutating func appendHistory(_ state: InnerState)
-    {
-        // Ignore same state.
-        guard self.histories.last != state else { return }
+            // NOTE: `0 ... 0` is not allowed in `Slider`.
+            return count > 1
+                ? 0 ... Double(count - 1)
+                : -1 ... 0
+        }
 
-        self.histories.removeSubrange((self.timeTravellingIndex + 1)...)
-        self.histories.append(state)
-        self.timeTravellingIndex += 1
+        public var timeTravellingSliderValue: Double
+        {
+            Double(timeTravellingIndex)
+        }
+
+        public var canTimeTravel: Bool
+        {
+            self.histories.count > 1
+        }
+
+        mutating func appendHistory(_ state: InnerState)
+        {
+            // Ignore same state.
+            guard self.histories.last != state else { return }
+
+            self.histories.removeSubrange((self.timeTravellingIndex + 1)...)
+            self.histories.append(state)
+            self.timeTravellingIndex += 1
+        }
     }
 }
 
@@ -89,16 +92,16 @@ public func reducer<InnerAction, InnerState, InnerEnvironment>()
     func tryTimeTravel(state: inout State<InnerState>, newIndex: Int, environment: Environment<InnerEnvironment>)
         -> Effect<Action<InnerAction>>
     {
-        guard !state.histories.isEmpty && newIndex >= 0 && newIndex < state.histories.count else {
+        guard !state.common.histories.isEmpty && newIndex >= 0 && newIndex < state.common.histories.count else {
             return .empty
         }
 
         // Load history.
-        state.inner = state.histories[newIndex]
+        state.inner = state.common.histories[newIndex]
 
         // NOTE: Modify other states after history is loaded.
-        state.timeTravellingIndex = newIndex
-        state.isTimeTravelling = true
+        state.common.timeTravellingIndex = newIndex
+        state.common.isTimeTravelling = true
 
         // Workaround effect for changing to `isTimeTravelling = false` after delay.
         return Effect {
@@ -118,26 +121,26 @@ public func reducer<InnerAction, InnerState, InnerEnvironment>()
         case let .timeTravelStepper(diff):
             guard diff != 0 else { return .empty }
 
-            let newIndex = state.timeTravellingIndex + diff
+            let newIndex = state.common.timeTravellingIndex + diff
             return tryTimeTravel(state: &state, newIndex: newIndex, environment: environment)
 
         case ._didTimeTravel:
-            state.isTimeTravelling = false
+            state.common.isTimeTravelling = false
 
         case .resetHistories:
-            state.histories.removeAll()
-            state.histories.append(state.inner)
-            state.timeTravellingIndex = 0
+            state.common.histories.removeAll()
+            state.common.histories.append(state.inner)
+            state.common.timeTravellingIndex = 0
 
         default:
             // IMPORTANT:
             // Guard `appendHistory` while `isTimeTravelling` to avoid SwiftUI iOS navigation binding issue
             // where `isActive = false` binding is called during time-travelling.
-            guard !state.isTimeTravelling else {
+            guard !state.common.isTimeTravelling else {
                 return .empty
             }
 
-            state.appendHistory(state.inner)
+            state.common.appendHistory(state.inner)
         }
 
         return .empty

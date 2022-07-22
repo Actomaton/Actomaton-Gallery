@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CommonUI
 import VectorMath
 
@@ -8,7 +8,7 @@ extension WorldView
     /// Initializer with default `content`.
     /// - Note: Makes contents, UI controls, etc.
     init(
-        store: Store<World.Action, World.State<Obj>, Void>.Proxy,
+        store: Store<World.Action, World.State<Obj>, Void>,
         configuration: WorldConfiguration,
         absolutePosition: ((_ relativePosition: Vector2, _ index: Int, _ previous: Vector2) -> Vector2)?,
         arrowScale: ArrowScale
@@ -18,9 +18,9 @@ extension WorldView
         self.configuration = configuration
 
         self.content = { store, configuration in
-            return AnyView(
+            AnyView(
                 Self.makeContentView(
-                    store: store.canvasState,
+                    store: store.map(state: \.canvasState),
                     configuration: configuration,
                     absolutePosition: absolutePosition,
                     arrowScale: arrowScale
@@ -32,7 +32,26 @@ extension WorldView
     /// Makes contents i.e. `objects`, `velocityArrows`, `forceArrows`.
     @MainActor
     static func makeContentView(
-        store: Store<World.Action, World.CanvasState<Obj>, Void>.Proxy,
+        store: Store<World.Action, World.CanvasState<Obj>, Void>,
+        configuration: WorldConfiguration,
+        absolutePosition: ((_ relativePosition: Vector2, _ index: Int, _ previous: Vector2) -> Vector2)?,
+        arrowScale: ArrowScale
+    ) -> some View
+    {
+        WithViewStore(store) { viewStore in
+            self.makeContentView(
+                viewStore: viewStore,
+                configuration: configuration,
+                absolutePosition: absolutePosition,
+                arrowScale: arrowScale
+            )
+        }
+    }
+
+    /// Makes contents i.e. `objects`, `velocityArrows`, `forceArrows`.
+    @MainActor
+    private static func makeContentView(
+        viewStore: ViewStore<World.Action, World.CanvasState<Obj>>,
         configuration: WorldConfiguration,
         absolutePosition: ((_ relativePosition: Vector2, _ index: Int, _ previous: Vector2) -> Vector2)?,
         arrowScale: ArrowScale
@@ -41,15 +60,15 @@ extension WorldView
         let objects: [AbsObj<Obj>] = {
             guard let absolutePosition = absolutePosition else {
                 // `object`'s relative position as absolute position.
-                return store.state.objects
+                return viewStore.objects
                     .map { AbsObj(object: $0, absolutePosition: $0.position) }
             }
 
             var objects: [AbsObj<Obj>] = []
             var prevPosition: Vector2 = .zero
 
-            for i in 0 ..< store.state.objects.count {
-                let obj = store.state.objects[i]
+            for i in 0 ..< viewStore.objects.count {
+                let obj = viewStore.objects[i]
                 let position = absolutePosition(obj.position, i, prevPosition)
                 prevPosition = position
 
@@ -59,8 +78,8 @@ extension WorldView
             return objects
         }()
 
-        let offset = store.state.offset
-        
+        let offset = viewStore.offset
+
         return ZStack(alignment: .topLeading) {
             Self.objectsView(
                 objects: objects,

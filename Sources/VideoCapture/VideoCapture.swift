@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 import Combine
-import ActomatonStore
+import ActomatonUI
 
 /// VideoCapture namespace.
 public enum VideoCapture {}
@@ -95,7 +95,7 @@ extension VideoCapture
                     .catch { Just(Action._error($0)) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return publisher.toEffect()
+                return Effect { publisher.toAsyncStream() }
 
             case let ._didMakeSession(sessionID):
                 state.sessionState = .idle(sessionID)
@@ -117,8 +117,8 @@ extension VideoCapture
                     .map(Action._didUpdateOrientation)
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return sessionPublisher.toEffect()
-                    + orientationPublisher.toEffect(id: OrientationEffectID())
+                return Effect { sessionPublisher.toAsyncStream() }
+                    + Effect(id: OrientationEffectID()) { orientationPublisher.toAsyncStream() }
 
             case ._didOutput:
                 // Ignored: Composing reducer should handle this.
@@ -142,7 +142,7 @@ extension VideoCapture
                 .catch { Just(Action._error($0))}
                 .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return publisher.toEffect()
+                return Effect { publisher.toAsyncStream() }
 
             case .stopSession:
                 guard case let .running(sessionID) = state.sessionState else {
@@ -154,7 +154,7 @@ extension VideoCapture
                     .catch { Just(Action._error($0)) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return publisher.toEffect()
+                return Effect { publisher.toAsyncStream() }
 
             case ._didStopSession:
                 guard case let .running(sessionID) = state.sessionState else {
@@ -168,7 +168,7 @@ extension VideoCapture
                     .flatMap { Empty<Action, Never>(completeImmediately: true) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return publisher.toEffect()
+                return Effect { publisher.toAsyncStream() }
 
             case .removeSession:
                 if case .noSession = state.sessionState {
@@ -180,7 +180,7 @@ extension VideoCapture
                     .flatMap { Empty<Action, Never>(completeImmediately: true) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return publisher.toEffect()
+                return Effect { publisher.toAsyncStream() }
             }
         }
     }

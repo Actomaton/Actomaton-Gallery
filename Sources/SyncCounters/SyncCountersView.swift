@@ -1,23 +1,31 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Counter
+import Utilities
 
 @MainActor
 public struct SyncCountersView: View
 {
-    private let store: Store<SyncCounters.Action, SyncCounters.State, Void>.Proxy
+    private let store: Store<SyncCounters.Action, SyncCounters.State, Void>
 
-    public init(store: Store<SyncCounters.Action, SyncCounters.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<SyncCounters.Action, SyncCounters.State.Common>
+
+    public init(store: Store<SyncCounters.Action, SyncCounters.State, Void>)
     {
+        let _ = Debug.print("SyncCountersView.init")
         self.store = store
+        self.viewStore = store.map(state: \.common).viewStore
     }
 
     public var body: some View
     {
+        let _ = Debug.print("SyncCountersView.body")
+
         VStack {
-            ForEach(0 ..< store.state.numberOfCounters, id: \.self) { _ in
+            ForEach(0 ..< viewStore.numberOfCounters, id: \.self) { _ in
                 CounterView(
-                    store: store.commonCounterState
+                    store: store.map(state: \.counterState)
                         .contramap(action: SyncCounters.Action.child)
                 )
             }
@@ -30,14 +38,14 @@ public struct SyncCountersView: View
                 Button(action: { store.send(.addChild) }) {
                     Text("Add")
                 }
-                .disabled(!store.state.canAddChild)
+                .disabled(!viewStore.canAddChild)
 
                 Spacer(minLength: 20)
 
                 Button(action: { store.send(.removeChild) }) {
                     Text("Remove")
                 }
-                .disabled(!store.state.canRemoveChild)
+                .disabled(!viewStore.state.canRemoveChild)
 
                 Spacer()
             }
@@ -46,16 +54,27 @@ public struct SyncCountersView: View
     }
 }
 
-struct SyncCountersView_Previews: PreviewProvider
+public struct SyncCountersView_Previews: PreviewProvider
 {
-    static var previews: some View
+    public static var previews: some View
     {
         SyncCountersView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: .init(
+                state: .init(),
+                reducer: SyncCounters.reducer
             )
         )
-            .previewLayout(.sizeThatFits)
+        .previewDisplayName("Initial")
+
+        SyncCountersView(
+            store: .init(
+                state: .init(
+                    common: .init(numberOfCounters: 3),
+                    counterState: .init(count: 10)
+                ),
+                reducer: SyncCounters.reducer
+            )
+        )
+        .previewDisplayName("numberOfCounters = 3")
     }
 }

@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import VectorMath
 
 struct SpringPendulumExample: Example
@@ -18,51 +18,53 @@ struct SpringPendulumExample: Example
         .init(velocityArrowScale: 10, forceArrowScale: 100)
     }
 
-    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>.Proxy) -> AnyView
+    func exampleView(store: Store<PhysicsRoot.Action, PhysicsRoot.State, Void>) -> AnyView
     {
-        let configuration = store.state.configuration
+        let configuration = store.viewStore.configuration
 
         return Self.exampleView(
             store: store,
             action: PhysicsRoot.Action.springPendulum,
             statePath: /PhysicsRoot.State.Current.springPendulum,
-            makeView: {
-                WorldView(store: $0, configuration: configuration, content: { store, configuration in
-                    let trackPath = Path {
-                        $0.addArc(
-                            center: CGPoint(offset),
-                            radius: CGFloat(rodLength),
-                            startAngle: .degrees(30),
-                            endAngle: .degrees(150),
-                            clockwise: false
-                        )
-                    }
-
-                    let rodPath = Path {
-                        for obj in store.state.objects {
-                            $0.move(to: CGPoint(obj.position))
-                            $0.addLine(to: CGPoint(offset))
+            makeView: { store in
+                WorldView(store: store, configuration: configuration, content: { store, configuration in
+                    WithViewStore(store) { viewStore -> AnyView in
+                        let trackPath = Path {
+                            $0.addArc(
+                                center: CGPoint(offset),
+                                radius: CGFloat(rodLength),
+                                startAngle: .degrees(30),
+                                endAngle: .degrees(150),
+                                clockwise: false
+                            )
                         }
+
+                        let rodPath = Path {
+                            for obj in store.state.objects {
+                                $0.move(to: CGPoint(obj.position))
+                                $0.addLine(to: CGPoint(offset))
+                            }
+                        }
+
+                        let zStack = ZStack(alignment: .topLeading) {
+                            // Dashed curve.
+                            trackPath
+                                .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
+
+                            rodPath
+                                .stroke(Color.green, lineWidth: 1)
+
+                            WorldView<CircleObject>.makeContentView(
+                                store: store.map(state: \.canvasState),
+                                configuration: configuration,
+                                absolutePosition: self.absolutePosition,
+                                arrowScale: self.exampleArrowScale
+                            )
+                                .frame(maxWidth: nil, maxHeight: nil, alignment: .center)
+                        }
+
+                        return AnyView(zStack)
                     }
-
-                    let zStack = ZStack(alignment: .topLeading) {
-                        // Dashed curve.
-                        trackPath
-                            .stroke(Color.green, style: StrokeStyle(lineWidth: 2, dash: [5]))
-
-                        rodPath
-                            .stroke(Color.green, lineWidth: 1)
-
-                        WorldView<CircleObject>.makeContentView(
-                            store: store.canvasState,
-                            configuration: configuration,
-                            absolutePosition: self.absolutePosition,
-                            arrowScale: self.exampleArrowScale
-                        )
-                            .frame(maxWidth: nil, maxHeight: nil, alignment: .center)
-                    }
-
-                    return AnyView(zStack)
                 })
             }
         )

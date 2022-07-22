@@ -1,15 +1,19 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import CommonUI
 
 @MainActor
 struct PatternSelectView: View
 {
-    private let store: Store<PatternSelect.Action, PatternSelect.State, Void>.Proxy
+    private let store: Store<PatternSelect.Action, PatternSelect.State, Void>
 
-    init(store: Store<PatternSelect.Action, PatternSelect.State, Void>.Proxy)
+    @ObservedObject
+    private var viewStore: ViewStore<PatternSelect.Action, PatternSelect.State>
+
+    init(store: Store<PatternSelect.Action, PatternSelect.State, Void>)
     {
         self.store = store
+        self.viewStore = store.viewStore
     }
 
     var body: some View
@@ -31,7 +35,7 @@ struct PatternSelectView: View
 
             TextField(
                 "Search",
-                text: self.store.stateBinding(
+                text: self.viewStore.binding(
                     get: { $0.searchText },
                     onChange: PatternSelect.Action.updateSearchText
                 )
@@ -44,7 +48,7 @@ struct PatternSelectView: View
             }) {
                 Image(systemName: "xmark.circle.fill")
                     .foregroundColor(.secondary)
-                    .opacity(self.store.state.searchText == "" ? 0 : 1)
+                    .opacity(self.viewStore.searchText == "" ? 0 : 1)
             }
         }
         .padding(10)
@@ -53,12 +57,12 @@ struct PatternSelectView: View
     private func form() -> some View
     {
         List {
-            if self.store.state.status.isLoading {
+            if self.viewStore.status.isLoading {
                 ActivityIndicatorView()
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             else {
-                ForEach(self.store.state.filteredSections) { section in
+                ForEach(self.viewStore.filteredSections) { section in
                     if section.rows.isEmpty {
                         EmptyView()
                     }
@@ -105,23 +109,39 @@ struct PatternSelectView: View
 
 // MARK: - Preview
 
-struct PatternSelectView_Previews: PreviewProvider
+struct GameOfLife_PatternSelectView_Previews: PreviewProvider
 {
-    static var previews: some View
+    @ViewBuilder
+    static func makePreviews(environment: PatternSelect.Environment, isMultipleScreens: Bool) -> some View
     {
         let gameOfLifeView = PatternSelectView(
-            store: .mock(
-                state: .constant(.init()),
-                environment: ()
+            store: Store(
+                state: .init(),
+                reducer: PatternSelect.reducer(),
+                environment: environment
             )
+            .noEnvironment
         )
 
-        return Group {
-            gameOfLifeView.previewLayout(.sizeThatFits)
-                .previewDisplayName("Portrait")
+        gameOfLifeView
+            .previewDisplayName("Portrait")
+//            .previewInterfaceOrientation(.portrait)
 
-            gameOfLifeView.previewLayout(.fixed(width: 568, height: 320))
-                .previewDisplayName("Landscape")
-        }
+//        gameOfLifeView
+//            .previewDisplayName("Landscape")
+//            .previewInterfaceOrientation(.landscapeRight)
+    }
+
+    /// - Note: Uses mock environment.
+    static var previews: some View
+    {
+        self.makePreviews(
+            environment: .init(
+                loadPatterns: { [] },
+                parseRunLengthEncoded: { _ in .glider },
+                favorite: .init(loadFavorites: { [] }, saveFavorites: { _ in })
+            ),
+            isMultipleScreens: true
+        )
     }
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import ActomatonStore
+import ActomatonUI
 import Counter
 import ExampleListUIKit
 
@@ -39,7 +39,7 @@ public struct CounterRouteUIKitExample: Example
             routeType: Route.self
         )
 
-        let vc = CounterRouteViewController(store: store)
+        let vc = CounterRouteViewController(store: store.noEnvironment)
 
         // WARNING:
         // These routings are just for simple demo,
@@ -80,11 +80,11 @@ private typealias Environment = SendRouteEnvironment<Counter.Environment, Route>
 @MainActor
 private final class CounterRouteViewController: UIViewController
 {
-    let store: Store<Action, Counter.State, Environment>
+    let store: Store<Action, Counter.State, Void>
 
     var cancellables: [AnyCancellable] = []
 
-    init(store: Store<Action, Counter.State, Environment>)
+    init(store: Store<Action, Counter.State, Void>)
     {
         self.store = store
         super.init(nibName: nil, bundle: nil)

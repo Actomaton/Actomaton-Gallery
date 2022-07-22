@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
-import ActomatonStore
+import ActomatonUI
 import RootUIKit
 
 @MainActor

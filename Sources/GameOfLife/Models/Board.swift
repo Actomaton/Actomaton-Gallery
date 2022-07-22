@@ -23,12 +23,10 @@ struct Board: Equatable
         self.cells.map { $0.key }
     }
 
-    struct Point: Hashable, Identifiable
+    struct Point: Hashable
     {
         let x: Int
         let y: Int
-
-        var id: Int { self.hashValue }
 
         static var zero: Size { .init(width: 0, height: 0) }
     }

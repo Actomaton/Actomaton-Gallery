@@ -1,11 +1,11 @@
 import UIKit
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 public enum ExampleListBuilder
 {
     @MainActor
-    public static func build(examples: [Example]) -> UIViewController
+    public static func build(examples: [AnyExample]) -> UIViewController
     {
         let exampleListStore = RouteStore(
             state: .init(examples: examples),
@@ -13,7 +13,7 @@ public enum ExampleListBuilder
             environment: ()
         )
 
-        let exampleListVC = HostingViewController.make(
+        let exampleListVC = HostingViewController(
             store: exampleListStore,
             makeView: ExampleListView.init
         )

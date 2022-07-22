@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 import Stopwatch
 import ExampleListUIKit
 
@@ -12,12 +12,13 @@ public struct StopwatchExample: Example
     @MainActor
     public func build() -> UIViewController
     {
-        HostingViewController.make(
+        HostingViewController(
             store: Store(
                 state: .init(),
                 reducer: Stopwatch.reducer,
-                environment: .live(commonEffects: .live)
-            ),
+                environment: .live
+            )
+            .noEnvironment,
             makeView: StopwatchView.init
         )
     }
