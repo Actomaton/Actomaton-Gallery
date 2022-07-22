@@ -158,7 +158,7 @@ public final class RootViewController: UIViewController
     {
         let vc = HostingViewController(
             store: self.store,
-            makeView: { store in
+            content: { store in
                 WithViewStore(store.map(state: \.isOnboardingComplete)) { viewStore in
                     OnboardingView(
                         isOnboardingComplete: viewStore

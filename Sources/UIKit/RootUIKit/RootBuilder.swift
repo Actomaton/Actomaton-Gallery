@@ -95,7 +95,7 @@ public enum RootBuilder
 
                     return HostingViewController(
                         store: settingsStore.noEnvironment,
-                        makeView: { store in
+                        content: { store in
                             SettingsView(
                                 store: store,
                                 usesNavigationView: false

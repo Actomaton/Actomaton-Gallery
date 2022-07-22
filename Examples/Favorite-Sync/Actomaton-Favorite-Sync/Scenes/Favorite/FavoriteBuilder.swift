@@ -18,7 +18,7 @@ public enum FavoriteBuilder
 
         let vc = usesUIKit
             ? CardListViewController(store: store)
-            : HostingViewController(store: store.noEnvironment, makeView: CardListView.init)
+            : HostingViewController(store: store.noEnvironment, content: CardListView.init)
         vc.title = "Favorite"
         vc.tabBarItem = UITabBarItem(
             title: "Favorite",

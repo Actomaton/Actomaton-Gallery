@@ -19,7 +19,7 @@ public struct StopwatchExample: Example
                 environment: .live
             )
             .noEnvironment,
-            makeView: StopwatchView.init
+            content: StopwatchView.init
         )
     }
 }

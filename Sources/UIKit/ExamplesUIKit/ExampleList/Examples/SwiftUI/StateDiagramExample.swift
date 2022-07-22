@@ -18,7 +18,7 @@ public struct StateDiagramExample: Example
                 reducer: StateDiagram.reducer,
                 environment: ()
             ),
-            makeView: StateDiagramView.init
+            content: StateDiagramView.init
         )
     }
 }
