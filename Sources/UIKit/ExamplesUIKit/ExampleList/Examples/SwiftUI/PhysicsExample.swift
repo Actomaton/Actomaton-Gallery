@@ -37,7 +37,7 @@ public struct PhysicsExample: Example
                 })
             )
             .noEnvironment,
-            makeView: PhysicsRootView.init
+            content: PhysicsRootView.init
         )
     }
 }

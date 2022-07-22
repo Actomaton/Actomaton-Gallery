@@ -75,7 +75,7 @@ extension TabItem
         self.title = title
         self.tabBarItem = .init(title: title, image: image, tag: 0)
         self.build = { @MainActor in
-            HostingViewController(store: store, makeView: view)
+            HostingViewController(store: store, content: view)
         }
     }
 

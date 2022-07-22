@@ -18,7 +18,7 @@ public struct TodoExample: Example
                 reducer: Todo.reducer,
                 environment: ()
             ),
-            makeView: TodoView.init
+            content: TodoView.init
         )
     }
 }
