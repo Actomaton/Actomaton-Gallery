@@ -99,7 +99,7 @@ enum Detail
 
     static func reducer() -> Reducer<Action, State, Environment>
     {
-        .debug(name: "[Detail]") { action, state, env in
+        .debug("[Detail]") { action, state, env in
             switch action {
             case .loadFavorite:
                 state.isLoadingFavorite = true

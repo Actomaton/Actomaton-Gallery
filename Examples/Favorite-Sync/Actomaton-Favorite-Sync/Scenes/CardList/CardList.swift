@@ -128,7 +128,7 @@ enum CardList
 
     static func reducer() -> Reducer<Action, State, Environment>
     {
-        .debug(name: "[CardList]") { action, state, env in
+        .debug("[CardList]") { action, state, env in
             switch action {
             case .loadFavorites:
                 state.isLoadingFavorites = true

@@ -17,7 +17,14 @@ struct AppView: View
         self.store = Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>(
             state: DebugRoot.State(inner: Root.State.initialState),
             reducer: DebugRoot.reducer(inner: Root.reducer()),
-            environment: .live
+            environment: .live,
+            configuration: {
+#if DEBUG
+                .init(logFormat: LogFormat()) // Set log-format to enable reducer-logging.
+#else
+                .init()
+#endif
+            }()
         )
     }
 

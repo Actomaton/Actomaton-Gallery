@@ -70,7 +70,8 @@ public struct CanvasView<CanvasState>: View
         .clipped()
         .border(Color.green, width: 2)
         .onChange(of: geometrySize) { newValue in
-            print("===> onChange(of: self.geometrySize) = \(newValue)")
+            Debug.print("===> onChange(of: self.geometrySize) = \(newValue)")
+
             if self.canvasSize.state != newValue {
                 self.store.send(.updateCanvasSize(newValue))
             }

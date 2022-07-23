@@ -65,7 +65,7 @@ public struct PlayerSubscriptionQueue: Newest1EffectQueueProtocol
 
 public var reducer: Reducer<Action, State, Environment>
 {
-    .debug(name: "===> VideoPlayer") { action, state, environment in
+    .debug("[VideoPlayer]") { action, state, environment in
         switch action {
         case .subscribePlayer:
             return Effect(
