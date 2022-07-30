@@ -82,7 +82,10 @@ public struct PhysicsRootView: View
         Slider(
             value: self.viewStore.binding(get: \.Δt, onChange: PhysicsRoot.Action.changeΔt),
             in: 0.01 ... 1,
-            step: 0.01
+            step: 0.01,
+            label: {},
+            minimumValueLabel: { Image(systemName: "tortoise") },
+            maximumValueLabel: { Image(systemName: "hare") }
         )
             .padding(.horizontal)
     }
