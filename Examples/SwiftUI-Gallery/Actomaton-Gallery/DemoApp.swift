@@ -9,6 +9,7 @@ import ColorFilter
 import Todo
 import StateDiagram
 import Stopwatch
+import HttpBin
 import GitHub
 import Downloader
 import VideoPlayer
@@ -39,6 +40,7 @@ struct DemoApp: App {
 //            TodoView_Previews.previews
 //            StateDiagramView_Previews.previews
 //            StopwatchView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            HttpBinView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //            GitHubView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //            DownloaderView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //            VideoPlayerView_Previews.makePreviews(environment: .live, isMultipleScreens: false)

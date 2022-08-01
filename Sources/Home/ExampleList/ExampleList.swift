@@ -9,6 +9,7 @@ let exampleList: [Example] = [
     TodoExample(),
     StateDiagramExample(),
     StopwatchExample(),
+    HttpBinExample(),
     GitHubExample(),
     DownloaderExample(),
     VideoPlayerExample(),

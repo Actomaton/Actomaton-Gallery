@@ -3,6 +3,7 @@ import AVFoundation
 import ActomatonUI
 import CommonEffects
 import Stopwatch
+import HttpBin
 import GitHub
 import Downloader
 import VideoPlayer
@@ -50,6 +51,34 @@ extension Stopwatch.Environment: LiveEnvironment
         self.init(
             getDate: commonEffects.now,
             timer: commonEffects.timer
+        )
+    }
+}
+
+
+// MARK: - HttpBin.Environment
+
+extension HttpBin.Environment: LiveEnvironment
+{
+    public init(commonEffects: CommonEffects)
+    {
+        self.init(
+            fetch: {
+                let url = URL(string: "https://httpbin.org/ip")!
+
+                var urlRequest = URLRequest(url: url)
+                urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                let decoder = JSONDecoder()
+
+                let data = try await commonEffects.fetch(request: urlRequest)
+
+                // Additional delay for testing.
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+
+                let response = try decoder.decode(HttpBinResponse.self, from: data)
+                return response
+            }
         )
     }
 }
@@ -267,6 +296,7 @@ extension Home.HomeEnvironment: LiveEnvironment
             timer: commonEffects.timer,
             fetchRequest: commonEffects.fetch,
             stopwatch: .live,
+            httpbin: .live,
             github: .live,
             downloader: .live,
             videoPlayer: .live,

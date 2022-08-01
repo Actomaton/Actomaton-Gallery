@@ -6,6 +6,7 @@ import ColorFilter
 import Todo
 import StateDiagram
 import Stopwatch
+import HttpBin
 import GitHub
 import GameOfLife
 import VideoPlayer
@@ -26,6 +27,7 @@ extension State
         case stopwatch(Stopwatch.State)
         case stateDiagram(StateDiagram.State)
         case todo(Todo.State)
+        case httpbin(HttpBin.State)
         case github(GitHub.State)
         case gameOfLife(GameOfLife.Root.State)
         case videoPlayer(VideoPlayer.State)
@@ -45,6 +47,7 @@ extension State
             case .stopwatch:        return StopwatchExample()
             case .stateDiagram:     return StateDiagramExample()
             case .todo:             return TodoExample()
+            case .httpbin:          return HttpBinExample()
             case .github:           return GitHubExample()
             case .gameOfLife:       return GameOfLifeExample()
             case .videoPlayer:      return VideoPlayerExample()
@@ -68,14 +71,23 @@ extension State.Current
         case .stopwatch:
             return Stopwatch.cancelAllEffectsPredicate
 
+        case .httpbin:
+            return HttpBin.cancelAllEffectsPredicate
+
         case .github:
             return GitHub.cancelAllEffectsPredicate
 
         case .gameOfLife:
             return GameOfLife.Root.cancelAllEffectsPredicate
 
+        case .videoPlayer:
+            return VideoPlayer.cancelAllEffectsPredicate
+
         case .physics:
             return PhysicsRoot.cancelAllEffectsPredicate
+
+        case .downloader:
+            return Downloader.cancelAllEffectsPredicate
 
         default:
             return { _ in false }

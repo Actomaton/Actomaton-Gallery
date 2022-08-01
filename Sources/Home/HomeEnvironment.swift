@@ -1,5 +1,6 @@
 import UIKit
 import Stopwatch
+import HttpBin
 import GitHub
 import GameOfLife
 import VideoPlayer
@@ -13,6 +14,7 @@ public struct HomeEnvironment: Sendable
     let fetchRequest: @Sendable (URLRequest) async throws -> Data
 
     let stopwatch: Stopwatch.Environment
+    let httpbin: HttpBin.Environment
     let github: GitHub.Environment
     let downloader: Downloader.Environment
     let videoPlayer: VideoPlayer.Environment
@@ -24,6 +26,7 @@ public struct HomeEnvironment: Sendable
         timer: @escaping @Sendable (TimeInterval) -> AsyncStream<Date>,
         fetchRequest: @escaping @Sendable (URLRequest) async throws -> Data,
         stopwatch: Stopwatch.Environment,
+        httpbin: HttpBin.Environment,
         github: GitHub.Environment,
         downloader: Downloader.Environment,
         videoPlayer: VideoPlayer.Environment,
@@ -35,6 +38,7 @@ public struct HomeEnvironment: Sendable
         self.timer = timer
         self.fetchRequest = fetchRequest
         self.stopwatch = stopwatch
+        self.httpbin = httpbin
         self.github = github
         self.downloader = downloader
         self.videoPlayer = videoPlayer
