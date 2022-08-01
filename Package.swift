@@ -95,6 +95,12 @@ let package = Package(
                 "Utilities"
             ]),
         .target(
+            name: "HttpBin",
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
+            ]),
+        .target(
             name: "GitHub",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
@@ -167,7 +173,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter", "SyncCounters", "AnimationDemo", "ColorFilter",
-                "Todo", "StateDiagram", "Stopwatch", "GitHub", "Downloader",
+                "Todo", "StateDiagram", "Stopwatch", "HttpBin", "GitHub", "Downloader",
                 "VideoPlayerMulti", "VideoDetector", "GameOfLife", "Physics",
                 "Utilities"
             ]),
@@ -265,7 +271,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter", "SyncCounters", "AnimationDemo", "ColorFilter",
-                "Todo", "StateDiagram", "Stopwatch", "GitHub", "Downloader",
+                "Todo", "StateDiagram", "Stopwatch", "HttpBin", "GitHub", "Downloader",
                 "VideoPlayerMulti", "VideoDetector", "GameOfLife", "Physics",
                 "Home",
                 "CommonEffects", "Utilities"

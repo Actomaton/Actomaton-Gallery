@@ -124,6 +124,9 @@ public struct HomeView_Previews: PreviewProvider
                     getDate: { Date() },
                     timer: { _ in AsyncStream { nil } }
                 ),
+                httpbin: .init(
+                    fetch: { throw CancellationError() }
+                ),
                 github: .init(
                     fetchRepositories: { _ in throw CancellationError() },
                     fetchImage: { _ in nil },

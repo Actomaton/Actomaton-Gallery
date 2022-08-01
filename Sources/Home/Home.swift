@@ -7,6 +7,7 @@ import ColorFilter
 import Todo
 import StateDiagram
 import Stopwatch
+import HttpBin
 import GitHub
 import GameOfLife
 import VideoPlayer
@@ -26,6 +27,7 @@ public enum Action: Sendable
     case stopwatch(Stopwatch.Action)
     case stateDiagram(StateDiagram.Action)
     case todo(Todo.Action)
+    case httpbin(HttpBin.Action)
     case github(GitHub.Action)
     case gameOfLife(GameOfLife.Root.Action)
     case videoPlayer(VideoPlayer.Action)
@@ -123,6 +125,12 @@ public var reducer: Reducer<Action, State, Environment>
                 .contramap(state: /State.Current.stopwatch)
                 .contramap(state: \State.current)
                 .contramap(environment: { $0.stopwatch }),
+
+            HttpBin.reducer
+                .contramap(action: /Action.httpbin)
+                .contramap(state: /State.Current.httpbin)
+                .contramap(state: \State.current)
+                .contramap(environment: { $0.httpbin }),
 
             GitHub.reducer
                 .contramap(action: /Action.github)
