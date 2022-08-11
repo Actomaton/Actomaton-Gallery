@@ -22,6 +22,11 @@ extension PhysicsRoot.State
         .init(example: SpringPendulumExample())
     }
 
+    public static var rope: PhysicsRoot.State
+    {
+        .init(example: RopeExample())
+    }
+
     public static var collision: PhysicsRoot.State
     {
         .init(example: CollisionExample())
