@@ -20,6 +20,7 @@ extension PhysicsRoot
         case gravityUniverse(World.Action)
         case gravitySurface(World.Action)
         case spring(World.Action)
+        case rope(World.Action)
         case collision(World.Action)
         case lineCollision(World.Action)
         case galtonBoard(World.Action)
@@ -106,6 +107,11 @@ extension PhysicsRoot
                 SpringExample().reducer
                     .contramap(action: /Action.spring)
                     .contramap(state: /State.Current.spring)
+                    .contramap(state: \State.current),
+
+                RopeExample().reducer
+                    .contramap(action: /Action.rope)
+                    .contramap(state: /State.Current.rope)
                     .contramap(state: \State.current),
 
                 CollisionExample().reducer

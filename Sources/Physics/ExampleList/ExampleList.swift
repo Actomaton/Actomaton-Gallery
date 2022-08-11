@@ -6,6 +6,7 @@ let worldExampleList: [Example] = [
     GravitySurfaceExample(),
     SpringExample(),
     SpringPendulumExample(),
+    RopeExample(),
     CollisionExample(),
     LineCollisionExample(),
     GaltonBoardExample(),

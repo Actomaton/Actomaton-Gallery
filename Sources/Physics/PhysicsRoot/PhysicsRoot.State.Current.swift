@@ -12,6 +12,7 @@ extension PhysicsRoot.State
         case gravityUniverse(World.State<CircleObject>)
         case gravitySurface(World.State<CircleObject>)
         case spring(World.State<CircleObject>)
+        case rope(World.State<CircleObject>)
         case collision(World.State<CircleObject>)
         case lineCollision(World.State<Object>)
         case galtonBoard(World.State<CircleObject>)
@@ -28,6 +29,7 @@ extension PhysicsRoot.State
             case .gravityUniverse:  return GravityUniverseExample()
             case .gravitySurface:   return GravitySurfaceExample()
             case .spring:           return SpringExample()
+            case .rope:             return RopeExample()
             case .collision:        return CollisionExample()
             case .lineCollision:    return LineCollisionExample()
             case .galtonBoard:      return GaltonBoardExample()
@@ -52,6 +54,10 @@ extension PhysicsRoot.State
             case var .spring(state):
                 state.canvasPlayerState.canvasState.Δt = Δt
                 self = .spring(state)
+
+            case var .rope(state):
+                state.canvasPlayerState.canvasState.Δt = Δt
+                self = .rope(state)
 
             case var .collision(state):
                 state.canvasPlayerState.canvasState.Δt = Δt
