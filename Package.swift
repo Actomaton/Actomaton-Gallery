@@ -98,7 +98,7 @@ let package = Package(
             name: "HttpBin",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
-                "Utilities"
+                "Utilities", "ImageLoader"
             ]),
         .target(
             name: "GitHub",

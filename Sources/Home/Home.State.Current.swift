@@ -80,9 +80,6 @@ extension State.Current
         case .gameOfLife:
             return GameOfLife.Root.cancelAllEffectsPredicate
 
-        case .videoPlayer:
-            return VideoPlayer.cancelAllEffectsPredicate
-
         case .physics:
             return PhysicsRoot.cancelAllEffectsPredicate
 
