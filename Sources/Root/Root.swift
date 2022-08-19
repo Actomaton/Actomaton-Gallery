@@ -9,6 +9,8 @@ import Counter
 import Login
 import UserSession
 import AnimationDemo
+import Physics
+import UniversalLink
 
 // MARK: - Action
 
@@ -197,57 +199,39 @@ private func universalLinkReducer() -> Reducer<Action, State, Environment>
 {
     .init { action, state, environment in
         guard case let .universalLink(url) = action,
-              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        else { return .empty }
+              let route = UniversalLink.Route(url: url) else
+        {
+            return .empty
+        }
 
-        let queryItems = urlComponents.queryItems ?? []
-
-        print("[UniversalLink] url.pathComponents", url.pathComponents)
-        print("[UniversalLink] queryItems", queryItems)
-
-        switch url.pathComponents {
-        case ["/"]:
+        switch route {
+        case .home:
             state.updateHomeState {
                 $0.current = nil
             }
             state.tab.currentTabID = .home
 
-        case ["/", "counter"]:
-            let count = queryItems.first(where: { $0.name == "count" })
-                .flatMap { $0.value }
-                .flatMap(Int.init) ?? 0
-
+        case let .counter(count: count):
             state.updateHomeState {
                 $0.current = .counter(.init(count: count))
             }
             state.tab.currentTabID = .home
 
-        case ["/", "physics"]:
+        case .physicsRoot:
             state.updateHomeState {
                 $0.current = .physics(.init(current: nil))
             }
             state.tab.currentTabID = .home
 
-        case ["/", "physics", "gravity-universe"]:
+        case .physicsGravityUniverse:
             state.updateHomeState {
                 $0.current = .physics(.gravityUniverse)
             }
             state.tab.currentTabID = .home
 
-        case ["/", "tab"]:
-            guard !state.tab.tabs.isEmpty else { break }
-
-            let index_ = queryItems.first(where: { $0.name == "index" })
-                .flatMap { $0.value }
-                .flatMap(Int.init)
-
-            guard let index = index_ else { break }
-
+        case let .tab(index):
             let adjustedIndex = min(max(index, 0), state.tab.tabs.count - 1)
             state.tab.currentTabID = state.tab.tabs[adjustedIndex].id
-
-        default:
-            break
         }
 
         return .empty
