@@ -38,12 +38,12 @@ extension State
                         tabItemTitle: "Home",
                         tabItemIcon: Image(systemName: "house")
                     ),
-                    Tab.TabItem(
-                        id: .animationDemo,
-                        inner: .animationDemo(.init()),
-                        tabItemTitle: "Animation",
-                        tabItemIcon: Image(systemName: "pip.swap")
-                    ),
+//                    Tab.TabItem(
+//                        id: .animationDemo,
+//                        inner: .animationDemo(.init()),
+//                        tabItemTitle: "Animation",
+//                        tabItemIcon: Image(systemName: "pip.swap")
+//                    ),
                     Tab.TabItem(
                         id: .settings,
                         inner: .settings(.init(user: user)),
