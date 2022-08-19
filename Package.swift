@@ -188,7 +188,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Tab", "Home", "SettingsScene", "Counter",
-                "Onboarding", "Login", "UserSession",
+                "Onboarding", "Login", "UserSession", "UniversalLink",
                 "Utilities"
             ]),
         .target(
@@ -263,6 +263,13 @@ let package = Package(
                 "Utilities"
             ],
             path: "Sources/UserSessionNavigation/Login"),
+
+        // MARK: - UniversalLink
+
+        .target(
+            name: "UniversalLink",
+            dependencies: [],
+            path: "Sources/UniversalLink"),
 
         // MARK: - LiveEnvironments
 
