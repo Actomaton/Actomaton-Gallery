@@ -6,7 +6,7 @@ import VectorMath
 /// https://zenn.dev/ikeh1024/articles/3afefda9bf4777
 struct RopeExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "figure.jumprope") }
+    var exampleIcon: Image { Image(systemName: "point.topleft.down.curvedto.point.bottomright.up") }
 
     var exampleInitialState: PhysicsRoot.State.Current
     {
