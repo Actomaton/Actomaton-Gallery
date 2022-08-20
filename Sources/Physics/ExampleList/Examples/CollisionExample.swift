@@ -59,8 +59,3 @@ extension CollisionExample: ObjectWorldExample
         objects.append(CircleObject(position: Vector2(point)))
     }
 }
-
-// MARK: - Constants
-
-/// Simulated constant of gravity at Earth's surface (`g = 9.807 m/s²` in real world)
-private let g: Scalar = 0.1

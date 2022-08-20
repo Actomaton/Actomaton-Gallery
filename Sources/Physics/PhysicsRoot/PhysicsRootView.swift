@@ -116,11 +116,15 @@ public struct PhysicsRootView: View
 public struct PhysicsRootView_Previews: PreviewProvider
 {
     @ViewBuilder
-    public static func makePreviews(environment: PhysicsRoot.Environment, isMultipleScreens: Bool) -> some View
+    public static func makePreviews(
+        state: PhysicsRoot.State = .init(current: nil),
+        environment: PhysicsRoot.Environment,
+        isMultipleScreens: Bool
+    ) -> some View
     {
         let physicsView = PhysicsRootView(
             store: Store<PhysicsRoot.Action, PhysicsRoot.State, PhysicsRoot.Environment>(
-                state: .init(current: nil),
+                state: state,
                 reducer: PhysicsRoot.reducer,
                 environment: environment
             )

@@ -22,7 +22,7 @@ struct DoublePendulumExample: Example
     private static var bobs: [Bob]
     {
         sequence(first: 0.4, next: { $0 + 1e-6 })
-            .prefix(20) // NOTE: Adjust this value to see double-pendulum's chaos behavior
+            .prefix(numberOfDoublePendulumns) // NOTE: Adjust this value to see double-pendulum's chaos behavior
             .flatMap {
                 [
                     Bob(mass: 1, rodLength: 100, angle: 0.4 * .pi, angleVelocity: 0),
@@ -240,3 +240,5 @@ extension DoublePendulumExample: BobWorldExample
 
 /// Simulated constant of gravity at Earth's surface (`g = 9.807 m/s²` in real world)
 private let g: Scalar = 1
+
+private let numberOfDoublePendulumns: Int = 20

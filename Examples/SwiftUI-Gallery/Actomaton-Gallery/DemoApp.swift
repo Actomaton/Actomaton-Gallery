@@ -27,6 +27,7 @@ struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
             AppView()
+
 //            RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //            HomeView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 
@@ -47,7 +48,7 @@ struct DemoApp: App {
 //            VideoPlayerMultiView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //            VideoDetectorView_Previews.previews
 //            GameOfLife_RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//            PhysicsRootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
+//            PhysicsRootView_Previews.makePreviews(state: .doublePendulum, environment: .live, isMultipleScreens: false)
         }
     }
 }
