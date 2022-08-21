@@ -28,7 +28,8 @@ public struct CounterView: View
                 }
 
                 Text("\(viewStore.count)")
-                    .frame(width: 100)
+                    .font(Font.system(size: 64).monospacedDigit())
+                    .frame(minWidth: 100)
 
                 Button(action: { self.store.send(.increment) }) {
                     Image(systemName: "plus.circle")
@@ -45,7 +46,7 @@ public struct CounterView_Previews: PreviewProvider
     {
         CounterView(
             store: .init(
-                state: .init(),
+                state: .init(count: 123),
                 reducer: Counter.reducer
             )
         )

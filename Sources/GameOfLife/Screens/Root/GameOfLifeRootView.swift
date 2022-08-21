@@ -6,12 +6,12 @@ import Utilities
 @MainActor
 public struct RootView: View
 {
-    private let store: Store<Root.Action, Root.State, Void>
+    private let store: Store<GameOfLifeRoot.Action, GameOfLifeRoot.State, Void>
 
     @ObservedObject
-    private var viewStore: ViewStore<Root.Action, Root.State>
+    private var viewStore: ViewStore<GameOfLifeRoot.Action, GameOfLifeRoot.State>
 
-    public init(store: Store<Root.Action, Root.State, Void>)
+    public init(store: Store<GameOfLifeRoot.Action, GameOfLifeRoot.State, Void>)
     {
         let _ = Debug.print("GameOfLife.RootView.init")
 
@@ -26,14 +26,14 @@ public struct RootView: View
         CanvasPlayerView(
             store: self.store
                 .map(state: \.game.canvasPlayerState)
-                .contramap(action: Root.Action.game)
+                .contramap(action: GameOfLifeRoot.Action.game)
                 .contramap(action: Game.Action.canvasPlayer),
             content: { store in
                 AnyView(
                     GameView(
                         store: self.store
                             .map(state: \.game)
-                            .contramap(action: (/Root.Action.game).embed)
+                            .contramap(action: (/GameOfLifeRoot.Action.game).embed)
                     )
                 )
             },
@@ -95,7 +95,7 @@ public struct RootView: View
         if let substore = store
             .map(state: \.patternSelect)
             .optionalize()?
-            .contramap(action: Root.Action.patternSelect)
+            .contramap(action: GameOfLifeRoot.Action.patternSelect)
         {
             let patternSelectView = PatternSelectView(store: substore)
                 .navigationBarItems(trailing: Button("Close") { self.store.send(.dismissPatternSelect) })
@@ -110,12 +110,12 @@ public struct RootView: View
 public struct GameOfLife_RootView_Previews: PreviewProvider
 {
     @ViewBuilder
-    public static func makePreviews(environment: GameOfLife.Root.Environment, isMultipleScreens: Bool) -> some View
+    public static func makePreviews(environment: GameOfLife.GameOfLifeRoot.Environment, isMultipleScreens: Bool) -> some View
     {
         let gameOfLifeView = RootView(
-            store: Store<Root.Action, Root.State, GameOfLife.Root.Environment>(
+            store: Store<GameOfLifeRoot.Action, GameOfLifeRoot.State, GameOfLife.GameOfLifeRoot.Environment>(
                 state: .init(pattern: .glider, cellLength: 5, timerInterval: 0.05),
-                reducer: GameOfLife.Root.reducer(),
+                reducer: GameOfLife.GameOfLifeRoot.reducer(),
                 environment: environment
             )
             .noEnvironment

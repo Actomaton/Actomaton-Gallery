@@ -8,7 +8,7 @@ struct GameOfLifeExample: Example
 
     var exampleInitialState: State.Current
     {
-        .gameOfLife(GameOfLife.Root.State(pattern: .glider, cellLength: 5, timerInterval: 0.05))
+        .gameOfLife(GameOfLife.GameOfLifeRoot.State(pattern: .glider, cellLength: 5, timerInterval: 0.05))
     }
 
     func exampleView(store: Store<Action, State, Environment>) -> AnyView
