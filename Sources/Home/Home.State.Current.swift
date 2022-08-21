@@ -29,7 +29,7 @@ extension State
         case todo(Todo.State)
         case httpbin(HttpBin.State)
         case github(GitHub.State)
-        case gameOfLife(GameOfLife.Root.State)
+        case gameOfLife(GameOfLife.GameOfLifeRoot.State)
         case videoPlayer(VideoPlayer.State)
         case videoPlayerMulti(VideoPlayerMulti.State)
         case videoDetector(VideoDetector.State)
@@ -78,7 +78,7 @@ extension State.Current
             return GitHub.cancelAllEffectsPredicate
 
         case .gameOfLife:
-            return GameOfLife.Root.cancelAllEffectsPredicate
+            return GameOfLife.GameOfLifeRoot.cancelAllEffectsPredicate
 
         case .physics:
             return PhysicsRoot.cancelAllEffectsPredicate

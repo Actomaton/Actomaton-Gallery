@@ -8,9 +8,9 @@ import Actomaton
 ///   - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 ///   - https://www.conwaylife.com/wiki/Category:Patterns
 ///   - https://apps.apple.com/us/app/game-of-life/id1377718068?mt=12
-public enum Root {}
+public enum GameOfLifeRoot {}
 
-extension Root
+extension GameOfLifeRoot
 {
     // MARK: - Action
 
@@ -61,13 +61,13 @@ extension Root
             self._reducer(),
 
             Game.reducer()
-                .contramap(action: /Root.Action.game)
-                .contramap(state: \Root.State.game)
+                .contramap(action: /GameOfLifeRoot.Action.game)
+                .contramap(state: \GameOfLifeRoot.State.game)
                 .contramap(environment: { $0.game }),
 
             Favorite.reducer()
-                .contramap(action: /Root.Action.favorite)
-                .contramap(state: \Root.State.favorite)
+                .contramap(action: /GameOfLifeRoot.Action.favorite)
+                .contramap(state: \GameOfLifeRoot.State.favorite)
                 .contramap(environment: { $0.favorite }),
 
             PatternSelect.reducer()
@@ -102,7 +102,7 @@ extension Root
                     let effect = Game.reducer()
                         .run(.updatePattern(pattern), &state.game, environment.game)
 
-                    gameEffect = effect.map { Root.Action.game($0) }
+                    gameEffect = effect.map { GameOfLifeRoot.Action.game($0) }
                 }
                 else {
                     // TODO: show parse failure alert

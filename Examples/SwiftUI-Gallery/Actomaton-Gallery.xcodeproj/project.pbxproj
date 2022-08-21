@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F9153AB28B04443003FA573 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 1F9153AA28B04443003FA573 /* Inject */; };
 		1FE7A1662711C9AA0048FFD8 /* SwiftUI-Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = 1FE7A1652711C9AA0048FFD8 /* SwiftUI-Gallery */; };
 		332642E726E4056F00438A10 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642E226E4056F00438A10 /* DemoApp.swift */; };
 		3326433E26E4094200438A10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3326433C26E4094200438A10 /* AppView.swift */; };
@@ -31,6 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FE7A1662711C9AA0048FFD8 /* SwiftUI-Gallery in Frameworks */,
+				1F9153AB28B04443003FA573 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +103,7 @@
 			name = "Actomaton-Gallery";
 			packageProductDependencies = (
 				1FE7A1652711C9AA0048FFD8 /* SwiftUI-Gallery */,
+				1F9153AA28B04443003FA573 /* Inject */,
 			);
 			productName = "Actomaton-Gallery";
 			productReference = 33E8F81726E3B374009CC65D /* Actomaton-Gallery.app */;
@@ -132,6 +135,7 @@
 			);
 			mainGroup = 33E8F80E26E3B374009CC65D;
 			packageReferences = (
+				1F9153A928B04443003FA573 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = 33E8F81826E3B374009CC65D /* Products */;
 			projectDirPath = "";
@@ -310,6 +314,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-concurrency -Xfrontend -enable-actor-data-race-checks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-Gallery";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -348,6 +356,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inamiy.Actomaton-Gallery";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -380,7 +392,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		1F9153A928B04443003FA573 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		1F9153AA28B04443003FA573 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F9153A928B04443003FA573 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
+		};
 		1FE7A1652711C9AA0048FFD8 /* SwiftUI-Gallery */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "SwiftUI-Gallery";

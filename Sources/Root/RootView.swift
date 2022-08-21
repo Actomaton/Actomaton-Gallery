@@ -184,11 +184,15 @@ public struct RootView: View
 public struct RootView_Previews: PreviewProvider
 {
     @ViewBuilder
-    public static func makePreviews(environment: Environment, isMultipleScreens: Bool) -> some View
+    public static func makePreviews(
+        state: State = .defaultInitialState,
+        environment: Environment,
+        isMultipleScreens: Bool
+    ) -> some View
     {
         RootView(
             store: Store(
-                state: Root.State.initialState,
+                state: state,
                 reducer: Root.reducer(),
                 environment: environment
             )
@@ -199,6 +203,7 @@ public struct RootView_Previews: PreviewProvider
     public static var previews: some View
     {
         self.makePreviews(
+            state: .defaultInitialState,
             environment: .init(
                 getDate: { Date() },
                 timer: { _ in AsyncStream { nil } },
@@ -243,6 +248,43 @@ public struct RootView_Previews: PreviewProvider
                 )
             ),
             isMultipleScreens: true
+        )
+    }
+}
+
+extension State
+{
+    /// App's initial state to quick start to the target screen (for debugging)
+    public static var defaultInitialState: State
+    {
+        let user = User.makeSample()
+
+        return State(
+            tab: .init(
+                tabs: [
+                    Tab.TabItem(
+                        id: .home,
+                        inner: .home(
+                            Home.State(
+                                current: nil,
+                                usesTimeTravel: true,
+                                isDebuggingTab: false
+                            )
+                        ),
+                        tabItemTitle: "Home",
+                        tabItemIcon: Image(systemName: "house")
+                    ),
+                    Tab.TabItem(
+                        id: .settings,
+                        inner: .settings(.init(user: User.makeSample())),
+                        tabItemTitle: "Settings",
+                        tabItemIcon: Image(systemName: "gear")
+                    ),
+                ],
+                currentTabID: .home
+            ),
+            userSession: .init(authStatus: .loggedIn(user)),
+            isOnboardingComplete: true
         )
     }
 }

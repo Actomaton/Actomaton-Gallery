@@ -29,7 +29,7 @@ public enum Action: Sendable
     case todo(Todo.Action)
     case httpbin(HttpBin.Action)
     case github(GitHub.Action)
-    case gameOfLife(GameOfLife.Root.Action)
+    case gameOfLife(GameOfLife.GameOfLifeRoot.Action)
     case videoPlayer(VideoPlayer.Action)
     case videoPlayerMulti(VideoPlayerMulti.Action)
     case videoDetector(VideoDetector.Action)
@@ -140,7 +140,7 @@ public var reducer: Reducer<Action, State, Environment>
         ),
 
         Reducer<Action, State, Environment>.combine(
-            GameOfLife.Root.reducer()
+            GameOfLife.GameOfLifeRoot.reducer()
                 .contramap(action: /Action.gameOfLife)
                 .contramap(state: /State.Current.gameOfLife)
                 .contramap(state: \State.current)

@@ -16,7 +16,7 @@ public struct GameOfLifeExample: Example
         HostingViewController(
             store: Store(
                 state: .init(pattern: .glider, cellLength: 5, timerInterval: 0.05),
-                reducer: GameOfLife.Root.reducer(),
+                reducer: GameOfLife.GameOfLifeRoot.reducer(),
                 environment: .live
             )
             .noEnvironment,

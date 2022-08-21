@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Inject",
+        "repositoryURL": "https://github.com/krzysztofzablocki/Inject",
+        "state": {
+          "branch": null,
+          "revision": "a45509eac083b42afd4b6fd00a93a2b53f99f3eb",
+          "version": "1.2.1"
+        }
+      },
+      {
         "package": "OrientationKit",
         "repositoryURL": "https://github.com/inamiy/OrientationKit",
         "state": {
