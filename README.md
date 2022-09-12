@@ -5,7 +5,7 @@
 
 Gallery App for [Actomaton](https://github.com/inamiy/Actomaton) (Actor + Elm Architecture) + SwiftUI.
 
-## Examples
+## Examples ([SwiftUI-Gallery](Examples/SwiftUI-Gallery))
 
 Todo List | Stopwatch | GitHub Search
 ---|----|----
