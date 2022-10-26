@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/inamiy/Actomaton",
         "state": {
           "branch": "main",
-          "revision": "18725b4cbb2d9ce8ed670128d95ea3cb4b44426f",
+          "revision": "6806a3d6bf075d89730996eea1ccf7215ccdd4ba",
           "version": null
         }
       },
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
         "state": {
           "branch": null,
-          "revision": "ef8e14e7ce1c0c304c644c6ba365d06c468ded6b",
-          "version": "0.3.3"
+          "revision": "38bc9242e4388b80bd23ddfdf3071428859e3260",
+          "version": "0.4.0"
         }
       }
     ]

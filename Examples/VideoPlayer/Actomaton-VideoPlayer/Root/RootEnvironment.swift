@@ -6,7 +6,15 @@ import Actomaton
 struct RootEnvironment: Sendable
 {
     let getPlayer: @MainActor @Sendable () -> AVPlayer?
-    let getRandomVideoURL: @Sendable () -> URL?
+    let testMode: TestMode
+
+    enum TestMode: Sendable {
+        /// Single video play test.
+        case single(videoURL: @Sendable () -> URL?)
+
+        /// Multiple videos composition test.
+        case composition(videoURLs: @Sendable () -> [URL])
+    }
 }
 
 extension RootEnvironment
@@ -29,7 +37,7 @@ extension RootEnvironment
                         .boundaryTimePublisher(
                             times: (1 ... 3).map { CMTime(seconds: Double($0), preferredTimescale: 100) }
                         )
-                        .print("boundaryTime")
+                        .print("===> boundaryTime")
                         .flatMap { Combine.Empty<PlayerAction, Never>(completeImmediately: true) }
                         .eraseToAnyPublisher(),
 

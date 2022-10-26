@@ -23,7 +23,12 @@ struct MyApp: App
             reducer: rootReducer(),
             environment: RootEnvironment(
                 getPlayer: { player.avPlayer },
-                getRandomVideoURL: { Constants.videoURLs.randomElement()! }
+//                testMode: .single(videoURL: {
+//                    Constants.videoURLs.randomElement()!
+//                })
+                testMode: .composition(videoURLs: {
+                    Array(Constants.shortVideoURLs.shuffled().prefix(2))
+                })
             )
         )
     }

@@ -13,11 +13,37 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
         switch action {
         case .reloadRandom:
             return Effect {
-                guard let url = environment.getRandomVideoURL() else { return nil }
-                return ._reload(url)
+                switch environment.testMode {
+                case let .single(videoURL):
+                    guard let url = videoURL() else { return nil }
+
+                    let startTime = CFAbsoluteTimeGetCurrent()
+                    let asset = AVAsset(url: url)
+                    let assetInitTime = CFAbsoluteTimeGetCurrent() - startTime
+
+                    return RootAction._reload((asset, assetInitTime: assetInitTime))
+
+                case let .composition(videoURLs):
+                    let urls = videoURLs()
+                    let assets = urls.map(AVAsset.init(url:))
+
+                    let startTime = CFAbsoluteTimeGetCurrent()
+
+                    let composition: AVComposition = try {
+                        let composition = AVMutableComposition()
+                        try composition.composeAssetsInSequence(assets, mediaType: .video)
+                        try composition.composeAssetsInSequence(assets, mediaType: .audio)
+                        return composition
+                    }()
+
+                    let assetInitTime = CFAbsoluteTimeGetCurrent() - startTime
+
+                    return RootAction._reload((composition, assetInitTime: assetInitTime))
+                }
             }
 
-        case let ._reload(url?):
+        case let ._reload(args?):
+            let (asset, assetInitTime) = args
             let wasPaused = state.playerState.playingStatus == .paused
 
             state.playerState.playingStatus = .paused
@@ -26,17 +52,14 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
                 + Effect { @MainActor in
                     guard let player = environment.getPlayer() else { return nil }
 
-                    let reloadStartTime = CFAbsoluteTimeGetCurrent()
-
-                    let asset = AVAsset(url: url)
-                    let assetInitTime = CFAbsoluteTimeGetCurrent() - reloadStartTime
+                    let startTime = CFAbsoluteTimeGetCurrent()
 
                     // NOTE: `AVPlayerItem` will require `Sendable` in order to instantiate in background.
                     let playerItem = AVPlayerItem(asset: asset)
-                    let playerItemInitTime = CFAbsoluteTimeGetCurrent() - reloadStartTime
+                    let playerItemInitTime = CFAbsoluteTimeGetCurrent() - startTime
 
                     player.replaceCurrentItem(with: playerItem)
-                    let playerItemReplacedTime = CFAbsoluteTimeGetCurrent() - reloadStartTime
+                    let playerItemReplacedTime = CFAbsoluteTimeGetCurrent() - startTime
 
                     return ._subscribePlayerAfterReload(
                         assetInitTime: assetInitTime,

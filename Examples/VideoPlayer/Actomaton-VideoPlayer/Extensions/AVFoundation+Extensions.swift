@@ -75,3 +75,50 @@ extension AVPlayerItemErrorLog
         return string
     }
 }
+
+extension AVMutableComposition
+{
+    /// Adds a new track with composing multiple `assets` (videos, audios) in sequence.
+    /// https://gist.github.com/Moligaloo/7b0de3722d8655a30c7abe8b7b21becc
+    public func composeAssetsInSequence<Assets>(
+        _ assets: Assets,
+        mediaType: AVMediaType,
+        totalDuration: CMTime = .positiveInfinity
+    ) throws
+        where Assets: Sequence, Assets.Element: AVAsset
+    {
+        guard let compositionTrack = addMutableTrack(withMediaType: mediaType, preferredTrackID: kCMPersistentTrackID_Invalid) else {
+            return
+        }
+
+        var time = CMTime.zero
+        for asset in assets {
+            if time > totalDuration { break }
+
+            guard let assetTrack = asset.tracks(withMediaType: mediaType).first else { continue }
+
+            if mediaType == .video, time == .zero {
+                compositionTrack.preferredTransform = assetTrack.preferredTransform
+            }
+
+            let nextTime = CMTimeAdd(time, asset.duration)
+
+            let shouldTrim = nextTime > totalDuration
+
+            let assetDuration: CMTime
+
+            if shouldTrim {
+                assetDuration = CMTimeSubtract(totalDuration, time)
+            } else {
+                assetDuration = asset.duration
+            }
+
+            try compositionTrack.insertTimeRange(
+                .init(start: .zero, duration: assetDuration),
+                of: assetTrack,
+                at: time
+            )
+            time = CMTimeAdd(time, asset.duration)
+        }
+    }
+}

@@ -176,7 +176,10 @@ struct RootView_Previews: PreviewProvider
             store: Store(
                 state: .init(),
                 reducer: rootReducer(),
-                environment: .init(getPlayer: { nil }, getRandomVideoURL: { nil })
+                environment: .init(
+                    getPlayer: { nil },
+                    testMode: .single(videoURL: { nil })
+                )
             )
         )
     }

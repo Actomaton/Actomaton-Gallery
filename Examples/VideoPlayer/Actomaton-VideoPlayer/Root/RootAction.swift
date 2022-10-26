@@ -7,7 +7,7 @@ enum RootAction: Sendable
 {
     // Reload
     case reloadRandom
-    case _reload(URL?)
+    case _reload((AVAsset, assetInitTime: CFAbsoluteTime)?)
 
     case _subscribePlayerAfterReload(
         assetInitTime: CFAbsoluteTime,
