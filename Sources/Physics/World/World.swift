@@ -107,11 +107,11 @@ public enum World
     ///   - draggingEmptyArea: Custom logic called on "dragging empty area" to modify `objects`.
     ///   - dragEndEmptyArea: Custom logic called on "drag-end empty area" to modify `objects`.
     public static func reducer<Obj>(
-        tick: @escaping (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
-        tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
-        draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
-        draggingEmptyArea: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
-        dragEndEmptyArea: @escaping (inout [Obj]) -> Void = { _ in }
+        tick: @escaping @Sendable (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
+        tap: @escaping @Sendable (inout [Obj], CGPoint) -> Void = { _, _ in },
+        draggingObj: @escaping @Sendable (inout Obj, CGPoint) -> Void = { _, _ in },
+        draggingEmptyArea: @escaping @Sendable (inout [Obj], CGPoint) -> Void = { _, _ in },
+        dragEndEmptyArea: @escaping @Sendable (inout [Obj]) -> Void = { _ in }
     ) -> Reducer<World.Action, World.State<Obj>, Environment>
         where Obj: ObjectLike
     {
@@ -132,11 +132,11 @@ public enum World
     }
 
     private static func canvasReducer<Obj>(
-        tick: @escaping (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
-        tap: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
-        draggingObj: @escaping (inout Obj, CGPoint) -> Void = { _, _ in },
-        draggingEmptyArea: @escaping (inout [Obj], CGPoint) -> Void = { _, _ in },
-        dragEndEmptyArea: @escaping (inout [Obj]) -> Void = { _ in }
+        tick: @escaping @Sendable (inout [Obj], CGSize, _ Δt: Scalar) -> Void,
+        tap: @escaping @Sendable (inout [Obj], CGPoint) -> Void = { _, _ in },
+        draggingObj: @escaping @Sendable (inout Obj, CGPoint) -> Void = { _, _ in },
+        draggingEmptyArea: @escaping @Sendable (inout [Obj], CGPoint) -> Void = { _, _ in },
+        dragEndEmptyArea: @escaping @Sendable (inout [Obj]) -> Void = { _ in }
     ) -> Reducer<Action, CanvasState<Obj>, Environment>
         where Obj: ObjectLike
     {

@@ -5,9 +5,10 @@ import VectorMath
 extension World
 {
     /// Resets `objects` forces, `run` custom logic, and calculates `velocity` & `position`.
-    /// - Parameter Δt: Simulated delta time per tick. 
-    static func tickForObjects<Obj>(_ run: @escaping (inout [Obj], _ boardSize: CGSize) -> Void)
-        -> (inout [Obj], _ boardSize: CGSize, _ Δt: Scalar) -> Void
+    /// - Parameter Δt: Simulated delta time per tick.
+    @Sendable
+    static func tickForObjects<Obj>(_ run: @escaping @Sendable (inout [Obj], _ boardSize: CGSize) -> Void)
+        -> @Sendable (inout [Obj], _ boardSize: CGSize, _ Δt: Scalar) -> Void
         where Obj: _ObjectLike
     {
         { objects, boardSize, Δt in

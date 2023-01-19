@@ -4,6 +4,7 @@ import SwiftUI
 /// as of Xcode 11.1 SwiftUI.
 /// 
 /// - SeeAlso: https://stackoverflow.com/a/56518293/666371
+@MainActor
 public struct TapView: UIViewRepresentable
 {
     private let didTap: (CGPoint) -> Void
@@ -36,6 +37,7 @@ public struct TapView: UIViewRepresentable
     {
     }
 
+    @MainActor
     public final class Coordinator: NSObject
     {
         let didTap: ((CGPoint) -> Void)

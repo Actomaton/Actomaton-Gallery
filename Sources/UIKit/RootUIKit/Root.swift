@@ -139,7 +139,7 @@ private var debugTabInsertRemoveReducer: Reducer<Action, State, Environment>
     Reducer { action, state, environment in
         switch action {
         case let .insertRandomTab(index):
-            return Effect {
+            return Effect { @MainActor in
                 // Random alphabet "A" ... "Z".
                 let char = (65 ... 90).map { String(UnicodeScalar($0)) }.randomElement()!
 

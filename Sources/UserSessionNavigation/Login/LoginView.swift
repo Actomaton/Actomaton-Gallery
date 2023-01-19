@@ -2,6 +2,7 @@ import SwiftUI
 import ActomatonUI
 import Utilities
 
+@MainActor
 public struct LoginView: View
 {
     private let onAction: (Action) -> Void
