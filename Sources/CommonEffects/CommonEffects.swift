@@ -1,7 +1,7 @@
 import Foundation
 import ActomatonUI
 
-public struct CommonEffects
+public struct CommonEffects: Sendable
 {
     private let urlSession: URLSession
     private let _timer: @Sendable (TimeInterval) -> AsyncStream<Date>

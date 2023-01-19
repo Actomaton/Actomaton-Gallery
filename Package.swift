@@ -1,5 +1,6 @@
 // swift-tools-version:5.5
 
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -285,3 +286,17 @@ let package = Package(
             ])
     ]
 )
+
+// Comment-Out:
+// Concurrency warning around Xcode Preview is shown too many (possibly due to compiler bug),
+// so will turn off by default.
+// https://github.com/apple/swift/issues/61300
+//
+//    for target in package.targets {
+//        target.swiftSettings = [
+//            .unsafeFlags([
+//                "-Xfrontend", "-warn-concurrency",
+//                "-Xfrontend", "-enable-actor-data-race-checks",
+//            ])
+//        ]
+//    }

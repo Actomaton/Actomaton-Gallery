@@ -158,6 +158,7 @@ extension VideoPlayer.Environment: LiveEnvironment
     public init(commonEffects: CommonEffects)
     {
         /// Effectful references.
+        @MainActor
         class Refs {
             var player: AVPlayer?
         }

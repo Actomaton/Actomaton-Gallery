@@ -30,7 +30,7 @@ public struct State<InnerState, TabID>: Equatable, Sendable
 // MARK: - Reducer
 
 public func reducer<InnerAction, InnerState, Environment, TabID>(
-    innerReducers: @escaping (TabID) -> Reducer<InnerAction, InnerState, Environment>
+    innerReducers: @escaping @Sendable (TabID) -> Reducer<InnerAction, InnerState, Environment>
 ) -> Reducer<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>, Environment>
     where TabID: Hashable
 {
@@ -55,7 +55,7 @@ private func changeTabReducer<InnerAction, InnerState, Environment, TabID>()
 }
 
 private func tabChildrenReducer<InnerAction, InnerState, Environment, TabID>(
-    innerReducers: @escaping (TabID) -> Reducer<InnerAction, InnerState, Environment>
+    innerReducers: @escaping @Sendable (TabID) -> Reducer<InnerAction, InnerState, Environment>
 ) -> Reducer<Action<InnerAction, InnerState, TabID>, State<InnerState, TabID>, Environment>
     where TabID: Hashable
 {

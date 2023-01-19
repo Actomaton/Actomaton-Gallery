@@ -23,11 +23,11 @@ public struct State: Equatable, Sendable
 
 // MARK: - Environment
 
-public struct Environment
+public struct Environment: Sendable
 {
-    let fetchImage: (URL) async -> UIImage?
+    let fetchImage: @Sendable (URL) async -> UIImage?
 
-    public init(fetchImage: @escaping (URL) async -> UIImage?)
+    public init(fetchImage: @escaping @Sendable (URL) async -> UIImage?)
     {
         self.fetchImage = fetchImage
     }

@@ -5,6 +5,8 @@ import Combine
 import ActomatonUI
 import OrientationKit
 
+// FIXME: This entire effectful code needs to be refactored to avoid using global variables and make Sendable-friendly.
+
 // MARK: -  Global states
 
 internal enum Global

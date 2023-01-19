@@ -80,27 +80,34 @@ protocol ObjectWorldExample: Example
 
     /// Custom logic called on every "tick" to modify `objects`, mainly to calculate surrounding forces.
     /// - Note: `object`'s `velocity` and `position` will be automatically calculated afterwards.
+    @Sendable
     func step(objects: inout [Obj], boardSize: CGSize)
 
     /// Custom logic called on "dragging empty area" to modify `objects`.
+    @Sendable
     func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint)
 
     /// Custom logic called on "drag-end empty area" to modify `objects`.
+    @Sendable
     func dragEndEmptyArea(_ objects: inout [Obj])
 
     /// Creating a new object on tap.
+    @Sendable
     func exampleTapToMakeObject(point: CGPoint) -> Obj?
 }
 
 extension ObjectWorldExample where Obj == CircleObject
 {
     /// Default impl.
+    @Sendable
     func draggingEmptyArea(_ objects: inout [Obj], point: CGPoint) {}
 
     /// Default impl.
+    @Sendable
     func dragEndEmptyArea(_ objects: inout [Obj]) {}
 
     /// Default impl.
+    @Sendable
     func exampleTapToMakeObject(point: CGPoint) -> Obj?
     {
         CircleObject(position: Vector2(point))
@@ -111,8 +118,8 @@ extension ObjectWorldExample where Obj == CircleObject
         World
             .reducer(
                 tick: World.tickForObjects(self.step),
-                tap: { objects, point in
-                    if let object = exampleTapToMakeObject(point: point) {
+                tap: { [exampleTapToMakeObject] objects, point in
+                    if let object = exampleTapToMakeObject(point) {
                         objects.append(object)
                     }
                 },
@@ -139,8 +146,8 @@ extension ObjectWorldExample where Obj == Object
         World
             .reducer(
                 tick: World.tickForObjects(self.step),
-                tap: { objects, point in
-                    if let object = exampleTapToMakeObject(point: point) {
+                tap: { [exampleTapToMakeObject] objects, point in
+                    if let object = exampleTapToMakeObject(point) {
                         objects.append(object)
                     }
                 },
@@ -158,21 +165,26 @@ protocol BobWorldExample: Example
 {
     /// Custom logic called on every "tick" to modify `objects`, mainly to calculate angular acceleration.
     /// - Parameter Δt: Simulated delta time per tick.
+    @Sendable
     func step(objects: inout [Bob], boardSize: CGSize, Δt: Scalar)
 
     /// Custom logic called on "dragging empty area" to modify `objects`.
+    @Sendable
     func draggingEmptyArea(_ objects: inout [Bob], point: CGPoint)
 
     /// Custom logic called on "drag-end empty area" to modify `objects`.
+    @Sendable
     func dragEndEmptyArea(_ objects: inout [Bob])
 }
 
 extension BobWorldExample
 {
     /// Default impl.
+    @Sendable
     func draggingEmptyArea(_ objects: inout [Bob], point: CGPoint) {}
 
     /// Default impl.
+    @Sendable
     func dragEndEmptyArea(_ objects: inout [Bob]) {}
 
     var reducer: Reducer<World.Action, World.State<Bob>, World.Environment>

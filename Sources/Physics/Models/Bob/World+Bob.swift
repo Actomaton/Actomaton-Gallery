@@ -6,8 +6,9 @@ extension World
 {
     /// Resets `bobs` angular accelerations, and `run` custom logic (no calculation of `angleVelocity` & `angle`).
     /// - Parameter Δt: Simulated delta time per tick.
-    static func tickForBobs(_ run: @escaping (inout [Bob], _ boardSize: CGSize, _ Δt: Scalar) -> Void)
-        -> (inout [Bob], _ boardSize: CGSize, _ Δt: Scalar) -> Void
+    @Sendable
+    static func tickForBobs(_ run: @escaping @Sendable (inout [Bob], _ boardSize: CGSize, _ Δt: Scalar) -> Void)
+        -> @Sendable (inout [Bob], _ boardSize: CGSize, _ Δt: Scalar) -> Void
     {
         { bobs, boardSize, Δt in
             var bobCount = bobs.count

@@ -54,7 +54,7 @@ extension AVPlayerItemErrorLogEvent
 
 extension AVPlayerItemAccessLog
 {
-    open var extendedLogString: String?
+    public var extendedLogString: String?
     {
         guard let data = extendedLogData(),
               let string = String(data: data, encoding: .init(rawValue: extendedLogDataStringEncoding))
@@ -66,7 +66,7 @@ extension AVPlayerItemAccessLog
 
 extension AVPlayerItemErrorLog
 {
-    open var extendedLogString: String?
+    public var extendedLogString: String?
     {
         guard let data = extendedLogData(),
               let string = String(data: data, encoding: .init(rawValue: extendedLogDataStringEncoding))

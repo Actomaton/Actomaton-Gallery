@@ -33,6 +33,7 @@ public struct TabItem<ID>: Equatable, Sendable
 extension TabItem
 {
     /// Initializes with `image`.
+    @MainActor
     public init(
         id: ID,
         title: String,
@@ -47,6 +48,7 @@ extension TabItem
     }
 
     /// Initializes with `examples`.
+    @MainActor
     public init(
         id: ID,
         title: String,
@@ -63,6 +65,7 @@ extension TabItem
     }
 
     /// Initializes with `Store` and `SwiftUI.View`.
+    @MainActor
     public init<Action, State, V: View>(
         id: ID,
         title: String,
@@ -80,6 +83,7 @@ extension TabItem
     }
 
     /// Initializes with `SwiftUI.View`.
+    @MainActor
     public init<V: View>(
         id: ID,
         title: String,
