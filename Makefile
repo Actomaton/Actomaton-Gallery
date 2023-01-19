@@ -1,4 +1,9 @@
-DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 13 Pro'
+DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 14 Pro'
+
+# NOTE: Only supports iOS, so `swift build` won't work.
+.PHONY: build-package
+build-package:
+	xcodebuild build -scheme Actomaton-Gallery-Package $(DESTINATION) | xcpretty
 
 .PHONY: build-SwiftUI-Basic
 build-SwiftUI-Basic:
