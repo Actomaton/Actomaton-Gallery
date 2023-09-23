@@ -10,39 +10,39 @@ on:
   pull_request:
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_14.2.app
+  DEVELOPER_DIR: /Applications/Xcode_15.0.app
 
 jobs:
   build-SwiftUI-Basic:
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v3
     - name: Build SwiftUI-Basic
       run: make build-SwiftUI-Basic
 
   build-SwiftUI-Gallery:
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v3
     - name: Build SwiftUI-Gallery
       run: make build-SwiftUI-Gallery
 
   build-UIKit-Gallery:
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v3
     - name: Build UIKit-Gallery
       run: make build-UIKit-Gallery
 
   build-Favorite-Sync:
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v3
     - name: Build Favorite-Sync
       run: make build-Favorite-Sync
 
   build-VideoPlayer:
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v3
     - name: Build VideoPlayer
