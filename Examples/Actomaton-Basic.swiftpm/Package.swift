@@ -35,13 +35,13 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/inamiy/Actomaton", from: "0.3.1")
+        .package(url: "https://github.com/inamiy/Actomaton", from: "0.8.0")
     ],
     targets: [
         .executableTarget(
             name: "AppModule",
             dependencies: [
-                .productItem(name: "ActomatonStore", package: "Actomaton", condition: nil)
+                .productItem(name: "ActomatonUI", package: "Actomaton", condition: nil)
             ],
             path: ".",
             swiftSettings: [.unsafeFlags(["-warn-concurrency"], .when(configuration: .debug))]

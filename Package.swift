@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.9
 
 import Foundation
 import PackageDescription
@@ -19,10 +19,10 @@ let package = Package(
     ],
     dependencies: [
 //        .package(name: "Actomaton", path: "../Actomaton"), // local
-        .package(url: "https://github.com/inamiy/Actomaton", .branch("main")),
+        .package(url: "https://github.com/inamiy/Actomaton", from: "0.8.0"),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
-        .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", .branch("main")),
-        .package(url: "https://github.com/inamiy/AVFoundation-Combine", .branch("main")),
+        .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", branch: "main"),
+        .package(url: "https://github.com/inamiy/AVFoundation-Combine", branch: "main"),
         .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1")
     ],
     targets: [

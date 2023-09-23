@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/inamiy/Actomaton",
       "state" : {
-        "branch" : "main",
-        "revision" : "47a3b125a847a1b92cc1a37914a3e61d171cbea2"
+        "revision" : "e51e5ea17f3fb31f4d98eaab1d044f33d4c02386",
+        "version" : "0.8.0"
       }
     },
     {
