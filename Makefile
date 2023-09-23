@@ -30,6 +30,9 @@ build-VideoPlayer:
 	cd Examples/VideoPlayer/ && \
 	xcodebuild build -scheme Actomaton-VideoPlayer $(DESTINATION) | xcpretty
 
+.PHONY: build-all
+build-all: build-package build-SwiftUI-Basic build-SwiftUI-Gallery build-UIKit-Gallery build-Favorite-Sync build-VideoPlayer
+
 # e.g.
 # make universal-link
 # make universal-link path=counter?count=3

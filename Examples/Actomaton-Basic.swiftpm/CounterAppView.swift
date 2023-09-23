@@ -1,24 +1,22 @@
 import SwiftUI
-import ActomatonStore
+import ActomatonUI
 
 @MainActor
 struct CounterAppView: View
 {
-    @StateObject
-    private var store: Store<Action, State>
+    private let store: Store<Action, State, Void>
 
     init()
     {
-        let store = Store<Action, State>(
+        self.store = Store<Action, State, Void>(
             state: State(),
             reducer: reducer()
         )
-        self._store = StateObject(wrappedValue: store)
     }
 
     var body: some View
     {
         // IMPORTANT: Pass `Store.Proxy` to children.
-        CounterView(store: self.store.proxy)
+        CounterView(store: self.store)
     }
 }

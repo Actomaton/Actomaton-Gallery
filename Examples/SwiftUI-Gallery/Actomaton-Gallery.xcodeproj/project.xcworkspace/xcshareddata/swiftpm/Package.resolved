@@ -1,88 +1,86 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Actomaton",
-        "repositoryURL": "https://github.com/inamiy/Actomaton",
-        "state": {
-          "branch": "main",
-          "revision": "6806a3d6bf075d89730996eea1ccf7215ccdd4ba",
-          "version": null
-        }
-      },
-      {
-        "package": "AVFoundation-Combine",
-        "repositoryURL": "https://github.com/inamiy/AVFoundation-Combine",
-        "state": {
-          "branch": "main",
-          "revision": "637ba786561616297554365d12402414d5024335",
-          "version": null
-        }
-      },
-      {
-        "package": "Inject",
-        "repositoryURL": "https://github.com/krzysztofzablocki/Inject",
-        "state": {
-          "branch": null,
-          "revision": "a45509eac083b42afd4b6fd00a93a2b53f99f3eb",
-          "version": "1.2.1"
-        }
-      },
-      {
-        "package": "OrientationKit",
-        "repositoryURL": "https://github.com/inamiy/OrientationKit",
-        "state": {
-          "branch": null,
-          "revision": "491927e9cc835c0fcc7eac349c0245024f5d8579",
-          "version": "0.1.0"
-        }
-      },
-      {
-        "package": "swift-case-paths",
-        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
-        "state": {
-          "branch": null,
-          "revision": "a09839348486db8866f85a727b8550be1d671c50",
-          "version": "0.9.1"
-        }
-      },
-      {
-        "package": "swift-custom-dump",
-        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
-        "state": {
-          "branch": null,
-          "revision": "21ec1d717c07cea5a026979cb0471dd95c7087e7",
-          "version": "0.5.0"
-        }
-      },
-      {
-        "package": "SwiftUI-PhotoPicker",
-        "repositoryURL": "https://github.com/inamiy/SwiftUI-PhotoPicker",
-        "state": {
-          "branch": "main",
-          "revision": "7fa6cc560e9c48dca41de152686ebd572eb88edf",
-          "version": null
-        }
-      },
-      {
-        "package": "VectorMath",
-        "repositoryURL": "https://github.com/nicklockwood/VectorMath",
-        "state": {
-          "branch": null,
-          "revision": "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
-          "version": "0.4.1"
-        }
-      },
-      {
-        "package": "xctest-dynamic-overlay",
-        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
-        "state": {
-          "branch": null,
-          "revision": "38bc9242e4388b80bd23ddfdf3071428859e3260",
-          "version": "0.4.0"
-        }
+  "pins" : [
+    {
+      "identity" : "actomaton",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inamiy/Actomaton",
+      "state" : {
+        "revision" : "e51e5ea17f3fb31f4d98eaab1d044f33d4c02386",
+        "version" : "0.8.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "avfoundation-combine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inamiy/AVFoundation-Combine",
+      "state" : {
+        "branch" : "main",
+        "revision" : "637ba786561616297554365d12402414d5024335"
+      }
+    },
+    {
+      "identity" : "inject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzysztofzablocki/Inject",
+      "state" : {
+        "revision" : "a45509eac083b42afd4b6fd00a93a2b53f99f3eb",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "orientationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inamiy/OrientationKit",
+      "state" : {
+        "revision" : "491927e9cc835c0fcc7eac349c0245024f5d8579",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths",
+      "state" : {
+        "revision" : "a09839348486db8866f85a727b8550be1d671c50",
+        "version" : "0.9.1"
+      }
+    },
+    {
+      "identity" : "swift-custom-dump",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-custom-dump",
+      "state" : {
+        "revision" : "21ec1d717c07cea5a026979cb0471dd95c7087e7",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "swiftui-photopicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inamiy/SwiftUI-PhotoPicker",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7fa6cc560e9c48dca41de152686ebd572eb88edf"
+      }
+    },
+    {
+      "identity" : "vectormath",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicklockwood/VectorMath",
+      "state" : {
+        "revision" : "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
+        "version" : "0.4.1"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "38bc9242e4388b80bd23ddfdf3071428859e3260",
+        "version" : "0.4.0"
+      }
+    }
+  ],
+  "version" : 2
 }
