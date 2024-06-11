@@ -1,5 +1,5 @@
 import Foundation
-import Tab
+import Tabs
 import Home
 import SettingsScene
 import Counter

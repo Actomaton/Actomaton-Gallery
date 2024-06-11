@@ -48,7 +48,7 @@ let package = Package(
             name: "TimeTravel",
             dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
-            name: "Tab",
+            name: "Tabs",
             dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "Counter",
@@ -188,7 +188,7 @@ let package = Package(
             name: "Root",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
-                "Tab", "Home", "SettingsScene", "Counter",
+                "Tabs", "Home", "SettingsScene", "Counter",
                 "Onboarding", "Login", "UserSession", "UniversalLink",
                 "Utilities"
             ]),
@@ -219,12 +219,12 @@ let package = Package(
             path: "Sources/UIKit/ExamplesUIKit"),
 
         .target(
-            name: "TabUIKit",
+            name: "TabsUIKit",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "ExamplesUIKit", "SettingsUIKit"
             ],
-            path: "Sources/UIKit/TabUIKit"),
+            path: "Sources/UIKit/TabsUIKit"),
 
         .target(
             name: "SettingsUIKit",
@@ -239,7 +239,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "SettingsScene", "UserSession", "Onboarding", "Login",
-                "TabUIKit", "ExampleListUIKit", "ExamplesUIKit"
+                "TabsUIKit", "ExampleListUIKit", "ExamplesUIKit"
             ],
             path: "Sources/UIKit/RootUIKit"),
 

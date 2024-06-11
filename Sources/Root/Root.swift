@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Actomaton
 import Utilities
-import Tab
+import Tabs
 import Home
 import SettingsScene
 import Counter
@@ -16,7 +16,7 @@ import UniversalLink
 
 public enum Action: Sendable
 {
-    case tab(Tab.Action<TabCaseAction, TabCaseState, TabID>)
+    case tab(Tabs.Action<TabCaseAction, TabCaseState, TabID>)
 
     case userSession(UserSession.Action)
     case loggedOut(Login.Action)
@@ -38,7 +38,7 @@ public enum Action: Sendable
 
 public struct State: Equatable, Sendable
 {
-    public var tab: Tab.State<TabCaseState, TabID>
+    public var tab: Tabs.State<TabCaseState, TabID>
 
     public var userSession: UserSession.State
     {
@@ -55,7 +55,7 @@ public struct State: Equatable, Sendable
     public var isOnboardingComplete: Bool
 
     public init(
-        tab: Tab.State<TabCaseState, TabID>,
+        tab: Tabs.State<TabCaseState, TabID>,
         userSession: UserSession.State,
         isOnboardingComplete: Bool
     )
@@ -104,9 +104,9 @@ extension State
     }
 }
 
-public func counterTabItem(index: Int) -> Tab.TabItem<TabCaseState, TabID>
+public func counterTabItem(index: Int) -> Tabs.TabItem<TabCaseState, TabID>
 {
-    Tab.TabItem(
+    Tabs.TabItem(
         id: .counter(UUID()),
         inner: .counter(Counter.State(count: 0)),
         tabItemTitle: "Counter \(index)",
@@ -141,7 +141,7 @@ public func reducer() -> Reducer<Action, State, Environment>
 
 private var tabReducer: Reducer<Action, State, Environment>
 {
-    Tab
+    Tabs
         .reducer(
             innerReducers: { tabID in
                 switch tabID {
@@ -283,7 +283,7 @@ public var debugTabInsertRemoveReducer: Reducer<Action, State, Environment>
                 let char = (65 ... 90).map { String(UnicodeScalar($0)) }.randomElement()!
 
                 return .tab(.insertTab(
-                    Tab.TabItem(
+                    Tabs.TabItem(
                         id: .counter(UUID()),
                         inner: .counter(.init(count: 0)),
                         tabItemTitle: "Tab \(char)",

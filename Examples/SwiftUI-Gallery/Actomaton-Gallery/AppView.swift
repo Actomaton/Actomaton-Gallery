@@ -1,6 +1,6 @@
 import SwiftUI
 import ActomatonUI
-import Tab
+import Tabs
 import Home
 import Root
 import DebugRoot
@@ -127,19 +127,19 @@ extension Root.State
         return State(
             tab: .init(
                 tabs: [
-                    Tab.TabItem(
+                    Tabs.TabItem(
                         id: .home,
                         inner: .home(homeState),
                         tabItemTitle: "Home",
                         tabItemIcon: Image(systemName: "house")
                     ),
-//                    Tab.TabItem(
+//                    Tabs.TabItem(
 //                        id: .animationDemo,
 //                        inner: .animationDemo(.init()),
 //                        tabItemTitle: "Animation",
 //                        tabItemIcon: Image(systemName: "pip.swap")
 //                    ),
-                    Tab.TabItem(
+                    Tabs.TabItem(
                         id: .settings,
                         inner: .settings(.init(user: user)),
                         tabItemTitle: "Settings",

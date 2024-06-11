@@ -1,6 +1,6 @@
 import SwiftUI
 import ActomatonUI
-import Tab
+import Tabs
 import Home
 import SettingsScene
 import Counter
@@ -96,7 +96,7 @@ public struct RootView: View
     private func tabView(user: User) -> some View
     {
         VStack {
-            Tab.TabView(store: tabStore) { tabID, childStore in
+            Tabs.TabView(store: tabStore) { tabID, childStore in
                 if let childStore_ = childStore
                     .contramap(action: TabCaseAction.home)
                     .caseMap(state: /TabCaseState.home)
@@ -164,7 +164,7 @@ public struct RootView: View
 
     // MARK: - SubStore
 
-    private var tabStore: Store<Tab.Action<TabCaseAction, TabCaseState, TabID>, Tab.State<TabCaseState, TabID>, Environment>
+    private var tabStore: Store<Tabs.Action<TabCaseAction, TabCaseState, TabID>, Tabs.State<TabCaseState, TabID>, Environment>
     {
         self.store
             .map(state: \.tab)
@@ -262,7 +262,7 @@ extension State
         return State(
             tab: .init(
                 tabs: [
-                    Tab.TabItem(
+                    Tabs.TabItem(
                         id: .home,
                         inner: .home(
                             Home.State(
@@ -274,7 +274,7 @@ extension State
                         tabItemTitle: "Home",
                         tabItemIcon: Image(systemName: "house")
                     ),
-                    Tab.TabItem(
+                    Tabs.TabItem(
                         id: .settings,
                         inner: .settings(.init(user: User.makeSample())),
                         tabItemTitle: "Settings",

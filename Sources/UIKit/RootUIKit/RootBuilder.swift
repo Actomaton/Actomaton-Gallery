@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 import ActomatonUI
 import UserSession
-import TabUIKit
+import TabsUIKit
 import ExampleListUIKit
 import ExamplesUIKit
 import SettingsScene

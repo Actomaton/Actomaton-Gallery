@@ -5,7 +5,7 @@ import CanvasPlayer
 
 // MARK: - Example
 
-protocol Example
+protocol Example: Sendable
 {
     var exampleTitle: String { get }
     var exampleIcon: Image { get }

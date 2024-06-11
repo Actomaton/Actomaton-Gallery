@@ -5,7 +5,7 @@ import ActomatonUI
 import UserSession
 import Onboarding
 import Login
-import TabUIKit
+import TabsUIKit
 import SettingsUIKit
 
 @MainActor

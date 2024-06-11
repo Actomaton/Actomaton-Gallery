@@ -3,13 +3,13 @@ import SwiftUI
 import Actomaton
 import UserSession
 import Login
-import TabUIKit
+import TabsUIKit
 
 // MARK: - Action
 
 public enum Action: Sendable
 {
-    case tab(TabUIKit.Action<TabID>)
+    case tab(TabsUIKit.Action<TabID>)
 
     case userSession(UserSession.Action)
     case loggedOut(Login.Action)
@@ -32,7 +32,7 @@ public enum Action: Sendable
 
 public struct State: Equatable, Sendable
 {
-    public var tab: TabUIKit.State<TabID>
+    public var tab: TabsUIKit.State<TabID>
 
     public var userSession: UserSession.State
     {
@@ -47,7 +47,7 @@ public struct State: Equatable, Sendable
     public var isOnboardingComplete: Bool
 
     public init(
-        tab: TabUIKit.State<TabID>,
+        tab: TabsUIKit.State<TabID>,
         userSession: UserSession.State,
         isOnboardingComplete: Bool
     )
@@ -78,7 +78,7 @@ public struct Environment: Sendable
 public func reducer() -> Reducer<Action, State, Environment>
 {
     .combine(
-        TabUIKit.reducer()
+        TabsUIKit.reducer()
             .contramap(action: /Action.tab)
             .contramap(state: \.tab)
             .contramap(environment: { _ in () }),
@@ -144,7 +144,7 @@ private var debugTabInsertRemoveReducer: Reducer<Action, State, Environment>
                 let char = (65 ... 90).map { String(UnicodeScalar($0)) }.randomElement()!
 
                 return .tab(.insertTab(
-                    TabUIKit.TabItem(
+                    TabsUIKit.TabItem(
                         id: .other(UUID()),
                         title: "Tab \(char)",
                         image: UIImage(systemName: "\(char.lowercased()).circle")!,
