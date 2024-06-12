@@ -16,7 +16,6 @@ struct CounterAppView: View
 
     var body: some View
     {
-        // IMPORTANT: Pass `Store.Proxy` to children.
         CounterView(store: self.store)
     }
 }
