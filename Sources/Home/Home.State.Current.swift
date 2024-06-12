@@ -36,7 +36,6 @@ extension State
         case physics(PhysicsRoot.State)
         case downloader(Downloader.State)
 
-        @MainActor
         var example: Example
         {
             switch self {

@@ -22,7 +22,6 @@ extension PhysicsRoot.State
         case pendulum(World.State<Bob>)
         case doublePendulum(World.State<Bob>)
 
-        @MainActor
         var example: Example
         {
             switch self {
