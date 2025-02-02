@@ -8,6 +8,7 @@ import GitHub
 import Downloader
 import VideoPlayer
 import VideoPlayerMulti
+import ElemCellAutomaton
 import GameOfLife
 import Physics
 import Home
@@ -192,6 +193,18 @@ extension VideoPlayerMulti.Environment: LiveEnvironment
     }
 }
 
+// MARK: - ElemCellAutomaton.RootEnvironment.live
+
+extension ElemCellAutomaton.RootEnvironment: LiveEnvironment
+{
+    public init(commonEffects: CommonEffects)
+    {
+        self.init(
+            timer: commonEffects.timer
+        )
+    }
+}
+
 // MARK: - GameOfLife.RootEnvironment.live
 
 extension GameOfLife.RootEnvironment: LiveEnvironment
@@ -302,6 +315,7 @@ extension Home.HomeEnvironment: LiveEnvironment
             downloader: .live,
             videoPlayer: .live,
             videoPlayerMulti: .live,
+            elemCellAutomaton: .live,
             gameOfLife: .live
         )
     }

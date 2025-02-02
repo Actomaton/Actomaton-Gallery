@@ -108,6 +108,12 @@ let package = Package(
                 "Utilities", "CommonUI", "ImageLoader"
             ]),
         .target(
+            name: "ElemCellAutomaton",
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "CanvasPlayer", "Utilities"
+            ]),
+        .target(
             name: "GameOfLife",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
@@ -175,7 +181,7 @@ let package = Package(
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter", "SyncCounters", "AnimationDemo", "ColorFilter",
                 "Todo", "StateDiagram", "Stopwatch", "HttpBin", "GitHub", "Downloader",
-                "VideoPlayerMulti", "VideoDetector", "GameOfLife", "Physics",
+                "VideoPlayerMulti", "VideoDetector", "ElemCellAutomaton", "GameOfLife", "Physics",
                 "Utilities"
             ]),
         .target(

@@ -8,6 +8,7 @@ import StateDiagram
 import Stopwatch
 import HttpBin
 import GitHub
+import ElemCellAutomaton
 import GameOfLife
 import VideoPlayer
 import VideoPlayerMulti
@@ -29,6 +30,7 @@ extension State
         case todo(Todo.State)
         case httpbin(HttpBin.State)
         case github(GitHub.State)
+        case elemCellAutomaton(ElemCellAutomatonRoot.State)
         case gameOfLife(GameOfLifeRoot.State)
         case videoPlayer(VideoPlayer.State)
         case videoPlayerMulti(VideoPlayerMulti.State)
@@ -48,6 +50,7 @@ extension State
             case .todo:             return TodoExample()
             case .httpbin:          return HttpBinExample()
             case .github:           return GitHubExample()
+            case .elemCellAutomaton: return ElemCellAutomatonExample()
             case .gameOfLife:       return GameOfLifeExample()
             case .videoPlayer:      return VideoPlayerExample()
             case .videoPlayerMulti: return VideoPlayerMultiExample()

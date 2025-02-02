@@ -2,6 +2,7 @@ import UIKit
 import Stopwatch
 import HttpBin
 import GitHub
+import ElemCellAutomaton
 import GameOfLife
 import VideoPlayer
 import VideoPlayerMulti
@@ -19,6 +20,7 @@ public struct HomeEnvironment: Sendable
     let downloader: Downloader.Environment
     let videoPlayer: VideoPlayer.Environment
     let videoPlayerMulti: VideoPlayerMulti.Environment
+    let elemCellAutomaton: ElemCellAutomatonRoot.Environment
     let gameOfLife: GameOfLifeRoot.Environment
 
     public init(
@@ -31,6 +33,7 @@ public struct HomeEnvironment: Sendable
         downloader: Downloader.Environment,
         videoPlayer: VideoPlayer.Environment,
         videoPlayerMulti: VideoPlayerMulti.Environment,
+        elemCellAutomaton: ElemCellAutomatonRoot.Environment,
         gameOfLife: GameOfLifeRoot.Environment
     )
     {
@@ -43,6 +46,7 @@ public struct HomeEnvironment: Sendable
         self.downloader = downloader
         self.videoPlayer = videoPlayer
         self.videoPlayerMulti = videoPlayerMulti
+        self.elemCellAutomaton = elemCellAutomaton
         self.gameOfLife = gameOfLife
     }
 }

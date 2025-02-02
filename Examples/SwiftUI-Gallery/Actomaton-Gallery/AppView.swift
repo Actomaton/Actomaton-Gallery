@@ -23,6 +23,7 @@ import Downloader
 import VideoPlayer
 import VideoPlayerMulti
 import VideoDetector
+import ElemCellAutomaton
 import GameOfLife
 import Physics
 
@@ -54,6 +55,7 @@ struct InjectedAppView: View
 //        VideoPlayerView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //        VideoPlayerMultiView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //        VideoDetectorView_Previews.previews
+//        ElemCellAutomaton_RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //        GameOfLife_RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
 //        PhysicsRootView_Previews.makePreviews(state: .doublePendulum, environment: .live, isMultipleScreens: false)
     }
@@ -77,7 +79,8 @@ struct AppView: View
 //                current: .physics(.pendulum),
 //                current: .physics(.doublePendulum),
 //                current: .physics(.galtonBoard),
-//                current: .gameOfLife(.init(pattern: .glider, cellLength: 5)),
+//                current: .elemCellAutomaton(.init(pattern: .init(rule: 110), cellLength: 5, timerInterval: 0.05)),
+//                current: .gameOfLife(.init(pattern: .glider, cellLength: 5, timerInterval: 0.05)),
 //                current: .videoPlayerMulti(.init(displayMode: .singleSyncedPlayer)),
 
                 current: nil,
@@ -90,7 +93,7 @@ struct AppView: View
             reducer: DebugRoot.reducer(inner: Root.reducer()),
             environment: .live,
             configuration: {
-#if DEBUG
+#if DEBUG && false
                 .init(logFormat: LogFormat()) // Set log-format to enable reducer-logging.
 #else
                 .init()
