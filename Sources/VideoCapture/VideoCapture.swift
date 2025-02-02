@@ -90,12 +90,14 @@ extension VideoCapture
         .init { action, state, environment in
             switch action {
             case .makeSession:
-                let publisher = makeSession(cameraPosition: state.cameraPosition)
-                    .map(Action._didMakeSession)
-                    .catch { Just(Action._error($0)) }
-                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+                return Effect { @MainActor [state] in
+                    let publisher = makeSession(cameraPosition: state.cameraPosition)
+                        .map(Action._didMakeSession)
+                        .catch { Just(Action._error($0)) }
+                        .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return Effect { publisher.toAsyncStream() }
+                    return publisher.toAsyncStream()
+                }
 
             case let ._didMakeSession(sessionID):
                 state.sessionState = .idle(sessionID)
@@ -108,17 +110,21 @@ extension VideoCapture
 
                 state.sessionState = .running(sessionID)
 
-                let sessionPublisher = startSession(sessionID: sessionID)
-                    .map(Action._didOutput)
-                    .catch { Just(Action._error($0))}
-                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+                return Effect { @MainActor in
+                    let sessionPublisher = startSession(sessionID: sessionID)
+                        .map(Action._didOutput)
+                        .catch { Just(Action._error($0))}
+                        .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                let orientationPublisher = startOrientation(interval: 0.1)
-                    .map(Action._didUpdateOrientation)
-                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+                    return sessionPublisher.toAsyncStream()
+                }
+                + Effect(id: OrientationEffectID()) { @MainActor in
+                    let orientationPublisher = startOrientation(interval: 0.1)
+                        .map(Action._didUpdateOrientation)
+                        .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return Effect { sessionPublisher.toAsyncStream() }
-                    + Effect(id: OrientationEffectID()) { orientationPublisher.toAsyncStream() }
+                    return orientationPublisher.toAsyncStream()
+                }
 
             case ._didOutput:
                 // Ignored: Composing reducer should handle this.
@@ -134,27 +140,31 @@ extension VideoCapture
                 }
                 state.cameraPosition.toggle()
 
-                let publisher = setupCaptureSessionInput(
-                    sessionID: sessionID,
-                    cameraPosition: state.cameraPosition
-                )
-                .compactMap { _ in nil }
-                .catch { Just(Action._error($0))}
-                .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+                return Effect { @MainActor [state] in
+                    let publisher = setupCaptureSessionInput(
+                        sessionID: sessionID,
+                        cameraPosition: state.cameraPosition
+                    )
+                    .compactMap { _ in nil }
+                    .catch { Just(Action._error($0))}
+                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return Effect { publisher.toAsyncStream() }
+                    return publisher.toAsyncStream()
+                }
 
             case .stopSession:
                 guard case let .running(sessionID) = state.sessionState else {
                     return .empty
                 }
 
-                let publisher = stopSession(sessionID: sessionID)
-                    .map { _ in Action._didStopSession }
-                    .catch { Just(Action._error($0)) }
-                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+                return Effect { @MainActor in
+                    let publisher = stopSession(sessionID: sessionID)
+                        .map { _ in Action._didStopSession }
+                        .catch { Just(Action._error($0)) }
+                        .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return Effect { publisher.toAsyncStream() }
+                    return publisher.toAsyncStream()
+                }
 
             case ._didStopSession:
                 guard case let .running(sessionID) = state.sessionState else {
@@ -176,11 +186,13 @@ extension VideoCapture
                 }
                 state.sessionState = .noSession
 
-                let publisher = removeSession()
-                    .flatMap { Empty<Action, Never>(completeImmediately: true) }
-                    .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
+                return Effect { @MainActor in
+                    let publisher = removeSession()
+                        .flatMap { Empty<Action, Never>(completeImmediately: true) }
+                        .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return Effect { publisher.toAsyncStream() }
+                    return publisher.toAsyncStream()
+                }
             }
         }
     }

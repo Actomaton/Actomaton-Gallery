@@ -9,6 +9,7 @@ import OrientationKit
 
 // MARK: -  Global states
 
+@MainActor
 internal enum Global
 {
     // TODO: Not meaningful to manage references by dictionary at the moment.
@@ -28,12 +29,14 @@ internal enum Global
 
 // MARK: - CaptureSession
 
+@MainActor
 func makeSessionID() -> SessionID
 {
     Global.currentVideoSessionID.increment()
     return Global.currentVideoSessionID
 }
 
+@MainActor
 func removeSession() -> AnyPublisher<Void, Never>
 {
     Deferred { () -> Just<Void> in
@@ -62,6 +65,7 @@ func removeSession() -> AnyPublisher<Void, Never>
     .eraseToAnyPublisher()
 }
 
+@MainActor
 func makeSession(cameraPosition: AVCaptureDevice.Position) -> AnyPublisher<SessionID, VideoCapture.Error>
 {
     Deferred { () -> AnyPublisher<SessionID, VideoCapture.Error> in
@@ -84,6 +88,7 @@ func makeSession(cameraPosition: AVCaptureDevice.Position) -> AnyPublisher<Sessi
     .eraseToAnyPublisher()
 }
 
+@MainActor
 func setupCaptureSessionInput(
     sessionID: SessionID,
     cameraPosition: AVCaptureDevice.Position
@@ -120,6 +125,7 @@ func setupCaptureSessionInput(
     .eraseToAnyPublisher()
 }
 
+@MainActor
 func setupCaptureSessionOutput(sessionID: SessionID) -> AnyPublisher<Void, VideoCapture.Error>
 {
     Deferred {
@@ -155,6 +161,7 @@ func setupCaptureSessionOutput(sessionID: SessionID) -> AnyPublisher<Void, Video
     .eraseToAnyPublisher()
 }
 
+@MainActor
 func startSession(sessionID: SessionID) -> AnyPublisher<CMSampleBuffer, VideoCapture.Error>
 {
     Deferred { () -> AnyPublisher<CMSampleBuffer, VideoCapture.Error> in
@@ -190,6 +197,7 @@ func startSession(sessionID: SessionID) -> AnyPublisher<CMSampleBuffer, VideoCap
     .eraseToAnyPublisher()
 }
 
+@MainActor
 func stopSession(sessionID: SessionID) -> AnyPublisher<Void, VideoCapture.Error>
 {
     Deferred { () -> AnyPublisher<Void, VideoCapture.Error> in
@@ -234,6 +242,7 @@ func log(_ items: Any...) -> AnyPublisher<Void, Never>
 
 // MARK: - OrientationManager
 
+@MainActor
 func startOrientation(interval: TimeInterval, queue: OperationQueue = .current ?? .main) -> AnyPublisher<UIDeviceOrientation, Never>
 {
     Deferred { () -> AnyPublisher<UIDeviceOrientation, Never> in

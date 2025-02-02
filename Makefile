@@ -1,4 +1,4 @@
-DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 14 Pro'
+DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
 
 # NOTE: Only supports iOS, so `swift build` won't work.
 .PHONY: build-package

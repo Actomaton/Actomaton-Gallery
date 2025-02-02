@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Actomaton-Gallery",
-    platforms: [.macOS(.v11), .iOS(.v14), .watchOS(.v7), .tvOS(.v14)],
+    platforms: [.macOS(.v12), .iOS(.v15), .watchOS(.v8), .tvOS(.v15)],
     products: [
         .library(
             name: "SwiftUI-Gallery",
@@ -19,8 +19,8 @@ let package = Package(
     ],
     dependencies: [
 //        .package(name: "Actomaton", path: "../Actomaton"), // local
-        .package(url: "https://github.com/inamiy/Actomaton", from: "0.8.0"),
-        .package(url: "https://github.com/inamiy/OrientationKit", from: "0.1.0"),
+        .package(url: "https://github.com/inamiy/Actomaton", from: "0.9.0"),
+        .package(url: "https://github.com/inamiy/OrientationKit", from: "0.2.0"),
         .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", branch: "main"),
         .package(url: "https://github.com/inamiy/AVFoundation-Combine", branch: "main"),
         .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1")
