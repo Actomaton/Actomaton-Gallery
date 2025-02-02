@@ -151,6 +151,9 @@ public struct HomeView_Previews: PreviewProvider
                         setPlayer: { _ in }
                     )
                 ),
+                elemCellAutomaton: .init(
+                    timer: { _ in AsyncStream { nil } }
+                ),
                 gameOfLife: .init(
                     loadFavorites: { [] },
                     saveFavorites: { _ in },

@@ -9,6 +9,7 @@ import StateDiagram
 import Stopwatch
 import HttpBin
 import GitHub
+import ElemCellAutomaton
 import GameOfLife
 import VideoPlayer
 import VideoPlayerMulti
@@ -29,6 +30,7 @@ public enum Action: Sendable
     case todo(Todo.Action)
     case httpbin(HttpBin.Action)
     case github(GitHub.Action)
+    case elemCellAutomaton(ElemCellAutomatonRoot.Action)
     case gameOfLife(GameOfLifeRoot.Action)
     case videoPlayer(VideoPlayer.Action)
     case videoPlayerMulti(VideoPlayerMulti.Action)
@@ -140,6 +142,12 @@ public var reducer: Reducer<Action, State, Environment>
         ),
 
         Reducer<Action, State, Environment>.combine(
+            ElemCellAutomatonRoot.reducer()
+                .contramap(action: /Action.elemCellAutomaton)
+                .contramap(state: /State.Current.elemCellAutomaton)
+                .contramap(state: \State.current)
+                .contramap(environment: { $0.elemCellAutomaton }),
+
             GameOfLifeRoot.reducer()
                 .contramap(action: /Action.gameOfLife)
                 .contramap(state: /State.Current.gameOfLife)
