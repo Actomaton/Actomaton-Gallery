@@ -19,7 +19,7 @@ public struct HomeEnvironment: Sendable
     let downloader: Downloader.Environment
     let videoPlayer: VideoPlayer.Environment
     let videoPlayerMulti: VideoPlayerMulti.Environment
-    let gameOfLife: GameOfLife.GameOfLifeRoot.Environment
+    let gameOfLife: GameOfLifeRoot.Environment
 
     public init(
         getDate: @escaping @Sendable () -> Date,
@@ -31,7 +31,7 @@ public struct HomeEnvironment: Sendable
         downloader: Downloader.Environment,
         videoPlayer: VideoPlayer.Environment,
         videoPlayerMulti: VideoPlayerMulti.Environment,
-        gameOfLife: GameOfLife.GameOfLifeRoot.Environment
+        gameOfLife: GameOfLifeRoot.Environment
     )
     {
         self.getDate = getDate

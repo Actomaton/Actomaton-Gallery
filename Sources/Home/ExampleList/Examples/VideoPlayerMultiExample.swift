@@ -5,7 +5,7 @@ import AVFoundation
 
 struct VideoPlayerMultiExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "film") }
+    var exampleIcon: Image { Image(systemName: "film.stack") }
 
     var exampleInitialState: Home.State.Current
     {

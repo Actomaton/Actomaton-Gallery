@@ -4,11 +4,11 @@ import GameOfLife
 
 struct GameOfLifeExample: Example
 {
-    var exampleIcon: Image { Image(systemName: "checkmark.square") }
+    var exampleIcon: Image { Image(systemName: "square.grid.3x3.middle.filled") }
 
     var exampleInitialState: State.Current
     {
-        .gameOfLife(GameOfLife.GameOfLifeRoot.State(pattern: .glider, cellLength: 5, timerInterval: 0.05))
+        .gameOfLife(GameOfLifeRoot.State(pattern: .glider, cellLength: 5, timerInterval: 0.05))
     }
 
     func exampleView(store: Store<Action, State, Environment>) -> AnyView

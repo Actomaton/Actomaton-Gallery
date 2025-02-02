@@ -209,7 +209,7 @@ extension GameOfLife.RootEnvironment: LiveEnvironment
                 let jsonURL = documentsURL.appendingPathComponent(Const.favoritesFileName)
 
                 if !FileManager.default.fileExists(atPath: jsonURL.path) {
-                    return Pattern.defaultPatternNames
+                    return GameOfLife.Pattern.defaultPatternNames
                 }
 
                 let data = try Data(contentsOf: jsonURL)
@@ -236,12 +236,12 @@ extension GameOfLife.RootEnvironment: LiveEnvironment
                     .urls(forResourcesWithExtension: "", subdirectory: "GameOfLife-Patterns")
                 ?? []
 
-                typealias Unit = PatternSelect.Unit
+                typealias Unit = GameOfLife.PatternSelect.Unit
 
                 let sections = try urls
                     .lazy
                     .filter { $0.hasDirectoryPath }
-                    .compactMap { url -> PatternSelect.Section<Unit>? in
+                    .compactMap { url -> GameOfLife.PatternSelect.Section<Unit>? in
                         let dirName = url.lastPathComponent
                         let subURLs = try FileManager.default.contentsOfDirectory(
                             at: url,
@@ -251,7 +251,7 @@ extension GameOfLife.RootEnvironment: LiveEnvironment
                             title: "Pattern: \(dirName)",
                             rows: subURLs
                                 .lazy
-                                .map { subURL -> PatternSelect.Row<Unit> in
+                                .map { subURL -> GameOfLife.PatternSelect.Row<Unit> in
                                     let title = subURL.deletingPathExtension().lastPathComponent
                                     return PatternSelect.Row(
                                         title: title,

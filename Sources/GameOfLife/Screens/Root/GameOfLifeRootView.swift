@@ -110,12 +110,12 @@ public struct RootView: View
 public struct GameOfLife_RootView_Previews: PreviewProvider
 {
     @ViewBuilder
-    public static func makePreviews(environment: GameOfLife.GameOfLifeRoot.Environment, isMultipleScreens: Bool) -> some View
+    public static func makePreviews(environment: GameOfLifeRoot.Environment, isMultipleScreens: Bool) -> some View
     {
         let gameOfLifeView = RootView(
-            store: Store<GameOfLifeRoot.Action, GameOfLifeRoot.State, GameOfLife.GameOfLifeRoot.Environment>(
+            store: Store<GameOfLifeRoot.Action, GameOfLifeRoot.State, GameOfLifeRoot.Environment>(
                 state: .init(pattern: .glider, cellLength: 5, timerInterval: 0.05),
-                reducer: GameOfLife.GameOfLifeRoot.reducer(),
+                reducer: GameOfLifeRoot.reducer(),
                 environment: environment
             )
             .noEnvironment
