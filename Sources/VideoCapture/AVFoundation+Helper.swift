@@ -11,7 +11,7 @@ public func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVC
     return discoverySession.devices.first { $0.position == position }
 }
 
-extension AVCaptureDevice.Position: CustomDebugStringConvertible
+extension AVCaptureDevice.Position: @retroactive CustomDebugStringConvertible
 {
     public mutating func toggle()
     {

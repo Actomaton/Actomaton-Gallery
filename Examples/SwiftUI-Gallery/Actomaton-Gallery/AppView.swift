@@ -105,9 +105,9 @@ struct AppView: View
     }
 }
 
-extension Root.RootView: RootViewProtocol {}
+extension Root.RootView: @retroactive RootViewProtocol {}
 
-extension Root.State: RootStateProtocol
+extension Root.State: @retroactive RootStateProtocol
 {
     public var usesTimeTravel: Bool
     {

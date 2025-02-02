@@ -37,4 +37,4 @@ public typealias Mass = Scalar
 // MARK: - @unchecked Sendable
 
 // TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension AnyHashable: @unchecked Sendable {}
+extension AnyHashable: @retroactive @unchecked Sendable {}

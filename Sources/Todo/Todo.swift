@@ -123,4 +123,4 @@ public enum DisplayMode: Int, CaseIterable, Equatable, Sendable
 // MARK: - @unchecked Sendable
 
 // TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension IndexSet: @unchecked Sendable {}
+extension IndexSet: @retroactive @unchecked Sendable {}

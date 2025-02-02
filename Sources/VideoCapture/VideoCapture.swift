@@ -200,4 +200,4 @@ extension VideoCapture.State.SessionState
 // MARK: - @unchecked Sendable
 
 // TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension CMSampleBuffer: @unchecked Sendable {}
+extension CMSampleBuffer: @retroactive @unchecked Sendable {}
