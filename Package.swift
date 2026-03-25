@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Actomaton-Gallery",
-    platforms: [.macOS(.v12), .iOS(.v15), .watchOS(.v8), .tvOS(.v15)],
+    platforms: [.macOS("15.4"), .iOS("18.4"), .watchOS("11.4"), .tvOS("18.4")],
     products: [
         .library(
             name: "SwiftUI-Gallery",
@@ -19,11 +19,14 @@ let package = Package(
     ],
     dependencies: [
 //        .package(name: "Actomaton", path: "../Actomaton"), // local
-        .package(url: "https://github.com/inamiy/Actomaton", from: "0.9.0"),
+        .package(url: "https://github.com/inamiy/Actomaton", branch: "main"),
+//        .package(url: "https://github.com/inamiy/Actomaton", from: "0.9.0"),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.2.0"),
         .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", branch: "main"),
         .package(url: "https://github.com/inamiy/AVFoundation-Combine", branch: "main"),
-        .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1")
+        .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1"),
+        // Pin to 1.3.0 to avoid swift-issue-reporting vs xctest-dynamic-overlay target conflict.
+        .package(url: "https://github.com/pointfreeco/swift-custom-dump", exact: "1.3.0")
     ],
     targets: [
         .target(
