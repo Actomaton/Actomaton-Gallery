@@ -55,7 +55,9 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
                     let startTime = CFAbsoluteTimeGetCurrent()
 
                     // NOTE: `AVPlayerItem` will require `Sendable` in order to instantiate in background.
-                    let playerItem = AVPlayerItem(asset: asset)
+                    typealias PlayerItemInit = @MainActor (AVAsset, [AVPartialAsyncProperty<AVAsset>]) -> AVPlayerItem
+                    let makeItem: PlayerItemInit = AVPlayerItem.init(asset:automaticallyLoadedAssetKeys:)
+                    let playerItem = makeItem(asset, [])
                     let playerItemInitTime = CFAbsoluteTimeGetCurrent() - startTime
 
                     player.replaceCurrentItem(with: playerItem)

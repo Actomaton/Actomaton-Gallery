@@ -1,35 +1,29 @@
-DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
+DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 
 # NOTE: Only supports iOS, so `swift build` won't work.
 .PHONY: build-package
 build-package:
-	xcodebuild build -scheme Actomaton-Gallery-Package $(DESTINATION) | xcpretty
-
+	xcodebuild build -scheme Actomaton-Gallery-Package $(DESTINATION)
 .PHONY: build-SwiftUI-Basic
 build-SwiftUI-Basic:
 	cd Examples/Actomaton-Basic.swiftpm && \
-	xcodebuild build -scheme Actomaton-Basic $(DESTINATION) | xcpretty
-
+	xcodebuild build -scheme Actomaton-Basic $(DESTINATION)
 .PHONY: build-SwiftUI-Gallery
 build-SwiftUI-Gallery:
 	cd Examples/SwiftUI-Gallery/ && \
-	xcodebuild build -scheme Actomaton-Gallery $(DESTINATION) | xcpretty
-
+	xcodebuild build -scheme Actomaton-Gallery $(DESTINATION)
 .PHONY: build-UIKit-Gallery
 build-UIKit-Gallery:
 	cd Examples/UIKit-Gallery/ && \
-	xcodebuild build -scheme Actomaton-UIKit-Gallery $(DESTINATION) | xcpretty
-
+	xcodebuild build -scheme Actomaton-UIKit-Gallery $(DESTINATION)
 .PHONY: build-Favorite-Sync
 build-Favorite-Sync:
 	cd Examples/Favorite-Sync/ && \
-	xcodebuild build -scheme Actomaton-Favorite-Sync $(DESTINATION) | xcpretty
-
+	xcodebuild build -scheme Actomaton-Favorite-Sync $(DESTINATION)
 .PHONY: build-VideoPlayer
 build-VideoPlayer:
 	cd Examples/VideoPlayer/ && \
-	xcodebuild build -scheme Actomaton-VideoPlayer $(DESTINATION) | xcpretty
-
+	xcodebuild build -scheme Actomaton-VideoPlayer $(DESTINATION)
 .PHONY: build-all
 build-all: build-package build-SwiftUI-Basic build-SwiftUI-Gallery build-UIKit-Gallery build-Favorite-Sync build-VideoPlayer
 
