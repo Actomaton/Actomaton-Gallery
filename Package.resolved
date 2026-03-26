@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "actomaton",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inamiy/Actomaton",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2495542d31ee0342ee231099141978572bd00d10"
+      }
+    },
+    {
       "identity" : "avfoundation-combine",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/inamiy/AVFoundation-Combine",
