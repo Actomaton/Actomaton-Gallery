@@ -1,5 +1,5 @@
-# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
-# https://github.com/actions/virtual-environments/blob/master/images/macos
+# https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
+# https://github.com/actions/runner-images/tree/main/images/macos
 name: CI
 
 on:
@@ -10,40 +10,47 @@ on:
   pull_request:
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_15.0.app
+  DEVELOPER_DIR: /Applications/Xcode_26.0.app
 
 jobs:
-  build-SwiftUI-Basic:
-    runs-on: macos-13
+  build-package:
+    runs-on: macos-26
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - name: Build package
+      run: make build-package
+
+  build-SwiftUI-Basic:
+    runs-on: macos-26
+    steps:
+    - uses: actions/checkout@v4
     - name: Build SwiftUI-Basic
       run: make build-SwiftUI-Basic
 
   build-SwiftUI-Gallery:
-    runs-on: macos-13
+    runs-on: macos-26
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build SwiftUI-Gallery
       run: make build-SwiftUI-Gallery
 
   build-UIKit-Gallery:
-    runs-on: macos-13
+    runs-on: macos-26
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build UIKit-Gallery
       run: make build-UIKit-Gallery
 
   build-Favorite-Sync:
-    runs-on: macos-13
+    runs-on: macos-26
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build Favorite-Sync
       run: make build-Favorite-Sync
 
   build-VideoPlayer:
-    runs-on: macos-13
+    runs-on: macos-26
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build VideoPlayer
       run: make build-VideoPlayer
