@@ -20,7 +20,7 @@ public struct GameOfLifeExample: Example
                 environment: .live
             )
             .noEnvironment,
-            content: GameOfLife.RootView.init
+            content: { GameOfLife.RootView(store: $0) }
         )
     }
 }

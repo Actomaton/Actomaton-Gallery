@@ -20,7 +20,7 @@ public struct GitHubExample: Example
                 environment: .live
             )
             .noEnvironment,
-            content: GitHubView.init
+            content: { GitHubView(store: $0) }
         )
     }
 }

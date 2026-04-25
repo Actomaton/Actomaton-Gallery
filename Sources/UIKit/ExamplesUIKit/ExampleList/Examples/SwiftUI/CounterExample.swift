@@ -18,7 +18,7 @@ public struct CounterExample: Example
                 reducer: Counter.reducer,
                 environment: ()
             ),
-            content: CounterView.init
+            content: { CounterView(store: $0) }
         )
     }
 }

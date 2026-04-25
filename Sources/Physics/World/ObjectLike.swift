@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import VectorMath
 
@@ -31,10 +32,5 @@ protocol _ObjectLike: ObjectLike
     var force: Vector2 { get set }
 }
 
-public typealias ObjectLikeID = AnyHashable
+public typealias ObjectLikeID = UUID
 public typealias Mass = Scalar
-
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension AnyHashable: @retroactive @unchecked Sendable {}
