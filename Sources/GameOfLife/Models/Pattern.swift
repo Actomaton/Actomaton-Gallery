@@ -101,7 +101,7 @@ public struct Pattern: Identifiable, Equatable, Sendable
 
     public static func parseRunLengthEncoded(url: URL) throws -> Pattern
     {
-        let text = try String(contentsOf: url)
+        let text = try String(contentsOf: url, encoding: .utf8)
 
         let assetName = url.deletingPathExtension().lastPathComponent
         let cells = try parseRunLengthEncoded(string: text)

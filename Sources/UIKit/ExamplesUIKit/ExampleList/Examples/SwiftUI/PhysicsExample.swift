@@ -37,7 +37,7 @@ public struct PhysicsExample: Example
                 })
             )
             .noEnvironment,
-            content: PhysicsRootView.init
+            content: { PhysicsRootView(store: $0) }
         )
     }
 }

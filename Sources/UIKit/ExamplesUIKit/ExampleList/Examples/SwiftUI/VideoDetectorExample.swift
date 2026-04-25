@@ -18,7 +18,7 @@ public struct VideoDetectorExample: Example
                 reducer: VideoDetector.reducer,
                 environment: ()
             ),
-            content: VideoDetectorView.init
+            content: { VideoDetectorView(store: $0) }
         )
     }
 }

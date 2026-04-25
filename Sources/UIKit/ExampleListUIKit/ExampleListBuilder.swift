@@ -15,7 +15,7 @@ public enum ExampleListBuilder
 
         let exampleListVC = HostingViewController(
             store: exampleListStore,
-            content: ExampleListView.init
+            content: { ExampleListView(store: $0) }
         )
 
         exampleListStore.subscribeRoutes { [weak exampleListVC] route in

@@ -60,7 +60,7 @@ public struct VideoPlayerMultiView: View
                 store.environment.videoPlayer2.setPlayer(makePlayer())
             }
         }
-        .onChange(of: viewStore.displayMode) { _ in
+        .onChange(of: viewStore.displayMode) { _, _ in
             // Re-subscribe each player on `displayMode` changes.
             childStore1.send(.subscribePlayer)
             childStore2.send(.subscribePlayer)
