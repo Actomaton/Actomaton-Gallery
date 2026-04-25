@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "actomaton",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/inamiy/Actomaton",
+      "state" : {
+        "branch" : "main",
+        "revision" : "bb5353518e687a4cc163bb4f4328806425dc9146"
+      }
+    },
+    {
       "identity" : "avfoundation-combine",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/inamiy/AVFoundation-Combine",
@@ -32,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
       "state" : {
-        "revision" : "a09839348486db8866f85a727b8550be1d671c50",
-        "version" : "0.9.1"
+        "revision" : "bb436421f57269fbcfe7360735985321585a86e5",
+        "version" : "0.10.1"
       }
     },
     {
@@ -59,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-custom-dump",
       "state" : {
-        "revision" : "f01efb26f3a192a0e88dcdb7c3c391ec2fc25d9c",
-        "version" : "1.3.0"
+        "revision" : "06c57924455064182d6b217f06ebc05d00cb2990",
+        "version" : "1.5.0"
       }
     },
     {
