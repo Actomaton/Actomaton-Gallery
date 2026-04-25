@@ -144,7 +144,3 @@ extension VideoDetector
     }
 }
 
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension UIImage: @unchecked Sendable {}

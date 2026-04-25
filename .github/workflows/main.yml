@@ -9,14 +9,13 @@ on:
       - ci/**
   pull_request:
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_26.0.app
-
 jobs:
   build-package:
     runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
     - name: Build package
       run: make build-package
 
@@ -24,6 +23,8 @@ jobs:
     runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
     - name: Build SwiftUI-Basic
       run: make build-SwiftUI-Basic
 
@@ -31,6 +32,8 @@ jobs:
     runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
     - name: Build SwiftUI-Gallery
       run: make build-SwiftUI-Gallery
 
@@ -38,6 +41,8 @@ jobs:
     runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
     - name: Build UIKit-Gallery
       run: make build-UIKit-Gallery
 
@@ -45,6 +50,8 @@ jobs:
     runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
     - name: Build Favorite-Sync
       run: make build-Favorite-Sync
 
@@ -52,5 +59,7 @@ jobs:
     runs-on: macos-26
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
     - name: Build VideoPlayer
       run: make build-VideoPlayer

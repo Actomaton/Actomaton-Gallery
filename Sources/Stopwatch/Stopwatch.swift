@@ -134,11 +134,11 @@ public struct Environment: Sendable
 
 // MARK: - EffectID
 
-public struct TimerEffectID: EffectIDProtocol {}
+public struct TimerEffectID: EffectID {}
 
-public func cancelAllEffectsPredicate(id: EffectID) -> Bool
+public func cancelAllEffectsPredicate(id: any EffectID) -> Bool
 {
-    return id.value is TimerEffectID
+    return id is TimerEffectID
 }
 
 // MARK: - Reducer
@@ -200,7 +200,3 @@ public var reducer: Reducer<Action, State, Environment>
     }
 }
 
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension Date: @unchecked Sendable {}

@@ -89,7 +89,7 @@ extension Game
 
     // MARK: - EffectID
 
-    static func cancelAllEffectsPredicate(id: EffectID) -> Bool
+    static func cancelAllEffectsPredicate(id: any EffectID) -> Bool
     {
         CanvasPlayer.cancelAllEffectsPredicate(id: id)
     }

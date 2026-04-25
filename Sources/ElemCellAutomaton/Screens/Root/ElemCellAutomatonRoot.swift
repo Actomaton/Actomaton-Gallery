@@ -31,7 +31,7 @@ extension ElemCellAutomatonRoot
 
     public typealias Environment = RootEnvironment
 
-    public static func cancelAllEffectsPredicate(id: EffectID) -> Bool
+    public static func cancelAllEffectsPredicate(id: any EffectID) -> Bool
     {
         Game.cancelAllEffectsPredicate(id: id)
     }

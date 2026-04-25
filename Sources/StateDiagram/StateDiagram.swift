@@ -28,7 +28,7 @@ public typealias Environment = ()
 
 // MARK: - Effect
 
-public struct LoginFlowEffectQueue: Newest1EffectQueueProtocol {}
+public struct LoginFlowEffectQueue: Newest1EffectQueue {}
 
 // MARK: - Reducer
 

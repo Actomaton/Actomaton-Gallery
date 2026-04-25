@@ -26,7 +26,7 @@ let package = Package(
         .package(url: "https://github.com/inamiy/AVFoundation-Combine", branch: "main"),
         .package(url: "https://github.com/nicklockwood/VectorMath", from: "0.4.1"),
         // Pin to 1.3.0 to avoid swift-issue-reporting vs xctest-dynamic-overlay target conflict.
-        .package(url: "https://github.com/pointfreeco/swift-custom-dump", exact: "1.3.0")
+        // .package(url: "https://github.com/pointfreeco/swift-custom-dump", exact: "1.3.0")
     ],
     targets: [
         .target(
@@ -42,7 +42,7 @@ let package = Package(
             name: "CanvasPlayer",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
-                "Utilities"
+                "CommonUI", "Utilities"
             ]),
         .target(
             name: "ImageLoader",
@@ -52,7 +52,10 @@ let package = Package(
             dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "Tabs",
-            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
+            dependencies: [
+                .product(name: "ActomatonUI", package: "Actomaton"),
+                "Utilities"
+            ]),
         .target(
             name: "Counter",
             dependencies: [
@@ -114,7 +117,7 @@ let package = Package(
             name: "ElemCellAutomaton",
             dependencies: [
                 .product(name: "ActomatonUI", package: "Actomaton"),
-                "CanvasPlayer", "Utilities"
+                "CommonUI", "CanvasPlayer", "Utilities"
             ]),
         .target(
             name: "GameOfLife",

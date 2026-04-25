@@ -80,7 +80,7 @@ extension PhysicsRoot
 
     // MARK: - EffectID
 
-    public static func cancelAllEffectsPredicate(id: EffectID) -> Bool
+    public static func cancelAllEffectsPredicate(id: any EffectID) -> Bool
     {
         CanvasPlayer.cancelAllEffectsPredicate(id: id)
     }

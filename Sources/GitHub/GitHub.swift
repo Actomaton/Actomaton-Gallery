@@ -128,11 +128,11 @@ public struct Environment: Sendable
 
 // MARK: - EffectID
 
-public struct GitHubRequestID: EffectIDProtocol {}
+public struct GitHubRequestID: EffectID {}
 
-public func cancelAllEffectsPredicate(id: EffectID) -> Bool
+public func cancelAllEffectsPredicate(id: any EffectID) -> Bool
 {
-    id.value is GitHubRequestID || id.value is ImageLoader.ImageEffectID
+    id is GitHubRequestID || id is ImageLoader.ImageEffectID
 }
 
 // MARK: - Reducer

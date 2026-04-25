@@ -68,11 +68,11 @@ public struct Environment: Sendable
 
 // MARK: - EffectID
 
-private struct TimerEffectID: EffectIDProtocol {}
+private struct TimerEffectID: EffectID {}
 
-public func cancelAllEffectsPredicate(id: EffectID) -> Bool
+public func cancelAllEffectsPredicate(id: any EffectID) -> Bool
 {
-    return id.value is TimerEffectID
+    return id is TimerEffectID
 }
 
 // MARK: - Reducer

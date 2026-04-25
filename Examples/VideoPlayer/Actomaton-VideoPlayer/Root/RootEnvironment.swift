@@ -175,4 +175,4 @@ extension RootEnvironment
 
 // MARK: - EffectQueue
 
-struct PlayerSubscriptionEffectQueue: Newest1EffectQueueProtocol {}
+struct PlayerSubscriptionEffectQueue: Newest1EffectQueue {}

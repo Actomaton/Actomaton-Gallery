@@ -44,13 +44,13 @@ public struct Environment: Sendable
 
 // MARK: - EffectID
 
-public struct HttpBinRequestID: EffectIDProtocol {}
+public struct HttpBinRequestID: EffectID {}
 
-public struct HttpBinRequestQueue: Oldest1DiscardNewEffectQueueProtocol {}
+public struct HttpBinRequestQueue: Oldest1DiscardNewEffectQueue {}
 
-public func cancelAllEffectsPredicate(id: EffectID) -> Bool
+public func cancelAllEffectsPredicate(id: any EffectID) -> Bool
 {
-    id.value is HttpBinRequestID
+    id is HttpBinRequestID
 }
 
 // MARK: - Reducer

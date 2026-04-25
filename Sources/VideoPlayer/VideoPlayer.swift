@@ -54,7 +54,7 @@ public struct Environment: Sendable
 // MARK: - EffectQueue
 
 /// Player observation queue per each `label`, with old subscription auto-cancellation.
-public struct PlayerSubscriptionQueue: Newest1EffectQueueProtocol
+public struct PlayerSubscriptionQueue: Newest1EffectQueue
 {
     /// Label used to identify a video player in case of multiple players being presented at same time,
     /// but each player's subscription (effect) should not interfere with each other.

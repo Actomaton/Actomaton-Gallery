@@ -91,7 +91,7 @@ extension PhysicsRoot.State
 extension PhysicsRoot.State.Current
 {
     /// Used for previous screen's effects cancellation.
-    var cancelAllEffectsPredicate: (EffectID) -> Bool
+    var cancelAllEffectsPredicate: (any EffectID) -> Bool
     {
         CanvasPlayer.cancelAllEffectsPredicate
     }

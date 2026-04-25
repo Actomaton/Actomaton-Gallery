@@ -43,7 +43,3 @@ public struct TabItem<InnerState, ID>: Equatable, Identifiable, Sendable
     }
 }
 
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension Image: @unchecked Sendable {}

@@ -67,7 +67,7 @@ extension State
 extension State.Current
 {
     /// Used for previous screen's effects cancellation.
-    var cancelAllEffectsPredicate: (EffectID) -> Bool
+    var cancelAllEffectsPredicate: (any EffectID) -> Bool
     {
         switch self {
         case .stopwatch:
