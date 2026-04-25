@@ -1,6 +1,5 @@
 import SwiftUI
 import AVFoundation
-import Combine
 
 #if (os(iOS) || os(tvOS))
 import UIKit
@@ -45,7 +44,8 @@ extension VideoPreviewView
         let previewLayer: AVCaptureVideoPreviewLayer
         let detectedLayers: [CALayer]
 
-        private let cancellable: AnyCancellable
+        private let rotationCoordinator: AVCaptureDevice.RotationCoordinator?
+        private let rotationObservation: NSKeyValueObservation?
 
         public init(session: AVCaptureSession)
         {
@@ -67,17 +67,28 @@ extension VideoPreviewView
 
             self.detectedLayers = (1...100).map { _ in makeDetectedLayer() }
 
-            self.cancellable = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-                .map { _ in () }
-                .prepend(()) // initial run
-                .sink { [previewLayer] in
-                    let interfaceOrientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-                    if let interfaceOrientation = interfaceOrientation,
-                       let orientation = AVCaptureVideoOrientation.init(interfaceOrientation: interfaceOrientation)
-                    {
-                        previewLayer.connection?.videoOrientation = orientation
-                    }
+            let device = session.inputs
+                .compactMap { $0 as? AVCaptureDeviceInput }
+                .first?
+                .device
+
+            if let device {
+                let coordinator = AVCaptureDevice.RotationCoordinator(
+                    device: device,
+                    previewLayer: previewLayer
+                )
+                self.rotationCoordinator = coordinator
+                self.rotationObservation = coordinator.observe(
+                    \.videoRotationAngleForHorizonLevelPreview,
+                    options: [.initial, .new]
+                ) { coordinator, _ in
+                    previewLayer.connection?.videoRotationAngle = coordinator.videoRotationAngleForHorizonLevelPreview
                 }
+            }
+            else {
+                self.rotationCoordinator = nil
+                self.rotationObservation = nil
+            }
 
             super.init(frame: .zero)
 

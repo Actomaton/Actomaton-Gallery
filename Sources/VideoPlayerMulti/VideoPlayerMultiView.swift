@@ -78,7 +78,10 @@ public struct VideoPlayerMultiView: View
                 childStore.send(.start)
             }
             .onDisappear {
-                childStore.send(.stop)
+                // Tear down synchronously: action route may not reach the
+                // reducer if the Store is being deallocated alongside the view.
+                childStore.environment.getPlayer()?.pause()
+                childStore.environment.setPlayer(nil)
             }
     }
 }

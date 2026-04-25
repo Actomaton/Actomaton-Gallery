@@ -27,7 +27,10 @@ struct VideoPlayerExample: Example
                         store.send(.start)
                     }
                     .onDisappear {
-                        store.send(.stop)
+                        // Tear down synchronously: action route may not reach the
+                        // reducer if the Store is being deallocated alongside the view.
+                        store.environment.getPlayer()?.pause()
+                        store.environment.setPlayer(nil)
                     }
             }
         )
@@ -37,7 +40,7 @@ struct VideoPlayerExample: Example
 // MARK: - Private
 
 private func makePlayer() -> AVPlayer {
-    let urlString = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    let urlString = "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4"
     let player = AVPlayer(url: URL(string: urlString)!)
     return player
 }
