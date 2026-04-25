@@ -71,7 +71,7 @@ extension TabItem
         title: String,
         image: UIImage,
         store: Store<Action, State, Environment>,
-        view: @escaping (Store<Action, State, Void>) -> V
+        view: @escaping @Sendable (Store<Action, State, Void>) -> V
     ) where State: Equatable
     {
         self.id = id
@@ -102,4 +102,4 @@ extension TabItem
 
 // TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
 
-extension UITabBarItem: @unchecked Sendable {}
+extension UITabBarItem: @retroactive @unchecked Sendable {}

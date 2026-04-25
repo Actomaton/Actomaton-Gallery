@@ -35,9 +35,9 @@ public struct Environment: Sendable
 
 // MARK: - EffectID
 
-public struct ImageEffectID: EffectIDProtocol {}
+public struct ImageEffectID: EffectID {}
 
-public struct ImageEffectQueue: Oldest1SuspendNewEffectQueueProtocol {}
+public struct ImageEffectQueue: Oldest1SuspendNewEffectQueue {}
 
 // MARK: - Reducer
 
@@ -94,8 +94,3 @@ public struct Response
     public let image: UIImage
 }
 
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension URL: @unchecked Sendable {}
-extension UIImage: @unchecked Sendable {}

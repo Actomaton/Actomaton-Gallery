@@ -183,19 +183,19 @@ public struct Environment: Sendable
 
 // MARK: - EffectID
 
-public struct DownloaderEffectID: EffectIDProtocol
+public struct DownloaderEffectID: EffectID
 {
     let downloadID: DownloadID
 }
 
-public func cancelAllEffectsPredicate(id: EffectID) -> Bool
+public func cancelAllEffectsPredicate(id: any EffectID) -> Bool
 {
-    return id.value is DownloaderEffectID
+    return id is DownloaderEffectID
 }
 
 // MARK: - EffectQueue
 
-public struct DownloaderEffectQueue: EffectQueueProtocol
+public struct DownloaderEffectQueue: EffectQueue
 {
     public var effectQueuePolicy: EffectQueuePolicy
     {
@@ -207,23 +207,23 @@ public struct DownloaderEffectQueue: EffectQueueProtocol
 
 public var reducer: Reducer<Action, State, Environment>
 {
-    .init { action, state, environment in
+    Reducer<Action, State, Environment> { action, state, environment in
         switch action {
         case .downloadAll:
-            let downloads = Effect<Action>.nextAction(.download(id: "item-01"))
-                + .nextAction(.download(id: "item-02"))
-                + .nextAction(.download(id: "item-03"))
-                + .nextAction(.download(id: "item-04"))
-                + .nextAction(.download(id: "item-05"))
+            let downloadIDs: [DownloadID] = [
+                "item-01", "item-02", "item-03", "item-04", "item-05",
+            ]
+            let downloads: Effect<Action> = downloadIDs
+                .map { Effect<Action>.nextAction(.download(id: $0)) }
+                .reduce(Effect<Action>.empty, +)
 
-            return Effect.nextAction(.cancelAll)
-                + downloads
+            return Effect<Action>.nextAction(.cancelAll) + downloads
 
         case .cancelAll:
             for (downloadID, progress) in state.runningTasks where progress.canCancel {
                 state.runningTasks[downloadID] = .cancelled
             }
-            return .cancel(ids: { $0.value is DownloaderEffectID })
+            return .cancel(ids: { $0 is DownloaderEffectID })
 
         case let .download(downloadID):
             state.runningTasks[downloadID] = .waiting(progress: 0)

@@ -208,7 +208,3 @@ extension PatternSelect.State.Status
     }
 }
 
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension URL: @unchecked Sendable {}

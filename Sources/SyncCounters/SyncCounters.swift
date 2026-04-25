@@ -77,7 +77,3 @@ public var reducer: Reducer<Action, State, Environment>
     }
 }
 
-// MARK: - @unchecked Sendable
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-extension UUID: @unchecked Sendable {}

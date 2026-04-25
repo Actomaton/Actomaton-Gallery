@@ -81,7 +81,7 @@ extension VideoCapture
 
     // MARK: - EffectID
 
-    public struct OrientationEffectID: EffectIDProtocol {}
+    public struct OrientationEffectID: EffectID {}
 
     // MARK: - Reducer
 
