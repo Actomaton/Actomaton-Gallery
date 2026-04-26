@@ -24,8 +24,6 @@ extension AVPlayerItemAccessLogEvent
         output["numberOfDroppedVideoFrames"] = numberOfDroppedVideoFrames
         output["startupTime"] = startupTime
         output["downloadOverdue"] = downloadOverdue
-        output["observedMaxBitrate"] = observedMaxBitrate
-        output["observedMinBitrate"] = observedMinBitrate
         output["observedBitrateStandardDeviation"] = observedBitrateStandardDeviation
         output["playbackType"] = playbackType
         output["mediaRequestsWWAN"] = mediaRequestsWWAN
@@ -84,7 +82,7 @@ extension AVMutableComposition
         _ assets: Assets,
         mediaType: AVMediaType,
         totalDuration: CMTime = .positiveInfinity
-    ) throws
+    ) async throws
         where Assets: Sequence, Assets.Element: AVAsset
     {
         guard let compositionTrack = addMutableTrack(withMediaType: mediaType, preferredTrackID: kCMPersistentTrackID_Invalid) else {
@@ -95,30 +93,30 @@ extension AVMutableComposition
         for asset in assets {
             if time > totalDuration { break }
 
-            guard let assetTrack = asset.tracks(withMediaType: mediaType).first else { continue }
+            guard let assetTrack = try await asset.loadTracks(withMediaType: mediaType).first else { continue }
 
             if mediaType == .video, time == .zero {
-                compositionTrack.preferredTransform = assetTrack.preferredTransform
+                compositionTrack.preferredTransform = try await assetTrack.load(.preferredTransform)
             }
 
-            let nextTime = CMTimeAdd(time, asset.duration)
+            let assetDuration = try await asset.load(.duration)
+            let nextTime = CMTimeAdd(time, assetDuration)
 
             let shouldTrim = nextTime > totalDuration
 
-            let assetDuration: CMTime
-
+            let insertDuration: CMTime
             if shouldTrim {
-                assetDuration = CMTimeSubtract(totalDuration, time)
+                insertDuration = CMTimeSubtract(totalDuration, time)
             } else {
-                assetDuration = asset.duration
+                insertDuration = assetDuration
             }
 
             try compositionTrack.insertTimeRange(
-                .init(start: .zero, duration: assetDuration),
+                .init(start: .zero, duration: insertDuration),
                 of: assetTrack,
                 at: time
             )
-            time = CMTimeAdd(time, asset.duration)
+            time = CMTimeAdd(time, assetDuration)
         }
     }
 }

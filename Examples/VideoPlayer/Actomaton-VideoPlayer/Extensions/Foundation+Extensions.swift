@@ -1,7 +1,7 @@
 import AVFoundation
 import Foundation
 
-extension CMTimeRange: CustomStringConvertible
+extension CMTimeRange: @retroactive CustomStringConvertible
 {
     public var description: String
     {
@@ -9,7 +9,7 @@ extension CMTimeRange: CustomStringConvertible
     }
 }
 
-extension String: Identifiable
+extension String: @retroactive Identifiable
 {
     public var id: String
     {

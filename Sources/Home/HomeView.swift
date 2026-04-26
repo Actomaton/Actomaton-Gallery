@@ -66,11 +66,6 @@ public struct HomeView: View
                             isPresenting ? example.exampleInitialState : nil
                         }
                     )
-                // Comment-Out: `removeDuplictates()` introduced in #3 seems not needed in iOS 15.
-                // https://github.com/inamiy/Harvest-SwiftUI-Gallery/pull/3
-                //
-                // Workaround for SwiftUI's duplicated `isPresenting = false` calls per 1 dismissal.
-                // .removeDuplictates()
             ) {
                 HStack(alignment: .firstTextBaseline) {
                     example.exampleIcon

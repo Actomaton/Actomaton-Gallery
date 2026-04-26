@@ -1,6 +1,6 @@
 # 🖼 Actomaton-Gallery
 
-[![Xcode 15](https://img.shields.io/badge/xcode-15-blue.svg?style=flat)](https://developer.apple.com/download/release/) [![Swift 5.9](https://img.shields.io/badge/swift-5.9-orange.svg?style=flat)](https://swift.org/download/)
+[![Swift 6.2](https://img.shields.io/badge/swift-6.2-orange.svg?style=flat)](https://swift.org/download/)
 ![](https://github.com/inamiy/Actomaton-Gallery/actions/workflows/main.yml/badge.svg)
 
 Gallery App for [Actomaton](https://github.com/inamiy/Actomaton) (Actor + Elm Architecture) + SwiftUI.

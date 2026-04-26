@@ -3,7 +3,7 @@
     {
       "identity" : "actomaton",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/Actomaton",
+      "location" : "https://github.com/Actomaton/Actomaton",
       "state" : {
         "branch" : "main",
         "revision" : "bb5353518e687a4cc163bb4f4328806425dc9146"

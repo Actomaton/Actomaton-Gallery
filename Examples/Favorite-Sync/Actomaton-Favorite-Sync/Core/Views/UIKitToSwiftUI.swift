@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 /// Conversion from `UIKit.UIView` to `SwiftUI.View`.
+@MainActor
 public func uiViewToSwiftUI<V: UIView>(
     make: (() -> V)? = nil
 ) -> some UIViewRepresentable
@@ -10,6 +11,7 @@ public func uiViewToSwiftUI<V: UIView>(
 }
 
 /// Conversion from `UIKit.UIViewController` to `SwiftUI.View`.
+@MainActor
 public func uiViewControllerToSwiftUI<VC: UIViewController>(
     make: (() -> VC)? = nil
 ) -> some UIViewControllerRepresentable

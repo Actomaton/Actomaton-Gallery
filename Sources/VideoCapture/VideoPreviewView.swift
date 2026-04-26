@@ -1,5 +1,5 @@
 import SwiftUI
-import AVFoundation
+@preconcurrency import AVFoundation
 
 #if (os(iOS) || os(tvOS))
 import UIKit
@@ -78,11 +78,16 @@ extension VideoPreviewView
                     previewLayer: previewLayer
                 )
                 self.rotationCoordinator = coordinator
+
+                // Workaround to suppress warning:
+                // "Capture of 'previewLayer' with non-Sendable type 'AVCaptureVideoPreviewLayer' in a '@Sendable' closure"
+                nonisolated(unsafe) let unsafePreviewLayer = previewLayer
+
                 self.rotationObservation = coordinator.observe(
                     \.videoRotationAngleForHorizonLevelPreview,
                     options: [.initial, .new]
                 ) { coordinator, _ in
-                    previewLayer.connection?.videoRotationAngle = coordinator.videoRotationAngleForHorizonLevelPreview
+                    unsafePreviewLayer.connection?.videoRotationAngle = coordinator.videoRotationAngleForHorizonLevelPreview
                 }
             }
             else {

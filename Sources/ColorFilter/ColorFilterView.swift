@@ -97,8 +97,10 @@ public struct ColorFilterView: View
     }
 }
 
+@MainActor
 private let pickerPattern: PickerPattern = .any(of: [.images, .livePhotos])
 
+@MainActor
 private let pickerConfig: PHPickerConfiguration = {
     var config = PHPickerConfiguration()
     config.filter = pickerPattern.filter

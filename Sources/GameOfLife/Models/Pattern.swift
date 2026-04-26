@@ -79,7 +79,7 @@ public struct Pattern: Identifiable, Equatable, Sendable
             if body.first == "$" { body = String(body.dropFirst()); row += 1; col = 0; continue }
 
             let num = Scanner(string: body).scanInt() ?? 1
-            body = String(body.drop(while: ("0" ... "9").contains))
+            body = String(body.drop(while: { ("0"..."9").contains($0) }))
 
             guard let char = Scanner(string: body).scanCharacter() else {
                 throw ParseError(message: "Parsing either `b` or `o` failed.")

@@ -1,6 +1,6 @@
 import UIKit
 import AVFoundation
-import Vision
+@preconcurrency import Vision
 import Combine
 import ActomatonUI
 import VideoCapture

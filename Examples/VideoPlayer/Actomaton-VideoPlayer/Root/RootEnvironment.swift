@@ -163,7 +163,8 @@ extension RootEnvironment
         let asset = currentItem.asset
         let currentTime = player.currentTime().seconds
 
-        let seekTime = CMTime(seconds: seekTime(currentTime), preferredTimescale: asset.duration.timescale)
+        let duration = (try? await asset.load(.duration)) ?? .zero
+        let seekTime = CMTime(seconds: seekTime(currentTime), preferredTimescale: duration.timescale)
 
         await withCheckedContinuation { continuation in
             player.seek(to: seekTime) { _ in

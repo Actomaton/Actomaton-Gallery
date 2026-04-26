@@ -18,21 +18,21 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
                     guard let url = videoURL() else { return nil }
 
                     let startTime = CFAbsoluteTimeGetCurrent()
-                    let asset = AVAsset(url: url)
+                    let asset = AVURLAsset(url: url)
                     let assetInitTime = CFAbsoluteTimeGetCurrent() - startTime
 
                     return RootAction._reload((asset, assetInitTime: assetInitTime))
 
                 case let .composition(videoURLs):
                     let urls = videoURLs()
-                    let assets = urls.map(AVAsset.init(url:))
+                    let assets = urls.map(AVURLAsset.init(url:))
 
                     let startTime = CFAbsoluteTimeGetCurrent()
 
-                    let composition: AVComposition = try {
+                    let composition: AVComposition = try await {
                         let composition = AVMutableComposition()
-                        try composition.composeAssetsInSequence(assets, mediaType: .video)
-                        try composition.composeAssetsInSequence(assets, mediaType: .audio)
+                        try await composition.composeAssetsInSequence(assets, mediaType: .video)
+                        try await composition.composeAssetsInSequence(assets, mediaType: .audio)
                         return composition
                     }()
 

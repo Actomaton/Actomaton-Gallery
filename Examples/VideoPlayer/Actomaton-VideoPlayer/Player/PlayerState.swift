@@ -25,7 +25,6 @@ struct PlayerState: Equatable, Sendable
     var outputVolume: Float = .nan
     var errorString: String?
 
-    var playbackStalled: Notification?
     var timedMetadataGroups: [AVTimedMetadataGroup] = []
     var newAccessLogEvent: String? // AVPlayerItemAccessLogEvent?
     var newErrorLogEvent: String?  // AVPlayerItemErrorLogEvent?
