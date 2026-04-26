@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F9153AB28B04443003FA573 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 1F9153AA28B04443003FA573 /* Inject */; };
+		1FCAA1492F9E00FC008808F9 /* InjectedAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAA1482F9E00F4008808F9 /* InjectedAppView.swift */; };
 		1FE7A1662711C9AA0048FFD8 /* SwiftUI-Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = 1FE7A1652711C9AA0048FFD8 /* SwiftUI-Gallery */; };
 		332642E726E4056F00438A10 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332642E226E4056F00438A10 /* DemoApp.swift */; };
 		3326433E26E4094200438A10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3326433C26E4094200438A10 /* AppView.swift */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		1F80CC0C27428A5E001AA7B6 /* Actomaton-Gallery.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Actomaton-Gallery.entitlements"; sourceTree = "<group>"; };
+		1FCAA1482F9E00F4008808F9 /* InjectedAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedAppView.swift; sourceTree = "<group>"; };
 		332642E226E4056F00438A10 /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		3326433C26E4094200438A10 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		339BF50727E4B62B009A90ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "Actomaton-Gallery/Info.plist"; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			children = (
 				1F80CC0C27428A5E001AA7B6 /* Actomaton-Gallery.entitlements */,
 				332642E226E4056F00438A10 /* DemoApp.swift */,
+				1FCAA1482F9E00F4008808F9 /* InjectedAppView.swift */,
 				3326433C26E4094200438A10 /* AppView.swift */,
 				33E8F81E26E3B375009CC65D /* Assets.xcassets */,
 				33E8F82026E3B375009CC65D /* Preview Content */,
@@ -164,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3326433E26E4094200438A10 /* AppView.swift in Sources */,
+				1FCAA1492F9E00FC008808F9 /* InjectedAppView.swift in Sources */,
 				332642E726E4056F00438A10 /* DemoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

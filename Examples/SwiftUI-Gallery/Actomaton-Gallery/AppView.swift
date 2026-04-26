@@ -27,68 +27,39 @@ import ElemCellAutomaton
 import GameOfLife
 import Physics
 
-@MainActor
-struct InjectedAppView: View
-{
-    @ObserveInjection var inject
-
-    var body: some View
-    {
-        AppView()
-
-//        RootView_Previews.makePreviews(state: .initialState, environment: .live, isMultipleScreens: false)
-//        HomeView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//
-//        ----------------------------------------
-//        Per screen
-//        ----------------------------------------
-//        CounterView_Previews.previews
-//        SyncCountersView_Previews.previews
-//        AnimationDemoView_Previews.previews
-//        ColorFilterView_Previews.previews
-//        TodoView_Previews.previews
-//        StateDiagramView_Previews.previews
-//        StopwatchView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        HttpBinView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        GitHubView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        DownloaderView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        VideoPlayerView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        VideoPlayerMultiView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        VideoDetectorView_Previews.previews
-//        ElemCellAutomaton_RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        GameOfLife_RootView_Previews.makePreviews(environment: .live, isMultipleScreens: false)
-//        PhysicsRootView_Previews.makePreviews(state: .doublePendulum, environment: .live, isMultipleScreens: false)
-    }
-}
-
 /// Topmost container view of the app which holds `Store` as a single source of truth.
 @MainActor
 struct AppView: View
 {
-    private var store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>
+    let store: Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>
 
-    init()
+    var body: some View
     {
-            let initialHomeState = Home.State(
-//                current: .counter(.init(count: 0)),
-//                current: .syncCounters(.init(common: .init(numberOfCounters: 1), counterState: .init(count: 0))),
-//                current: .physics(.init(current: nil)),
-//                current: .physics(.gravityUniverse),
-//                current: .physics(.gravitySurface),
-//                current: .physics(.collision),
-//                current: .physics(.pendulum),
-//                current: .physics(.doublePendulum),
-//                current: .physics(.galtonBoard),
-//                current: .elemCellAutomaton(.init(pattern: .init(rule: 110), cellLength: 5, timerInterval: 0.05)),
-//                current: .gameOfLife(.init(pattern: .glider, cellLength: 5, timerInterval: 0.05)),
-//                current: .videoPlayerMulti(.init(displayMode: .singleSyncedPlayer)),
+        DebugRootView<Root.RootView>(store: self.store)
+    }
 
-                current: nil,
-                usesTimeTravel: true,
-                isDebuggingTab: false
-            )
+    static func makeStore() -> Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>
+    {
+        let initialHomeState = Home.State(
+//            current: .counter(.init(count: 0)),
+//            current: .syncCounters(.init(common: .init(numberOfCounters: 1), counterState: .init(count: 0))),
+//            current: .physics(.init(current: nil)),
+//            current: .physics(.gravityUniverse),
+//            current: .physics(.gravitySurface),
+//            current: .physics(.collision),
+//            current: .physics(.pendulum),
+//            current: .physics(.doublePendulum),
+//            current: .physics(.galtonBoard),
+//            current: .elemCellAutomaton(.init(pattern: .init(rule: 110), cellLength: 5, timerInterval: 0.05)),
+//            current: .gameOfLife(.init(pattern: .glider, cellLength: 5, timerInterval: 0.05)),
+//            current: .videoPlayerMulti(.init(displayMode: .singleSyncedPlayer)),
 
-        self.store = Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>(
+            current: nil,
+            usesTimeTravel: true,
+            isDebuggingTab: false
+        )
+
+        return Store<DebugRoot.Action<Root.Action>, DebugRoot.State<Root.State>, HomeEnvironment>(
             state: DebugRoot.State(inner: Root.State.initialState(homeState: initialHomeState)),
             reducer: DebugRoot.reducer(inner: Root.reducer()),
             environment: .live,
@@ -100,11 +71,6 @@ struct AppView: View
 #endif
             }()
         )
-    }
-
-    var body: some View
-    {
-        DebugRootView<Root.RootView>(store: self.store)
     }
 }
 
