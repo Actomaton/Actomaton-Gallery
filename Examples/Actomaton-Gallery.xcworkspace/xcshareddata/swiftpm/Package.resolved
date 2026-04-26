@@ -1,0 +1,115 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Actomaton",
+        "repositoryURL": "https://github.com/Actomaton/Actomaton",
+        "state": {
+          "branch": "main",
+          "revision": "bb5353518e687a4cc163bb4f4328806425dc9146",
+          "version": null
+        }
+      },
+      {
+        "package": "AVFoundation-Combine",
+        "repositoryURL": "https://github.com/inamiy/AVFoundation-Combine",
+        "state": {
+          "branch": "main",
+          "revision": "637ba786561616297554365d12402414d5024335",
+          "version": null
+        }
+      },
+      {
+        "package": "CombineCocoa",
+        "repositoryURL": "https://github.com/CombineCommunity/CombineCocoa",
+        "state": {
+          "branch": null,
+          "revision": "7300c75ff9e072aa7fd0fccefcc88f74aae9bf56",
+          "version": "0.4.1"
+        }
+      },
+      {
+        "package": "Inject",
+        "repositoryURL": "https://github.com/krzysztofzablocki/Inject",
+        "state": {
+          "branch": null,
+          "revision": "f53380e986a8b056e37d7ce9ca68de610b8415ef",
+          "version": "1.6.0"
+        }
+      },
+      {
+        "package": "OrientationKit",
+        "repositoryURL": "https://github.com/inamiy/OrientationKit",
+        "state": {
+          "branch": null,
+          "revision": "0341a47ce116cf6a25a164981ecb1de28f06ea53",
+          "version": "0.2.0"
+        }
+      },
+      {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "bb436421f57269fbcfe7360735985321585a86e5",
+          "version": "0.10.1"
+        }
+      },
+      {
+        "package": "swift-clocks",
+        "repositoryURL": "https://github.com/pointfreeco/swift-clocks",
+        "state": {
+          "branch": null,
+          "revision": "cc46202b53476d64e824e0b6612da09d84ffde8e",
+          "version": "1.0.6"
+        }
+      },
+      {
+        "package": "swift-concurrency-extras",
+        "repositoryURL": "https://github.com/pointfreeco/swift-concurrency-extras",
+        "state": {
+          "branch": null,
+          "revision": "5a3825302b1a0d744183200915a47b508c828e6f",
+          "version": "1.3.2"
+        }
+      },
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "06c57924455064182d6b217f06ebc05d00cb2990",
+          "version": "1.5.0"
+        }
+      },
+      {
+        "package": "SwiftUI-PhotoPicker",
+        "repositoryURL": "https://github.com/inamiy/SwiftUI-PhotoPicker",
+        "state": {
+          "branch": "main",
+          "revision": "7fa6cc560e9c48dca41de152686ebd572eb88edf",
+          "version": null
+        }
+      },
+      {
+        "package": "VectorMath",
+        "repositoryURL": "https://github.com/nicklockwood/VectorMath",
+        "state": {
+          "branch": null,
+          "revision": "2de2585f455dc8e15d642ca51b29b1917e68fd1e",
+          "version": "0.4.1"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "dfd70507def84cb5fb821278448a262c6ff2bbad",
+          "version": "1.9.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -18,7 +18,7 @@ public enum HomeBuilder
 
         let vc = usesUIKit
             ? CardListViewController(store: store)
-            : HostingViewController(store: store.noEnvironment, content: CardListView.init)
+            : HostingViewController(store: store.noEnvironment, content: { CardListView(store: $0) })
         vc.title = "Home"
         vc.tabBarItem = UITabBarItem(
             title: "Home",
