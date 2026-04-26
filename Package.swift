@@ -19,8 +19,8 @@ let package = Package(
     ],
     dependencies: [
 //        .package(name: "Actomaton", path: "../Actomaton"), // local
-        .package(url: "https://github.com/inamiy/Actomaton", branch: "main"),
-//        .package(url: "https://github.com/inamiy/Actomaton", from: "0.9.0"),
+        .package(url: "https://github.com/Actomaton/Actomaton", branch: "main"),
+//        .package(url: "https://github.com/Actomaton/Actomaton", from: "0.9.0"),
         .package(url: "https://github.com/inamiy/OrientationKit", from: "0.2.0"),
         .package(url: "https://github.com/inamiy/SwiftUI-PhotoPicker", branch: "main"),
         .package(url: "https://github.com/inamiy/AVFoundation-Combine", branch: "main"),

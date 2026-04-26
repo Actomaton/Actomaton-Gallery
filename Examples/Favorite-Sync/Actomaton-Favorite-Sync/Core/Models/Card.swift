@@ -26,7 +26,3 @@ struct CardWithFavorite: Hashable, Identifiable, Sendable
         set { card[keyPath: keyPath] = newValue }
     }
 }
-
-// TODO: Remove `@unchecked Sendable` when `Sendable` is supported by each module.
-
-extension Color: @unchecked Sendable {}

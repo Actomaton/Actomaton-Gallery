@@ -1,43 +1,42 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Actomaton",
-        "repositoryURL": "https://github.com/Actomaton/Actomaton",
-        "state": {
-          "branch": null,
-          "revision": "e51e5ea17f3fb31f4d98eaab1d044f33d4c02386",
-          "version": "0.8.0"
-        }
-      },
-      {
-        "package": "swift-case-paths",
-        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
-        "state": {
-          "branch": null,
-          "revision": "fc45e7b2cfece9dd80b5a45e6469ffe67fe67984",
-          "version": "0.14.1"
-        }
-      },
-      {
-        "package": "swift-custom-dump",
-        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
-        "state": {
-          "branch": null,
-          "revision": "0a5bff05fe01dcd513932ed338a4efad8268b803",
-          "version": "0.11.2"
-        }
-      },
-      {
-        "package": "xctest-dynamic-overlay",
-        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
-        "state": {
-          "branch": null,
-          "revision": "50843cbb8551db836adec2290bb4bc6bac5c1865",
-          "version": "0.9.0"
-        }
+  "originHash" : "5aabf3d40563bafecba1f9a207d68f98b2abfc548601efb7146ce57a46b54295",
+  "pins" : [
+    {
+      "identity" : "actomaton",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Actomaton/Actomaton",
+      "state" : {
+        "revision" : "28d1c1bd8da017148b920e066845f8b8e20948fc",
+        "version" : "0.9.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths",
+      "state" : {
+        "revision" : "bb436421f57269fbcfe7360735985321585a86e5",
+        "version" : "0.10.1"
+      }
+    },
+    {
+      "identity" : "swift-custom-dump",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-custom-dump",
+      "state" : {
+        "revision" : "3ce83179e5f0c83ad54c305779c6b438e82aaf1d",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "6f30bdba373bbd7fbfe241dddd732651f2fbd1e2",
+        "version" : "1.1.2"
+      }
+    }
+  ],
+  "version" : 3
 }
