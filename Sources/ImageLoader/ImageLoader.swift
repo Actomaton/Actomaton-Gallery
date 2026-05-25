@@ -53,7 +53,7 @@ public var reducer: Reducer<Action, State, Environment>
                 state.isRequesting[url] = true
 
                 // Fetch & cache image.
-                return Effect(id: ImageEffectID(), queue: ImageEffectQueue()) {
+                return Effect(id: ImageEffectID(), queue: ImageEffectQueue()) { _ in
                     // Slight delay to simulate the network delay.
                     try await Task.sleep(nanoseconds: 300_000_000)
 

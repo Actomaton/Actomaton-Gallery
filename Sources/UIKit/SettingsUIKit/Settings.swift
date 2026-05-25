@@ -11,7 +11,7 @@ public typealias Route = SettingsScene.Action
 public var reducer: Reducer<Action, State, SendRouteEnvironment<Environment, Route>>
 {
     .init { action, state, env in
-        Effect.fireAndForget {
+        Effect.fireAndForget { _ in
             env.sendRoute(action)
         }
     }

@@ -19,12 +19,12 @@ public struct CounterRouteUIKitExample: Example
             reducer: Reducer<Action, Counter.State, Environment> { action, state, env in
                 switch action {
                 case .popNavigation:
-                    return Effect.fireAndForget {
+                    return Effect.fireAndForget { _ in
                         env.sendRoute(.popNavigation)
                     }
 
                 case .changeTab:
-                    return Effect.fireAndForget {
+                    return Effect.fireAndForget { _ in
                         env.sendRoute(.changeTab)
                     }
 

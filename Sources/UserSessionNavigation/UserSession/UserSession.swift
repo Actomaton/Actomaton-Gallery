@@ -65,7 +65,7 @@ public var reducer: Reducer<Action, State, Environment>
         case (.login, .loggedOut):
             state.authStatus = .loggingIn
 
-            return Effect(queue: LoginFlowEffectQueue()) {
+            return Effect(queue: LoginFlowEffectQueue()) { _ in
                 try await Task.sleep(nanoseconds: 300_000_000)
                 print("===> Login effect isCancelled", Task.isCancelled)
 
@@ -84,7 +84,7 @@ public var reducer: Reducer<Action, State, Environment>
         case let (.loginError(error), .loggingIn),
             let (.loginError(error), .loggedIn):
             state.error = error
-            return Effect(queue: LoginFlowEffectQueue()) { nil }
+            return Effect(queue: LoginFlowEffectQueue()) { _ in nil }
 
         case (.forceLogout, .loggingIn) where state.error != nil,
             (.forceLogout, .loggedIn) where state.error != nil:
@@ -94,7 +94,7 @@ public var reducer: Reducer<Action, State, Environment>
         case (.logout, .loggedIn):
             state.authStatus = .loggingOut
 
-            return Effect(queue: LoginFlowEffectQueue()) {
+            return Effect(queue: LoginFlowEffectQueue()) { _ in
                 try await Task.sleep(nanoseconds: 300_000_000)
                 return .logoutOK
             }

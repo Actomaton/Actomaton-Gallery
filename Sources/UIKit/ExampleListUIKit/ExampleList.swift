@@ -47,7 +47,7 @@ extension ExampleList
         .init { action, state, env in
             switch action {
             case let .showExample(example):
-                return .fireAndForget {
+                return .fireAndForget { _ in
                     env.sendRoute(.showExample(example))
                 }
 

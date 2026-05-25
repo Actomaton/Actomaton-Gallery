@@ -136,7 +136,7 @@ extension Game
 
                 // Stop timer if new board is same as previous.
                 return state.board.cells.isEmpty || isSameBoard
-                    ? Effect.nextAction(.stopTimer)
+                    ? Effect.next(action: .stopTimer)
                     : .empty
 
             case let .updateCanvasSize(size):

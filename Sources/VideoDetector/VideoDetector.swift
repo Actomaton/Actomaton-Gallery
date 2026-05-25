@@ -84,7 +84,7 @@ extension VideoDetector
                     .catch { _ in Just(Action._error(.detectionFailed)) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                    return Effect { publisher.toAsyncStream() }
+                    return Effect.sequence { _ in publisher.toAsyncStream() }
 
                 case .textRect:
                     let publisher = detectTextRects(
@@ -95,7 +95,7 @@ extension VideoDetector
                         .catch { _ in Just(Action._error(.detectionFailed)) }
                         .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                    return Effect { publisher.toAsyncStream() }
+                    return Effect.sequence { _ in publisher.toAsyncStream() }
 
                 case .textRecognitionIOSVision:
                     let publisher = detectTextRecognition(
@@ -113,7 +113,7 @@ extension VideoDetector
                     .catch { _ in Just(Action._error(.detectionFailed)) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                    return Effect { publisher.toAsyncStream() }
+                    return Effect.sequence { _ in publisher.toAsyncStream() }
                 }
 
             case let ._didDetectRects(rects):

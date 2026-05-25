@@ -104,7 +104,7 @@ public func reducer<InnerAction, InnerState, InnerEnvironment>()
         state.common.isTimeTravelling = true
 
         // Workaround effect for changing to `isTimeTravelling = false` after delay.
-        return Effect {
+        return Effect { _ in
             try await Task.sleep(nanoseconds: UInt64(100_000_000)) // 0.1 sec
             return Action._didTimeTravel
         }

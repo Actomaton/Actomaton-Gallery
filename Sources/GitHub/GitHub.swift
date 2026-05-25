@@ -99,11 +99,11 @@ public struct Environment: Sendable
     ) -> Effect<Action>
     {
         guard !searchText.isEmpty else {
-            return Effect.nextAction(Action._updateItems([]))
+            return Effect.next(action: Action._updateItems([]))
         }
 
         // Search request.
-        return Effect(id: GitHubRequestID()) {
+        return Effect(id: GitHubRequestID()) { _ in
             // Sleep + EffectID auto-cancellation as debounce.
             try await Task.sleep(nanoseconds: UInt64(self.searchRequestDelay * TimeInterval(1_000_000_000)))
 
@@ -161,7 +161,7 @@ public var reducer: Reducer<Action, State, Environment>
             let imageURLs = items.map { $0.owner.avatarUrl }
 
             // FIXME: No lazy loading yet.
-            return Effect.combine(imageURLs.map { .nextAction(._imageLoader(.requestImage(url: $0))) })
+            return Effect.combine(imageURLs.map { .next(action: ._imageLoader(.requestImage(url: $0))) })
 
         case let ._showError(message):
             state.isLoading = false

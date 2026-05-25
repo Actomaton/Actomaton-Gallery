@@ -39,7 +39,7 @@ extension Favorite
 
         func saveFavoritesEffect(patternNames: [String]) -> Effect<Action>
         {
-            Effect {
+            Effect { _ in
                 try? self.saveFavorites(patternNames)
                 return .didSaveFavorites
             }
@@ -60,7 +60,7 @@ extension Favorite
                 return environment.saveFavoritesEffect(patternNames: state.patternNames)
 
             case .loadFavorites:
-                return Effect {
+                return Effect { _ in
                     let favorites = try? environment.loadFavorites()
                     return .didLoadFavorites(patternNames: favorites)
                 }

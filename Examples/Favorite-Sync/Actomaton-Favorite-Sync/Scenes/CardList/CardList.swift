@@ -133,7 +133,7 @@ enum CardList
             case .loadFavorites:
                 state.isLoadingFavorites = true
 
-                return Effect {
+                return Effect { _ in
                     let cardIDs = await env.environment.favoriteStore.loadFavorites()
                     return ._didLoadFavorites(cardIDs)
 
@@ -148,7 +148,7 @@ enum CardList
             case .fetchCards:
                 state.isFetchingCards = true
 
-                return Effect {
+                return Effect { _ in
                     if let cards = try? await env.environment.cardStore.fetchCards() {
                         return ._didFetchCards(cards)
                     }
@@ -170,7 +170,7 @@ enum CardList
                     state.favoriteCardIDs.insert(cardID)
                 }
 
-                return Effect { [state] in
+                return Effect { [state] _ in
                     let cardIDs = Array(state.favoriteCardIDs)
                     await env.environment.favoriteStore.saveFavorites(cardIDs)
                     return nil
@@ -192,7 +192,7 @@ enum CardList
                     state.isFetchingCards = false
                 }
 
-                return Effect {
+                return Effect { _ in
                     try await env.environment.sleep(2_000_000_000)
                     return ._hideError
                 }

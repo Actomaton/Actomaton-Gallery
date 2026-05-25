@@ -63,7 +63,7 @@ public var reducer: Reducer<Action, State, Environment>
         case .fetch:
             state.isLoading = true
 
-            return Effect(id: HttpBinRequestID(), queue: HttpBinRequestQueue()) {
+            return Effect(id: HttpBinRequestID(), queue: HttpBinRequestQueue()) { _ in
                 do {
                     let response = try await environment.fetch()
                     return ._showText("IP is \(response.origin)")

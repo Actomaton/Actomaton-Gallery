@@ -68,33 +68,32 @@ public var reducer: Reducer<Action, State, Environment>
     .debug("[VideoPlayer]") { action, state, environment in
         switch action {
         case .subscribePlayer:
-            return Effect(
-                queue: PlayerSubscriptionQueue(label: state.label),
-                sequence: { @MainActor () -> AsyncStream<Action> in
-                    guard let player = environment.getPlayer() else {
-                        return AsyncStream(unfolding: { nil })
-                    }
-
-                    return player.playingStatusPublisher
-                        .map(Action._updatePlayingStatus)
-                        .toAsyncStream()
+            return Effect.sequence(
+                queue: PlayerSubscriptionQueue(label: state.label)
+            ) { @MainActor _ -> AsyncStream<Action> in
+                guard let player = environment.getPlayer() else {
+                    return AsyncStream(unfolding: { nil })
                 }
-            )
+
+                return player.playingStatusPublisher
+                    .map(Action._updatePlayingStatus)
+                    .toAsyncStream()
+            }
 
         case .start:
-            return Effect.fireAndForget { @MainActor in
+            return Effect.fireAndForget { @MainActor _ in
                 guard let player = environment.getPlayer() else { return }
                 player.play()
             }
 
         case .stop:
-            return Effect.fireAndForget { @MainActor in
+            return Effect.fireAndForget { @MainActor _ in
                 guard let player = environment.getPlayer() else { return }
                 player.pause()
             }
 
         case let .backward(seconds):
-            return Effect.fireAndForget { @MainActor in
+            return Effect.fireAndForget { @MainActor _ in
                 guard let player = environment.getPlayer() else { return }
 
                 let currentTime = player.currentTime()
@@ -105,7 +104,7 @@ public var reducer: Reducer<Action, State, Environment>
             }
 
         case let .forward(seconds):
-            return Effect.fireAndForget { @MainActor in
+            return Effect.fireAndForget { @MainActor _ in
                 guard let player = environment.getPlayer() else { return }
 
                 let currentTime = player.currentTime()
@@ -116,7 +115,7 @@ public var reducer: Reducer<Action, State, Environment>
             }
 
         case let .seek(to: seconds):
-            return Effect.fireAndForget { @MainActor in
+            return Effect.fireAndForget { @MainActor _ in
                 guard let player = environment.getPlayer() else { return }
 
                 player.seek(to: CMTime(seconds: seconds, preferredTimescale: 1)) { success in

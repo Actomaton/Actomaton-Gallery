@@ -214,10 +214,10 @@ public var reducer: Reducer<Action, State, Environment>
                 "item-01", "item-02", "item-03", "item-04", "item-05",
             ]
             let downloads: Effect<Action> = downloadIDs
-                .map { Effect<Action>.nextAction(.download(id: $0)) }
+                .map { Effect<Action>.next(action: .download(id: $0)) }
                 .reduce(Effect<Action>.empty, +)
 
-            return Effect<Action>.nextAction(.cancelAll) + downloads
+            return Effect<Action>.next(action: .cancelAll) + downloads
 
         case .cancelAll:
             for (downloadID, progress) in state.runningTasks where progress.canCancel {
@@ -228,14 +228,13 @@ public var reducer: Reducer<Action, State, Environment>
         case let .download(downloadID):
             state.runningTasks[downloadID] = .waiting(progress: 0)
 
-            return Effect(
+            return Effect.sequence(
                 id: DownloaderEffectID(downloadID: downloadID),
-                queue: DownloaderEffectQueue(),
-                sequence: {
-                    return environment.download(downloadID, 0)
-                        .map { Action._didReceiveData(downloadID, $0) }
-                }
-            )
+                queue: DownloaderEffectQueue()
+            ) { _ in
+                return environment.download(downloadID, 0)
+                    .map { Action._didReceiveData(downloadID, $0) }
+            }
 
         case let .pause(downloadID):
             guard let downloadState = state.runningTasks[downloadID] else { return .empty }
@@ -245,7 +244,7 @@ public var reducer: Reducer<Action, State, Environment>
             }
 
             // NOTE: `savePartialDownloadedFile` is no-operation in this example.
-            return Effect.fireAndForget { await environment.savePartialDownloadedFile(downloadID) }
+            return Effect.fireAndForget { _ in await environment.savePartialDownloadedFile(downloadID) }
                 + .cancel(id: DownloaderEffectID(downloadID: downloadID)) // Cancel task for pausing too.
 
         case let .resume(downloadID):
@@ -253,19 +252,18 @@ public var reducer: Reducer<Action, State, Environment>
 
             state.runningTasks[downloadID] = .waiting(progress: resumingProgress)
 
-            return Effect(
+            return Effect.sequence(
                 id: DownloaderEffectID(downloadID: downloadID),
-                queue: DownloaderEffectQueue(),
-                sequence: {
-                    // NOTE:
-                    // Usually, `environment.download` should be able to handle pause/resume effects
-                    // including recovery of partially downloaded files.
-                    // In this example, however, we don't implement too much detail,
-                    // so we just pass `resumingProgress` to only mimic UI appearance.
-                    return environment.download(downloadID, resumingProgress)
-                        .map { Action._didReceiveData(downloadID, $0) }
-                }
-            )
+                queue: DownloaderEffectQueue()
+            ) { _ in
+                // NOTE:
+                // Usually, `environment.download` should be able to handle pause/resume effects
+                // including recovery of partially downloaded files.
+                // In this example, however, we don't implement too much detail,
+                // so we just pass `resumingProgress` to only mimic UI appearance.
+                return environment.download(downloadID, resumingProgress)
+                    .map { Action._didReceiveData(downloadID, $0) }
+            }
 
         case let .cancel(downloadID):
             guard let downloadState = state.runningTasks[downloadID] else { return .empty }
