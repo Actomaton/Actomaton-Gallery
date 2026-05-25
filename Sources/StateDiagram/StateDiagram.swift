@@ -39,7 +39,7 @@ public var reducer: Reducer<Action, State, Environment>
         case (.login, .loggedOut):
             state = .loggingIn
 
-            return Effect(queue: LoginFlowEffectQueue()) {
+            return Effect(queue: LoginFlowEffectQueue()) { _ in
                 try await Task.sleep(nanoseconds: 1_000_000_000)
                 if Task.isCancelled {
                     print("===> loggingIn cancelled")
@@ -57,7 +57,7 @@ public var reducer: Reducer<Action, State, Environment>
             (.forceLogout, .loggedIn):
             state = .loggingOut
 
-            return Effect(queue: LoginFlowEffectQueue()) {
+            return Effect(queue: LoginFlowEffectQueue()) { _ in
                 try await Task.sleep(nanoseconds: 1_000_000_000)
                 return .logoutOK
             }

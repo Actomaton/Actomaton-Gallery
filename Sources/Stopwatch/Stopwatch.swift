@@ -154,29 +154,26 @@ public var reducer: Reducer<Action, State, Environment>
             // `Date()` is a side-effect that should not be directly called inside `Reducer`,
             // so always wrap date creation inside `Effect` to maintain this whole scope as a pure function.
             // Then, it can be replaced with a mocked effect for future improvements.
-            return Effect {
+            return Effect { _ in
                 Action._didStart(environment.getDate())
             }
 
         case let (.start, .paused(time)):
             state.status = .preparing(time: time)
 
-            return Effect {
+            return Effect { _ in
                 Action._didStart(environment.getDate())
             }
 
         case let (._didStart(date), .preparing(time)):
             state.status = .running(time: time, startDate: date, currentDate: date)
 
-            return Effect(
-                id: TimerEffectID(),
-                sequence: {
-                    environment.timer(0.01)
-                        .map {
-                            Action._update(start: date, current: $0)
-                        }
-                }
-            )
+            return Effect.sequence(id: TimerEffectID()) { _ in
+                environment.timer(0.01)
+                    .map {
+                        Action._update(start: date, current: $0)
+                    }
+            }
 
         case let (._update(startDate, currentDate), .running(time, _, _)):
             state.status = .running(time: time, startDate: startDate, currentDate: currentDate)

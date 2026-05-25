@@ -106,7 +106,7 @@ enum Detail
 
                 let cardID = state.card.id
 
-                return Effect {
+                return Effect { _ in
                     let isFavorite = await env.environment.favoriteStore.loadFavorite(id: cardID)
                     return ._didLoadFavorite(isFavorite)
 
@@ -123,7 +123,7 @@ enum Detail
 
                 let cardID = state.card.id
 
-                return Effect {
+                return Effect { _ in
                     if let card = try? await env.environment.cardStore.fetchCard(id: cardID) {
                         return ._didFetchCard(card)
                     }
@@ -140,7 +140,7 @@ enum Detail
             case .didTapHeart:
                 state.card.isFavorite.toggle()
 
-                return Effect { [state] in
+                return Effect { [state] _ in
                     await env.environment.favoriteStore.saveFavorite(id: state.card.id, isFavorite: state.card.isFavorite)
                     return nil
                 }
@@ -156,7 +156,7 @@ enum Detail
                     state.isFetchingCard = false
                 }
 
-                return Effect {
+                return Effect { _ in
                     try await env.environment.sleep(2_000_000_000)
                     return ._hideError
                 }

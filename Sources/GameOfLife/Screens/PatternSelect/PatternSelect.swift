@@ -112,7 +112,7 @@ extension PatternSelect
         .init { action, state, environment in
             switch action {
             case .loadPatternFiles:
-                return Effect {
+                return Effect { _ in
                     do {
                         let patterns = try await environment.loadPatterns()
                         return Action.didLoadPatternFiles(patterns)
@@ -129,7 +129,7 @@ extension PatternSelect
             case let .didSelectPatternURL(url):
                 state.status = .loading
 
-                return Effect {
+                return Effect { _ in
                     let pattern = try? Pattern.parseRunLengthEncoded(url: url)
                     return Action.didParsePatternFile(pattern)
                 }

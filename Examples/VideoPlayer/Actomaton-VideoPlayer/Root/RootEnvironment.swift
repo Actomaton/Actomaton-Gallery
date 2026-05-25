@@ -21,9 +21,9 @@ extension RootEnvironment
 {
     var playerSubscriptionEffect: Effect<PlayerAction>
     {
-        Effect(
-            queue: PlayerSubscriptionEffectQueue(),
-            sequence: { @MainActor () -> AsyncStream<PlayerAction> in
+        Effect.sequence(
+            queue: PlayerSubscriptionEffectQueue()
+        ) { @MainActor _ -> AsyncStream<PlayerAction> in
                 guard let player = self.getPlayer() else {
                     return AsyncStream(unfolding: { nil })
                 }
@@ -150,8 +150,7 @@ extension RootEnvironment
 #endif
                     }())
                     .toAsyncStream()
-            }
-        )
+        }
     }
 
     @MainActor

@@ -12,7 +12,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
     Reducer { action, state, environment in
         switch action {
         case .reloadRandom:
-            return Effect {
+            return Effect { _ in
                 switch environment.testMode {
                 case let .single(videoURL):
                     guard let url = videoURL() else { return nil }
@@ -48,8 +48,8 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
 
             state.playerState.playingStatus = .paused
 
-            return Effect.nextAction(.pause)
-                + Effect { @MainActor in
+            return Effect.next(action: .pause)
+                + Effect { @MainActor _ in
                     guard let player = environment.getPlayer() else { return nil }
 
                     let startTime = CFAbsoluteTimeGetCurrent()
@@ -75,7 +75,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
             state.playerState.playingStatus = .paused
 
             // Cancellation of subscription using `PlayerSubscriptionEffectQueue`.
-            return Effect.fireAndForget(queue: PlayerSubscriptionEffectQueue()) {}
+            return Effect.fireAndForget(queue: PlayerSubscriptionEffectQueue()) { _ in }
 
         case let ._subscribePlayerAfterReload(assetInitTime, playerItemInitTime, playerItemReplacedTime, wasPaused):
             state.playerState.assetInitTime = assetInitTime
@@ -83,7 +83,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
             state.playerState.playerItemReplacedTime = playerItemReplacedTime
             state.playerState.duration = .nan
 
-            return (!wasPaused ? Effect.nextAction(.play) : .empty)
+            return (!wasPaused ? Effect.next(action:.play) : .empty)
                 + environment.playerSubscriptionEffect.map { ._playerAction($0) }
 
         case let ._playerAction(.periodicTime(time)):
@@ -155,7 +155,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
             let wasPaused = state.playerState.playingStatus == .paused
 
             let seekEffect: Effect<RootAction> = state.seekingTime.map { seekingTime in
-                Effect {
+                Effect { _ in
                     await environment.seek(to: { _ in seekingTime })
 
                     return RootAction._didFinishPlayerSeeking(
@@ -165,7 +165,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
                 }
             } ?? .empty
 
-            return Effect.nextAction(.pause)
+            return Effect.next(action: .pause)
                 + seekEffect
 
         case let ._didFinishPlayerSeeking(seekingTime, wasPaused):
@@ -173,7 +173,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
             state.playerState.currentTime = seekingTime
 
             if !wasPaused {
-                return Effect.nextAction(.play)
+                return Effect.next(action: .play)
             }
             else {
                 return Effect.empty
@@ -181,7 +181,7 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
 
         case .play:
             if state.playerState.playingStatus == .paused {
-                return Effect.fireAndForget { @MainActor in
+                return Effect.fireAndForget { @MainActor _ in
                     guard let player = environment.getPlayer() else { return }
                     player.play()
                 }
@@ -189,14 +189,14 @@ func rootReducer() -> Reducer<RootAction, RootState, RootEnvironment>
 
         case .pause:
             if state.playerState.playingStatus == .playing {
-                return Effect.fireAndForget { @MainActor in
+                return Effect.fireAndForget { @MainActor _ in
                     guard let player = environment.getPlayer() else { return }
                     player.pause()
                 }
             }
 
         case let .advance(seconds):
-            return Effect.fireAndForget {
+            return Effect.fireAndForget { _ in
                 await environment.seek(to: { $0 + seconds })
             }
 

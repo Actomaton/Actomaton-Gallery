@@ -123,13 +123,13 @@ private var loggedOutReducer: Reducer<Action, State, Environment>
 
         switch action {
         case .login:
-            return .nextAction(Action.userSession(.login))
+            return .next(action:Action.userSession(.login))
 
         case .loginError:
-            return .nextAction(Action.userSession(.loginError(.loginFailed)))
+            return .next(action:Action.userSession(.loginError(.loginFailed)))
 
         case .onboarding:
-            return .nextAction(.resetOnboarding)
+            return .next(action:.resetOnboarding)
         }
     }
 }
@@ -139,7 +139,7 @@ private var debugTabInsertRemoveReducer: Reducer<Action, State, Environment>
     Reducer { action, state, environment in
         switch action {
         case let .insertRandomTab(index):
-            return Effect { @MainActor in
+            return Effect { @MainActor _ in
                 // Random alphabet "A" ... "Z".
                 let char = (65 ... 90).map { String(UnicodeScalar($0)) }.randomElement()!
 
@@ -177,10 +177,10 @@ private var debugTabInsertRemoveReducer: Reducer<Action, State, Environment>
 
             if TabID.protectedTabIDs.contains(tabID) {
                 // Retry with same `removeTab` action with `index = nil` as random index.
-                return .nextAction(.removeTab(index: nil))
+                return .next(action:.removeTab(index: nil))
             }
 
-            return .nextAction(.tab(.removeTab(tabID)))
+            return .next(action:.tab(.removeTab(tabID)))
 
         default:
             return .empty

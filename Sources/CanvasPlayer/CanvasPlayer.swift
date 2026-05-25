@@ -84,13 +84,10 @@ public func reducer<CanvasState>() -> Reducer<Action, State<CanvasState>, Enviro
         case .startTimer:
             state.isRunningTimer = true
 
-            return Effect(
-                id: TimerEffectID(),
-                sequence: { [state] in
-                    environment.timer(state.timerInterval)
-                        .map { _ in .tick }
-                }
-            )
+            return Effect.sequence(id: TimerEffectID()) { [state] _ in
+                environment.timer(state.timerInterval)
+                    .map { _ in .tick }
+            }
 
         case .stopTimer:
             state.isRunningTimer = false

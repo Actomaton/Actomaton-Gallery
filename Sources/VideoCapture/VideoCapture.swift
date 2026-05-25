@@ -90,7 +90,7 @@ extension VideoCapture
         .init { action, state, environment in
             switch action {
             case .makeSession:
-                return Effect { @MainActor [state] in
+                return Effect.sequence { @MainActor [state] _ in
                     let publisher = makeSession(cameraPosition: state.cameraPosition)
                         .map(Action._didMakeSession)
                         .catch { Just(Action._error($0)) }
@@ -101,7 +101,7 @@ extension VideoCapture
 
             case let ._didMakeSession(sessionID):
                 state.sessionState = .idle(sessionID)
-                return Effect.nextAction(.startSession)
+                return Effect.next(action: .startSession)
 
             case .startSession:
                 guard case let .idle(sessionID) = state.sessionState else {
@@ -110,7 +110,7 @@ extension VideoCapture
 
                 state.sessionState = .running(sessionID)
 
-                return Effect { @MainActor in
+                return Effect.sequence { @MainActor _ in
                     let sessionPublisher = startSession(sessionID: sessionID)
                         .map(Action._didOutput)
                         .catch { Just(Action._error($0))}
@@ -118,7 +118,7 @@ extension VideoCapture
 
                     return sessionPublisher.toAsyncStream()
                 }
-                + Effect(id: OrientationEffectID()) { @MainActor in
+                + Effect.sequence(id: OrientationEffectID()) { @MainActor _ in
                     let orientationPublisher = startOrientation(interval: 0.1)
                         .map(Action._didUpdateOrientation)
                         .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
@@ -140,7 +140,7 @@ extension VideoCapture
                 }
                 state.cameraPosition.toggle()
 
-                return Effect { @MainActor [state] in
+                return Effect.sequence { @MainActor [state] _ in
                     let publisher = setupCaptureSessionInput(
                         sessionID: sessionID,
                         cameraPosition: state.cameraPosition
@@ -157,7 +157,7 @@ extension VideoCapture
                     return .empty
                 }
 
-                return Effect { @MainActor in
+                return Effect.sequence { @MainActor _ in
                     let publisher = stopSession(sessionID: sessionID)
                         .map { _ in Action._didStopSession }
                         .catch { Just(Action._error($0)) }
@@ -178,7 +178,7 @@ extension VideoCapture
                     .flatMap { Empty<Action, Never>(completeImmediately: true) }
                     .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
 
-                return Effect { publisher.toAsyncStream() }
+                return Effect.sequence { _ in publisher.toAsyncStream() }
 
             case .removeSession:
                 if case .noSession = state.sessionState {
@@ -186,7 +186,7 @@ extension VideoCapture
                 }
                 state.sessionState = .noSession
 
-                return Effect { @MainActor in
+                return Effect.sequence { @MainActor _ in
                     let publisher = removeSession()
                         .flatMap { Empty<Action, Never>(completeImmediately: true) }
                         .eraseToAnyPublisher() // NOTE: For `@unchecked Sendable`
