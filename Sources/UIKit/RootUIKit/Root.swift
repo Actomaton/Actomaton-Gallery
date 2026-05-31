@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import Actomaton
+import CommonInterfaces
 import UserSession
 import Login
 import TabsUIKit

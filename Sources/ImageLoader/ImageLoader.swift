@@ -1,5 +1,5 @@
 import UIKit
-import ActomatonUI
+import CommonInterfaces
 
 // MARK: - Action
 

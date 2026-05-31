@@ -2,7 +2,7 @@ import AVFoundation
 import Combine
 import SwiftUI
 import AVFoundation_Combine
-import ActomatonUI
+import CommonInterfaces
 import ActomatonDebugging
 
 // MARK: - Reducer

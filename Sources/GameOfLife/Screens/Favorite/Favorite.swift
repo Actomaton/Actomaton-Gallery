@@ -1,5 +1,5 @@
 import Foundation
-import Actomaton
+import CommonInterfaces
 
 /// Game-of-Life favorite pattern namespace.
 public enum Favorite {}

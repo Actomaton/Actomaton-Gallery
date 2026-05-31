@@ -1,4 +1,4 @@
-import Actomaton
+import CommonInterfaces
 import UserSession
 
 // MARK: - Action
@@ -32,5 +32,5 @@ public typealias Environment = ()
 
 public var reducer: Reducer<Action, State, Environment>
 {
-    .empty
+    .empty()
 }

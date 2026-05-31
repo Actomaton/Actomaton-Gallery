@@ -2,7 +2,7 @@ import UIKit
 import Combine
 import AVFoundation
 import AVFoundation_Combine
-import Actomaton
+import CommonInterfaces
 import ActomatonDebugging
 import Utilities
 

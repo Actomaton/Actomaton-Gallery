@@ -1,6 +1,6 @@
 import Foundation
 import CoreGraphics
-import Actomaton
+import CommonInterfaces
 import CanvasPlayer
 
 /// Conway's Game-of-Life game engine namespace.

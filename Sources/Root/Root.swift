@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Actomaton
+import CommonInterfaces
 import Utilities
 import Tabs
 import Home

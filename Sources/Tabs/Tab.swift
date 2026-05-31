@@ -1,4 +1,4 @@
-import Actomaton
+import CommonInterfaces
 
 // MARK: - Action
 
@@ -70,7 +70,7 @@ private func tabChildrenReducer<InnerAction, InnerState, Environment, TabID>(
             .map { index, args -> Reducer<InnerAction, State<InnerState, TabID>, Environment> in
                 let (tabID_, reducer) = args
 
-                guard tabID == tabID_ else { return .empty }
+                guard tabID == tabID_ else { return .empty() }
 
                 let stateKeyPath = \State<InnerState, TabID>.tabs[index].inner
 
