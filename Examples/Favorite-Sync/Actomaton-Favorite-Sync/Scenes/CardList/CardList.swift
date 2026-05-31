@@ -1,6 +1,5 @@
 import Foundation
-import Actomaton
-import ActomatonUI
+import CommonInterfaces
 import ActomatonDebugging
 import SwiftUI
 

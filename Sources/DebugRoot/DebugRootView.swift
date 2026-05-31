@@ -129,7 +129,7 @@ public struct DebugRootView_Previews: PreviewProvider
         return DebugRootView<RootView>(
             store: .init(
                 state: .init(inner: RootState()),
-                reducer: DebugRoot.reducer(inner: .empty)
+                reducer: DebugRoot.reducer(inner: .empty())
             )
         )
     }

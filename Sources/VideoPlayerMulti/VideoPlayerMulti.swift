@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 import AVFoundation
-import Actomaton
+import CommonInterfaces
 import ActomatonDebugging
 import VideoPlayer
 

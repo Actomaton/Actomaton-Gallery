@@ -1,6 +1,6 @@
 import Foundation
 import CoreGraphics
-import Actomaton
+import CommonInterfaces
 
 // MARK: - Action
 
@@ -37,5 +37,5 @@ public typealias Environment = ()
 /// - Note: This example uses direct-state-binding via `Store.Proxy.$state`, so `Reducer` will not run.
 public var reducer: Reducer<Action, State, Environment>
 {
-    .empty
+    .empty()
 }

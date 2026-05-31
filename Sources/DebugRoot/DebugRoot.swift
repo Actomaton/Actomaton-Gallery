@@ -1,4 +1,4 @@
-import Actomaton
+import CommonInterfaces
 import TimeTravel
 
 // MARK: - Action

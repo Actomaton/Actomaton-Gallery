@@ -1,6 +1,6 @@
 import Foundation
 import CoreGraphics
-import Actomaton
+import CommonInterfaces
 
 /// Conway's Game-of-Life root namespace.
 ///

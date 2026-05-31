@@ -1,4 +1,4 @@
-import ActomatonUI
+import CommonInterfaces
 import SettingsScene
 
 public typealias Action = SettingsScene.Action

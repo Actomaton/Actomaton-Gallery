@@ -1,6 +1,6 @@
 import Foundation
 import CoreGraphics
-import Actomaton
+import CommonInterfaces
 
 // MARK: - Action
 

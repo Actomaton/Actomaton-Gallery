@@ -1,5 +1,5 @@
 import Foundation
-import Actomaton
+import CommonInterfaces
 
 /// Game-of-Life pattern selection namespace.
 public enum PatternSelect {}

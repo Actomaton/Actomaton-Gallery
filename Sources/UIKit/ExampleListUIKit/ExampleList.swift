@@ -1,4 +1,4 @@
-import ActomatonUI
+import CommonInterfaces
 import Counter
 import Todo
 import StateDiagram

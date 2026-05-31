@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 import Combine
-import ActomatonUI
+import CommonInterfaces
 
 /// VideoCapture namespace.
 public enum VideoCapture {}

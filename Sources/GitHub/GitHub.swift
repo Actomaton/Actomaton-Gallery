@@ -1,5 +1,5 @@
 import UIKit
-import Actomaton
+import CommonInterfaces
 import Utilities
 import ImageLoader
 

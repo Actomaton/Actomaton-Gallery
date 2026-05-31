@@ -1,7 +1,7 @@
 import AVFoundation
 import Combine
 import SwiftUI
-import Actomaton
+import CommonInterfaces
 
 struct RootEnvironment: Sendable
 {

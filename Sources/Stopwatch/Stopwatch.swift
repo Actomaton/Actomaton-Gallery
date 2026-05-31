@@ -1,5 +1,5 @@
 import Foundation
-import Actomaton
+import CommonInterfaces
 
 // MARK: - Action
 

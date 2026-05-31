@@ -1,6 +1,6 @@
 import Foundation
 import CoreGraphics
-import Actomaton
+import CommonInterfaces
 
 /// Elementary cellular automaton game engine namespace.
 /// https://en.wikipedia.org/wiki/Elementary_cellular_automaton

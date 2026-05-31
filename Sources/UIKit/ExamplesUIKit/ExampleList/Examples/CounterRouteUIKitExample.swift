@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import ActomatonUI
+import CommonInterfaces
 import Counter
 import ExampleListUIKit
 

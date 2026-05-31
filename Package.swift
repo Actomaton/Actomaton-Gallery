@@ -15,7 +15,7 @@ let package = Package(
             targets: ["RootUIKit"]),
         .library(
             name: "ActomatonUI-shim",
-            targets: ["CommonEffects"]) // Use non-empty `CommonEffects` as a handy re-export shim.
+            targets: ["CommonEffects", "CommonInterfaces"]) // Re-export shim: `CommonInterfaces` provides the `Never`-pinned `Effect`/`Reducer` aliases.
     ],
     dependencies: [
 //        .package(name: "Actomaton", path: "../Actomaton"), // local
@@ -36,47 +36,58 @@ let package = Package(
             name: "CommonEffects",
             dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
+            name: "CommonInterfaces", // `Never`-pinned `Effect`/`Reducer` typealias shim.
+            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
+        .target(
             name: "CommonUI",
             dependencies: []),
         .target(
             name: "CanvasPlayer",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "CommonUI", "Utilities"
             ]),
         .target(
             name: "ImageLoader",
-            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
+            dependencies: [
+                "CommonInterfaces", .product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "TimeTravel",
-            dependencies: [.product(name: "ActomatonUI", package: "Actomaton")]),
+            dependencies: [
+                "CommonInterfaces", .product(name: "ActomatonUI", package: "Actomaton")]),
         .target(
             name: "Tabs",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "Counter",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "SyncCounters",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter"
             ]),
         .target(
             name: "AnimationDemo",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "ColorFilter",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 .product(name: "PhotoPicker", package: "SwiftUI-PhotoPicker"),
                 "Utilities"
@@ -85,12 +96,14 @@ let package = Package(
         .target(
             name: "Todo",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "StateDiagram",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ],
@@ -98,30 +111,35 @@ let package = Package(
         .target(
             name: "Stopwatch",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
         .target(
             name: "HttpBin",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities", "ImageLoader"
             ]),
         .target(
             name: "GitHub",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities", "CommonUI", "ImageLoader"
             ]),
         .target(
             name: "ElemCellAutomaton",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "CommonUI", "CanvasPlayer", "Utilities"
             ]),
         .target(
             name: "GameOfLife",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "CommonUI", "CanvasPlayer", "Utilities"
             ],
@@ -129,30 +147,35 @@ let package = Package(
         .target(
             name: "VideoPlayer",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "AVFoundation-Combine", "Utilities"
             ]),
         .target(
             name: "VideoPlayerMulti",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "VideoPlayer"
             ]),
         .target(
             name: "VideoCapture",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "OrientationKit", "Utilities"
             ]),
         .target(
             name: "VideoDetector",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "VideoCapture"
             ]),
         .target(
             name: "Physics",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "VectorMath",
                 "CommonUI", "CanvasPlayer", "Utilities"
@@ -175,6 +198,7 @@ let package = Package(
         .target(
             name: "Downloader",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities"
             ]),
@@ -184,6 +208,7 @@ let package = Package(
         .target(
             name: "Home",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter", "SyncCounters", "AnimationDemo", "ColorFilter",
                 "Todo", "StateDiagram", "Stopwatch", "HttpBin", "GitHub", "Downloader",
@@ -193,12 +218,14 @@ let package = Package(
         .target(
             name: "SettingsScene", // NOTE: Avoid naming with `SwiftUI.Settings`.
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "UserSession"
             ]),
         .target(
             name: "Root",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Tabs", "Home", "SettingsScene", "Counter",
                 "Onboarding", "Login", "UserSession", "UniversalLink",
@@ -207,6 +234,7 @@ let package = Package(
         .target(
             name: "DebugRoot",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Utilities", "TimeTravel"
             ]),
@@ -216,6 +244,7 @@ let package = Package(
         .target(
             name: "ExampleListUIKit",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "Counter", "SyncCounters", "ColorFilter", "Todo", "StateDiagram", "Stopwatch", "GitHub",
                 "GameOfLife", "VideoDetector", "Physics"
@@ -225,6 +254,7 @@ let package = Package(
         .target(
             name: "ExamplesUIKit",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "ExampleListUIKit", "LiveEnvironments"
             ],
@@ -233,6 +263,7 @@ let package = Package(
         .target(
             name: "TabsUIKit",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "ExamplesUIKit", "SettingsUIKit"
             ],
@@ -241,6 +272,7 @@ let package = Package(
         .target(
             name: "SettingsUIKit",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "SettingsScene"
             ],
@@ -249,6 +281,7 @@ let package = Package(
         .target(
             name: "RootUIKit",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton"),
                 "SettingsScene", "UserSession", "Onboarding", "Login",
                 "TabsUIKit", "ExampleListUIKit", "ExamplesUIKit"
@@ -260,6 +293,7 @@ let package = Package(
         .target(
             name: "UserSession",
             dependencies: [
+                "CommonInterfaces",
                 .product(name: "ActomatonUI", package: "Actomaton")
             ],
             path: "Sources/UserSessionNavigation/UserSession"),

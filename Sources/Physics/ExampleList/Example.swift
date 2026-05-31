@@ -1,5 +1,5 @@
 import SwiftUI
-import ActomatonUI
+import CommonInterfaces
 import VectorMath
 import CanvasPlayer
 
