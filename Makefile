@@ -3,7 +3,7 @@ DESTINATION := -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 # NOTE: Only supports iOS, so `swift build` won't work.
 .PHONY: build-package
 build-package:
-	xcodebuild build -scheme Actomaton-Gallery-Package $(DESTINATION)
+	cd GalleryApple && xcodebuild build -scheme GalleryApple-Package $(DESTINATION)
 .PHONY: build-SwiftUI-Basic
 build-SwiftUI-Basic:
 	cd Examples/Actomaton-Basic.swiftpm && \
