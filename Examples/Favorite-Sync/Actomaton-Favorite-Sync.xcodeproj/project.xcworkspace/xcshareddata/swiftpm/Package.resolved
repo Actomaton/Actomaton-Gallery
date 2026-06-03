@@ -1,5 +1,5 @@
 {
-  "originHash" : "1f53e2da8d05463c623692a05b0bbf53e138cea59829febed82b32270c5973cd",
+  "originHash" : "326a7b7cb4d67e7f4e0cc282781554fa1a9689c23d2414cd27c2135918cb9de7",
   "pins" : [
     {
       "identity" : "actomaton",
@@ -11,30 +11,12 @@
       }
     },
     {
-      "identity" : "avfoundation-combine",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/AVFoundation-Combine",
-      "state" : {
-        "branch" : "main",
-        "revision" : "637ba786561616297554365d12402414d5024335"
-      }
-    },
-    {
       "identity" : "combinecocoa",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CombineCommunity/CombineCocoa",
       "state" : {
         "revision" : "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
         "version" : "0.4.0"
-      }
-    },
-    {
-      "identity" : "orientationkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/OrientationKit",
-      "state" : {
-        "revision" : "0341a47ce116cf6a25a164981ecb1de28f06ea53",
-        "version" : "0.2.0"
       }
     },
     {
@@ -71,15 +53,6 @@
       "state" : {
         "revision" : "b9b59eb58c946236d6f16305c576ad194c36444e",
         "version" : "1.6.0"
-      }
-    },
-    {
-      "identity" : "swiftui-photopicker",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/inamiy/SwiftUI-PhotoPicker",
-      "state" : {
-        "branch" : "main",
-        "revision" : "7fa6cc560e9c48dca41de152686ebd572eb88edf"
       }
     },
     {
