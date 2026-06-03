@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "preinstall": "sh -c '\"${SWIFT_BIN:-swift}\" package resolve ${SWIFT_PACKAGE_RESOLVE_ARGS:-}'",
+    "dev": "SWIFT_SDK_ID=\"${SWIFT_SDK_ID:-swift-6.3.1-RELEASE_wasm}\" vite --host 0.0.0.0 --open",
+    "build": "SWIFT_SDK_ID=\"${SWIFT_SDK_ID:-swift-6.3.1-RELEASE_wasm}\" vite build",
+    "build:embedded": "VITE_USE_EMBEDDED_SDK=1 SWIFT_SDK_ID=\"${SWIFT_SDK_ID:-swift-6.3.1-RELEASE_wasm-embedded}\" vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@bjorn3/browser_wasi_shim": "~0.4.2",
+    "elementary-ui-browser-runtime": "file:.build/checkouts/elementary-ui/BrowserRuntime"
+  },
+  "devDependencies": {
+    "@elementary-swift/vite-plugin-swift-wasm": "~0.1.2",
+    "vite": "^7.3.3"
+  }
+}
