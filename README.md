@@ -24,6 +24,26 @@ https://user-images.githubusercontent.com/138476/135747988-ad89db11-2247-4a1e-93
 
 https://user-images.githubusercontent.com/138476/189536011-026f674c-ae68-46f8-ae33-7a9d29db31c1.mp4
 
+## Wasm Gallery ([Wasm-Gallery](Examples/Wasm-Gallery))
+
+Browser-native gallery powered by `elementary-ui`.
+The main example is `Counter`, with a small `Reactive Machine` diagnostic page kept beside it while the ElementaryUI bridge is being validated.
+The page now renders the `Counter` screen reliably in the browser, and the `+` / `−` controls update the number through a demo-side `@Reactive` state object owned by `NonisolatedActomaton`.
+The HTML entrypoint also includes a static gallery fallback so the demo shell appears immediately even before the wasm bundle finishes booting.
+
+### Local Run
+
+```sh
+SWIFT_BIN=$HOME/.swiftly/bin/swift make bootstrap-Wasm-Gallery
+SWIFT_BIN=$HOME/.swiftly/bin/swift make dev-Wasm-Gallery
+```
+
+### Production Build
+
+```sh
+SWIFT_BIN=$HOME/.swiftly/bin/swift make build-Wasm-Gallery
+```
+
 ## Architecture Overview
 
 ![2022-09-11 Actomaton 028](https://user-images.githubusercontent.com/138476/189536390-8bb4c790-cc38-4060-b954-f39a59541074.png)

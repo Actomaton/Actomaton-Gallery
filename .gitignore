@@ -47,6 +47,9 @@ playground.xcworkspace
 # .swiftpm
 
 .build/
+Examples/Wasm-Gallery/node_modules/
+Examples/Wasm-Gallery/.npm-cache/
+Examples/Wasm-Gallery/dist/
 
 # CocoaPods
 #
