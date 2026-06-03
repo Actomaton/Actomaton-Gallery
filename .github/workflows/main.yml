@@ -1,5 +1,6 @@
 # https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
 # https://github.com/actions/runner-images/tree/main/images/macos
+# https://github.com/actions/runner-images/tree/main/images/ubuntu
 name: CI
 
 on:
@@ -11,7 +12,7 @@ on:
 
 jobs:
   build-Wasm-Gallery:
-    runs-on: macos-26
+    runs-on: ubuntu-24.04
     env:
       SWIFT_VERSION: "6.3.1"
       SWIFT_WASM_SDK_ID: "swift-6.3.1-RELEASE_wasm"
@@ -19,15 +20,26 @@ jobs:
       SWIFT_WASM_SDK_CHECKSUM: "bd47baa20771f366d8beed7970afaa30742b2210097afd15f85427226d8f4cf2"
     steps:
     - uses: actions/checkout@v4
-    - name: Select Xcode 26.4
-      run: sudo xcode-select -s /Applications/Xcode_26.4.app
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y binaryen
     - name: Install Swift toolchain
       run: |
-        curl -L "https://download.swift.org/swiftly/darwin/swiftly-1.1.1.pkg" -o "$RUNNER_TEMP/swiftly.pkg"
-        installer -pkg "$RUNNER_TEMP/swiftly.pkg" -target CurrentUserHomeDirectory
-        "$HOME/.swiftly/bin/swiftly" init --assume-yes --skip-install --quiet-shell-followup --no-modify-profile
-        "$HOME/.swiftly/bin/swiftly" install --use "$SWIFT_VERSION"
-        echo "$HOME/.swiftly/bin" >> "$GITHUB_PATH"
+        case "$(uname -m)" in
+          x86_64) swiftly_arch="x86_64" ;;
+          aarch64|arm64) swiftly_arch="aarch64" ;;
+          *)
+            printf 'error: unsupported Linux architecture: %s\n' "$(uname -m)"
+            exit 1
+            ;;
+        esac
+        curl -L "https://download.swift.org/swiftly/linux/swiftly-$swiftly_arch.tar.gz" -o "$RUNNER_TEMP/swiftly.tar.gz"
+        tar -zxf "$RUNNER_TEMP/swiftly.tar.gz" -C "$RUNNER_TEMP"
+        "$RUNNER_TEMP/swiftly" init --assume-yes --skip-install --quiet-shell-followup --no-modify-profile
+        . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
+        swiftly install --use "$SWIFT_VERSION"
+        echo "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/bin" >> "$GITHUB_PATH"
     - name: Install Swift Wasm SDK
       run: |
         swift --version
@@ -41,12 +53,8 @@ jobs:
             exit 1
             ;;
         esac
-    - name: Install Wasm optimizer
-      run: |
-        if ! command -v wasm-opt >/dev/null 2>&1; then
-          brew install binaryen
-        fi
-        wasm-opt --version
+    - name: Verify Wasm optimizer
+      run: wasm-opt --version
     - name: Bootstrap Wasm Gallery
       run: make bootstrap-Wasm-Gallery
     - name: Build Wasm Gallery
