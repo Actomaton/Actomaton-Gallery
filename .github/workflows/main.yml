@@ -10,6 +10,48 @@ on:
   pull_request:
 
 jobs:
+  build-Wasm-Gallery:
+    runs-on: macos-26
+    env:
+      SWIFT_VERSION: "6.3.1"
+      SWIFT_WASM_SDK_ID: "swift-6.3.1-RELEASE_wasm"
+      SWIFT_WASM_SDK_URL: "https://download.swift.org/swift-6.3.1-release/wasm-sdk/swift-6.3.1-RELEASE/swift-6.3.1-RELEASE_wasm.artifactbundle.tar.gz"
+      SWIFT_WASM_SDK_CHECKSUM: "bd47baa20771f366d8beed7970afaa30742b2210097afd15f85427226d8f4cf2"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Select Xcode 26.4
+      run: sudo xcode-select -s /Applications/Xcode_26.4.app
+    - name: Install Swift toolchain
+      run: |
+        curl -L "https://download.swift.org/swiftly/darwin/swiftly-1.1.1.pkg" -o "$RUNNER_TEMP/swiftly.pkg"
+        installer -pkg "$RUNNER_TEMP/swiftly.pkg" -target CurrentUserHomeDirectory
+        "$HOME/.swiftly/bin/swiftly" init --assume-yes --skip-install --quiet-shell-followup --no-modify-profile
+        "$HOME/.swiftly/bin/swiftly" install --use "$SWIFT_VERSION"
+        echo "$HOME/.swiftly/bin" >> "$GITHUB_PATH"
+    - name: Install Swift Wasm SDK
+      run: |
+        swift --version
+        swift sdk install "$SWIFT_WASM_SDK_URL" --checksum "$SWIFT_WASM_SDK_CHECKSUM"
+        sdk_list="$(swift sdk list)"
+        printf '%s\n' "$sdk_list"
+        case "$sdk_list" in
+          *"$SWIFT_WASM_SDK_ID"*) ;;
+          *)
+            printf 'error: expected Swift SDK %s to be installed\n' "$SWIFT_WASM_SDK_ID"
+            exit 1
+            ;;
+        esac
+    - name: Install Wasm optimizer
+      run: |
+        if ! command -v wasm-opt >/dev/null 2>&1; then
+          brew install binaryen
+        fi
+        wasm-opt --version
+    - name: Bootstrap Wasm Gallery
+      run: make bootstrap-Wasm-Gallery
+    - name: Build Wasm Gallery
+      run: make build-Wasm-Gallery
+
   build-package:
     runs-on: macos-26
     steps:
