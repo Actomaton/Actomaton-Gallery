@@ -1,0 +1,52 @@
+import Foundation
+import HttpBin
+import Downloader
+import Stopwatch
+import GitHubUI
+import ElemCellAutomatonUI
+import GameOfLifeUI
+import VideoPlayer
+import VideoPlayerMulti
+
+public struct HomeEnvironment: Sendable
+{
+    let getDate: @Sendable () -> Date
+    let timer: @Sendable (TimeInterval) -> AsyncStream<Date>
+    let fetchRequest: @Sendable (URLRequest) async throws -> Data
+
+    let stopwatch: Stopwatch.Environment
+    let httpbin: HttpBin.Environment
+    let github: GitHubUI.Environment
+    let downloader: Downloader.Environment
+    let videoPlayer: VideoPlayer.Environment
+    let videoPlayerMulti: VideoPlayerMulti.Environment
+    let elemCellAutomaton: ElemCellAutomatonUI.Environment
+    let gameOfLife: GameOfLifeUI.Root.Environment
+
+    public init(
+        getDate: @escaping @Sendable () -> Date,
+        timer: @escaping @Sendable (TimeInterval) -> AsyncStream<Date>,
+        fetchRequest: @escaping @Sendable (URLRequest) async throws -> Data,
+        stopwatch: Stopwatch.Environment,
+        httpbin: HttpBin.Environment,
+        github: GitHubUI.Environment,
+        downloader: Downloader.Environment,
+        videoPlayer: VideoPlayer.Environment,
+        videoPlayerMulti: VideoPlayerMulti.Environment,
+        elemCellAutomaton: ElemCellAutomatonUI.Environment,
+        gameOfLife: GameOfLifeUI.Root.Environment
+    )
+    {
+        self.getDate = getDate
+        self.timer = timer
+        self.fetchRequest = fetchRequest
+        self.stopwatch = stopwatch
+        self.httpbin = httpbin
+        self.github = github
+        self.downloader = downloader
+        self.videoPlayer = videoPlayer
+        self.videoPlayerMulti = videoPlayerMulti
+        self.elemCellAutomaton = elemCellAutomaton
+        self.gameOfLife = gameOfLife
+    }
+}

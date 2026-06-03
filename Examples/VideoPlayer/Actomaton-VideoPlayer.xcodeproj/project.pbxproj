@@ -34,7 +34,7 @@
 		339D629B27EB68B700CCFEE5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		339D629D27EB69FA00CCFEE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		339D629F27EB6D7000CCFEE5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
-		33BF032D28854AF4004AC930 /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Actomaton-Gallery"; path = ../..; sourceTree = "<group>"; };
+		33BF032D28854AF4004AC930 /* Actomaton-Gallery */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "GalleryCore"; path = ../../GalleryCore; sourceTree = "<group>"; };
 		33C59F2027ECC3280090BD9F /* PlayerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
 		33C97A3527ED52AD00CF7F96 /* RootState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootState.swift; sourceTree = "<group>"; };
 		33C97A3627ED52AD00CF7F96 /* RootReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootReducer.swift; sourceTree = "<group>"; };
