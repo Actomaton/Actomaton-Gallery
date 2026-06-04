@@ -1,0 +1,96 @@
+name: Deploy Wasm Gallery to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  SWIFT_VERSION: "6.3.1"
+  SWIFT_WASM_SDK_ID: "swift-6.3.1-RELEASE_wasm"
+  SWIFT_WASM_SDK_URL: "https://download.swift.org/swift-6.3.1-release/wasm-sdk/swift-6.3.1-RELEASE/swift-6.3.1-RELEASE_wasm.artifactbundle.tar.gz"
+  SWIFT_WASM_SDK_CHECKSUM: "bd47baa20771f366d8beed7970afaa30742b2210097afd15f85427226d8f4cf2"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v6
+
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y binaryen libcurl4-openssl-dev
+
+    - name: Install Swift toolchain
+      run: |
+        case "$(uname -m)" in
+          x86_64) swiftly_arch="x86_64" ;;
+          aarch64|arm64) swiftly_arch="aarch64" ;;
+          *)
+            printf 'error: unsupported Linux architecture: %s\n' "$(uname -m)"
+            exit 1
+            ;;
+        esac
+        curl -L "https://download.swift.org/swiftly/linux/swiftly-$swiftly_arch.tar.gz" -o "$RUNNER_TEMP/swiftly.tar.gz"
+        tar -zxf "$RUNNER_TEMP/swiftly.tar.gz" -C "$RUNNER_TEMP"
+        "$RUNNER_TEMP/swiftly" init --assume-yes --skip-install --quiet-shell-followup --no-modify-profile
+        . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
+        swiftly install --use "$SWIFT_VERSION"
+        echo "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/bin" >> "$GITHUB_PATH"
+
+    - name: Install Swift Wasm SDK
+      run: |
+        swift --version
+        swift sdk install "$SWIFT_WASM_SDK_URL" --checksum "$SWIFT_WASM_SDK_CHECKSUM"
+        sdk_list="$(swift sdk list)"
+        printf '%s\n' "$sdk_list"
+        case "$sdk_list" in
+          *"$SWIFT_WASM_SDK_ID"*) ;;
+          *)
+            printf 'error: expected Swift SDK %s to be installed\n' "$SWIFT_WASM_SDK_ID"
+            exit 1
+            ;;
+        esac
+
+    - name: Verify Wasm optimizer
+      run: wasm-opt --version
+
+    - name: Bootstrap Wasm Gallery
+      run: make bootstrap-Wasm-Gallery
+
+    - name: Build Wasm Gallery
+      env:
+        VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+      run: make build-Wasm-Gallery
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v5
+      with:
+        path: Examples/Wasm-Gallery/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v5
