@@ -26,6 +26,10 @@ https://user-images.githubusercontent.com/138476/189536011-026f674c-ae68-46f8-ae
 
 ## Wasm Gallery ([Wasm-Gallery](Examples/Wasm-Gallery))
 
+<img width="3810" height="2108" alt="image" src="https://github.com/user-attachments/assets/3d5a6b67-b52b-4650-ac41-bfc322f57167" />
+
+URL: https://actomaton.github.io/Actomaton-Gallery/
+
 Browser-native gallery powered by `elementary-ui`.
 The main example is `Counter`, with a small `Reactive Machine` diagnostic page kept beside it while the ElementaryUI bridge is being validated.
 The page now renders the `Counter` screen reliably in the browser, and the `+` / `−` controls update the number through a demo-side `@Reactive` state object owned by `NonisolatedActomaton`.
