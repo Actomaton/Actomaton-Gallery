@@ -3,7 +3,7 @@
 [![Swift 6.2](https://img.shields.io/badge/swift-6.2-orange.svg?style=flat)](https://swift.org/download/)
 ![](https://github.com/inamiy/Actomaton-Gallery/actions/workflows/main.yml/badge.svg)
 
-Gallery App for [Actomaton](https://github.com/inamiy/Actomaton) (Actor + Elm Architecture) + SwiftUI.
+Gallery App for [Actomaton](https://github.com/inamiy/Actomaton) (Actor + Elm Architecture) + SwiftUI and WASM.
 
 ## Examples ([SwiftUI-Gallery](Examples/SwiftUI-Gallery))
 
